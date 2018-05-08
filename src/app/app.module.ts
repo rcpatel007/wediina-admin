@@ -16,7 +16,8 @@ import { ControlComponent } from './control/control.component';
 import { LoginComponent } from './login/login.component';
 
 const appRoutes = [
-  {path: '', component: DashboardComponent},   
+  {path: '', component: LoginComponent},   
+  {path: 'login', component: LoginComponent},   
   {path: 'header', component: HeaderComponent},   
   {path: 'dashboard', component: DashboardComponent},   
   {path: 'order', component: OrderComponent},   
