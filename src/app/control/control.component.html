@@ -1,0 +1,268 @@
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+  <app-header></app-header>
+  
+  <section id="content" class="mr-t-20">
+    <!--start container-->
+    <div class="container">
+      <div class="section">
+          <div class="row">
+            <form>
+              <div class="control-headding">CITY SERVED IN</div>
+              <div class="input-field col s12">
+                <textarea id="city" type="text" class="materialize-textarea"></textarea>
+                <label for="city">CITY</label>
+              </div>
+              <div class="right-align">
+                <button class="hedding-btn">Update</button>
+              </div>
+            </form>
+          </div> <br /><br />
+          <div class="divider"></div>
+          <br /><br />
+          
+          <div class="row">
+              <div class="col s12 control-headding">NOTIFICAITON SETTING</div>
+              <div class="col s12 mr-p-l-20 mr-b-20 center-align"> 
+                <div class="col s2"></div>
+                <div class="col s2">bell</div>
+                <div class="col s2">Mail</div>
+              </div>
+              <form>
+              <div class="col s12 mr-p-l-20 center-align">
+                <div class="col s2">New order</div>
+                <div class="col s2"> 
+                  <input type="checkbox" class="filled-in" id="neworder" checked="checked" />
+                  <label for="neworder"></label>
+                </div>
+                <div class="col s2">
+                    <input type="checkbox" class="filled-in" id="neworder_mail" />
+                  <label for="neworder_mail"></label>
+                </div>
+              </div>
+
+              <div class="col s12 mr-p-l-20 center-align">
+                  <div class="col s2">New Enquiers</div>
+                  <div class="col s2"> 
+                    <input type="checkbox" class="filled-in" id="neweq" checked="checked" />
+                    <label for="neweq"></label>
+                  </div>
+                  <div class="col s2">
+                      <input type="checkbox" class="filled-in" id="neweq_mail" />
+                    <label for="neweq_mail"></label>
+                  </div>
+                </div> 
+                <div class="col s12 mr-p-l-20 center-align">
+                    <div class="col s2">Order Canelled</div>
+                    <div class="col s2"> 
+                      <input type="checkbox" class="filled-in" id="o_cancel" />
+                      <label for="o_cancel"></label>
+                    </div>
+                    <div class="col s2">
+                        <input type="checkbox" class="filled-in" id="o_cancel_mail" checked="checked" />
+                      <label for="o_cancel_mail"></label>
+                    </div>
+                  </div>
+                  <div class="right-align">
+                      <button class="hedding-btn">APPLY</button>
+                    </div>
+                </form>
+          </div>
+          <br /><br />
+          <div class="divider"></div>
+          <br /><br />
+
+          <div class="row">
+              <div class="control-headding col s6">ACCOUNT SETTINGS</div>
+              <div class="col s6">
+                <div class="right-align">
+                  <button class="hedding-btn-2">Add User</button>
+                </div>
+              </div>
+              <div class="col s12 mr-t-20 center-align">
+                <div class="col s3 ac_card">
+                  <div class="col s2"><i class="fa fa-2x fa-user"></i></div>
+                  <div class="col s10 center-align p-t-5">DUMMY NAME</div>  
+                </div>
+                <div class="col s3 ac_card">
+                    <div class="col s2"><i class="fa fa-2x fa-user"></i></div>
+                    <div class="col s10 center-align p-t-5">DUMMY NAME</div>  
+                </div>
+                <div class="col s3 ac_card">
+                    <div class="col s2"><i class="fa fa-2x fa-user"></i></div>
+                    <div class="col s10 center-align p-t-5">DUMMY NAME</div>  
+                  </div>
+
+                  <div class="col s3 ac_card">
+                      <div class="col s2"><i class="fa fa-2x fa-user"></i></div>
+                      <div class="col s10 center-align p-t-5">DUMMY NAME</div>  
+                    </div>
+                    <div class="col s3 ac_card">
+                        <div class="col s2"><i class="fa fa-2x fa-user"></i></div>
+                        <div class="col s10 center-align p-t-5">DUMMY NAME</div>  
+                      </div>
+                    </div>
+          </div>
+          <br /><br />
+          <div class="divider"></div>
+          <br /><br />
+          
+          <div class="row">
+              <div class="control-headding col s6">ACCOUNT TYPE</div>
+              <div class="col s6">
+                <div class="right-align">
+                  <button class="hedding-btn-2">Add Type</button>
+                </div>
+              </div>
+              <div class="col s12 mr-t-20 center-align">
+                <div class="col s2 ac_t_card">
+                  <div class="col s10 center-align p-t-5">Manager</div>  
+                </div>
+                <div class="col s2 ac_t_card">
+                    <div class="col s10 center-align p-t-5">Admin</div>  
+                </div>
+                <div class="col s2 ac_t_card">
+                    <div class="col s10 center-align p-t-5">Guest</div>  
+                  </div>
+            </div>
+          </div>
+          <br /><br />
+          <div class="divider"></div>
+          <br /><br />
+          
+          <div class="row">
+              <div class="control-headding col s6">DEALER TYPES</div>
+              <div class="col s6">
+                <div class="right-align">
+                  <button class="hedding-btn-2">Add Type</button>
+                </div>
+              </div>
+              <div class="col s12 mr-t-20 center-align">
+                <div class="col s2 ac_t_card">
+                  <div class="col s10 center-align p-t-5">Dealer</div>  
+                </div>
+                <div class="col s2 ac_t_card">
+                    <div class="col s10 center-align p-t-5">Wholesaler</div>  
+                </div>
+                <div class="col s2 ac_t_card">
+                    <div class="col s10 center-align p-t-5">Retailer</div>  
+                  </div>
+            </div>
+
+          </div>
+          
+          
+      </div>
+    </div>
+    <!--end container-->
+  </section>
+  
+  <!-- add user -->
+  <div id="add_dealer" class="modal">
+    <div class="modal-content">
+     
+      <div class="col s12">
+        <h5>Details</h5>
+      </div>
+      <div class="col s12">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="contact" type="text" class="">
+              <label for="contact">contact Person</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="cnm" type="text" class="">
+              <label for="cnm">Company Name</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="email" type="text" class="">
+              <label for="email">Email  ID</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="credit-demo" type="text" class="">
+              <label for="credit_demo">Mobile No.</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="address" type="text" class="materialize-textarea"></textarea>
+              <label for="address">Address</label>
+            </div>
+            <div class="input-field col s6">CITY :
+              <select>
+                <option value="" disabled selected>Select city</option>
+                <option value="rajkot">Rajkot</option>
+                <option value="ahmedabad">Ahmedabad</option>
+                <option value="surat">surat</option>
+              </select>
+            </div>
+            <div class="input-field col s6">GST ID:
+              <input id="purchase-code" type="text" class="">
+            </div>
+
+            <div class=" col s12">
+             <div class=""><h6>TYPE:</h6></div>
+             <br />
+             <div class="col s3">
+                <input class="with-gap" name="type" type="radio" id="sub_dealer"  />
+                <label for="sub_dealer">Sub Dealer</label>
+             </div>
+             <div class="col s3">
+                <input class="with-gap" name="type" type="radio" id="main_dealer"  />
+                <label for="main_dealer">Main Dealer</label>
+            </div> 
+            <div class="col s3">
+                <input class="with-gap" name="type" type="radio" id="distributor"  />
+                <label for="distributor">Distributor</label>
+            </div> 
+            <div class="col s2">
+                <input class="with-gap" name="type" type="radio" id="retail"  />
+                <label for="retail">Retail</label>
+            </div>  
+           </div>
+          
+          <div class="input-field col col s3">
+              <input id="disc" type="text" class=" ">
+              <label for="disc">Discout %</label>
+            </div>
+          </div> 
+        </form>
+    </div>
+    <div class="divider"></div>
+    <br />
+    <div class="modal-footer">
+      <a class="modal-action modal-close ">CANCEL</a>
+      <a class="modal-action modal-close   hedding-btn">ADD</a>
+    </div>
+  </div>
+  
+  </div>
+  </div>
+
+<script>
+  $(document).ready(function(){
+        // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+        $('.modal').modal();
+      });
+      $('#add_dealer').modal('open');
+      $('#add_dealer').modal('close');
+
+  //  $('.modal').modal({
+  //     dismissible: true, // Modal can be dismissed by clicking outside of the modal
+  //     opacity: .5, // Opacity of modal background
+  //     inDuration: 300, // Transition in duration
+  //     outDuration: 200, // Transition out duration
+  //     startingTop: '4%', // Starting top style attribute
+  //     endingTop: '10%', // Ending top style attribute
+  //     ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+  //     alert("Ready");
+  //     console.log(modal, trigger);
+  //   },
+  //   complete: function() { alert('Closed'); } // Callback for Modal close
+  // }
+  // );
+</script>
