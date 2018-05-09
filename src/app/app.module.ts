@@ -14,6 +14,7 @@ import { DealerComponent } from './dealer/dealer.component';
 import { GuestComponent } from './guest/guest.component';
 import { ControlComponent } from './control/control.component';
 import { LoginComponent } from './login/login.component';
+import { LoginService } from './services//login.service';
 
 const appRoutes = [
   {path: '', component: LoginComponent},   
@@ -47,7 +48,7 @@ const appRoutes = [
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

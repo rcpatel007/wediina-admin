@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../services/login.service';
+import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
+
+
 
 @Component({
   selector: 'app-login',
@@ -6,12 +11,35 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  email: String;
+  pwd: String;
+  x_access_token: String;
   
-  
-    constructor() { }
+    constructor(private LoginService:LoginService,private router: Router) { }
 
   ngOnInit() {
     
 }
 
+userLogin(){
+
+let user={
+
+  email: this.email,
+  password: this.pwd
+
+}
+    this.LoginService.userLogin(user)
+                    .subscribe((result) => {
+                  
+                      if (result.auth==true){
+                        environment.token =result.token;
+                        this.router.navigate(["/dashboard"]);
+                      }
+                      else{
+                        this.router.navigate(["/login"]);
+                      }
+                    });
+   
+}
 }
