@@ -90,6 +90,19 @@
                     <span class="nav-text">Orders</span>
                   </div>
               </li>
+              <li class="bold" [routerLink]="['/brand']">
+                <div class="collapsible-header  waves-effect">
+                  <i class="fa fa-boxes"></i>
+                  <span class="nav-text">Brand</span>
+                </div>
+              </li>
+                <li class="bold" [routerLink]="['/category']">
+                  <div class="collapsible-header  waves-effect">
+                    <i class="fa fa-boxes"></i>
+                    <span class="nav-text">Category</span>
+                  </div>
+              </li>
+            
               <li class="bold" [routerLink]="['/inventory']">
                   <div class="collapsible-header  waves-effect">
                     <i class="fa fa-boxes"></i>
@@ -117,7 +130,7 @@
             </ul>
           </li>
           <div class="center-align">
-            <button class="logout-btn nav-text">Logout</button>
+            <button class="logout-btn nav-text"  (click) = "logout()">Logout</button>
           </div>
          
         </ul>

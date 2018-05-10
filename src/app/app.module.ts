@@ -14,7 +14,18 @@ import { DealerComponent } from './dealer/dealer.component';
 import { GuestComponent } from './guest/guest.component';
 import { ControlComponent } from './control/control.component';
 import { LoginComponent } from './login/login.component';
+import { CategoryComponent } from './category/category.component';
+import { BrandComponent } from './brand/brand.component';
+
 import { LoginService } from './services/login.service';
+import { BrandService } from './services/brand.service';
+import { AccountService } from './services/account.service';
+import { CategoryService } from './services/category.service';
+import { DealerService } from './services/dealer.service';
+import { GuestService } from './services/guest.service';
+import { OrderService } from './services/order.service';
+import { ProductService } from './services/product.service';
+import { RoleService } from './services/role.service';
 import { UserService } from './services/user.service';
 
 const appRoutes = [
@@ -26,6 +37,8 @@ const appRoutes = [
   {path: 'inventory', component: InventoryComponent},   
   {path: 'dealer', component: DealerComponent},   
   {path: 'guest', component: GuestComponent},   
+  {path: 'brand', component: BrandComponent},   
+  {path: 'category', component: CategoryComponent},   
   {path: 'control', component: ControlComponent},   
 
 ];
@@ -40,7 +53,9 @@ const appRoutes = [
     DealerComponent,
     GuestComponent,
     ControlComponent,
-    LoginComponent
+    LoginComponent,
+    CategoryComponent,
+    BrandComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +64,17 @@ const appRoutes = [
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
   ],
-  providers: [LoginService,UserService,],
+  providers: [LoginService, 
+              OrderService,
+              AccountService,
+              CategoryService,
+              BrandService,
+              DealerService,
+              ProductService,
+              GuestService,
+              RoleService,
+              UserService
+             ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

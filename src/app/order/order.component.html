@@ -43,67 +43,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>paresh Shah</td>
-                    <td>paresh Shah</td>
-                    <td>12/08/2018</td>
-                    <td>Rs.1,00,000</td>
-                    <td><i class="fa fa-eye blue-text"></i></td>
-                    <td><i class="fa fa-check green-text"></i></td>
-                    <td><i class="fa fa-pencil-alt orange-text"></i></td>  
-                  </tr>
-                  <tr>
-                      <td>1</td>
-                      <td>paresh Shah</td>
-                      <td>paresh Shah</td>
-                      <td>12/08/2018</td>
+                    <tr *ngFor = "let o of order">  
+                      <td></td>
+                      <td>{{o.user_id}}</td>
+                      <td>{{o.compnay_name}}</td>
+                      <td>{{o.order_date}}</td>
                       <td>Rs.1,00,000</td>
                       <td><i class="fa fa-eye blue-text"></i></td>
                       <td><i class="fa fa-check green-text"></i></td>
-                      <td><i class="fa fa-pencil-alt orange-text"></i></td>  
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>paresh Shah</td>
-                        <td>paresh Shah</td>
-                        <td>12/08/2018</td>
-                        <td>Rs.1,00,000</td>
-                        <td><i class="fa fa-eye blue-text"></i></td>
-                        <td><i class="fa fa-check green-text"></i></td>
-                        <td><i class="fa fa-pencil-alt orange-text"></i></td>  
-                      </tr>
-                      <tr>
-                          <td>1</td>
-                          <td>paresh Shah</td>
-                          <td>paresh Shah</td>
-                          <td>12/08/2018</td>
-                          <td>Rs.1,00,000</td>
-                          <td><i class="fa fa-eye blue-text"></i></td>
-                          <td><i class="fa fa-check green-text"></i></td>
-                          <td><i class="fa fa-pencil-alt orange-text"></i></td>  
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>paresh Shah</td>
-                            <td>paresh Shah</td>
-                            <td>12/08/2018</td>
-                            <td>Rs.1,00,000</td>
-                            <td><i class="fa fa-eye blue-text"></i></td>
-                            <td><i class="fa fa-check green-text"></i></td>
-                            <td><i class="fa fa-pencil-alt orange-text"></i></td>  
-                          </tr>
-                          <tr>
-                              <td>1</td>
-                              <td>paresh Shah</td>
-                              <td>paresh Shah</td>
-                              <td>12/08/2018</td>
-                              <td>Rs.1,00,000</td>
-                              <td><i class="fa fa-eye blue-text"></i></td>
-                              <td><i class="fa fa-check green-text"></i></td>
-                              <td><i class="fa fa-pencil-alt orange-text"></i></td>  
-                            </tr>
-  
+                      <td><i class="fa fa-pencil-alt orange-text"></i></td>   
+                    </tr>    
                 </tbody>
               </table>
             </div>
