@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { BrandService } from '../services/brand.service';
 import { Brand } from '../model/brand';
+import { LoginService } from '../services/login.service';
+import { Globals } from '../../globals';
+import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,19 +14,27 @@ import { Brand } from '../model/brand';
 })
 export class BrandComponent implements OnInit {
   
-  
+  auth:any;
   brand: Brand[];
   id: String;
   name: String;
-  ename:String;
   slang:String;
 
 
-  constructor(private brandService: BrandService) { }
+  constructor(private brandService: BrandService,
+              private loginservice: LoginService,
+              private router: Router,
+              private globals :Globals
+            ) { }
 
   
 
   ngOnInit() {
+    if (this.loginservice.token === null){
+      this.router.navigate(["/login"]);
+      }
+    this.auth = {"email": this.globals.email,"token": this.loginservice.token}
+
     this.getBrand();
   }
 
@@ -37,14 +49,13 @@ export class BrandComponent implements OnInit {
 /* brand add*/
   addBrand() {
     let addbrand= {
-        name: this.ename.toUpperCase(),
-        slang:this.slang
-
+        name: this.name,
+      
     }
       this.brandService.addBrand(addbrand)
                       .subscribe(() => {
                         // this.closeBtn.nativeElement.click();
-                        // console.log(addbrand);
+                        console.log(addbrand);
                         this.getBrand();
                         
                       });
@@ -89,9 +100,14 @@ export class BrandComponent implements OnInit {
 /*delete brand */
   ConfirmDelete(id)
   {
-    var x = confirm("Are you sure you want to delete?");
-    if (x)
-        return this.deleteBrand(id);
+
+    var x = confirm("Are you sure you want to delete?"+id);
+    if (x){
+    console.log(this.auth);
+             
+    return this.deleteBrand(id);
+    }
+        
     else
       return false;
   }

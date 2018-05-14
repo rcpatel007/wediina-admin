@@ -18,14 +18,14 @@
                             Brand MANAGEMENT
                           </div>  
                         </div>
-                        <form>
+                        <form (ngSubmit)="addBrand()">
                         <div class="col s12 l12 m12 right-align mr-t-20 mr-b-m-30">
                           <div class="input-field col s12">
-                            <input id="brand" type="text" class="">
+                            <input id="brand" name="brand" type="text" [(ngModel)]="name" class="">
                             <label for="brand">Add Brand</label>
                           </div>
                         
-                          <button class="hedding-btn">ADD </button>
+                          <button class="hedding-btn" type="submit">ADD </button>
                         </div>
                       </form>
                          
@@ -38,7 +38,7 @@
       <div class="section">
         <div class="row ">
           <div class="col s12 card mr-t-50">
-            <table id="data-table-row-grouping" class="display mr-t-90" cellspacing="0" width="100%">
+            <table  class="display mr-t-20" cellspacing="0" width="100%">
               <thead>
                 <tr>
                   <th>No</th>
@@ -51,8 +51,8 @@
                     <td>1</td>
                     <td>{{b.name}}</td>
                       <td><i class="fa fa-eye blue-text"></i></td>
-                  <td><i class="fa fa-check green-text"></i></td>
-                  <td><i class="fa fa-pencil-alt orange-text"></i></td>  
+                  <td><i class="fa fa-pencil-alt orange-text"></i></td>
+                  <td (click)="ConfirmDelete(b._id)" ><i class="fa fa-trash red-text "></i></td>  
                 </tr>
               
               </tbody>

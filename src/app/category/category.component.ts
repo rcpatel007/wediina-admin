@@ -17,20 +17,26 @@ export class CategoryComponent implements OnInit {
   name: String;
   ename: String;
   brand_id:String;
+  selectedValue:any;
+  editedValue:any;
+  
  
   constructor(private CategoryService: CategoryService, private BrandService: BrandService) { }
 
   ngOnInit() {
     this.getCategory();
-    this.getBrandDetails();
+    this.getBrand();
     
   }
 
 /*display brand*/
-getBrandDetails(){
+getBrand(){
   this.BrandService.getBrand()
                    .subscribe(Brand => {
                      this.brand = Brand;
+
+                     console.log(this.brand);
+                     
                     
               });
 } 
@@ -54,25 +60,39 @@ this.CategoryService.getCategory()
                    this.category = Category;
            });
 } 
+/* Category add*/
+addCategory() {
+  let addcat= {
+      brand_id:this.selectedValue,
+      name: this.ename
+    }
+  console.log(addcat);
+    this.CategoryService.addCategory(addcat)
+                    .subscribe(() => {
+                      // console.log(addCategory);
+                      this.getCategory();
+                    });
+                    
+}
 
 /*delete Category */
-// ConfirmDelete(id)
-// {
-// var x = confirm("Are you sure you want to delete?");
-// if (x)
-//   return this.deleteCategory(id);
-// else
-// return false;
-// }
+ConfirmDelete(id)
+{
+var x = confirm("Are you sure you want to delete?");
+if (x)
+  return this.deleteCategory(id);
+else
+return false;
+}
 
   
-// deleteCategory(id) {
-// this.CategoryService.deleteCategory(id)
-//              .subscribe(result => {
-//               console.log(result);
-//               this.getCategoryDetails();
-//       });
-// }
+deleteCategory(id) {
+this.CategoryService.deleteCategory(id)
+             .subscribe(result => {
+              console.log(result);
+              this.getCategory();
+      });
+}
 
 
 }

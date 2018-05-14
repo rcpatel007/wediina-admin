@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+import { RequestOptions, Response  } from '@angular/http';
 import { environment } from '../../environments/environment';
+import { LoginService } from '../../app/services/login.service';
 import {map} from 'rxjs/operators';
 import { Http, Headers } from '@angular/http';
 
@@ -8,14 +10,20 @@ import { Http, Headers } from '@angular/http';
 })
 export class DealerService {
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private loginService:LoginService) { 
+    
+  }
  
   // all Dealer
   getDealerType() {
     //  headers = new Headers();    
-     let headers = new Headers({'x-access-token': ''+ environment.token});
-      return this.http.get('https://jasmatech-backend-api.herokuapp.com/dealer_type',{headers: headers})
-      .pipe(map( res => res.json()));
+    let headers = new Headers();    
+        headers = new Headers({'x-access-token':''+ this.loginService.token});
+      let options = new RequestOptions({ headers: headers });
+ 
+        return this.http.get('https://jasmatech-backend-api.herokuapp.com/dealer_type',options)
+      .pipe(map( (response: Response) => response.json()));
+        
   
   }
 
@@ -23,7 +31,7 @@ export class DealerService {
 
   getDealerTypeById(id) {
     //  headers = new Headers();    
-     let headers = new Headers({'x-access-token': ''+ environment.token});
+     let headers = new Headers({'x-access-token':''+ this.loginService.token});
       return this.http.get('https://jasmatech-backend-api.herokuapp.com/dealer_type' +id,{headers: headers})
       .pipe(map( res => res.json()));
   
@@ -32,7 +40,7 @@ export class DealerService {
   // add Dealer
 
   addDealerType(dealer) {    
-    let headers = new Headers({'x-access-token': ''+ environment.token});
+    let headers = new Headers({'x-access-token': ''+ this.loginService.token});
      return this.http.post('https://jasmatech-backend-api.herokuapp.com/dealer_type',dealer, {headers: headers})
       .pipe(map( res => res.json()));
   
@@ -41,7 +49,7 @@ export class DealerService {
   // edit user
 
   editDealerType(id, updatedealer) {
-  let headers = new Headers({'x-access-token': ''+ environment.token});
+  let headers = new Headers({'x-access-token':+ this.loginService.token });
   return this.http.put('https://jasmatech-backend-api.herokuapp.com/dealer_type',+id, updatedealer)
   .pipe(map( res => res.json()));
 
@@ -50,7 +58,7 @@ export class DealerService {
 // delete user
  
   deleteDealerType(id) {
-  let headers = new Headers({'x-access-token': ''+ environment.token});
+  let headers = new Headers({'x-access-token': ''+ this.loginService.token});
 
   return this.http.put('https://jasmatech-backend-api.herokuapp.com/dealer_type',+id, {headers: headers})
   .pipe(map( res => res.json()));

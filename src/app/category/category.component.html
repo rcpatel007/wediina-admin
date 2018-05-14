@@ -18,14 +18,21 @@
                             Category MANAGEMENT
                           </div>  
                         </div>
-                        <form>
+                        <form (ngSubmit)="addCategory()">
                         <div class="col s12 l12 m12 right-align mr-t-20 mr-b-m-30">
-                          <div class="input-field col s12">
-                            <input id="category" type="text" class="">
+                          <div class="col s6 m6 l6">
+                            <select  class="form-control" [(ngModel)]="selectedValue" name="selectedValue">
+                              <option selected="selected" disabled>--Select Brand Name    --</option>
+                                  <option id="brand_id" name="brand_id" *ngFor = "let d of brand" [ngValue]="d._id">{{d.name}}</option>
+                            </select>
+                          
+                     </div>
+                          <div class="input-field col s6 m6 l6">
+                            <input id="category" type="text" class=""  [(ngModel)]="ename" name="ename">
                             <label for="category">Add Category</label>
                           </div>
                         
-                          <button class="hedding-btn">ADD </button>
+                          <button class="hedding-btn" type="submit ">ADD </button>
                         </div>
                       </form>
                          
@@ -38,10 +45,10 @@
       <div class="section">
         <div class="row ">
           <div class="col s12 card mr-t-50">
-            <table id="data-table-row-grouping" class="display mr-t-90" cellspacing="0" width="100%">
+            <table id="" class="display mr-t-20" cellspacing="0" width="100%">
               <thead>
                 <tr>
-                  <th>Brand Name</th>
+                  <th>Brand Name</th> 
                   <th>Category Name</th>
                   <th colspan="3">Action</th>
                 </tr>
@@ -53,52 +60,13 @@
                   <td>{{b.name}}</td>
                   <td>{{c.name}}</td>
                   <td><i class="fa fa-eye blue-text"></i></td>
-                  <td><i class="fa fa-check green-text"></i></td>
-                  <td><i class="fa fa-pencil-alt orange-text"></i></td>  
-                </tr>
+                  <td><i class="fa fa-pencil-alt orange-text"></i></td>
+                  <td (click)="ConfirmDelete(c._id)" ><i class="fa fa-trash red-text"></i></td>  
+                </tr>     
+             
+              </ng-container>
                 </ng-container>
-                </ng-container>
-                <tr>
-                    <td>1</td>
-                    <td>paresh Shah</td>
-                    <td>paresh Shah</td>
-                    <td><i class="fa fa-eye blue-text"></i></td>
-                    <td><i class="fa fa-check green-text"></i></td>
-                    <td><i class="fa fa-pencil-alt orange-text"></i></td>  
-                  </tr>
-                  <tr>
-                      <td>1</td>
-                      <td>paresh Shah</td>
-                      <td>paresh Shah</td>
-                      <td><i class="fa fa-eye blue-text"></i></td>
-                      <td><i class="fa fa-check green-text"></i></td>
-                      <td><i class="fa fa-pencil-alt orange-text"></i></td>  
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>paresh Shah</td>
-                        <td>paresh Shah</td>
-                        <td><i class="fa fa-eye blue-text"></i></td>
-                        <td><i class="fa fa-check green-text"></i></td>
-                        <td><i class="fa fa-pencil-alt orange-text"></i></td>  
-                      </tr>
-                      <tr>
-                          <td>1</td>
-                          <td>paresh Shah</td>
-                          <td>paresh Shah</td>
-                          <td><i class="fa fa-eye blue-text"></i></td>
-                          <td><i class="fa fa-check green-text"></i></td>
-                          <td><i class="fa fa-pencil-alt orange-text"></i></td>  
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>paresh Shah</td>
-                            <td>paresh Shah</td>
-                            <td><i class="fa fa-eye blue-text"></i></td>
-                            <td><i class="fa fa-check green-text"></i></td>
-                            <td><i class="fa fa-pencil-alt orange-text"></i></td>  
-                          </tr>
-
+               
               </tbody>
             </table>
           </div>
@@ -114,3 +82,20 @@
 
 </div>
 </div>
+
+<script>
+   $('.dropdown-button').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrainWidth: false, // Does not change width of dropdown to that of the activator
+      hover: true, // Activate on hover
+      gutter: 0, // Spacing from edge
+      belowOrigin: false, // Displays dropdown below the button
+      alignment: 'left', // Displays dropdown with edge aligned to the left of button
+      stopPropagation: false // Stops event propagation
+    }
+  );
+  
+   $('.dropdown-button').dropdown('open');
+   $('.dropdown-button').dropdown('close');
+</script>

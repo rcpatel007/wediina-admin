@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CookieService } from 'angular2-cookie/services/cookies.service';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -27,6 +28,7 @@ import { OrderService } from './services/order.service';
 import { ProductService } from './services/product.service';
 import { RoleService } from './services/role.service';
 import { UserService } from './services/user.service';
+import { Globals } from '../globals';
 
 const appRoutes = [
   {path: '', component: LoginComponent},   
@@ -40,6 +42,7 @@ const appRoutes = [
   {path: 'brand', component: BrandComponent},   
   {path: 'category', component: CategoryComponent},   
   {path: 'control', component: ControlComponent},   
+  
 
 ];
 
@@ -64,7 +67,8 @@ const appRoutes = [
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
   ],
-  providers: [LoginService, 
+  providers: [CookieService,
+              LoginService, 
               OrderService,
               AccountService,
               CategoryService,
@@ -73,7 +77,8 @@ const appRoutes = [
               ProductService,
               GuestService,
               RoleService,
-              UserService
+              UserService,
+              Globals
              ],
   bootstrap: [AppComponent]
 })

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import {map} from 'rxjs/operators';
 import { Http, Headers } from '@angular/http';
+import { LoginService } from '../../app/services/login.service';
+
 
 
 @Injectable({
@@ -9,7 +11,7 @@ import { Http, Headers } from '@angular/http';
 })
 export class BrandService {
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private loginService:LoginService) { }
 
   // all Brand
   getBrand() {
@@ -24,7 +26,7 @@ export class BrandService {
 
   getBrandById(id) {
     //  headers = new Headers();    
-     let headers = new Headers({'x-access-token': ''+ environment.token});
+     let headers = new Headers({'x-access-token': ''+ this.loginService.token});
       return this.http.get('https://jasmatech-backend-api.herokuapp.com/brand' +id,{headers: headers})
       .pipe(map( res => res.json()));
   
@@ -32,9 +34,9 @@ export class BrandService {
 
   // add Dealer
 
-  addBrand(dealer) {    
-    let headers = new Headers({'x-access-token': ''+ environment.token});
-     return this.http.post('https://jasmatech-backend-api.herokuapp.com/brand',dealer, {headers: headers})
+  addBrand(addbrand) {    
+    let headers = new Headers({'x-access-token': ''+ this.loginService.token});
+     return this.http.post('https://jasmatech-backend-api.herokuapp.com/brand',addbrand, {headers: headers})
       .pipe(map( res => res.json()));
   
   }
@@ -42,8 +44,8 @@ export class BrandService {
   // edit user
 
   editBrand(id, brand) {
-  let headers = new Headers({'x-access-token': ''+ environment.token});
-  return this.http.put('https://jasmatech-backend-api.herokuapp.com/brand',+id, brand)
+  let headers = new Headers({'x-access-token':''+ this.loginService.token});
+  return this.http.put('https://jasmatech-backend-api.herokuapp.com/brand/',+id, brand)
   .pipe(map( res => res.json()));
 
 }
@@ -51,9 +53,8 @@ export class BrandService {
 // delete user
  
   deleteBrand(id) {
-  let headers = new Headers({'x-access-token': ''+ environment.token});
-
-  return this.http.put('https://jasmatech-backend-api.herokuapp.com/brand',+id, {headers: headers})
+  let headers = new Headers({'x-access-token':''+ this.loginService.token});
+  return this.http.delete('https://jasmatech-backend-api.herokuapp.com/brand/'+id, {headers: headers})
   .pipe(map( res => res.json()));
 
 }

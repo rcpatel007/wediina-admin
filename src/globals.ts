@@ -1,5 +1,8 @@
-'use strict';
+import { Injectable } from '@angular/core';
 
-export const token = '';
-export const refresh_token = '';   
-export const email = '';   
+@Injectable()
+export class Globals {
+    token: string = '';
+    refresh_token: string = '';   
+    email: string = ''; 
+}  
