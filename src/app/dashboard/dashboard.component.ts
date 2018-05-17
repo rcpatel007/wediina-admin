@@ -5,6 +5,10 @@ import { Order } from '../model/Order';
 import { Globals } from '../../globals';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
+import { CategoryService } from '../services/category.service';
+import { Category } from '../model/category';
+import { UserService } from '../services/user.service';
+import { User } from '../model/User';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,13 +16,22 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  count:any;
+  new_count:any;
+  pendding:any;
+  enquiry:any;
+  complate:any;
   order_count: any;
   order: Order[];
+  user:User[];
   product_details =new Array();
   auth: any;
+  enquriry_data:Order[];
 
-  constructor(private router: Router,private loginservice:LoginService , private orderService: OrderService, private globals: Globals) { 
+  constructor(private router: Router,
+    private loginservice:LoginService,
+    private orderService: OrderService,
+    private userservice:UserService,
+    private globals: Globals) { 
   
   }
   
@@ -30,27 +43,58 @@ export class DashboardComponent implements OnInit {
 
     
     this.getOrder();
+    this.getUser();
 
   }
-
+  
+  getUser(){
+    this.userservice.getUser()
+                    .subscribe((data) => {
+                      //  console.log(account);
+                      this.user =  data;
+                      // console.log(this.role);
+                      
+                    });
+  }
+  
   getOrder() {
-    this.count = 1;
+    this.new_count = 0;
+    this.pendding = 0;
+    this.enquiry = 0;
+    this.complate =0;
     // console.log(auth);
     
     this.orderService.getOrder()
                     .subscribe((Order) => {
-                      console.log(Order.data);
+                      // console.log(Order);
                       
-                        for(let i=0; i<Order.data.length; i++)
+                        for(let i=0; i<Order.length; i++)
                           {
-                            if(Order.data[i].status == 'new'){
-                            this.order_count = this.order_count + 1;
+                            if(Order[i].status == 'new'){
+                            this.new_count = this.new_count + 1;
                             // console.log(this.order_count);
                             }
+                            if(Order[i].enquiry == 'true'){
+                              this.enquiry = this.enquiry + 1;
+                              // console.log(this.order_count);
+                              this.enquriry_data =Order;
+                            }
+                              if(Order[i].status == 'pendding'){
+                                this.pendding = this.pendding + 1;
+                                // console.log(this.order_count);
+                                }
+                                if(Order[i].status == 'complate'){
+                                  this.complate = this.complate + 1;
+                                  // console.log(this.order_count);
+                                  }
+        
                           }
-                          // console.log(this.auth);
-                          this.order = Order.data; 
-                          });
+
+                          console.log(this.auth);
+                          this.order = Order; 
+                        
+                          console.log(this.enquriry_data);
+                        });
           }
 
 // getOrder(auth) {

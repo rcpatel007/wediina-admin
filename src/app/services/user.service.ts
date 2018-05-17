@@ -34,18 +34,19 @@ export class UserService {
 
   // add user
 
-  addUser(user) {    
-    let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-     return this.http.post('https://jasmatech-backend-api.herokuapp.com/user/',user, {headers: headers})
+  addUser(add_user) {  
+    let headers = new Headers();  
+        headers = new Headers({'x-access-token': ''+ this.loginService.token});
+     return this.http.post('https://jasmatech-backend-api.herokuapp.com/create_user/',add_user, {headers: headers})
       .pipe(map( res => res.json()));
   
   }
   
   // edit user
 
-  editUser(id, updateuser) {
+  updateUser(id, updateuser) {
   let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-  return this.http.put('https://jasmatech-backend-api.herokuapp.com/user/'+id, updateuser, {headers : headers})
+  return this.http.put('https://jasmatech-backend-api.herokuapp.com/update_user/'+id, updateuser, {headers : headers})
   .pipe(map( res => res.json()));
 
 }

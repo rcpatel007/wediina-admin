@@ -68,6 +68,9 @@ color: #3FA9F5;
 .p-t-5{
 	padding-top: 5px !important;
 }
+.p-t-15{
+padding-top: 15px !important; 
+}
 /* logo */
 .logo-layout{
 	font-style: italic;
@@ -210,7 +213,12 @@ color: #3FA9F5;
 	color: #fff;
 }
 /* control */
- 
+ .city_class{
+	font-size: 20px !important;
+    font-weight: bold;
+    color: rgb(77, 77, 77);
+    font-variant: all-petite-caps;
+ }
 .control-headding{
 	color: #28669b;
     font-weight: 600;

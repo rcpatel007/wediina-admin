@@ -20,7 +20,7 @@ export class LoginService {
   userLogin(user) { 
 
     let headers = new Headers();
-      return this.http.post('https://jasmatech-backend-api.herokuapp.com/validate_user_login',user, {headers: headers})
+      return this.http.post('https://jasmatech-backend-api.herokuapp.com/validate_login',user, {headers: headers})
            .pipe(map((response: Response) => {
 
           // login successful if there's a jwt token in the response
@@ -46,7 +46,7 @@ export class LoginService {
   
   logout() {
     //  headers = new Headers();    
-     let headers = new Headers({'x-access-token': ''+ environment.token});
+     let headers = new Headers({'x-access-token': ''+ localStorage.token});
       return this.http.get('https://jasmatech-backend-api.herokuapp.com/logout',{headers: headers})
       .pipe(map( res => res.json()));
   

@@ -19,8 +19,8 @@
                             </div>
                           </div>
                           <div class="col s6 l6 m6 right-align">
-                              <button class="hedding-btn-2">Add Item </button>
-                            <button class="hedding-btn">Update Data </button>
+                              <button data-target="add_product" class="hedding-btn-2 modal-trigger">Add Item </button>
+                            <button data-target="edit_product" class="hedding-btn modal-trigger">Update Data </button>
                           </div>
                            
                 </div>
@@ -34,29 +34,32 @@
               <table id="" class="display mr-t-20" cellspacing="0" width="100%">
                 <thead>
                   <tr>
+                    <th>Image</th>
                     <th>Model#</th>
-                    <th>Brand</th>
+                    <th>Category</th>
                     <th>Name</th>
-                    <th>Body mtrl</th>
                     <th>pressure(PSI)</th>
-                    <th>Thread</th>
-                    <th>Price (RS.)</th>
+                    <th>Temprature</th>
                     <th colspan="2">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>paresh Shah</td>
-                    <td>paresh Shah</td>
-                    <td>12/08/2018</td>
-                    <td>Rs.1,00,000</td>
-                    <td>paresh Shah</td>
-                    <td>paresh Shah</td>
-                    <td>12/08/2018</td>
+              <ng-container *ngFor = "let i of product">
+              <ng-container  *ngFor ="let c of category"> 
+               
+                <tr *ngIf="i.category_id==c._id">
+                    <td>{{i.images}}</td>                    
+                    <td>{{i.model_info}}</td>
+                    <td>{{c.name}}</td>                    
+                    <td>{{i.name}}</td>
+                    <td>{{i.pressure}}</td>
+                    <td>{{i.temprature}}</td>
                     
                     <td><i class="fa fa-pencil-alt orange-text"></i></td>  
                     <td><i class="fa fa-trash red-text"></i></td>
                   </tr>
+                  </ng-container>
+                </ng-container>
                 </tbody>
               </table>
             </div>
@@ -66,8 +69,73 @@
       </div>
     
     </div>
+
+    
     <!--end container-->
   </section>
+  <div id="add_product" class="modal">
+      <div class="modal-content">
+       
+        <div class="col s12">
+          <h5>Details</h5>
+        </div>
+        <div class="col s12">
+          <form class="col s12" (ngSubmit)="addProduct()" >
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="name" type="text" [(ngModel)]="name" name="name" [(ngModel)]="name" class="">
+                <label for="name">Name</label>
+              </div>
+              <div class="input-field col s12">
+                <input id="model_info" type="text" class="" [(ngModel)]="model_info" name="model_info">
+                <label for="model_info">Model Info</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12"> <b> Image:</b> &nbsp;&nbsp;  
+                <input id="p_img" type="file" class="" (change)="imageUpload($event)" [(ngModel)]="p_img" name="p_img">
+               </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12"> <b>Other Image:</b> &nbsp;&nbsp;  
+                <input id="img" type="file" multiple="multiple" class="" (change)="otherImageUpload($event)" [(ngModel)]="img" name="img">
+               </div>
+            </div>
+            <div class="row">
+
+              <div class="input-field col s12"> 
+                <select [(ngModel)]="selectedValue" name="selectedValue">
+                  <option value="" disabled selected>Select Category</option>
+                  <option *ngFor ="let c of category" value="{{c._id}}">{{c.name}}</option>
+                </select>
+              </div>
+              
+                <div class="input-field col s12">
+                  <input id="temp" type="text" class=""[(ngModel)]="temp" name="temp" >
+                  <label for="temp">Tempreture</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="pressure" type="text" class=""[(ngModel)]="pressure" name="pressure" >
+                    <label for="pressure">Pressure</label>
+                  </div>
+                  <div class="input-field col s12">
+                      <textarea id="desc" type="text" class="materialize-textarea" [(ngModel)]="desc" name="desc"></textarea>
+                      <label for="desc">Description</label>
+                    </div>
+                
+            
+                    
+            </div> 
+            <div class="divider"></div>
+            <br />
+            <div class="modal-footer">
+              <a class="modal-action modal-close ">CANCEL</a>
+              <button class="modal-action hedding-btn" type="submit">ADD</button>
+            </div>
+        
+          </form>
+      </div>
+     
   
   
   </div>

@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { Order } from '../model/Order'
 import { Globals } from '../../globals';
+import { UserService } from '../services/user.service';
+import { User } from '../model/User';
 
 @Component({
   selector: 'app-order',
@@ -15,11 +17,13 @@ export class OrderComponent implements OnInit {
   count:any;
   auth:any;
   order: Order[];
+  user:User[];
   product_details =new Array();
 
   constructor(private router: Router, 
     private orderService: OrderService,
     private loginservice: LoginService,
+    private userservice:UserService,
     private globals: Globals) { }
 
 
@@ -29,6 +33,7 @@ export class OrderComponent implements OnInit {
     }
     this.auth = {"email": this.globals.email,"token": this.loginservice.token}
     this.getOrder(this.auth);
+    this.getUser();
   }
 
   getOrder(auth) {
@@ -37,11 +42,21 @@ export class OrderComponent implements OnInit {
     
     this.orderService.getOrder()
                     .subscribe((Order) => {
-                      this.order = Order.data;  
+                      this.order = Order;  
                     console.log(this.order);
                   });
                     
   }
+  getUser(){
+    this.userservice.getUser()
+                    .subscribe((data) => {
+                      //  console.log(account);
+                      this.user =  data;
+                      // console.log(this.role);
+                      
+                    });
+  }
+  
 
   viewOrder(id){
     this.orderService.viewOrder(id)

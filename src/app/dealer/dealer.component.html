@@ -79,8 +79,8 @@
         <form class="col s12" (ngSubmit)="addDealer()" >
           <div class="row">
             <div class="input-field col s6">
-              <input id="contact" type="text" [(ngModel)]="name" name="name" class="">
-              <label for="contact">Person Name</label>
+              <input id="name" type="text" [(ngModel)]="name" name="name" class="">
+              <label for="name">Person Name</label>
             </div>
             <div class="input-field col s6">
               <input id="cnm" type="text" class="" [(ngModel)]="cnm" name="cnm">
@@ -103,7 +103,7 @@
               <label for="address">Address</label>
             </div>
             <div class="input-field col s6">CITY :
-              <select [(ngModel)]="selectedValue" name="selectedValue">
+              <select [(ngModel)]="selectedValue" name="selectedValue"  [(ngModel)]="selectedValue" name="selectedValue">
                 <option value="" disabled selected>Select city</option>
                 <option value="rajkot">Rajkot</option>
                 <option value="ahmedabad">Ahmedabad</option>
@@ -111,44 +111,34 @@
               </select>
             </div>
             <div class="input-field col s6" >GST ID:
-              <input id="purchase-code" type="text"  C name="gst" class="">
+              <input id="purchase-code" type="text"  C name="gst"  [(ngModel)]="gst" name="gst" class="">
             </div>
 
             <div class=" col s12">
-             <div class=""><h6>TYPE:</h6></div>
-             <br />
-             <div class="col s3">
-                <input class="with-gap" name="type" type="radio" [(ngModel)]="type" value="sub dealer" id="sub_dealer"  />
-                <label for="sub_dealer">Sub Dealer</label>
-             </div>
-             <div class="col s3">
-                <input class="with-gap" name="type" [(ngModel)]="type" value="main dealer" type="radio" id="main_dealer"  />
-                <label for="main_dealer">Main Dealer</label>
-            </div> 
-            <div class="col s3">
-                <input class="with-gap" name="type" type="radio" id="distributor"  [(ngModel)]="address" value="Distributor" />
-                <label for="distributor">Distributor</label>
-            </div> 
-            <div class="col s2">
-                <input class="with-gap" name="type" type="radio" id="retail" [(ngModel)]="type" value="retail"  />
-                <label for="retail">Retail</label>
-            </div>  
-           </div>
-          
+                <div class=""><h6>TYPE:</h6></div>
+                <br />
+                <div class="col s3" *ngFor ="let a of role">
+                   <input class="with-gap" name="roletype" type="radio" id="roletype" value="{{roletype}}" name="roletype"  [(ngModel)]="roletype"/>
+                   <label for="roletype">{{a.role}}</label>
+                </div>
+               
+               
+              </div>
           <div class="input-field col col s3">
-              <input id="disc" type="text" class="" [(ngModel)]="discount">
+              <input id="disc" type="text" class="" [(ngModel)]="discount" name="discount">
               <label for="disc">Discout %</label>
             </div>
           </div> 
+          <div class="divider"></div>
+          <br />
+          <div class="modal-footer">
+            <a class="modal-action modal-close ">CANCEL</a>
+            <button class="modal-action modal-close hedding-btn" type="submit">ADD</button>
+          </div>
+      
         </form>
     </div>
-    <div class="divider"></div>
-    <br />
-    <div class="modal-footer">
-      <a class="modal-action modal-close ">CANCEL</a>
-      <button class="modal-action modal-close hedding-btn" type="submit">ADD</button>
     </div>
-  </div>
   
   </div>
   </div>

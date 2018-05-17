@@ -23,7 +23,7 @@ export class OrderService {
   }
   viewOrder(id) {
     //  headers = new Headers();    
-     let headers = new Headers({'x-access-token': ''+ environment.token});
+     let headers = new Headers({'x-access-token': ''+ this.loginService.token});
       return this.http.get('https://jasmatech-backend-api.herokuapp.com/order'+id,{headers: headers})
       .pipe(map( res => res.json()));
   

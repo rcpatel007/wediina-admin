@@ -31,7 +31,7 @@
         <div class="section">
           <div class="row ">
             <div class="col s12 card mr-t-50">
-              <table id="data-table-row-grouping" class="display mr-t-90" cellspacing="0" width="100%">
+              <table id="" class="display mr-t-20" cellspacing="0" width="100%">
                 <thead>
                   <tr>
                     <th>No</th>
@@ -43,16 +43,20 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor = "let o of order">  
-                      <td></td>
-                      <td>{{o.user_id}}</td>
+                    <ng-container *ngFor = "let o of order">
+                        <ng-container *ngFor = "let u of user">
+                      <tr *ngIf ="o.user_id == u._id">  
+                                         <td></td>
+                      <td>{{u.name}}</td>
                       <td>{{o.compnay_name}}</td>
                       <td>{{o.order_date}}</td>
                       <td>Rs.1,00,000</td>
                       <td><i class="fa fa-eye blue-text"></i></td>
                       <td><i class="fa fa-check green-text"></i></td>
                       <td><i class="fa fa-pencil-alt orange-text"></i></td>   
-                    </tr>    
+                    </tr>  
+                    </ng-container>
+                    </ng-container>  
                 </tbody>
               </table>
             </div>

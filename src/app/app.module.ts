@@ -28,7 +28,9 @@ import { OrderService } from './services/order.service';
 import { ProductService } from './services/product.service';
 import { RoleService } from './services/role.service';
 import { UserService } from './services/user.service';
+import { CityService } from './services/city.service';
 import { Globals } from '../globals';
+import { ProfileComponent } from './profile/profile.component';
 
 const appRoutes = [
   {path: '', component: LoginComponent},   
@@ -42,6 +44,7 @@ const appRoutes = [
   {path: 'brand', component: BrandComponent},   
   {path: 'category', component: CategoryComponent},   
   {path: 'control', component: ControlComponent},   
+  {path: 'Profile', component: ProfileComponent},   
   
 
 ];
@@ -58,7 +61,8 @@ const appRoutes = [
     ControlComponent,
     LoginComponent,
     CategoryComponent,
-    BrandComponent
+    BrandComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -78,6 +82,7 @@ const appRoutes = [
               GuestService,
               RoleService,
               UserService,
+              CityService,
               Globals
              ],
   bootstrap: [AppComponent]

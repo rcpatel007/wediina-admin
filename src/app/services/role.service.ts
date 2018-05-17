@@ -26,7 +26,7 @@ export class RoleService {
  getRoleById(id) {
    //  headers = new Headers();    
     let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-     return this.http.get('https://jasmatech-backend-api.herokuapp.com/role' +id,{headers: headers})
+     return this.http.get('https://jasmatech-backend-api.herokuapp.com/role/' +id,{headers: headers})
      .pipe(map( res => res.json()));
  
  }
@@ -35,7 +35,7 @@ export class RoleService {
 
  addRole(role) {    
    let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-    return this.http.post('https://jasmatech-backend-api.herokuapp.com/role',role, {headers: headers})
+    return this.http.post('https://jasmatech-backend-api.herokuapp.com/role/',role, {headers: headers})
      .pipe(map( res => res.json()));
  
  }
