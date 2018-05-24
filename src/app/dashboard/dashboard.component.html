@@ -103,17 +103,22 @@
                 </tr>
               </thead>
               <tbody>
+                
                 <ng-container *ngFor = "let o of order">
-                  <ng-container *ngFor = "let u of user">
-                <tr *ngIf ="o.user_id == u._id">  
-                    <td></td>
-                    <td>{{u.name}}</td>
-                  <td>{{o.compnay_name}}</td>
+ 
+                  <ng-container *ngFor = "let a of account">
+                    
+                <tr *ngIf ="o.user_id == a._id">  
+                  
+                  <td>{{co}}</td>
+                    <td>{{a.name}}</td>
+                  <td>{{a.company_name}}</td>
                   <td>{{o.order_date}}</td>
                   <td>Rs.1,00,000</td>
-                  <td><i class="fa fa-eye blue-text"></i></td>
-                  <td><i class="fa fa-check green-text"></i></td>
-                  <td><i class="fa fa-pencil-alt orange-text"></i></td>   
+                  <td (click) = "viewOrder(o._id) " data-target="view_order"  class=" modal-trigger" ><i class="fa fa-eye blue-text"></i></td>
+                  <td (click)="ConfirmDelete(o._id)"><i class="fa fa-trash red-text"></i></td>  
+                  
+                   
                 </tr>
                 </ng-container>
                 </ng-container>    
@@ -149,10 +154,10 @@
                 <td>{{e.compnay_name}}</td>
                 <td>{{e.order_date}}</td>
                 <td>Rs.1,00,000</td>
-                <td><i class="fa fa-eye blue-text"></i></td>
+                <td data-target="view_order"  class=" modal-trigger" (click) = "viewOrder(o._id) " ><i class="fa fa-eye blue-text"></i></td>
                 <td><i class="fa fa-check green-text"></i></td>
                 <td><i class="fa fa-pencil-alt orange-text"></i></td>   
-         >  
+         
               </tr>
             
             </tbody>
@@ -171,3 +176,43 @@
 
 </div>
 </div>
+
+
+<div id="view_order" class="modal">
+    <div class="modal-content">
+     
+      <div class="col s12">
+        <h5> Product Details</h5>
+      </div>
+      <div class="col s12">
+
+          <table id="" class="display mr-t-90" cellspacing="0" width="100%">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Qty</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor = "let p of product_details" >
+                    <td>{{p.prod_name}}</td>
+                    <td>{{p.qty}}</td>
+                    <td>{{p.price}}</td>
+              
+                </tr>
+              
+              </tbody>
+            </table>
+
+    </div>
+    </div>
+  
+  </div>
+<script>
+    $(document).ready(function(){
+          // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+          $('.modal').modal();
+        });
+
+  </script>

@@ -50,8 +50,7 @@
                   <tr *ngFor = "let b of brand">
                     <td>1</td>
                     <td>{{b.name}}</td>
-                      <td><i class="fa fa-eye blue-text"></i></td>
-                  <td><i class="fa fa-pencil-alt orange-text"></i></td>
+                  <td data-target="edit_brand"  class=" modal-trigger" (click) = "getBrandById(b._id) "><i class="fa fa-pencil-alt orange-text"></i></td>
                   <td (click)="ConfirmDelete(b._id)" ><i class="fa fa-trash red-text "></i></td>  
                 </tr>
               
@@ -70,3 +69,36 @@
 
 </div>
 </div>
+
+
+<div id="edit_brand" class="modal">
+  <div class="modal-content">
+   
+    <div class="col s12">
+      <h5> Product Details</h5>
+    </div>
+    <div class="col s12">
+
+      <form (ngSubmit)="editBrand()">
+        <div class="col s12 l12 m12  mr-t-20 mr-b-m-30">
+          <div class="input-field col s12">
+              <b>Edit Brand:</b>
+            <input id="brand" name="brand" type="text" [(ngModel)]="name" class="">
+                    </div>
+        <div class="right-align">
+          <button class="hedding-btn modal-close" type="submit">Update </button>
+        </div>
+        </div>
+      </form>
+     
+  </div>
+  </div>
+
+</div>
+<script>
+  $(document).ready(function(){
+        // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+        $('.modal').modal();
+      });
+
+</script>

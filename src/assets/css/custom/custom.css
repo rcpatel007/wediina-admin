@@ -77,6 +77,16 @@ padding-top: 15px !important;
 
 
 }
+
+/* border */
+
+.b-r{
+	border-right: 1px solid #4d4d4d;
+}
+
+.b-b{
+	border-bottom: 1px solid #4d4d4d;
+}
 /* logout */
 .logout-btn{
 	background-color: #A90329;

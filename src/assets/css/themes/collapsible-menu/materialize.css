@@ -6974,7 +6974,7 @@ input[type=checkbox]:not(:disabled).tabbed:focus ~ .lever::before {
 /* Select Field
    ========================================================================== */
 select {
-  display: none;
+  display: block;
 }
 
 select.browser-default {
@@ -7028,7 +7028,7 @@ select {
   font-size: 1rem;
   margin: 0 0 20px 0;
   padding: 0;
-  display: block;
+  display: none;
   user-select: none;
 }
 

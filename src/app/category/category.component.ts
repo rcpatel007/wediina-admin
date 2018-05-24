@@ -3,6 +3,8 @@ import { CategoryService } from '../services/category.service';
 import { Category } from '../model/category';
 import { BrandService } from '../services/brand.service';
 import { Brand } from '../model/brand';
+import { LoginService } from '../services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-category',
@@ -21,9 +23,17 @@ export class CategoryComponent implements OnInit {
   editedValue:any;
   
  
-  constructor(private CategoryService: CategoryService, private BrandService: BrandService) { }
+  constructor(private CategoryService: CategoryService, private BrandService: BrandService ,  
+      private router:Router,
+    private loginservice:LoginService) { }
 
   ngOnInit() {
+
+    if (this.loginservice.token == null){
+      this.router.navigate(["/login"]);
+      }
+
+
     this.getCategory();
     this.getBrand();
     
@@ -46,13 +56,34 @@ getBrand(){
 getCategoryById(id){
 this.CategoryService.getCategoryById(id)
               .subscribe(data => {
-                this.name = data[0].name;
-                this.id = data[0]._id;
+                this.name = data.name;
+                this.id = data._id;
                 console.log(data);
               });  
               
 
 }
+/* Update Category Name*/
+updateCategory() {
+  
+   let cat = {  
+    _id: this.id,
+    name: this.name.toUpperCase(),
+    brand_id:this.editedValue,
+    
+
+
+}
+this.CategoryService.editCategory(cat)
+                .subscribe(() => {
+                  this.getCategory();
+                  // this.getBrand();
+                  console.log(cat);
+                });
+}
+
+
+
 /*display Category*/
 getCategory(){
 this.CategoryService.getCategory()
@@ -78,9 +109,10 @@ addCategory() {
 /*delete Category */
 ConfirmDelete(id)
 {
-var x = confirm("Are you sure you want to delete?");
+var x = confirm("Are you sure you want to delete?"+id);
 if (x)
   return this.deleteCategory(id);
+
 else
 return false;
 }

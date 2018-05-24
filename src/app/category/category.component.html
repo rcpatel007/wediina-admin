@@ -19,11 +19,12 @@
                           </div>  
                         </div>
                         <form (ngSubmit)="addCategory()">
-                        <div class="col s12 l12 m12 right-align mr-t-20 mr-b-m-30">
+                        <div class="col s12 l12 m12 mr-t-20 mr-b-m-30">
                           <div class="col s6 m6 l6">
-                            <select  class="form-control" [(ngModel)]="selectedValue" name="selectedValue">
-                              <option selected="selected" disabled>--Select Brand Name    --</option>
-                                  <option id="brand_id" name="brand_id" *ngFor = "let d of brand" [ngValue]="d._id">{{d.name}}</option>
+                           <b> Brand:</b>
+                            <select  [(ngModel)]="selectedValue" name="selectedValue">
+                              <option disabled>--Select Brand Name --</option>
+                              <option  *ngFor = "let d of brand" [value]="d._id">{{d.name}}</option>
                             </select>
                           
                      </div>
@@ -31,8 +32,9 @@
                             <input id="category" type="text" class=""  [(ngModel)]="ename" name="ename">
                             <label for="category">Add Category</label>
                           </div>
-                        
-                          <button class="hedding-btn" type="submit ">ADD </button>
+                        <div class="right-align">
+                          <button class="hedding-btn  " type="submit ">ADD </button>
+                        </div>
                         </div>
                       </form>
                          
@@ -59,8 +61,7 @@
                 <tr  *ngIf="c.brand_id==b._id">
                   <td>{{b.name}}</td>
                   <td>{{c.name}}</td>
-                  <td><i class="fa fa-eye blue-text"></i></td>
-                  <td><i class="fa fa-pencil-alt orange-text"></i></td>
+                  <td data-target="edit_cat"  class=" modal-trigger" (click) = "getCategoryById(c._id)"><i class="fa fa-pencil-alt orange-text"></i></td>
                   <td (click)="ConfirmDelete(c._id)" ><i class="fa fa-trash red-text"></i></td>  
                 </tr>     
              
@@ -83,19 +84,39 @@
 </div>
 </div>
 
-<script>
-   $('.dropdown-button').dropdown({
-      inDuration: 300,
-      outDuration: 225,
-      constrainWidth: false, // Does not change width of dropdown to that of the activator
-      hover: true, // Activate on hover
-      gutter: 0, // Spacing from edge
-      belowOrigin: false, // Displays dropdown below the button
-      alignment: 'left', // Displays dropdown with edge aligned to the left of button
-      stopPropagation: false // Stops event propagation
-    }
-  );
+<div id="edit_cat" class="modal">
+    <div class="modal-content">
+     
+      <div class="col s12">
+        <h5> Product Details</h5>
+      </div>
+      <div class="col s12">
   
-   $('.dropdown-button').dropdown('open');
-   $('.dropdown-button').dropdown('close');
-</script>
+        <form (ngSubmit)="updateCategory()">
+          <div class="col s12 l12 m12  mr-t-20 mr-b-m-30">
+              <select  [(ngModel)]="editedValue" name="editedValue">
+                  <option disabled>--Select Brand Name --</option>
+                  <option  *ngFor = "let d of brand" [value]="d._id">{{d.name}}</option>
+                </select>
+              
+                <div class="input-field col s6 m6 l6">
+                    <b>Category</b>
+               
+                  <input id="category" type="text" class=""  [(ngModel)]="name" name="name">
+                  </div>
+               
+            <button class="hedding-btn modal-close" type="submit">Update </button>
+          </div>
+        </form>
+       
+    </div>
+    </div>
+  
+  </div>
+  <script>
+    $(document).ready(function(){
+          // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+          $('.modal').modal();
+        });
+  
+  </script>

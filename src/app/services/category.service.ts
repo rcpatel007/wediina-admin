@@ -26,7 +26,7 @@ export class CategoryService {
   getCategoryById(id) {
     //  headers = new Headers();    
      let headers = new Headers({'x-access-token':''+ this.loginService.token});
-      return this.http.get('https://jasmatech-backend-api.herokuapp.com/cat' +id,{headers: headers})
+      return this.http.get('https://jasmatech-backend-api.herokuapp.com/cat/' +id,{headers: headers})
       .pipe(map( res => res.json()));
   
   }
@@ -42,9 +42,9 @@ export class CategoryService {
   
   // edit user
 
-  editCategory(id, updatecategory) {
+  editCategory(cat) {
   let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-  return this.http.put('https://jasmatech-backend-api.herokuapp.com/cat/',+id, updatecategory)
+  return this.http.put('https://jasmatech-backend-api.herokuapp.com/cat/'+cat._id, cat,{headers: headers})
   .pipe(map( res => res.json()));
 
 }

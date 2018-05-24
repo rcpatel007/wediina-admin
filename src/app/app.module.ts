@@ -31,6 +31,8 @@ import { UserService } from './services/user.service';
 import { CityService } from './services/city.service';
 import { Globals } from '../globals';
 import { ProfileComponent } from './profile/profile.component';
+import { VieworderComponent } from './vieworder/vieworder.component';
+import { EditorderComponent } from './editorder/editorder.component';
 
 const appRoutes = [
   {path: '', component: LoginComponent},   
@@ -45,6 +47,8 @@ const appRoutes = [
   {path: 'category', component: CategoryComponent},   
   {path: 'control', component: ControlComponent},   
   {path: 'Profile', component: ProfileComponent},   
+  {path: 'vieworder/:id', component: VieworderComponent},   
+  {path: 'editorder/:id', component: EditorderComponent},   
   
 
 ];
@@ -62,7 +66,9 @@ const appRoutes = [
     LoginComponent,
     CategoryComponent,
     BrandComponent,
-    ProfileComponent
+    ProfileComponent,
+    VieworderComponent,
+    EditorderComponent
   ],
   imports: [
     BrowserModule,

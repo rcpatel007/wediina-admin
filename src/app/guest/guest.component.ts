@@ -22,6 +22,10 @@ guest  : Guest[];
     private globals: Globals) { }
 
   ngOnInit() {
+    if (this.loginservice.token === null){
+      this.router.navigate(["/login"]);
+      }
+  
     this.auth = {"email": this.globals.email,"token": this.loginservice.token}
 
     this.viewguest();
@@ -37,4 +41,5 @@ guest  : Guest[];
                       
                     });
   }
+  
 }

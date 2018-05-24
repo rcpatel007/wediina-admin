@@ -24,10 +24,34 @@ export class OrderService {
   viewOrder(id) {
     //  headers = new Headers();    
      let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-      return this.http.get('https://jasmatech-backend-api.herokuapp.com/order'+id,{headers: headers})
+      return this.http.get('https://jasmatech-backend-api.herokuapp.com/order/'+id,{headers: headers})
+      .pipe(map( res => res.json()));
+  
+  }
+  updateOrder(updateOrder) {
+    //  headers = new Headers();    
+     let headers = new Headers({'x-access-token': ''+ this.loginService.token});
+      return this.http.put('https://jasmatech-backend-api.herokuapp.com/order/'+updateOrder._id ,updateOrder,{headers: headers})
       .pipe(map( res => res.json()));
   
   }
 
+  getAccountById(user_id) {
+    //  headers = new Headers();    
+     let headers = new Headers({'x-access-token': ''+ this.loginService.token});
+      return this.http.get('https://jasmatech-backend-api.herokuapp.com/account/' +user_id,{headers: headers})
+      .pipe(map( res => res.json()));
+  
+  }
+ 
+
+  deleteOrder(id) {
+    let headers = new Headers({'x-access-token': ''+ this.loginService.token});
+  
+    return this.http.delete('https://jasmatech-backend-api.herokuapp.com/order/'+id, {headers: headers})
+    .pipe(map( res => res.json()));
+  
+  }
+  
 
 }

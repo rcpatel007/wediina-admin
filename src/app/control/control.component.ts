@@ -181,11 +181,12 @@ export class ControlComponent implements OnInit {
      private cityservice: CityService, 
      private userservice: UserService,
      private roleservice: RoleService,
+    private loginservice:LoginService,
      private dealertypeservice:DealertypeService
   ) { }
 
   ngOnInit() {
-    if (environment.token===null){
+    if (this.loginservice.token===null){
       this.router.navigate(["/login"]);
       
       // this.getcity();

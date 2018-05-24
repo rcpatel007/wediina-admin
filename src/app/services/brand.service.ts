@@ -27,7 +27,7 @@ export class BrandService {
   getBrandById(id) {
     //  headers = new Headers();    
      let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-      return this.http.get('https://jasmatech-backend-api.herokuapp.com/brand' +id,{headers: headers})
+      return this.http.get('https://jasmatech-backend-api.herokuapp.com/brand/' +id,{headers: headers})
       .pipe(map( res => res.json()));
   
   }
@@ -41,11 +41,11 @@ export class BrandService {
   
   }
   
-  // edit user
+  // edit barnad
 
-  editBrand(id, brand) {
+  editBrand(brand) {
   let headers = new Headers({'x-access-token':''+ this.loginService.token});
-  return this.http.put('https://jasmatech-backend-api.herokuapp.com/brand/',+id, brand)
+  return this.http.put('https://jasmatech-backend-api.herokuapp.com/brand/'+brand._id, brand,{headers: headers})
   .pipe(map( res => res.json()));
 
 }

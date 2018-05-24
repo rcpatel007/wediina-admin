@@ -34,27 +34,23 @@
               <table id="" class="display mr-t-20" cellspacing="0" width="100%">
                 <thead>
                   <tr>
-                    <th>No</th>
                     <th>Name</th>
                     <th>Company</th>
                     <th>Mail ID</th>
                     <th>Contact No.</th>
-                    <th>Latest Order #</th>
                     <th>Discount #</th>
-                    <th colspan="2">Action</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor = "let a of account" >
-                    <td>1</td>
                     <td>{{a.name}}</td>
                     <td>{{a.company_name}}</td>
                     <td>{{a.email}}</td>
                     <td>{{a.mobile}}</td>
-                    <td>1</td>
                     <td>{{a.discount}}</td>
-                    <td><i class="fa fa-eye blue-text"></i></td>
-                    <td><i class="fa fa-pencil-alt orange-text"></i></td>  
+                    <td data-target="view_dealer"  class="modal-trigger" (click)="viewDealer(a._id)"><i class="fa fa-eye blue-text"></i></td>
+                    <!-- <td data-target="edit_dealer"  class="modal-trigger"><i class="fa fa-pencil-alt orange-text"></i></td>   -->
                   </tr>
                 </tbody>
               </table>
@@ -102,13 +98,11 @@
               <textarea id="address" type="text" class="materialize-textarea" [(ngModel)]="address" name="address"></textarea>
               <label for="address">Address</label>
             </div>
-            <div class="input-field col s6">CITY :
-              <select [(ngModel)]="selectedValue" name="selectedValue"  [(ngModel)]="selectedValue" name="selectedValue">
-                <option value="" disabled selected>Select city</option>
-                <option value="rajkot">Rajkot</option>
-                <option value="ahmedabad">Ahmedabad</option>
-                <option value="surat">surat</option>
-              </select>
+            <div class=" col s6">CITY :
+                <select  [(ngModel)]="selectedValue" name="selectedValue">
+                    <option disabled>--Select Brand Name --</option>
+                    <option  *ngFor = "let c of city" [value]="c.city">{{c.city}}</option>
+                  </select>
             </div>
             <div class="input-field col s6" >GST ID:
               <input id="purchase-code" type="text"  C name="gst"  [(ngModel)]="gst" name="gst" class="">
@@ -118,8 +112,8 @@
                 <div class=""><h6>TYPE:</h6></div>
                 <br />
                 <div class="col s3" *ngFor ="let a of role">
-                   <input class="with-gap" name="roletype" type="radio" id="roletype" value="{{roletype}}" name="roletype"  [(ngModel)]="roletype"/>
-                   <label for="roletype">{{a.role}}</label>
+                   <input class="with-gap" type="radio" id="{{a.type}}" value="{{roletype}}" name="type"  [(ngModel)]="type"/>
+                   <label for="{{a.type}}">{{a.type}}</label>
                 </div>
                
                
@@ -141,6 +135,55 @@
     </div>
   
   </div>
+
+
+  <!-- edit dealer -->
+  <div id="view_dealer" class="modal">
+      <div class="modal-content">
+       
+        <div class="col s12">
+          <h5>Details</h5>
+        </div>
+        <div class="col s12">
+          <table id="" class="display mr-t-20" cellspacing="0" width="100%">
+            <tbody>
+              <tr >
+                <th>Name</th>
+                 <td>{{name}}</td>
+              </tr>
+              <tr>
+                <th>Company</th>  
+                 <td>{{cnm}}</td>
+              </tr>
+              <tr>
+                  <th>Mail ID</th>
+                <td>{{email}}</td>
+              </tr>
+              <tr>
+                  <th>Contact No.</th>
+                <td>{{mno}}</td>
+              </tr>
+              <tr>
+                  <th>Discount #</th>
+                <td>{{discount}}</td>
+              
+              </tr>
+              <tr>
+                  <th>GST</th>
+                <td>{{gst}}</td>
+              
+              </tr><tr>
+                  <th>Type</th>
+                <td>{{Type}}</td>
+              
+              </tr>
+            </tbody>
+          </table>
+        
+      </div>
+      </div>
+    
+    </div>
   </div>
 
 <script>

@@ -20,7 +20,7 @@ export class AccountService {
      .pipe(map( res => res.json()));
  
  }
- // get Category by id
+ // get account by id
 
  getAccountById(id) {
    //  headers = new Headers();    

@@ -9,6 +9,10 @@ import { LoginService } from '../services/login.service';
 import { Globals } from '../../globals';
 import { RoleService } from '../services/role.service';
 import { Role } from '../model/Role';
+import { DealertypeService } from '../services/dealertype.service';
+import { CityService } from '../services/city.service';
+import { City } from '../model/City';
+
 
 
 
@@ -23,12 +27,12 @@ export class DealerComponent implements OnInit {
 auth: any;
 account: Account[];
 role:Role[];
+city:City[];
 name: string;
 cnm: String;
 email: String;
 mno: String;
 address: JSON;
-city:String;
 gst:String;
 type: String;
 discount: String;
@@ -37,32 +41,44 @@ selectedValue:any;
   constructor(private router: Router,
     private loginservice:LoginService,
      private accountservice: AccountService,
-     private roleservice:RoleService,
+     private dealertypeservice:DealertypeService,
+     private cityservice: CityService,
     private globals: Globals) { }
      
   
 
   ngOnInit() {
-    // if (this.loginservice.token === null){
-    //   this.router.navigate(["/login"]);
-    //   }
-    this.auth = {"email": this.globals.email,"token": this.loginservice.token}
+    if (this.loginservice.token === null){
+      this.router.navigate(["/login"]);
+      }
+  
+      this.auth = {"email": this.globals.email,"token": this.loginservice.token}
 
    this.viewaccount();
   this.getRole();
-
+    this.getCity();
   }
 
   getRole(){
-    this.roleservice.getRole()
+    this.dealertypeservice.getType()
                     .subscribe((data) => {
                       //  console.log(account);
                       this.role =  data;
-                      // console.log(this.role);
+                      console.log(data);
+                      
+                    });
+  }
+  getCity(){
+    this.cityservice.getcity()
+                    .subscribe((data) => {
+                      //  console.log(account);
+                      this.city =  data;
+                      console.log(data);
                       
                     });
   }
   
+
 
   viewaccount(){
     this.accountservice.getAccount()
@@ -73,6 +89,42 @@ selectedValue:any;
                       
                     });
   }
+
+  viewDealer(id){
+    this.accountservice.getAccountById(id)
+    .subscribe((data) =>{
+      console.log(data);
+      this.name =data.name;
+      this.cnm =data.company_name;
+      this.email = data.email;
+      this.mno = data.mobile;
+      this.type = data.type;
+      this.gst = data.gst;
+      this.discount = data.discount;
+      
+    });
+  }
+
+  // editDealer(){
+  //   let edit_dealer= {
+  //     name: this.name,
+  //     company_name: this.cnm,
+  //     email: this.email,
+  //     mobile: this.mno, 
+  //     city:this.selectedValue,
+  //     gst:this.gst,
+  //     type: this.type,
+  //     discount: this.discount
+  //   }
+  //     this.accountservice.(edit_dealer)
+  //     .subscribe(() => {
+  //       // console.log(add_dealer);
+  //       this.viewaccount();
+        
+  //     });
+
+  // }
+  // }
   addDealer() {
     let add_dealer= {
         name: this.name,
@@ -91,7 +143,6 @@ selectedValue:any;
 
       this.accountservice.addAccount(add_dealer)
                       .subscribe(() => {
-                        this.add_dealer.nativeElement.click();
                         // console.log(add_dealer);
                         this.viewaccount();
                         

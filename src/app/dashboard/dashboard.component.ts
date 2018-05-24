@@ -7,8 +7,8 @@ import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { CategoryService } from '../services/category.service';
 import { Category } from '../model/category';
-import { UserService } from '../services/user.service';
-import { User } from '../model/User';
+import { Account } from '../model/Dealer';
+import { AccountService } from '../services/account.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,43 +16,48 @@ import { User } from '../model/User';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  
+  
   new_count:any;
   pendding:any;
   enquiry:any;
   complate:any;
   order_count: any;
   order: Order[];
-  user:User[];
+  account: Account[];
   product_details =new Array();
   auth: any;
   enquriry_data:Order[];
+  co:String ='1';
 
   constructor(private router: Router,
     private loginservice:LoginService,
     private orderService: OrderService,
-    private userservice:UserService,
+    private accountservice: AccountService,
     private globals: Globals) { 
   
   }
   
   ngOnInit() {
-      if (this.loginservice.token === null){
+      if (this.loginservice.token == null){
       this.router.navigate(["/login"]);
       }
-    this.auth = {"email": this.globals.email,"token": this.loginservice.token}
 
-    
+    this.auth = {"email": this.loginservice.token,"token": this.loginservice.token}  
     this.getOrder();
-    this.getUser();
+    this.getAccount();
+    
 
   }
   
-  getUser(){
-    this.userservice.getUser()
+  getAccount(){
+    
+    this.accountservice.getAccount()
                     .subscribe((data) => {
                       //  console.log(account);
-                      this.user =  data;
-                      // console.log(this.role);
+                        this.account =  data;
+                        
+                        console.log(this.account);
                       
                     });
   }
@@ -66,7 +71,7 @@ export class DashboardComponent implements OnInit {
     
     this.orderService.getOrder()
                     .subscribe((Order) => {
-                      // console.log(Order);
+                      console.log(Order);
                       
                         for(let i=0; i<Order.length; i++)
                           {
@@ -129,11 +134,33 @@ export class DashboardComponent implements OnInit {
 viewOrder(id){
   this.orderService.viewOrder(id)
                   .subscribe((data) => {
-                    this.product_details = data[0].products;
-                  //  console.log(this.product_detail);
+                    this.product_details = data.products;
+                   console.log(this.product_details);
                    
                   // }
   });
 
 }
+
+
+/*delete order */
+ConfirmDelete(id)
+{
+var x = confirm("Are you sure you want to delete?");
+if (x)
+return this.deleteOrder(id);
+else
+return false;
+}
+
+
+deleteOrder(id) {
+this.orderService.deleteOrder(id)
+           .subscribe(result => {
+            console.log(result);
+            this.getOrder();
+    });
+}
+
+
 }

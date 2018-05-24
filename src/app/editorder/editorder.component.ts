@@ -1,0 +1,98 @@
+import { Component, OnInit } from '@angular/core';
+import { OrderService } from '../services/order.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoginService } from '../services/login.service';
+
+@Component({
+  selector: 'app-editorder',
+  templateUrl: './editorder.component.html',
+  styleUrls: ['./editorder.component.css']
+})
+export class EditorderComponent implements OnInit {
+  o_id: string;
+  cust_name: String;
+  product_detail= new Array();
+  o_date:String;
+  d_date: String;
+  d_time:String;
+  o_discount: String;
+  status: String;
+  methodvalue: String;
+  statusValue: String;
+  showHide:boolean;
+ 
+
+  constructor(private orderService: OrderService,
+     private route: ActivatedRoute,
+      private router: Router,
+      private loginservice:LoginService
+    ) { }
+
+  ngOnInit() {
+    if (this.loginservice.token === null){
+      this.router.navigate(["/login"]);
+      }
+  
+
+    this.route.params.subscribe(params => {
+      this.o_id = params['id'];
+    });
+    this.getorderById(this.o_id);
+    
+  }
+
+   
+ getorderById(_id){
+   let id =this.o_id;
+  this.orderService.viewOrder(id)
+                  .subscribe(data => {
+                    console.log(data);
+                   this.o_id = data._id;
+                   this.o_date = data.order_date;
+                   this.d_date = data._date;
+                   this.d_time = data._time;
+                   this.product_detail = data.products; 
+                   this.o_discount =data.o_discount;
+                   this.statusValue = data.status;
+                   this.methodvalue = data.method;
+                   console.log(this.product_detail);
+                   
+                 //  console.log(data.cust_name);
+                  // }
+  });
+
+}
+// viewProduct(id){
+//  this.orderService.viewOrder(id)
+//                  .subscribe((data) => {
+//                    this.product_detail = data[0].products;
+//                  //  console.log(this.product_detail);
+                  
+//                  // }
+//  });
+
+// }
+
+/*Update order */
+updateOrder() {
+  let updateorder = {  
+    _id: this.o_id,
+    order_date:this.o_date,
+    _date: this.d_date,
+    _time: this.d_time,
+    // p_discount:this.p_discount,
+    products:this.product_detail,
+    o_discount: this.o_discount,
+    // status: this.statusValue,
+    // method: this.methodvalue
+  }
+  console.log(updateorder);
+  // console.log(orderupdate);
+  this.orderService.updateOrder(updateorder)
+                  .subscribe((res) => {
+                    this.router.navigate(['vieworder/'+this.o_id]);
+                  
+                    console.log(res);
+                  });
+}
+}

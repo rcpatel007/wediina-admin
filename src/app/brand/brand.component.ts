@@ -5,6 +5,8 @@ import { LoginService } from '../services/login.service';
 import { Globals } from '../../globals';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
+import  * as io from 'socket.io-client';
+
 
 
 @Component({
@@ -13,7 +15,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./brand.component.css']
 })
 export class BrandComponent implements OnInit {
-  
+  socket;
+
   auth:any;
   brand: Brand[];
   id: String;
@@ -25,17 +28,18 @@ export class BrandComponent implements OnInit {
               private loginservice: LoginService,
               private router: Router,
               private globals :Globals
-            ) { }
+            ) {this.socket = io('https://jasmatech-backend-api.herokuapp.com'); }
 
   
 
   ngOnInit() {
-    if (this.loginservice.token === null){
+    if (this.loginservice.token == null){
       this.router.navigate(["/login"]);
       }
-    this.auth = {"email": this.globals.email,"token": this.loginservice.token}
 
+    this.auth = {"email": this.globals.email,"token": this.loginservice.token}
     this.getBrand();
+  
   }
 
 
@@ -50,12 +54,15 @@ export class BrandComponent implements OnInit {
   addBrand() {
     let addbrand= {
         name: this.name,
-      
     }
+
       this.brandService.addBrand(addbrand)
                       .subscribe(() => {
+                            
+                        this.socket.emit('brand-saved', {data: addbrand});
+                        
                         // this.closeBtn.nativeElement.click();
-                        console.log(addbrand);
+                        // console.log(addbrand);
                         this.getBrand();
                         
                       });
@@ -64,28 +71,28 @@ export class BrandComponent implements OnInit {
   getBrandById(id){
   this.brandService.getBrandById(id)
                   .subscribe(data => {
-                    this.name = data[0].name;
-                    this.id = data[0]._id;
-                    this.slang =data[0].slang;
+                    this.name = data.name;
+                    this.id = data._id;
+                    // this.slang =data[0].slang;
                     // console.log(data);
                   });  
                   
 
  }
 /* Update Brand Name*/
-// editBrand() {
-//       let brand = {  
-//         _id: this.id,
-//         name: this.name.toUpperCase(),
-//         slang:this.slang      
-//       }
-//       this.brandService.editBrand(brand)
-//                       .subscribe(() => {
-//                         console.log(brand);
-//                         // this.editcloseBtn.nativeElement.click();
-//                         this. getBrand();                      
-//                       });
-//   }
+editBrand() {
+      let brand = {  
+        _id: this.id,
+        name: this.name,
+        // slang:this.slang      
+      }
+      this.brandService.editBrand(brand)
+                      .subscribe(() => {
+                        console.log(brand);
+                        // this.editcloseBtn.nativeElement.click();
+                        this. getBrand();                      
+                      });
+  }
     
 
   /*display brand*/

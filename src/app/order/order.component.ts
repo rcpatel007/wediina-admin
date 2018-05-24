@@ -6,7 +6,8 @@ import { environment } from '../../environments/environment';
 import { Order } from '../model/Order'
 import { Globals } from '../../globals';
 import { UserService } from '../services/user.service';
-import { User } from '../model/User';
+import { Account } from '../model/Dealer';
+import { AccountService } from '../services/account.service';
 
 @Component({
   selector: 'app-order',
@@ -17,13 +18,13 @@ export class OrderComponent implements OnInit {
   count:any;
   auth:any;
   order: Order[];
-  user:User[];
+  account:Account[];
   product_details =new Array();
 
   constructor(private router: Router, 
     private orderService: OrderService,
     private loginservice: LoginService,
-    private userservice:UserService,
+    private accountservice:AccountService,
     private globals: Globals) { }
 
 
@@ -32,13 +33,12 @@ export class OrderComponent implements OnInit {
       this.router.navigate(["/login"]);
     }
     this.auth = {"email": this.globals.email,"token": this.loginservice.token}
-    this.getOrder(this.auth);
+    this.getOrder();
     this.getUser();
   }
 
-  getOrder(auth) {
+  getOrder() {
     this.count = 1;
-    console.log(auth);
     
     this.orderService.getOrder()
                     .subscribe((Order) => {
@@ -48,11 +48,11 @@ export class OrderComponent implements OnInit {
                     
   }
   getUser(){
-    this.userservice.getUser()
+    this.accountservice.getAccount()
                     .subscribe((data) => {
                       //  console.log(account);
-                      this.user =  data;
-                      // console.log(this.role);
+                      this.account =  data;
+                      console.log(this.account);
                       
                     });
   }
@@ -67,4 +67,26 @@ export class OrderComponent implements OnInit {
                     // }
     });
   }
+
+
+  /*delete Order */
+ConfirmDelete(id)
+{
+var x = confirm("Are you sure you want to delete?");
+if (x)
+  return this.deleteOrder(id);
+else
+return false;
+}
+
+  
+deleteOrder(id) {
+this.orderService.deleteOrder(id)
+             .subscribe(result => {
+              console.log(result);
+              this.getOrder();
+      });
+}
+
+
 }

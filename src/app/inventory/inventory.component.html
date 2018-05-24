@@ -45,11 +45,12 @@
                 </thead>
                 <tbody>
               <ng-container *ngFor = "let i of product">
+              <ng-container *ngFor = "let m of model_info">
               <ng-container  *ngFor ="let c of category"> 
                
                 <tr *ngIf="i.category_id==c._id">
                     <td>{{i.images}}</td>                    
-                    <td>{{i.model_info}}</td>
+                    <td>  </td>
                     <td>{{c.name}}</td>                    
                     <td>{{i.name}}</td>
                     <td>{{i.pressure}}</td>
@@ -59,7 +60,8 @@
                     <td><i class="fa fa-trash red-text"></i></td>
                   </tr>
                   </ng-container>
-                </ng-container>
+               </ng-container>
+               </ng-container>
                 </tbody>
               </table>
             </div>
@@ -80,16 +82,13 @@
           <h5>Details</h5>
         </div>
         <div class="col s12">
-          <form class="col s12" (ngSubmit)="addProduct()" >
+          <form class="col s12" #formRef="ngForm" (ngSubmit)="addProduct()" >
             <div class="row">
               <div class="input-field col s12">
                 <input id="name" type="text" [(ngModel)]="name" name="name" [(ngModel)]="name" class="">
                 <label for="name">Name</label>
               </div>
-              <div class="input-field col s12">
-                <input id="model_info" type="text" class="" [(ngModel)]="model_info" name="model_info">
-                <label for="model_info">Model Info</label>
-              </div>
+              
             </div>
             <div class="row">
               <div class="input-field col s12"> <b> Image:</b> &nbsp;&nbsp;  
@@ -103,13 +102,61 @@
             </div>
             <div class="row">
 
-              <div class="input-field col s12"> 
-                <select [(ngModel)]="selectedValue" name="selectedValue">
+              <div class="col s12"> 
+                Category:
+                <select [(ngModel)]="catValue" name="catValue">
                   <option value="" disabled selected>Select Category</option>
-                  <option *ngFor ="let c of category" value="{{c._id}}">{{c.name}}</option>
+                  <option *ngFor ="let c of category"  value="{{c._id}}">{{c.name}}</option>
                 </select>
               </div>
+             
+              <div class="col s12 p-t-15"> 
+                  City:
+                  <select [(ngModel)]="cityValue" name="cityValue">
+                    <option value="" disabled selected>Select Category</option>
+                    <option *ngFor ="let ci of city" value="{{ci.city}}">{{ci.city}}</option>
+                  </select>
+                </div>
+               
+              <div class="input-field col s12 p-t-15">
+                  <!-- <input id="model_info" type="text" class="" [(ngModel)]="model_info" name="model_info">
+                  <label for="model_info">Model Info</label>
+          -->
+          <div><b>Model Info: </b></div>
+          <div class="input-field col s12">
+              <input id="price" type="text" [(ngModel)]="price" name="price" [(ngModel)]="price" class="">
+              <label for="price">Price</label>
+            </div>
+            <div class="input-field col s12">
+                <input id="model_no" type="text" [(ngModel)]="model_no" name="model_no" [(ngModel)]="model_no" class="">
+                <label for="model_no">Model No</label>
+              </div>
+              <div class="input-field col s12">
+                  <input id="grade" type="text" [(ngModel)]="grade" name="grade" [(ngModel)]="grade" class="">
+                  <label for="grade">Grade</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="size" type="text" [(ngModel)]="size" name="size" [(ngModel)]="size" class="">
+                    <label for="size">Size</label>
+                  </div>
+                   
+                <div *ngFor="let model_array of model_info_array; let in=index" class="col s12 m12 l12">
               
+            <div>
+              <div class="col s6 l6 m6 m-t-20">
+              <input  type="text" [(ngModel)]="model_info_array[in].key" name="key{{in}}" #key="ngModel" required />
+            </div>
+            <div class="col s 6 m6 l6">
+              <input  type="text" [(ngModel)]="model_info_array[in].value" name="value{{in}}" #value="ngModel" required />
+        </div>    
+              <!--<p [hidden]="words2[in].value">Field is required</p> -->
+              <!-- {{formRef.form.word2}}          -->
+            </div>
+            <br />
+        </div>
+        <input type="button" class="hedding-btn-2" [disabled]="!formRef.form.valid" (click)="add()" value="Add feild" />
+         
+                </div>
                 <div class="input-field col s12">
                   <input id="temp" type="text" class=""[(ngModel)]="temp" name="temp" >
                   <label for="temp">Tempreture</label>
@@ -130,7 +177,7 @@
             <br />
             <div class="modal-footer">
               <a class="modal-action modal-close ">CANCEL</a>
-              <button class="modal-action hedding-btn" type="submit">ADD</button>
+              <button class="modal-action hedding-btn modal-close" type="submit">ADD</button>
             </div>
         
           </form>

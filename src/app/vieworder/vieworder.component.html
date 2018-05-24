@@ -1,0 +1,176 @@
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+  <app-header></app-header>
+  
+  <section id="content" class="mr-t-20">
+    <!--start container-->
+    <div class="container">
+      <div class="section">
+            <!--card stats start-->
+            <div id="card-stats">
+                <div class="row">
+                    <div class="col s6 l6 m6">  
+                        <div class="col s2 l2 m2 headding-icon dark-blue-back">
+                              <i class="fa fa-shopping-cart"></i>
+                            </div>
+                            <div class="hedding-text p-l-80">
+                              Order Details
+                            </div>
+                          </div>
+                          <div class="col s6 l6 m6 right-align">
+
+                            <button class="hedding-btn">Download Data </button>
+                          </div>
+                           
+                </div>
+              </div>
+              <!--card stats end-->
+       
+       <!--DataTables example Row grouping-->
+        <div class="section">
+          <div class="row ">
+            <div class="col s12 card mr-t-50">
+              
+        <div class="col s6 m6 l6 ">
+            <table class="b-r" algin="center"  width="100%"  cellspacing="0">
+                <tbody>
+                  <tr>
+                    <th><strong> Customer Name: </strong></th> 
+                    <td class="cust_name">
+                       <a href="#"  data-toggle="modal" (click) = "getCustomereByid(cust_id) " data-target="#customerModal">{{cust_name}}</a>
+                    </td>
+                  </tr>
+                  <tr>  
+                    <th> <strong> Order Discount: </strong></th><td>{{o_discount}} % </td>
+                  </tr>
+                  <tr> 
+                    <th> <strong>  Order Date: </strong></th><td>{{o_date}}</td>
+                  </tr>
+                  <tr> 
+                    <th> <strong> Delivery/ PickUP Date: </strong></th><td> {{d_date}}</td>
+                  </tr>
+                  <tr> 
+                    <th> <strong> Time: </strong></th><td>{{d_time}}</td>
+                  </tr>
+                  <tr>
+                     <th> <strong> Method:</strong></th><td>{{method}}</td>
+                  </tr>
+                  <tr>
+                      <th> <strong> Status:</strong></th><td>{{status}}</td>
+                   </tr>
+                </tbody>
+              </table>
+         
+        </div>
+
+        <div class="col l6 m6 ">
+
+            <table class="" id="dataTable" width="100%" cellspacing="0">
+                  <tr class="card-header">
+                    <th>Products</th>
+                    <th>Qty</th>
+                    <th>Unit Price (&#x20b9;)</th>
+                    <th>Amount</th>
+                    <th>Discount</th>
+                    <th>Total(&#x20b9;) </th>
+                  
+  
+                  </tr>  
+                  <tr *ngFor= "let p of product_detail" class="b-b">
+                    <td>{{p.prod_name}}</td>
+                    <td>  {{p.qty}}  </td>
+                    <td>{{p.price}}</td>
+                    <td>{{(p.price * p.qty)}}</td>
+                    <td>{{p.p_discount}} %</td>    
+                    <td><b>{{[(p.price * p.qty)] - [(p.price * p.qty) * p.p_discount] / 100 }}</b></td>
+                  </tr>
+                     
+                 
+              </table>
+  
+             <table class="table table-bordered mr-t-50" id="dataTable" width="100%" cellspacing="0">
+                <tr>
+                  <th  class="card-header">Sub Total:</th><td> &#x20b9; {{sub_total}}</td>
+                </tr>
+                <tr>  
+                  <th  class="card-header">Order Discount ({{ o_discount }} %):</th><td> &#x20b9; {{o_discount_total}}</td>
+                </tr>
+                <tr>                
+                  <th class="card-header">Grand Total:</th><td class="card-header"><b> &#x20b9; {{grand_total}} </b></td>
+                </tr>
+            </table>
+  
+            <!-- view customer -->
+            <div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="orderModelLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="orderModelLabel">Customer Detail</h5>
+                      <button class="close" type="button" data-dismiss="modal" aria-label="Close" #closeBtn>
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    </div>
+                    <div class="container">
+                      
+                            <div class="form-group">
+                                <label><strong> Company Name:</strong></label>
+                                <div> {{company_name}}</div>
+                            </div>
+                            <div class="form-group">
+                                  <label><strong> Name:</strong></label>
+                                <div>{{customername}}</div>
+                            </div>
+                            <div class="form-group">
+                                <label><strong>Mobile:</strong></label>
+                                <div>{{mobile}}</div>
+                            </div>
+                            <div class="form-group">
+                                <label><strong>Email:</strong></label>
+                                <div>{{email}}</div>
+                            </div>
+                            <div class="form-group">
+                                <label><strong>Address:</strong></label>
+                              <div> {{address}} </div>
+                            </div>
+                            <div class="form-group">
+                                <label><strong>GST No.:</strong></label>
+                              <div> {{gst_no}} </div>
+                            </div>
+                            
+                          <br />
+                    </div>
+                </div>
+              </div>
+          </div>
+  <!-- 
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <tr>   
+                  <th>Sub Total:</th> <td>{{p.total}}</td>          
+               </tr>
+               <tr>   
+                  <th>Product Dicount (-):</th> <td>{{p.p_discount}}</td>          
+               </tr>
+               <tr>   
+                  <th>Order Dicount (-):</th> <td></td>          
+               </tr>
+             
+               <tr>   
+                  <th>Grand Total:</th> <td></td>          
+               </tr>
+            </table> -->
+        </div>
+            </div>
+ 
+      </div>
+        </div>
+      </div>
+    
+    </div>
+    
+    <!--end container-->
+  </section>
+  
+  
+  </div>
+  </div>

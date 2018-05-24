@@ -16,10 +16,13 @@ export class LoginComponent implements OnInit {
   pwd: String;
   x_access_token: String;
   
-    constructor(private LoginService:LoginService,private router: Router, private globals: Globals) { }
+    constructor(private loginService:LoginService,private router: Router, private globals: Globals) { }
 
   ngOnInit() {
-    
+    // if (this.loginService.token != null){
+    //   this.router.navigate(["/dashboard"]);
+    //   }
+  
 }
 
 userLogin(){
@@ -30,12 +33,12 @@ let user={
   password: this.pwd,
  
 }
-    this.LoginService.userLogin(user)
+    this.loginService.userLogin(user)
                     .subscribe((result) => {
                       if (result == true){
                         this.router.navigate(["/dashboard"]);
-                        console.log(result);
-                        
+                        console.log(''+result);
+                      
                       }
                       else{
                         this.router.navigate(["/login"]);
