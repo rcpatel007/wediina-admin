@@ -1,140 +1,139 @@
-  <!-- START HEADER -->
-  <header id="header" class="page-topbar">
-    <!-- start header nav-->
-    <div class="navbar-fixed">
-      <nav class="navbar-color">
-        <div class="nav-wrapper">
-           <div class="center-align">
-              <a href="javascript:void(0);" class="waves-effect waves-block waves-light notification-button" data-activates="notifications-dropdown">
-                <i class="fa fa-bell ">
-                  <small class="notification-badge">5</small>
-                </i>
-              </a>
-            </div>
-          <!-- notifications-dropdown -->
-          <ul id="notifications-dropdown" class="dropdown-content">
-            <li>
-              <h6>NOTIFICATIONS
-                <span class="new badge">5</span>
-              </h6>
-            </li>
-            <li class="divider"></li>
-            <li>
-              <a href="#!" class="grey-text text-darken-2" *ngFor = "let m of msg">
-                <span class="material-icons icon-bg-circle cyan small">add_shopping_cart</span>{{m}}</a>
-              <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">2 hours ago</time>
-            </li>
-            <li>
-              <a href="#!" class="grey-text text-darken-2">
-                <span class="material-icons icon-bg-circle red small">stars</span> Completed the task</a>
-              <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">3 days ago</time>
-            </li>
-            <li>
-              <a href="#!" class="grey-text text-darken-2">
-                <span class="material-icons icon-bg-circle teal small">settings</span> Settings updated</a>
-              <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">4 days ago</time>
-            </li>
-            <li>
-              <a href="#!" class="grey-text text-darken-2">
-                <span class="material-icons icon-bg-circle deep-orange small">today</span> Director meeting started</a>
-              <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">6 days ago</time>
-            </li>
-            <li>
-              <a href="#!" class="grey-text text-darken-2">
-                <span class="material-icons icon-bg-circle amber small">trending_up</span> Generate monthly report</a>
-              <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">1 week ago</time>
-            </li>
-          </ul> 
+<!-- START HEADER -->
+<header id="header" class="page-topbar">
+  <!-- start header nav-->
+  <div class="navbar-fixed">
+    <nav class="navbar-color">
+      <div class="nav-wrapper">
+        <div class="center-align">
+          <a href="javascript:void(0);" class="waves-effect waves-block waves-light notification-button" data-activates="notifications-dropdown">
+            <i class="fa fa-bell ">
+              <small class="notification-badge">5</small>
+            </i>
+          </a>
         </div>
-      </nav>
-    </div>
-  </header>
-  <!-- END HEADER -->
-
-  <!-- START MAIN -->
-     <!-- START LEFT SIDEBAR NAV-->
-     <aside id="left-sidebar-nav" class="nav-expanded nav-lock nav-collapsible">
-        <div class="brand-sidebar dark-grey-back">
-          <h1 class="logo-wrapper">
-            <a href="index.html" class="brand-logo darken-1">
-              <img src="../../assets/images/jasma_logo.png" alt="materialize logo">
-              <span class="logo-text hide-on-med-and-down">JasmaTech</span>
-            </a>
-            <a href="javascript:void(0);" class="navbar-toggler">
-              <i class="material-icons">radio_button_checked</i>
-            </a>
-          </h1>
-        </div>
-        <ul id="slide-out" class="side-nav fixed leftside-navigation">
-            <div class="row user-detail-logo">
-                <div class="col s12 l4 m4 center-align">
-                  <i class="fa fa-3x fa-user"></i>
-                </div>
-                <div class="col s12 l8 m8 nav-text">
-                  <div> chirag ramani</div>
-                  <div>info@jasma.com</div>
-                </div>
-                </div>
-                <div class="divider"></div>
-          <li class="no-padding">
-                         <ul class="collapsible">
-              <li class="bold" [routerLink]="['/dashboard']">
-                <div class="collapsible-header  waves-effect">
-                  <i class="fa fa-home"></i>
-                  <span class="nav-text">Dashboard</span>
-                </div>
-              </li>
-              <li class="bold" [routerLink]="['/order']">
-                  <div class="collapsible-header  waves-effect">
-                    <i class="fa fa-shopping-cart"></i>
-                    <span class="nav-text">Orders</span>
-                  </div>
-              </li>
-              <li class="bold" [routerLink]="['/brand']">
-                <div class="collapsible-header  waves-effect">
-                  <i class="fa fa-boxes"></i>
-                  <span class="nav-text">Brand</span>
-                </div>
-              </li>
-                <li class="bold" [routerLink]="['/category']">
-                  <div class="collapsible-header  waves-effect">
-                    <i class="fa fa-boxes"></i>
-                    <span class="nav-text">Category</span>
-                  </div>
-              </li>
-            
-              <li class="bold" [routerLink]="['/inventory']">
-                  <div class="collapsible-header  waves-effect">
-                    <i class="fa fa-boxes"></i>
-                    <span class="nav-text">Inventory</span>
-                  </div>
-              </li>
-              <li class="bold" [routerLink]="['/dealer']">
-                  <div class="collapsible-header  waves-effect">
-                    <i class="fa fa-user"></i>
-                    <span class="nav-text">Dealers</span>
-                  </div>
-              </li>
-              <li class="bold" [routerLink]="['/guest']">
-                  <div class="collapsible-header  waves-effect">
-                    <i class="fa fa-user-cog"></i>
-                    <span class="nav-text">Guests</span>
-                  </div>
-              </li>
-              <li class="bold" [routerLink]="['/control']">
-                  <div class="collapsible-header  waves-effect">
-                    <i class="fa fa-cog"></i>
-                    <span class="nav-text">Control Panel</span>
-                  </div>
-                </li>
-            </ul>
+        <!-- notifications-dropdown -->
+        <ul id="notifications-dropdown center-align" class="dropdown-content">
+          <li>
+            <h6>NOTIFICATIONS
+              <span class="new badge">5</span>
+            </h6>
           </li>
-          <div class="center-align">
-            <button class="logout-btn nav-text"  (click) = "logout()">Logout</button>
-          </div>
-         
+          <li class="divider"></li>
+          <li>
+            <a href="#!" class="grey-text text-darken-2" *ngFor="let m of msg">
+              <span class="material-icons icon-bg-circle cyan small">add_shopping_cart</span>{{m}}</a>
+            <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">2 hours ago</time>
+          </li>
+          <li>
+            <a href="#!" class="grey-text text-darken-2">
+              <span class="material-icons icon-bg-circle red small">stars</span> Completed the task</a>
+            <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">3 days ago</time>
+          </li>
+          <li>
+            <a href="#!" class="grey-text text-darken-2">
+              <span class="material-icons icon-bg-circle teal small">settings</span> Settings updated</a>
+            <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">4 days ago</time>
+          </li>
+          <li>
+            <a href="#!" class="grey-text text-darken-2">
+              <span class="material-icons icon-bg-circle deep-orange small">today</span> Director meeting started</a>
+            <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">6 days ago</time>
+          </li>
+          <li>
+            <a href="#!" class="grey-text text-darken-2">
+              <span class="material-icons icon-bg-circle amber small">trending_up</span> Generate monthly report</a>
+            <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">1 week ago</time>
+          </li>
         </ul>
+      </div>
+    </nav>
+  </div>
+</header>
+<!-- END HEADER -->
 
-      </aside>
-      <!-- END LEFT SIDEBAR NAV-->
- 
+<!-- START MAIN -->
+<!-- START LEFT SIDEBAR NAV-->
+<aside id="left-sidebar-nav" class="nav-expanded nav-lock nav-collapsible">
+  <div class="brand-sidebar dark-grey-back">
+    <h1 class="logo-wrapper">
+      <a href="index.html" class="brand-logo darken-1">
+        <img src="../../assets/images/jasma_logo.png" alt="materialize logo">
+        <span class="logo-text hide-on-med-and-down">JasmaTech</span>
+      </a>
+      <a href="javascript:void(0);" class="navbar-toggler">
+        <i class="material-icons">radio_button_checked</i>
+      </a>
+    </h1>
+  </div>
+  <ul id="slide-out" class="side-nav fixed leftside-navigation">
+    <div class="row user-detail-logo">
+      <div class="col s4 l4 m4 center-align">
+        <i class="fa fa-3x fa-user"></i>
+      </div>
+      <div class="col s8 l8 m8 nav-text">
+        <div> {{name}}</div>
+        <div class="f-s-10">{{email}}</div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <li class="no-padding">
+      <ul class="collapsible">
+        <li class="bold" [routerLink]="['/dashboard']">
+          <div class="collapsible-header  waves-effect">
+            <i class="fa fa-home"></i>
+            <span class="nav-text">Dashboard</span>
+          </div>
+        </li>
+        <li class="bold" [routerLink]="['/order']">
+          <div class="collapsible-header  waves-effect">
+            <i class="fa fa-shopping-cart"></i>
+            <span class="nav-text">Orders</span>
+          </div>
+        </li>
+        <li class="bold" [routerLink]="['/brand']">
+          <div class="collapsible-header  waves-effect">
+            <i class="fa fa-boxes"></i>
+            <span class="nav-text">Brand</span>
+          </div>
+        </li>
+        <li class="bold" [routerLink]="['/category']">
+          <div class="collapsible-header  waves-effect">
+            <i class="fa fa-boxes"></i>
+            <span class="nav-text">Category</span>
+          </div>
+        </li>
+
+        <li class="bold" [routerLink]="['/inventory']">
+          <div class="collapsible-header  waves-effect">
+            <i class="fa fa-boxes"></i>
+            <span class="nav-text">Inventory</span>
+          </div>
+        </li>
+        <li class="bold" [routerLink]="['/dealer']">
+          <div class="collapsible-header  waves-effect">
+            <i class="fa fa-user"></i>
+            <span class="nav-text">Dealers</span>
+          </div>
+        </li>
+        <li class="bold" [routerLink]="['/guest']">
+          <div class="collapsible-header  waves-effect">
+            <i class="fa fa-user-cog"></i>
+            <span class="nav-text">Guests</span>
+          </div>
+        </li>
+        <li class="bold" [routerLink]="['/control']">
+          <div class="collapsible-header  waves-effect">
+            <i class="fa fa-cog"></i>
+            <span class="nav-text">Control Panel</span>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <div class="center-align">
+      <button class="logout-btn nav-text" (click)="logout()">Logout</button>
+    </div>
+
+  </ul>
+
+</aside>
+<!-- END LEFT SIDEBAR NAV-->

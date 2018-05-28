@@ -4,9 +4,8 @@
 
 export const environment = {
   production: false,
-  token:'',
-  refresh_token:'',
-  email:''
+  user_id:''
+  
 };
 
 

@@ -1,7 +1,7 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
-import {ViewChild, ElementRef} from '@angular/core';
+import { ViewChild, ElementRef } from '@angular/core';
 
 import { ProductService } from '../services/product.service';
 import { Product } from '../model/Product';
@@ -20,107 +20,117 @@ import { City } from '../model/City';
   styleUrls: ['./inventory.component.css']
 })
 export class InventoryComponent implements OnInit {
-
+  id:String;
   product: Product[];
   city: City[];
   category: Category[];
-  name:String;
-  categoryid:String;
-  temp:String;
-  pressure:String;
-  desc:String;
+  name: String;
+  categoryid: String;
+  temp: String;
+  pressure: String;
+  desc: String;
   model_info = new Array;
-  model_no:String;
-  price:String;
-  grade:String;
-  size:String;
-  base64:any;
+  model_no: String;
+  price: String;
+  grade: String;
+  size: String;
+  base64: any;
   otherbase64: any;
-  p_img:String;
+  p_img: String;
   o_img = new Array();
-  value:String;
-  values =new Array();
-  keys = new Array();
-  key:String;
-  catValue:any;
-  cityValue:any;
-  model_info_array=[];
-  
-  constructor(private router:Router, 
-              private productservice:ProductService,
-              private loginservice:LoginService,
-              private cityservice: CityService,
-              private categoryservice: CategoryService) { }
+  value: String;
+  key: String;
+  catValue: any;
+  cityValue: any;
+
+  // hello =[price:12,
+  //         size:12,
+  //         chirag:12,
+  //       ]
+
+  constructor(private router: Router,
+    private productservice: ProductService,
+    private loginservice: LoginService,
+    private cityservice: CityService,
+    private categoryservice: CategoryService) { }
 
   ngOnInit() {
-    if (this.loginservice.token == null){
+    if (this.loginservice.token == null) {
       this.router.navigate(["/login"]);
-      }
+    }
 
-  this.getProduct();
-  this.getcity();
-  this.getModelInfo();
-  this.getCategory();
-}
+    this.getProduct();
+  }
 
-add() {
-  this.keys.push(this.key);
-  this.values.push(this.value);
-
-  this.model_info_array.push({
-    price:this.price,
-    size:this.size,
-    grade:this.grade,
-    model_no:this.model_no,
-    
-    
-
-
-  });
-
-  console.log(this.key);
-  
-  
-}
-  getCategory(){
+  getCategory() {
     this.categoryservice.getCategory()
-                     .subscribe(Category => {
-                       this.category = Category;
-               });
-    } 
+      .subscribe(Category => {
+        this.category = Category;
+        console.log(this.category);
 
-    getcity(){
-      this.cityservice.getcity()
-                       .subscribe(City => {
-                         this.city = City;
-                        // console.log(this.city);
-                        
-                        });
-      } 
+      });
+  }
+
+  getcity() {
+    this.cityservice.getcity()
+      .subscribe(City => {
+        this.city = City;
+        // console.log(this.city);
+
+      });
+  }
+
+  getProduct() {
+    this.productservice.getProduct()
+      .subscribe(Product => {
+        this.product = Product;
+
+        this.getcity();
+        this.getModelInfo();
+        this.getCategory();
+
+        console.log(Product);
+
+      });
+  }
+  getModelInfo() {
+    this.productservice.getProduct()
+      .subscribe(Product => {
+        for (let i = 0; i < Product.length; i++) {
+          this.model_info.push(Product[i].model_info);
+
+        }
+
+        console.log(this.model_info);
+
+      });
+  }
+
+
+
+  getproductById(id){
+    this.o_img.length=0;
+    this.productservice.getProductById(id)
+                      .subscribe(data => {
+                        this.id = data._id;
+                        this.p_img =data.product_image;
+                       
+                        for(let i=0; i<data.other_images.length; i++){
+
+                          this.o_img.push(data.other_images[i]);
+                        }
+                      console.log(this.o_img);  
+                      });  
+                      
+                      
   
-  getProduct(){
-    this.productservice.getProduct()
-        .subscribe(Product => {
-          this.product = Product;
-        
-      // console.log(Product);
-      
-       });
   }
-  getModelInfo(){
-    this.productservice.getProduct()
-        .subscribe(Product => {
-          for(let i=0; i<Product.length; i++){
-            this.model_info.push(Product[i].model_info);
+  
 
-          }
-        
-      // console.log(this.model_info);
-      
-       });
-  }
- /* Image convert base64 */
- imageUpload(evt){
+
+  
+/* Image convert base64 */
+imageUpload(evt){
   var files = evt.target.files;
   var file = files[0];
 
@@ -141,69 +151,110 @@ var binaryString = readerEvt.target.result;
        
 }
 
-/*add or remove input tag*/ 
 
+// updateImage(){
+//  this.productservice.imgurImage(this.base64)
+//  .subscribe((result) => {
+//    console.log(result);
+//    this.p_img=result.data.link;
 
-
-otherImageUpload(event) {
-let files = [].slice.call(event.target.files);
-// console.log(files);
-// input = files.map(f => f.name).join(', ');
-for(let i=0; i<files.length; i++){
-  if (files) {
-        var reader = new FileReader();
-        reader.onload =this.otherimagetoBase64.bind(this);
-        reader.readAsBinaryString(files[i]);
-    
+//    let updateimg = {
+//     _id: this.id,
+//      prod_imag:this.p_img,
+//    }
+//    console.log(updateimg);
+//    this.productservice.editimg(updateimg)
+//                    .subscribe((res) => {
+//                      this.router.navigate(['products']);
+//                      console.log(updateimg);
+//                    });
+//  });
+ 
+// }
+/* delete image*/
+deleteimg(o_image){
+  // console.log(o_image);
+  
+  for(let i=0; i<this.o_img.length; i++){
+    if(this.o_img[i] == o_image)
+    {
+      this.o_img.splice(i, 1);
+    }
   }
-}
+  // console.log(this.other_img);
+ }
+
+
+/*other image update */
+otherImageUpload(event) {
+  let files = [].slice.call(event.target.files);
+  // console.log(files);
+  // input = files.map(f => f.name).join(', ');
+  for(let i=0; i<files.length; i++){
+    if (files) {
+          var reader = new FileReader();
+          reader.onload =this.otherimagetoBase64.bind(this);
+          reader.readAsBinaryString(files[i]);
+      
+    }
+  }
 }
 
 otherimagetoBase64(readeEvent) {
 
 var binaryString = readeEvent.target.result;
-      
-this.otherbase64= btoa(binaryString);
-    // console.log(btoa(binaryString));
-    this.productservice.imgurotherImage(this.otherbase64)
-    .subscribe((result) => {
-     console.log(result);
-     this.o_img.push(result.data.link)
-    });
-    // console.log(this.o_img);
+        
+  this.otherbase64= btoa(binaryString);
+      console.log(btoa(binaryString));
+      this.productservice.imgurotherImage(this.otherbase64)
+        .subscribe((result) => {
+          this.o_img.push(result.data.link)
+          console.log(this.o_img);
     
+        });
+      
 }
-
-
-  addProduct(){
-    this.productservice.imgurImage(this.base64)
-    .subscribe((result) => {
-      // console.log(result);
-      this.p_img=result.data.link;
+  
+// updateOtherImage(){
+//     let otherupdateimg = {
+//      _id: this.id,
+//      other_images:this.o_img,
+//     }
+//     console.log(otherupdateimg);
+//     this.productservice.othereditimg(otherupdateimg)
+//                     .subscribe((res) => {
+//                       this.router.navigate(['products']);
+//                       console.log(otherupdateimg);
+//                     });
 
   
-    let product ={
-      name:this.name,
-      category_id:this.catValue,
-      city:this.cityValue,
-      pressure:this.pressure,
-      temprature:this.temp,
-      model_info:this.model_info_array,
-      desc:this.desc,
-      product_image:this.p_img,
-      other_images:this.o_img
-    }
-    console.log(product);
-    
-  // this.productservice.addProdcut(product)
-  //       .subscribe((res) => {
-        
-  //         this.getProduct();
-  //     console.log(res);
-    
-  // });
-});
+//  }
 
-}
+ 
+
+  /*delete brand */
+  ConfirmDelete(id) {
+
+    var x = confirm("Are you sure you want to delete?" + id);
+    if (x) {
+
+      return this.deleteProduct(id);
+    }
+
+    else
+      return false;
+  }
+
+
+  deleteProduct(id) {
+    this.productservice.deleteProduct(id)
+      .subscribe(result => {
+        console.log(result);
+
+        this.getProduct();
+
+      });
+  }
+
 
 }

@@ -54,7 +54,7 @@ export class ProductService {
   deleteProduct(id) {
   let headers = new Headers({'x-access-token': ''+ this.loginService.token});
 
-  return this.http.put('https://jasmatech-backend-api.herokuapp.com/prod/',+id, {headers: headers})
+  return this.http.delete('https://jasmatech-backend-api.herokuapp.com/prod/'+id, {headers: headers})
   .pipe(map( res => res.json()));
 
  }

@@ -51,7 +51,7 @@ export class AccountService {
 // delete user
 
  deleteAccount(id) {
- let headers = new Headers({'x-access-token': ''+ environment.token});
+ let headers = new Headers({'x-access-token': ''+ this.loginservice.token});
 
  return this.http.put('https://jasmatech-backend-api.herokuapp.com/account/',+id, {headers: headers})
  .pipe(map( res => res.json()));

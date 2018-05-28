@@ -50,13 +50,13 @@ getBrand(){
                     
               });
 } 
-/* Category add*/
 
 /*get Category by id */
 getCategoryById(id){
 this.CategoryService.getCategoryById(id)
               .subscribe(data => {
                 this.name = data.name;
+                this.editedValue = data.brand_id;
                 this.id = data._id;
                 console.log(data);
               });  

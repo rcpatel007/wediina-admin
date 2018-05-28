@@ -1,0 +1,142 @@
+<div id="main">
+  <!-- START WRAPPER -->
+  <div class="wrapper">
+    <app-header></app-header>
+
+    <section id="content" class="mr-t-20">
+      <!--start container-->
+      <div class="container">
+        <div class="section">
+          <!--card stats start-->
+          <div id="card-stats">
+            <div class="row">
+              <div class="col s6 l6 m6">
+                <div class="col s2 l2 m2 headding-icon dark-blue-back">
+                  <i class="fa fa-boxes"></i>
+                </div>
+                <div class="hedding-text p-l-80">
+                  Product Add
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--card stats end-->
+
+          <!--DataTables example Row grouping-->
+          <div class="section">
+            <div class="row ">
+              <div class="col s12 card mr-t-50">
+                <form class="col s12 mr-t-b-10" #formRef="ngForm" (ngSubmit)="addProduct()">
+                  <div class="col s6 m6 l6">
+
+
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="name" type="text" [(ngModel)]="name" name="name" [(ngModel)]="name" class="">
+                        <label for="name">Name</label>
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12 mr-t-20">
+                        <b> Image:</b> &nbsp;&nbsp;
+                        <input id="p_img" type="file" class="" (change)="imageUpload($event)" [(ngModel)]="p_img" name="p_img">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12 mr-t-20">
+                        <b>Other Image:</b> &nbsp;&nbsp;
+                        <input id="img" type="file" multiple="multiple" class="" (change)="otherImageUpload($event)" [(ngModel)]="img" name="img">
+                      </div>
+                    </div>
+                    <div class="row">
+
+                      <div class="col s12 mr-t-20">
+                        Category:
+                        <select [(ngModel)]="catValue" name="catValue">
+                          <option value="" disabled selected>Select Category</option>
+                          <option *ngFor="let c of category" value="{{c._id}}">{{c.name}}</option>
+                        </select>
+                      </div>
+                      <div class="input-field col s12">
+                        <input id="temp" type="text" class="" [(ngModel)]="temp" name="temp">
+                        <label for="temp">Tempreture</label>
+                      </div>
+                      <div class="input-field col s12">
+                        <input id="pressure" type="text" class="" [(ngModel)]="pressure" name="pressure">
+                        <label for="pressure">Pressure</label>
+                      </div>
+                      <div class="input-field col s12">
+                        <textarea id="desc" type="text" class="materialize-textarea" [(ngModel)]="desc" name="desc"></textarea>
+                        <label for="desc">Description</label>
+                      </div>
+
+
+
+                    </div>
+                    <br />
+                    <button class="modal-action hedding-btn" type="submit">ADD PRODUCT</button>
+                  </div>
+
+                  <div class="col s6 m6 l6 ">
+
+                    <div class="input-field col s12 p-t-15" *ngFor="let model of modeldata; let i=index">
+                      <!-- <input id="model_info" type="text" class="" [(ngModel)]="model_info" name="model_info">
+                          <label for="model_info">Model Info</label>
+                  -->
+                      <div>
+                        <b>Model Info: </b>
+                      </div>
+                      <div class="input-field col s12">
+                        <input id="price" type="text" [(ngModel)]="modeldata[i].price" name="price{{i}}" [(ngModel)]="price" class="">
+                        <label for="price">Price</label>
+                      </div>
+                      <div class="input-field col s12">
+                        <input id="model_no" type="text" [(ngModel)]="modeldata[i].model_no" name="model_no{{i}}" [(ngModel)]="model_no" class="">
+                        <label for="model_no">Model No</label>
+                      </div>
+                      <div class="input-field col s12">
+                        <input id="grade" type="text" [(ngModel)]="modeldata[i].grade" name="grade{{i}}" [(ngModel)]="grade" class="">
+                        <label for="grade">Grade</label>
+                      </div>
+                      <div class="input-field col s12">
+                        <input id="size" type="text" [(ngModel)]="modeldata[i].size" name="size{{i}}" [(ngModel)]="size" class="">
+                        <label for="size">Size</label>
+                      </div>
+
+                      <div *ngFor="let key of model.keyValue; let in=index" class="col s12 m12 l12">
+
+                        <div>
+                          <div class="col s6 l6 m6 m-t-20">
+                            <input type="text" [(ngModel)]="model.keyValue[in].key" name="model.keyValue[in].key{{in}}" #key="ngModel" required />
+                          </div>
+                          <div class="col s 6 m6 l6">
+                            <input type="text" [(ngModel)]="model.keyValue[in].value" name="model.keyValue[in].value{{in}}" #value="ngModel" required
+                            />
+                          </div>
+                          <!--<p [hidden]="words2[in].value">Field is required</p> -->
+                          <!-- {{formRef.form.word2}}          -->
+                        </div>
+                        <br />
+                      </div>
+                      <input type="button" class="hedding-btn-2" [disabled]="!formRef.form.valid" (click)="add(i)" value="Add Field" />
+
+                    </div>
+
+                    <input type="button" class="hedding-btn-2 right mr-t-20" [disabled]="!formRef.form.valid" (click)="addmodel()" value="Add model"
+                    />
+
+                  </div>
+                </form>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!--end container-->
+    </section>

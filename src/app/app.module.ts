@@ -33,6 +33,9 @@ import { Globals } from '../globals';
 import { ProfileComponent } from './profile/profile.component';
 import { VieworderComponent } from './vieworder/vieworder.component';
 import { EditorderComponent } from './editorder/editorder.component';
+import { AddProductComponent } from './add-product/add-product.component';
+import { EditproductComponent } from './editproduct/editproduct.component';
+import { ViewproductComponent } from './viewproduct/viewproduct.component';
 
 const appRoutes = [
   {path: '', component: LoginComponent},   
@@ -40,6 +43,9 @@ const appRoutes = [
   {path: 'header', component: HeaderComponent},   
   {path: 'dashboard', component: DashboardComponent},   
   {path: 'order', component: OrderComponent},   
+  {path: 'addproduct', component: AddProductComponent},   
+  {path: 'editproduct/:id', component: EditproductComponent},   
+  {path: 'viewproduct/:id', component: ViewproductComponent},   
   {path: 'inventory', component: InventoryComponent},   
   {path: 'dealer', component: DealerComponent},   
   {path: 'guest', component: GuestComponent},   
@@ -68,7 +74,11 @@ const appRoutes = [
     BrandComponent,
     ProfileComponent,
     VieworderComponent,
-    EditorderComponent
+    EditorderComponent,
+    AddProductComponent,
+    EditproductComponent,
+    ViewproductComponent,
+    
   ],
   imports: [
     BrowserModule,

@@ -1,212 +1,198 @@
 <div id="main">
-    <!-- START WRAPPER -->
-    <div class="wrapper">
-  <app-header></app-header>
-  
-  <section id="content" class="mr-t-20">
-    <!--start container-->
-    <div class="container">
-      <div class="section">
-            <!--card stats start-->
-            <div id="card-stats">
-                <div class="row">
-                    <div class="col s6 l6 m6">  
-                        <div class="col s2 l2 m2 headding-icon dark-blue-back">
-                              <i class="fa fa-user"></i>
-                            </div>
-                            <div class="hedding-text p-l-80">
-                              DEALER MANAGEMENT
-                            </div>
-                          </div>
-                          <div class="col s6 l6 m6 right-align">
-                            <button data-target="add_dealer"  class="hedding-btn-2 modal-trigger">Add Dealer </button>
-                            <button class="hedding-btn">Download Data </button>
-                          </div>
-                           
-                </div>
-              </div>
-              <!--card stats end-->
-       
-       <!--DataTables example Row grouping-->
+  <!-- START WRAPPER -->
+  <div class="wrapper">
+    <app-header></app-header>
+
+    <section id="content" class="mr-t-20">
+      <!--start container-->
+      <div class="container">
         <div class="section">
-          <div class="row ">
-            <div class="col s12 card mr-t-50">
-              <table id="" class="display mr-t-20" cellspacing="0" width="100%">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Company</th>
-                    <th>Mail ID</th>
-                    <th>Contact No.</th>
-                    <th>Discount #</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor = "let a of account" >
-                    <td>{{a.name}}</td>
-                    <td>{{a.company_name}}</td>
-                    <td>{{a.email}}</td>
-                    <td>{{a.mobile}}</td>
-                    <td>{{a.discount}}</td>
-                    <td data-target="view_dealer"  class="modal-trigger" (click)="viewDealer(a._id)"><i class="fa fa-eye blue-text"></i></td>
-                    <!-- <td data-target="edit_dealer"  class="modal-trigger"><i class="fa fa-pencil-alt orange-text"></i></td>   -->
-                  </tr>
-                </tbody>
-              </table>
-            </div>
- 
-      </div>
-        </div>
-      </div>
-    
-    </div>
-    <!--end container-->
-  </section>
-  
-  <!-- add dealer -->
-  <div id="add_dealer" class="modal">
-    <div class="modal-content">
-     
-      <div class="col s12">
-        <h5>Details</h5>
-      </div>
-      <div class="col s12">
-        <form class="col s12" (ngSubmit)="addDealer()" >
-          <div class="row">
-            <div class="input-field col s6">
-              <input id="name" type="text" [(ngModel)]="name" name="name" class="">
-              <label for="name">Person Name</label>
-            </div>
-            <div class="input-field col s6">
-              <input id="cnm" type="text" class="" [(ngModel)]="cnm" name="cnm">
-              <label for="cnm">Company Name</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s6">
-              <input id="email" type="text" class=""[(ngModel)]="email" name="email" >
-              <label for="email">Email  ID</label>
-            </div>
-            <div class="input-field col s6">
-              <input id="credit-demo" type="text" class="" [(ngModel)]="mno" name="mno">
-              <label for="credit_demo">Mobile No.</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <textarea id="address" type="text" class="materialize-textarea" [(ngModel)]="address" name="address"></textarea>
-              <label for="address">Address</label>
-            </div>
-            <div class=" col s6">CITY :
-                <select  [(ngModel)]="selectedValue" name="selectedValue">
-                    <option disabled>--Select Brand Name --</option>
-                    <option  *ngFor = "let c of city" [value]="c.city">{{c.city}}</option>
-                  </select>
-            </div>
-            <div class="input-field col s6" >GST ID:
-              <input id="purchase-code" type="text"  C name="gst"  [(ngModel)]="gst" name="gst" class="">
-            </div>
-
-            <div class=" col s12">
-                <div class=""><h6>TYPE:</h6></div>
-                <br />
-                <div class="col s3" *ngFor ="let a of role">
-                   <input class="with-gap" type="radio" id="{{a.type}}" value="{{roletype}}" name="type"  [(ngModel)]="type"/>
-                   <label for="{{a.type}}">{{a.type}}</label>
+          <!--card stats start-->
+          <div id="card-stats">
+            <div class="row">
+              <div class="col s6 l6 m6">
+                <div class="col s2 l2 m2 headding-icon dark-blue-back">
+                  <i class="fa fa-user"></i>
                 </div>
-               
-               
+                <div class="hedding-text p-l-80">
+                  DEALER MANAGEMENT
+                </div>
               </div>
-          <div class="input-field col col s3">
-              <input id="disc" type="text" class="" [(ngModel)]="discount" name="discount">
-              <label for="disc">Discout %</label>
+              <div class="col s6 l6 m6 right-align">
+                <button data-target="add_dealer" class="hedding-btn-2 modal-trigger">Add Dealer </button>
+                <button class="hedding-btn">Download Data </button>
+              </div>
+
             </div>
-          </div> 
-          <div class="divider"></div>
-          <br />
-          <div class="modal-footer">
-            <a class="modal-action modal-close ">CANCEL</a>
-            <button class="modal-action modal-close hedding-btn" type="submit">ADD</button>
           </div>
-      
-        </form>
-    </div>
-    </div>
-  
-  </div>
+          <!--card stats end-->
 
+          <!--DataTables example Row grouping-->
+          <div class="section">
+            <div class="row ">
+              <div class="col s12 card mr-t-50">
+                <table id="" class="display mr-t-20 striped" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Company</th>
+                      <th>Mail ID</th>
+                      <th>Contact No.</th>
+                      <th>Discount #</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let a of account">
+                      <td>{{a.name}}</td>
+                      <td>{{a.company_name}}</td>
+                      <td>{{a.email}}</td>
+                      <td>{{a.mobile}}</td>
+                      <td>{{a.discount}}</td>
+                      <td data-target="view_dealer" class="modal-trigger" (click)="viewDealer(a._id)">
+                        <i class="fa fa-eye blue-text"></i>
+                      </td>
+                      <!-- <td data-target="edit_dealer"  class="modal-trigger"><i class="fa fa-pencil-alt orange-text"></i></td>   -->
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
 
-  <!-- edit dealer -->
-  <div id="view_dealer" class="modal">
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!--end container-->
+    </section>
+
+    <!-- add dealer -->
+    <div id="add_dealer" class="modal">
       <div class="modal-content">
-       
+
         <div class="col s12">
           <h5>Details</h5>
         </div>
         <div class="col s12">
-          <table id="" class="display mr-t-20" cellspacing="0" width="100%">
+          <form class="col s12" (ngSubmit)="addDealer()">
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="name" type="text" [(ngModel)]="name" name="name" class="">
+                <label for="name">Person Name</label>
+              </div>
+              <div class="input-field col s6">
+                <input id="cnm" type="text" class="" [(ngModel)]="cnm" name="cnm">
+                <label for="cnm">Company Name</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="email" type="text" class="" [(ngModel)]="email" name="email">
+                <label for="email">Email ID</label>
+              </div>
+              <div class="input-field col s6">
+                <input id="credit-demo" type="text" class="" [(ngModel)]="mno" name="mno">
+                <label for="credit_demo">Mobile No.</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <textarea id="address" type="text" class="materialize-textarea" [(ngModel)]="address" name="address"></textarea>
+                <label for="address">Address</label>
+              </div>
+              <div class=" col s6">CITY :
+                <select [(ngModel)]="selectedValue" name="selectedValue">
+                  <option disabled>--Select Brand Name --</option>
+                  <option *ngFor="let c of city" [value]="c.city">{{c.city}}</option>
+                </select>
+              </div>
+              <div class="input-field col s6">GST ID:
+                <input id="purchase-code" type="text" C name="gst" [(ngModel)]="gst" name="gst" class="">
+              </div>
+
+              <div class=" col s12">
+                <div class="">
+                  <h6>TYPE:</h6>
+                </div>
+                <br />
+                <div class="col s3" *ngFor="let a of role">
+                  <input class="with-gap" type="radio" id="{{a.type}}" value="{{roletype}}" name="type" [(ngModel)]="type" />
+                  <label for="{{a.type}}">{{a.type}}</label>
+                </div>
+
+
+              </div>
+              <div class="input-field col col s3">
+                <input id="disc" type="text" class="" [(ngModel)]="discount" name="discount">
+                <label for="disc">Discout %</label>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <br />
+            <div class="modal-footer">
+              <a class="modal-action modal-close ">CANCEL</a>
+              <button class="modal-action modal-close hedding-btn" type="submit">ADD</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- edit dealer -->
+    <div id="view_dealer" class="modal">
+      <div class="modal-content">
+
+        <div class="col s12">
+          <h5>Details</h5>
+        </div>
+        <div class="col s12">
+          <table id="" class="display mr-t-20 striped" cellspacing="0" width="100%">
             <tbody>
-              <tr >
+              <tr>
                 <th>Name</th>
-                 <td>{{name}}</td>
+                <td>{{name}}</td>
               </tr>
               <tr>
-                <th>Company</th>  
-                 <td>{{cnm}}</td>
+                <th>Company</th>
+                <td>{{cnm}}</td>
               </tr>
               <tr>
-                  <th>Mail ID</th>
+                <th>Mail ID</th>
                 <td>{{email}}</td>
               </tr>
               <tr>
-                  <th>Contact No.</th>
+                <th>Contact No.</th>
                 <td>{{mno}}</td>
               </tr>
               <tr>
-                  <th>Discount #</th>
+                <th>Discount #</th>
                 <td>{{discount}}</td>
-              
+
               </tr>
               <tr>
-                  <th>GST</th>
+                <th>GST</th>
                 <td>{{gst}}</td>
-              
-              </tr><tr>
-                  <th>Type</th>
+
+              </tr>
+              <tr>
+                <th>Type</th>
                 <td>{{Type}}</td>
-              
+
               </tr>
             </tbody>
           </table>
-        
+
+        </div>
       </div>
-      </div>
-    
+
     </div>
   </div>
 
-<script>
-  $(document).ready(function(){
-        // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
-        $('.modal').modal();
-      });
-      // $('#add_dealer').modal('open');
-      // $('#add_dealer').modal('close');
-
-
-//  $('.modal').modal({
-  //     dismissible: true, // Modal can be dismissed by clicking outside of the modal
-  //     opacity: .5, // Opacity of modal background
-  //     inDuration: 300, // Transition in duration
-  //     outDuration: 200, // Transition out duration
-  //     startingTop: '4%', // Starting top style attribute
-  //     endingTop: '10%', // Ending top style attribute
-  //     ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
-  //     alert("Ready");
-  //     console.log(modal, trigger);
-  //   },
-  //   complete: function() { alert('Closed'); } // Callback for Modal close
-  // }
-  // );
-</script>
+  <script>
+    $(document).ready(function () {
+      $('.modal').modal();
+    });
+  </script>

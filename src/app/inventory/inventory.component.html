@@ -1,189 +1,171 @@
 <div id="main">
-    <!-- START WRAPPER -->
-    <div class="wrapper">
-  <app-header></app-header>
-  
-  <section id="content" class="mr-t-20">
-    <!--start container-->
-    <div class="container">
-      <div class="section">
-            <!--card stats start-->
-            <div id="card-stats">
-                <div class="row">
-                    <div class="col s6 l6 m6">  
-                        <div class="col s2 l2 m2 headding-icon dark-blue-back">
-                              <i class="fa fa-boxes"></i>
-                            </div>
-                            <div class="hedding-text p-l-80">
-                              INVENTORY MANAGEMENT
-                            </div>
-                          </div>
-                          <div class="col s6 l6 m6 right-align">
-                              <button data-target="add_product" class="hedding-btn-2 modal-trigger">Add Item </button>
-                            <button data-target="edit_product" class="hedding-btn modal-trigger">Update Data </button>
-                          </div>
-                           
+  <!-- START WRAPPER -->
+  <div class="wrapper">
+    <app-header></app-header>
+
+    <section id="content" class="mr-t-20">
+      <!--start container-->
+      <div class="container">
+        <div class="section">
+          <!--card stats start-->
+          <div id="card-stats">
+            <div class="row">
+              <div class="col s6 l6 m6">
+                <div class="col s2 l2 m2 headding-icon dark-blue-back">
+                  <i class="fa fa-boxes"></i>
+                </div>
+                <div class="hedding-text p-l-80">
+                  INVENTORY MANAGEMENT
                 </div>
               </div>
-              <!--card stats end-->
-       
-       <!--DataTables example Row grouping-->
-        <div class="section">
-          <div class="row ">
-            <div class="col s12 card mr-t-50">
-              <table id="" class="display mr-t-20" cellspacing="0" width="100%">
-                <thead>
-                  <tr>
-                    <th>Image</th>
-                    <th>Model#</th>
-                    <th>Category</th>
-                    <th>Name</th>
-                    <th>pressure(PSI)</th>
-                    <th>Temprature</th>
-                    <th colspan="2">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-              <ng-container *ngFor = "let i of product">
-              <ng-container *ngFor = "let m of model_info">
-              <ng-container  *ngFor ="let c of category"> 
-               
-                <tr *ngIf="i.category_id==c._id">
-                    <td>{{i.images}}</td>                    
-                    <td>  </td>
-                    <td>{{c.name}}</td>                    
-                    <td>{{i.name}}</td>
-                    <td>{{i.pressure}}</td>
-                    <td>{{i.temprature}}</td>
-                    
-                    <td><i class="fa fa-pencil-alt orange-text"></i></td>  
-                    <td><i class="fa fa-trash red-text"></i></td>
-                  </tr>
-                  </ng-container>
-               </ng-container>
-               </ng-container>
-                </tbody>
-              </table>
+              <div class="col s6 l6 m6 right-align">
+                <button [routerLink]="['/addproduct']" class="hedding-btn-2">Add Item </button>
+                <button class="hedding-btn">Update Data </button>
+              </div>
+
             </div>
- 
+          </div>
+          <!--card stats end-->
+
+          <!--DataTables example Row grouping-->
+          <div class="section">
+            <div class="row ">
+              <div class="col s12 card mr-t-50">
+                <table id="" class="display striped mr-t-20" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>Image</th>
+                      <th>Name</th>
+                      <th>Category</th>
+                      <th>pressure(PSI)</th>
+                      <th>Temprature</th>
+                      <th colspan="2">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container *ngFor="let i of product">
+                      <ng-container *ngFor="let c of category">
+
+                        <tr *ngIf="i.category_id === c._id">
+                          <td class="prod_img">
+                            <img src="{{i.product_image}}" class="img-thumbnail border-none  img-fluid" width="80" height="80" />
+                            <div class="edit">
+                              <button data-target="singleimg" class="modal-trigger b-radius-40" (click)="getproductById(i._id)">
+                                <i class="fa fa-pencil-alt orange-text" title="single images"></i>
+                              </button> &nbsp;&nbsp;&nbsp;
+                              <button data-target="otherimg" class="modal-trigger b-radius-40" (click)="getproductById(i._id)">
+                                <i class="fa fa-external-link-alt orange-text" title="other images"></i>
+                              </button> &nbsp;&nbsp;&nbsp;
+                            </div>
+                          </td>
+                          <td>{{i.name}} </td>
+                          <td>{{c.name}}</td>
+                          <td>{{i.pressure}}</td>
+                          <td>{{i.temprature}}</td>
+                          <td  [routerLink]="['/viewproduct', i._id]">
+                            <i class="fa fa-eye blue-text"></i>
+                          </td>
+
+                          <td  [routerLink]="['/editproduct', i._id]">
+                            <i class="fa fa-pencil-alt orange-text"></i>
+                          </td>
+                          <td (click)="ConfirmDelete(i._id)">
+                            <i class="fa fa-trash red-text "></i>
+                          </td>
+                        </tr>
+                      </ng-container>
+                    </ng-container>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
       </div>
+
+
+      <!--end container-->
+    </section>
+
+
+    <!-- single image -->
+    <div id="singleimg" class="modal">
+      <div class="modal-content">
+
+        <div class="col s12">
+          <h5>images</h5>
+        </div>
+        <div class="row">
+
+          <form (ngSubmit)="updateImage()">
+            <input type="hidden" name="id" [(ngModel)]="id">
+            <div class="row">
+              <div class="col s6 m6 l6">
+                <label>
+                  <Strong></Strong>
+                </label>
+                <img class="d-block img-responsive img-thumbnail" width="150" height="150" src="{{p_img}}" />
+
+              </div>
+              <div class="col s6 m6 l6">
+
+                <input type="file" class="p-20" required="required" (change)="imageUpload($event)" name="prod_img" placeholder="Add Image">
+                <button type="submit" class="btn btn-default ">Update</button> &nbsp;
+
+              </div>
+            </div>
+            <br />
+          </form>
+
         </div>
       </div>
-    
+
     </div>
 
-    
-    <!--end container-->
-  </section>
-  <div id="add_product" class="modal">
-      <div class="modal-content">
-       
-        <div class="col s12">
-          <h5>Details</h5>
-        </div>
-        <div class="col s12">
-          <form class="col s12" #formRef="ngForm" (ngSubmit)="addProduct()" >
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="name" type="text" [(ngModel)]="name" name="name" [(ngModel)]="name" class="">
-                <label for="name">Name</label>
-              </div>
-              
-            </div>
-            <div class="row">
-              <div class="input-field col s12"> <b> Image:</b> &nbsp;&nbsp;  
-                <input id="p_img" type="file" class="" (change)="imageUpload($event)" [(ngModel)]="p_img" name="p_img">
-               </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12"> <b>Other Image:</b> &nbsp;&nbsp;  
-                <input id="img" type="file" multiple="multiple" class="" (change)="otherImageUpload($event)" [(ngModel)]="img" name="img">
-               </div>
-            </div>
-            <div class="row">
 
-              <div class="col s12"> 
-                Category:
-                <select [(ngModel)]="catValue" name="catValue">
-                  <option value="" disabled selected>Select Category</option>
-                  <option *ngFor ="let c of category"  value="{{c._id}}">{{c.name}}</option>
-                </select>
-              </div>
-             
-              <div class="col s12 p-t-15"> 
-                  City:
-                  <select [(ngModel)]="cityValue" name="cityValue">
-                    <option value="" disabled selected>Select Category</option>
-                    <option *ngFor ="let ci of city" value="{{ci.city}}">{{ci.city}}</option>
-                  </select>
-                </div>
-               
-              <div class="input-field col s12 p-t-15">
-                  <!-- <input id="model_info" type="text" class="" [(ngModel)]="model_info" name="model_info">
-                  <label for="model_info">Model Info</label>
-          -->
-          <div><b>Model Info: </b></div>
-          <div class="input-field col s12">
-              <input id="price" type="text" [(ngModel)]="price" name="price" [(ngModel)]="price" class="">
-              <label for="price">Price</label>
-            </div>
-            <div class="input-field col s12">
-                <input id="model_no" type="text" [(ngModel)]="model_no" name="model_no" [(ngModel)]="model_no" class="">
-                <label for="model_no">Model No</label>
-              </div>
-              <div class="input-field col s12">
-                  <input id="grade" type="text" [(ngModel)]="grade" name="grade" [(ngModel)]="grade" class="">
-                  <label for="grade">Grade</label>
-                </div>
-                <div class="input-field col s12">
-                    <input id="size" type="text" [(ngModel)]="size" name="size" [(ngModel)]="size" class="">
-                    <label for="size">Size</label>
-                  </div>
-                   
-                <div *ngFor="let model_array of model_info_array; let in=index" class="col s12 m12 l12">
-              
-            <div>
-              <div class="col s6 l6 m6 m-t-20">
-              <input  type="text" [(ngModel)]="model_info_array[in].key" name="key{{in}}" #key="ngModel" required />
-            </div>
-            <div class="col s 6 m6 l6">
-              <input  type="text" [(ngModel)]="model_info_array[in].value" name="value{{in}}" #value="ngModel" required />
-        </div>    
-              <!--<p [hidden]="words2[in].value">Field is required</p> -->
-              <!-- {{formRef.form.word2}}          -->
-            </div>
-            <br />
+    <!-- other images -->
+    <div id="otherimg" class="modal">
+      <div class="modal-content">
+
+        <div class="col s12">
+          <h5>images</h5>
         </div>
-        <input type="button" class="hedding-btn-2" [disabled]="!formRef.form.valid" (click)="add()" value="Add feild" />
-         
-                </div>
-                <div class="input-field col s12">
-                  <input id="temp" type="text" class=""[(ngModel)]="temp" name="temp" >
-                  <label for="temp">Tempreture</label>
-                </div>
-                <div class="input-field col s12">
-                    <input id="pressure" type="text" class=""[(ngModel)]="pressure" name="pressure" >
-                    <label for="pressure">Pressure</label>
-                  </div>
-                  <div class="input-field col s12">
-                      <textarea id="desc" type="text" class="materialize-textarea" [(ngModel)]="desc" name="desc"></textarea>
-                      <label for="desc">Description</label>
+        <div class="row">
+
+          <form (ngSubmit)="updateOtherImage()">
+            <input type="hidden" name="id" [(ngModel)]="id">
+
+            <div class="form-group">
+              <div class="row mr-t-10">
+                <ng-container *ngFor="let o_image of o_img">
+                  <div class="col s4 m4 l4 " id="info">
+                    <div class="close-image" (click)="deleteimg(o_image)">
+                      <i class=" fa fa-window-close"></i>
                     </div>
-                
-            
-                    
-            </div> 
-            <div class="divider"></div>
-            <br />
-            <div class="modal-footer">
-              <a class="modal-action modal-close ">CANCEL</a>
-              <button class="modal-action hedding-btn modal-close" type="submit">ADD</button>
+                    <img class="d-block img-resposive img-thumbnail" width="150" height="150" src="{{o_image}}" />
+                  </div>
+                </ng-container>
+              </div>
             </div>
-        
+            <div class="form-group">
+
+              <input type="file" multiple="multiple" class="form-control" required="required" (change)="otherImageUpload($event)" name="other_prod_img"
+                placeholder="Add Image">
+
+            </div>
+            <button type="submit" class="btn btn-default">Update</button> &nbsp;
+
+            <br />
           </form>
+
+        </div>
       </div>
-     
-  
-  
-  </div>
-  </div>
+
+    </div>
+    <script>
+      $(document).ready(function () {
+        $('.modal').modal();
+      });
+    </script>

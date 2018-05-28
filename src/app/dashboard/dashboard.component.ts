@@ -9,6 +9,9 @@ import { CategoryService } from '../services/category.service';
 import { Category } from '../model/category';
 import { Account } from '../model/Dealer';
 import { AccountService } from '../services/account.service';
+import {JwtHelper} from '../Jwthelper';
+import { partition } from 'rxjs/operators';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +20,7 @@ import { AccountService } from '../services/account.service';
 })
 export class DashboardComponent implements OnInit {
   
-  
+  user_id:String;
   new_count:any;
   pendding:any;
   enquiry:any;
@@ -30,9 +33,38 @@ export class DashboardComponent implements OnInit {
   enquriry_data:Order[];
   co:String ='1';
 
+  // user
+
+  o_add:boolean;
+  o_edit:boolean;
+  o_view:boolean;
+  o_delete:boolean;
+
+  d_add:boolean;
+  d_edit:boolean;
+  d_view:boolean;
+  d_delete:boolean;
+
+  i_add:boolean;
+  i_edit:boolean;
+  i_view:boolean;
+  i_delete:boolean;
+ 
+  b_add:boolean;
+  b_edit:boolean;
+  b_view:boolean;
+  b_delete:boolean;
+
+  c_add:boolean;
+  c_edit:boolean;
+  c_view:boolean;
+  c_delete:boolean;
+
+
   constructor(private router: Router,
     private loginservice:LoginService,
     private orderService: OrderService,
+    private userservice: UserService,
     private accountservice: AccountService,
     private globals: Globals) { 
   
@@ -43,14 +75,59 @@ export class DashboardComponent implements OnInit {
       this.router.navigate(["/login"]);
       }
 
-    this.auth = {"email": this.loginservice.token,"token": this.loginservice.token}  
+    // this.auth = {"email": this.loginservice.token,"token": this.loginservice.token}  
     this.getOrder();
     this.getAccount();
-    
+    this.getuser(this.user_id);
+
+  }
+  
+  getuser(user_id){
+    let id =environment.user_id
+   
+    this.userservice.getUserById(id)
+                       .subscribe((data) => {
+                      //  console.log(account);
+                         
+                          this.o_add = data.order.add;
+                          this.o_edit = data.order.edit;
+                          this.o_view = data.order.view;
+                          this.o_delete = data.order.delete;
+
+                          this.i_add = data.product.add;
+                          this.i_edit = data.product.edit;
+                          this.i_view = data.product.view;
+                          this.i_delete = data.product.delete;
+                          
+                          this.d_add = data.dealer.add;
+                          this.d_edit = data.dealer.edit;
+                          this.d_view = data.dealer.view;
+                          this.d_delete = data.dealer.delete;
+                          
+                          
+                          this.b_add = data.brand.add;
+                          this.b_edit = data.brand.edit;
+                          this.b_view = data.brand.view;
+                          this.b_delete = data.brand.delete;
+
+                          this.c_add = data.category.add;
+                          this.c_edit = data.category.edit;
+                          this.c_view = data.category.view;
+                          this.c_delete = data.category.delete;
+                          
+
+                          // console.log(data);
+                      
+    });
+
+
+
 
   }
   
   getAccount(){
+    
+    
     
     this.accountservice.getAccount()
                     .subscribe((data) => {
@@ -95,10 +172,10 @@ export class DashboardComponent implements OnInit {
         
                           }
 
-                          console.log(this.auth);
+                          // console.log(this.auth);
                           this.order = Order; 
                         
-                          console.log(this.enquriry_data);
+                          // console.log(this.enquriry_data);
                         });
           }
 
@@ -161,6 +238,7 @@ this.orderService.deleteOrder(id)
             this.getOrder();
     });
 }
+
 
 
 }

@@ -1,0 +1,87 @@
+<div id="main">
+  <!-- START WRAPPER -->
+  <div class="wrapper">
+    <app-header></app-header>
+
+    <section id="content" class="mr-t-20">
+      <!--start container-->
+      <div class="container">
+        <div class="section">
+          <!--card stats start-->
+          <div id="card-stats">
+            <div class="row">
+              <div class="col s6 l6 m6">
+                <div class="col s2 l2 m2 headding-icon dark-blue-back">
+                  <i class="fa fa-boxes"></i>
+                </div>
+                <div class="hedding-text p-l-80">
+                  Product Add
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--card stats end-->
+
+          <!--DataTables example Row grouping-->
+          <div class="section">
+            <div class="row ">
+              <div class="col s12 card mr-t-50">
+                <div class="col s6 m6 l6">
+                  <table id="" class="display mr-t-20 striped" cellspacing="0" width="100%">
+                    <tbody>
+                      <tr>
+                        <th>Name:</th>
+                        <td>{{name}}</td>
+                      </tr>
+                      <tr>
+                        <th>Category:</th>
+                        <td>{{cat_name}}</td>
+                      </tr>
+                      <tr>
+                        <th>pressure:</th>
+                        <td>{{pressure}}</td>
+                      </tr>
+                      <tr>
+                        <th>temprature</th>
+                        <td>{{temp}}</td>
+                      </tr>
+                      <tr>
+                        <th>desc</th>
+                        <td>{{desc}}</td>
+
+                      </tr>
+                    </tbody>
+                  </table>
+
+
+                </div>
+
+                <div class="col s6 m6 l6 ">
+                  <table id="" *ngFor="let m of modeldata" class="display mr-t-20 striped" cellspacing="0" width="100%">
+                    <thead>
+                      <th>{m.di}}</th>
+                      <th>{{price}}</th>
+                      <th>{{grade}}</th>
+                      <th>{{size}}</th>
+
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let m of modeldata">
+                        <td>{{m.price}}</td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!--end container-->
+    </section>
