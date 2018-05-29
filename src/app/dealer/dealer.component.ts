@@ -12,6 +12,7 @@ import { Role } from '../model/Role';
 import { DealertypeService } from '../services/dealertype.service';
 import { CityService } from '../services/city.service';
 import { City } from '../model/City';
+import { UserService } from '../services/user.service';
 
 
 
@@ -24,6 +25,7 @@ import { City } from '../model/City';
 export class DealerComponent implements OnInit {
   @ViewChild('add_dealer') add_dealer: ElementRef;
 
+  user_id:String;
   auth: any;
   account: Account[];
   role: Role[];
@@ -38,11 +40,20 @@ export class DealerComponent implements OnInit {
   discount: String;
   selectedValue: any;
 
+  // user
+
+  d_add:boolean;
+  d_edit:boolean;
+  d_view:boolean;
+  d_delete:boolean;
+
+
   constructor(private router: Router,
     private loginservice: LoginService,
     private accountservice: AccountService,
     private dealertypeservice: DealertypeService,
     private cityservice: CityService,
+    private userservice: UserService,
     private globals: Globals) { }
 
 
@@ -53,7 +64,7 @@ export class DealerComponent implements OnInit {
     }
 
     this.auth = { "email": this.globals.email, "token": this.loginservice.token }
-
+    this.getuser(this.user_id);
     this.viewaccount();
     this.getRole();
     this.getCity();
@@ -149,6 +160,25 @@ export class DealerComponent implements OnInit {
       });
   }
 
+
+  getuser(user_id) {
+    let id = environment.user_id;
+    console.log('log'+environment.user_id);
+    
+
+    this.userservice.getUserById(id)
+      .subscribe((data) => {
+        this.d_add = data.dealer.add;
+        this.d_edit = data.dealer.edit;
+        this.d_view = data.dealer.view;
+        this.d_delete = data.dealer.delete;
+  
+
+        //  console.log(account);
+        // console.log(data);
+
+      });
+  }
 
 
 

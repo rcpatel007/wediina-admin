@@ -129,7 +129,7 @@
               </div>
               <!-- Enquiries -->
 
-              <div class="col s12 card mr-t-50">
+              <div *ngIf="o_view == true" class="col s12 card mr-t-50">
                 <div class="col s3 m3">
                   <div class="col s3 m3 section-icon green-back">
                     <i class="fa fa-user-cog"></i>
@@ -138,7 +138,7 @@
                     New Enquiries
                   </div>
                 </div>
-                <table id="" class="display mr-t-90 striped"  cellspacing="0" width="100%">
+                <table id="" class="display mr-t-90 striped" cellspacing="0" width="100%">
                   <thead>
                     <tr>
                       <th>No</th>
@@ -159,42 +159,30 @@
                       <td data-target="view_order" class=" modal-trigger" (click)="viewOrder(o._id) ">
                         <i class="fa fa-eye blue-text"></i>
                       </td>
-
                       <td>
                         <i class="fa fa-check green-text"></i>
                       </td>
-                      <td>
-                        <i class="fa fa-pencil-alt orange-text"></i>
-                      </td>
-
                     </tr>
-
                   </tbody>
                 </table>
               </div>
-
               <!-- Enquiries end -->
             </div>
           </div>
         </div>
-
       </div>
       <!--end container-->
     </section>
-
-
   </div>
 </div>
 
 
 <div id="view_order" class="modal">
   <div class="modal-content">
-
     <div class="col s12">
       <h5> Product Details</h5>
     </div>
     <div class="col s12">
-
       <table id="" class="display mr-t-90 striped" cellspacing="0" width="100%">
         <thead>
           <tr>
@@ -208,15 +196,11 @@
             <td>{{p.prod_name}}</td>
             <td>{{p.qty}}</td>
             <td>{{p.price}}</td>
-
           </tr>
-
         </tbody>
       </table>
-
     </div>
   </div>
-
 </div>
 <script>
   $(document).ready(function () {

@@ -65,10 +65,10 @@ export class AddProductComponent implements OnInit {
 
 
     this.modeldata.push({
+      model_no: '',
       price: '',
       size: '',
       grade: '',
-      model_no: '',
       keyValue: []
     });
 

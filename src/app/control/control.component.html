@@ -1,28 +1,31 @@
 <div id="main">
-    <!-- START WRAPPER -->
-    <div class="wrapper">
-  <app-header></app-header>
-  
-  <section id="content" class="mr-t-20">
-    <!--start container-->
-    <div class="container">
-      <div class="section">
-        <div id="card-stats">
-          <div class="row">
-            <form (ngSubmit)="addCity()">
-              <div class="control-headding">CITY SERVED IN</div>
-              <div class="input-field col s12">
-                <textarea id="city" type="text"  class="materialize-textarea   city_class" name="city_name"  [(ngModel)] = "city_name">{{city_name}}</textarea>
-              </div>
-              <div class="right-align">
-                <button class="hedding-btn" type="submit">Update</button>
-              </div>
-            </form>
-          </div> <br /><br />
-          <div class="divider"></div>
-          <br /><br />
-          
-          <!-- <div class="row">
+  <!-- START WRAPPER -->
+  <div class="wrapper">
+    <app-header></app-header>
+
+    <section id="content" class="mr-t-20">
+      <!--start container-->
+      <div class="container">
+        <div class="section">
+          <div id="card-stats">
+            <div class="row">
+              <form (ngSubmit)="addCity()">
+                <div class="control-headding">CITY SERVED IN</div>
+                <div class="input-field col s12">
+                  <textarea id="city" type="text" class="materialize-textarea   city_class" name="city_name" [(ngModel)]="city_name">{{city_name}}</textarea>
+                </div>
+                <div class="right-align">
+                  <button class="hedding-btn" type="submit">Update</button>
+                </div>
+              </form>
+            </div>
+            <br />
+            <br />
+            <div class="divider"></div>
+            <br />
+            <br />
+
+            <!-- <div class="row">
               <div class="col s12 control-headding">NOTIFICAITON SETTING</div>
               <div class="col s12 mr-p-l-20 mr-b-20 center-align"> 
                 <div class="col s2"></div>
@@ -73,27 +76,31 @@
           <div class="divider"></div>
           <br /><br /> -->
 
-          <div class="row">
+            <div class="row">
               <div class="control-headding col s6">ACCOUNT SETTINGS</div>
               <div class="col s6">
                 <div class="right-align">
-                  <button  data-target="add_user" (click) ="roleOff();" class="hedding-btn-2 modal-trigger">Add User</button>
+                  <button data-target="add_user" (click)="roleOff();" class="hedding-btn-2 modal-trigger">Add User</button>
                 </div>
               </div>
               <div class="col s12 mr-t-20 center-align">
-                <a href="" data-target="edit_user" *ngFor = "let u of user" class="modal-trigger" (click) = "getuserById(u._id)">
-                <div class="col s3 ac_card" >
-                  <div class="col s2"><i class="fa fa-2x fa-user"></i></div>
-                  <div class="col s10 center-align p-t-5">{{u.name}}</div>  
-                </div>
-              </a>
+                <a href="" data-target="edit_user" *ngFor="let u of user" class="modal-trigger" (click)="getuserById(u._id)">
+                  <div class="col s3 ac_card">
+                    <div class="col s2">
+                      <i class="fa fa-2x fa-user"></i>
                     </div>
-          </div>
-          <br /><br />
-          <div class="divider"></div>
-          <br /><br />
-          
-          <div class="row">
+                    <div class="col s10 center-align p-t-5">{{u.name}}</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <br />
+            <br />
+            <div class="divider"></div>
+            <br />
+            <br />
+
+            <div class="row">
               <div class="control-headding col s6">ACCOUNT TYPE</div>
               <div class="col s6">
                 <div class="right-align">
@@ -101,79 +108,88 @@
                 </div>
               </div>
               <div class="col s12 mr-t-20 center-align">
-                <a href="" data-target="edit_type" *ngFor = "let r of role" class="modal-trigger" (click) = "getRoleById(r._id)">
+                <a href="" data-target="edit_type" *ngFor="let r of role" class="modal-trigger" (click)="getRoleById(r._id)">
                   <div class="col s3 ac_card">
-                    <div class="col s2"><i class="fa fa-2x fa-user"></i></div>
-                    <div class="col s10 center-align p-t-5">{{r.role}}</div>  
+                    <div class="col s2">
+                      <i class="fa fa-2x fa-user"></i>
+                    </div>
+                    <div class="col s10 center-align p-t-5">{{r.role}}</div>
                   </div>
                 </a>
-                
+
+              </div>
             </div>
-          </div>
-          <br /><br />
-          <div class="divider"></div>
-          <br /><br />
-          
-          <div class="row">
+            <br />
+            <br />
+            <div class="divider"></div>
+            <br />
+            <br />
+
+            <div class="row">
               <div class="control-headding col s6">DEALER TYPES</div>
               <div class="col s6">
                 <div class="right-align">
-                  <button  data-target="add_dealer_type" class="hedding-btn-2 modal-trigger">Add Type</button>
+                  <button data-target="add_dealer_type" class="hedding-btn-2 modal-trigger">Add Type</button>
                 </div>
               </div>
               <div class="col s12 mr-t-20 center-align">
-                <a href="" data-target="edit_dealer_type" *ngFor = "let t of dealertype" class="modal-trigger" (click) = "getTypeById(t._id)">
+                <a href="" data-target="edit_dealer_type" *ngFor="let t of dealertype" class="modal-trigger" (click)="getTypeById(t._id)">
                   <div class="col s3 ac_card">
-                    <div class="col s2"><i class="fa fa-2x fa-user"></i></div>
-                    <div class="col s10 center-align p-t-5">{{t.type}}</div>  
+                    <div class="col s2">
+                      <i class="fa fa-2x fa-user"></i>
+                    </div>
+                    <div class="col s10 center-align p-t-5">{{t.type}}</div>
                   </div>
                 </a>
-             
+
+              </div>
             </div>
           </div>
+        </div>
       </div>
-      </div>
-    </div>
-    <!--end container-->
-  </section>
-  
-  <!-- add user -->
-  <div id="add_user" class="modal modal-fixed-footer">
+      <!--end container-->
+    </section>
+
+    <!-- add user -->
+    <div id="add_user" class="modal modal-fixed-footer">
       <form class="col s12" (ngSubmit)="addUser()">
         <div class="modal-content">
-              <div class="row">
-                <div class="input-field col s6">
-                  <input id="Name" type="text" class="" [(ngModel)]="name" name="name">
-                  <label for="Name">Name</label>
-                </div>
-                <div class="input-field col s6">
-                  <input id="email" type="text" class="" [(ngModel)]="email" name="email">
-                  <label for="email">Email</label>
-                </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="Name" type="text" class="" [(ngModel)]="name" name="name">
+              <label for="Name">Name</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="email" type="text" class="" [(ngModel)]="email" name="email">
+              <label for="email">Email</label>
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="input-field col s6">
+              <input id="credit-demo" type="text" class="" [(ngModel)]="mobile" name="mobile">
+              <label for="credit_demo">Mobile No.</label>
+            </div>
+          </div>
+          <div class="row">
+
+            <div class=" col s12">
+              <div class="">
+                <h6>TYPE:</h6>
               </div>
-              <div class="row">
-                
-                <div class="input-field col s6">
-                  <input id="credit-demo" type="text" class="" [(ngModel)]="mobile" name="mobile">
-                  <label for="credit_demo">Mobile No.</label>
-                </div>
+              <br />
+              <div class="col s3" *ngFor="let a of role">
+                <input class="with-gap" name="roletype" type="radio" id="{{a.role}}" [value]="a.role" [(ngModel)]="roletype" (change)="getRoleValue(a._id)"
+                />
+                <label for="{{a.role}}">{{a.role}}</label>
               </div>
-              <div class="row">
-              
-                <div class=" col s12">
-                 <div class=""><h6>TYPE:</h6></div>
-                 <br />
-                 <div class="col s3" *ngFor ="let a of role">
-                    <input class="with-gap" name="roletype" type="radio" id="{{a.role}}" [value]="a.role" [(ngModel)]="roletype" (change) = "getRoleValue(a._id)"/>
-                    <label for="{{a.role}}">{{a.role}}</label>
-                 </div>
-                 
-                
-               </div>
-              </div>
-              
-              <div class="row" *ngIf = "rolevalue == true">
-                  <!-- <div class="input-field col s6">
+
+
+            </div>
+          </div>
+
+          <div class="row" *ngIf="rolevalue == true">
+            <!-- <div class="input-field col s6">
                     <input id="email" type="text" class="">
                     <label for="email">view</label>
                   </div>
@@ -182,315 +198,475 @@
                     <label for="credit_demo">edit.</label>
                  -->
 
-                 <table>
-                   <thead>
-                      <th></th>
-                      <th>add</th>
-                      <th>view</th>
-                      <th>edit</th>
-                      <th>delete</th>
-                   </thead>
-                   <tbody>
-                      <tr>
-                         <td>Order</td>
-                         <td>
-                           <input type="checkbox" class="filled-in" id="a_o_add" [(ngModel)]="a_o_add" [value]="a_o_add" name="a_o_add" />
-                           <label for="a_o_add"></label>
-                    
-                         </td>
-                         <td>
-                           <input type="checkbox" class="filled-in" id="a_o_view" [(ngModel)]="a_o_view" [value]="a_o_view" name="a_o_view" />
-                           <label for="a_o_view"></label>
-                    
-                         </td>
-                         <td>  
-                             <input type="checkbox" class="filled-in" id="a_o_edit" [(ngModel)]="a_o_edit" [value]="a_o_edit"  name="a_o_edit"/>
-                             <label for="a_o_edit"></label>
-                           </td>
-                         <td>  
-                           <input type="checkbox" class="filled-in" id="a_o_delete" [(ngModel)]="a_o_delete" [value]="a_o_delete" name="a_o_delete"/>
-                           <label for="a_o_delete"></label>
-                         </td>
-                         
-                       </tr>
-                       <tr>
-                           <td>Inventory</td>
-                           <td>
-                             <input type="checkbox" class="filled-in" id="a_i_add" [(ngModel)]="a_i_add" [value]="a_i_add" name="a_i_add" />
-                             <label for="a_i_add"></label>
-                      
-                           </td>
-                           <td>
-                             <input type="checkbox" class="filled-in" id="a_i_view" [(ngModel)]="a_i_view" [value]="a_i_view" name="a_i_view" />
-                             <label for="a_i_view"></label>
-                      
-                           </td>
-                           <td>  
-                               <input type="checkbox" class="filled-in" id="a_i_edit" [(ngModel)]="a_i_edit" [value]="a_i_edit" name="a_i_edit"/>
-                               <label for="a_i_edit"></label>
-                             </td>
-                           <td>  
-                             <input type="checkbox" class="filled-in" id="a_i_delete" [(ngModel)]="a_i_delete"  [value]="a_i_delete" name="a_i_delete"/>
-                             <label for="a_i_delete"></label>
-                           </td>
-                         </tr>
-                         <tr>
-                         <td>Guest</td>
-                         <td>
-                           <input type="checkbox" class="filled-in" id="a_g_add" [(ngModel)]="a_g_add" name="a_g_add" [value]="a_g_add" />
-                           <label for="a_g_add"></label>
-                     
-                         </td>
-                         <td>
-                           <input type="checkbox" class="filled-in" id="a_g_view" [(ngModel)]="a_g_view" name="a_g_view" [value]="a_g_view" />
-                           <label for="a_g_view"></label>
-                     
-                         </td>
-                         <td>  
-                             <input type="checkbox" class="filled-in" id="a_g_edit" [(ngModel)]="a_g_edit"  name="a_g_edit" [value]="a_g_edit"/>
-                             <label for="a_g_edit"></label>
-                           </td>
-                         <td>  
-                           <input type="checkbox" class="filled-in" id="a_g_delete" [(ngModel)]="a_g_delete"  name="a_g_delete" [value]="a_g_delete"/>
-                           <label for="a_g_delete"></label>
-                         </td>
-                       </tr>
-                     
-                       <tr>
-                         <td>Brand</td>
-                         <td>
-                           <input type="checkbox" class="filled-in" id="a_b_add" [(ngModel)]="a_b_add" name="a_b_add" [value]="a_b_add" />
-                           <label for="a_b_add"></label>
-                     
-                         </td>
-                         <td>
-                           <input type="checkbox" class="filled-in" id="a_b_view" [(ngModel)]="a_b_view" name="a_b_view" [value]="a_b_view" />
-                           <label for="a_b_view"></label>
-                     
-                         </td>
-                         <td>  
-                             <input type="checkbox" class="filled-in" id="a_b_edit" [(ngModel)]="a_b_edit"  name="a_b_edit" [value]="a_b_edit"/>
-                             <label for="a_b_edit"></label>
-                           </td>
-                         <td>  
-                           <input type="checkbox" class="filled-in" id="a_b_delete" [(ngModel)]="a_b_delete"  name="a_b_delete" [value]="a_b_delete"/>
-                           <label for="a_b_delete"></label>
-                         </td>
-                       </tr>
-                       <tr>
-                         <td>Category</td>
-                         <td>
-                           <input type="checkbox" class="filled-in" id="a_c_add" [(ngModel)]="a_c_add" name="a_c_add" [value]="a_c_add" />
-                           <label for="a_c_add"></label>
-                     
-                         </td>
-                         <td>
-                           <input type="checkbox" class="filled-in" id="a_c_view" [(ngModel)]="a_c_view" name="a_c_view"  [value]="a_c_view"/>
-                           <label for="a_c_view"></label>
-                     
-                         </td>
-                         <td>  
-                             <input type="checkbox" class="filled-in" id="a_c_edit" [(ngModel)]="a_c_edit"  name="a_c_edit" [value]="a_c_edit"/>
-                             <label for="a_c_edit"></label>
-                           </td>
-                         <td>  
-                           <input type="checkbox" class="filled-in" id="a_c_delete" [(ngModel)]="a_c_delete"  name="a_c_delete" [value]="a_c_delete"/>
-                           <label for="a_c_delete"></label>
-                         </td>
-                       </tr>
-                    </tbody>
-                 </table>
-                </div>
-            
-        
-      </div>
-      <div class="modal-footer p-t-15 ">
-        <a class="modal-action modal-close ">CANCEL</a>
-        <button class="modal-action    hedding-btn" type="submit" >ADD</button>
-      </div>
+            <table>
+              <thead>
+                <th></th>
+                <th>add</th>
+                <th>view</th>
+                <th>edit</th>
+                <th>delete</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Order</td>
+                  <td>
+                    <input type="checkbox" class="filled-in" id="a_o_add" [(ngModel)]="a_o_add" [value]="a_o_add" name="a_o_add" />
+                    <label for="a_o_add"></label>
+
+                  </td>
+                  <td>
+                    <input type="checkbox" class="filled-in" id="a_o_view" [(ngModel)]="a_o_view" [value]="a_o_view" name="a_o_view" />
+                    <label for="a_o_view"></label>
+
+                  </td>
+                  <td>
+                    <input type="checkbox" class="filled-in" id="a_o_edit" [(ngModel)]="a_o_edit" [value]="a_o_edit" name="a_o_edit" />
+                    <label for="a_o_edit"></label>
+                  </td>
+                  <td>
+                    <input type="checkbox" class="filled-in" id="a_o_delete" [(ngModel)]="a_o_delete" [value]="a_o_delete" name="a_o_delete"
+                    />
+                    <label for="a_o_delete"></label>
+                  </td>
+
+                </tr>
+                <tr>
+                  <td>Inventory</td>
+                  <td>
+                    <input type="checkbox" class="filled-in" id="a_i_add" [(ngModel)]="a_i_add" [value]="a_i_add" name="a_i_add" />
+                    <label for="a_i_add"></label>
+
+                  </td>
+                  <td>
+                    <input type="checkbox" class="filled-in" id="a_i_view" [(ngModel)]="a_i_view" [value]="a_i_view" name="a_i_view" />
+                    <label for="a_i_view"></label>
+
+                  </td>
+                  <td>
+                    <input type="checkbox" class="filled-in" id="a_i_edit" [(ngModel)]="a_i_edit" [value]="a_i_edit" name="a_i_edit" />
+                    <label for="a_i_edit"></label>
+                  </td>
+                  <td>
+                    <input type="checkbox" class="filled-in" id="a_i_delete" [(ngModel)]="a_i_delete" [value]="a_i_delete" name="a_i_delete"
+                    />
+                    <label for="a_i_delete"></label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Guest</td>
+                  <td>
+                    <input type="checkbox" class="filled-in" id="a_g_add" [(ngModel)]="a_g_add" name="a_g_add" [value]="a_g_add" />
+                    <label for="a_g_add"></label>
+
+                  </td>
+                  <td>
+                    <input type="checkbox" class="filled-in" id="a_g_view" [(ngModel)]="a_g_view" name="a_g_view" [value]="a_g_view" />
+                    <label for="a_g_view"></label>
+
+                  </td>
+                  <td>
+                    <input type="checkbox" class="filled-in" id="a_g_edit" [(ngModel)]="a_g_edit" name="a_g_edit" [value]="a_g_edit" />
+                    <label for="a_g_edit"></label>
+                  </td>
+                  <td>
+                    <input type="checkbox" class="filled-in" id="a_g_delete" [(ngModel)]="a_g_delete" name="a_g_delete" [value]="a_g_delete"
+                    />
+                    <label for="a_g_delete"></label>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Brand</td>
+                  <td>
+                    <input type="checkbox" class="filled-in" id="a_b_add" [(ngModel)]="a_b_add" name="a_b_add" [value]="a_b_add" />
+                    <label for="a_b_add"></label>
+
+                  </td>
+                  <td>
+                    <input type="checkbox" class="filled-in" id="a_b_view" [(ngModel)]="a_b_view" name="a_b_view" [value]="a_b_view" />
+                    <label for="a_b_view"></label>
+
+                  </td>
+                  <td>
+                    <input type="checkbox" class="filled-in" id="a_b_edit" [(ngModel)]="a_b_edit" name="a_b_edit" [value]="a_b_edit" />
+                    <label for="a_b_edit"></label>
+                  </td>
+                  <td>
+                    <input type="checkbox" class="filled-in" id="a_b_delete" [(ngModel)]="a_b_delete" name="a_b_delete" [value]="a_b_delete"
+                    />
+                    <label for="a_b_delete"></label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Category</td>
+                  <td>
+                    <input type="checkbox" class="filled-in" id="a_c_add" [(ngModel)]="a_c_add" name="a_c_add" [value]="a_c_add" />
+                    <label for="a_c_add"></label>
+
+                  </td>
+                  <td>
+                    <input type="checkbox" class="filled-in" id="a_c_view" [(ngModel)]="a_c_view" name="a_c_view" [value]="a_c_view" />
+                    <label for="a_c_view"></label>
+
+                  </td>
+                  <td>
+                    <input type="checkbox" class="filled-in" id="a_c_edit" [(ngModel)]="a_c_edit" name="a_c_edit" [value]="a_c_edit" />
+                    <label for="a_c_edit"></label>
+                  </td>
+                  <td>
+                    <input type="checkbox" class="filled-in" id="a_c_delete" [(ngModel)]="a_c_delete" name="a_c_delete" [value]="a_c_delete"
+                    />
+                    <label for="a_c_delete"></label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+        </div>
+        <div class="modal-footer p-t-15 ">
+          <a class="modal-action modal-close ">CANCEL</a>
+          <button class="modal-action  modal-close  hedding-btn" type="submit">ADD</button>
+        </div>
       </form>
-      </div>
+    </div>
   </div>
 
   <!-- edit user -->
 
   <div id="edit_user" class="modal modal-fixed-footer">
     <form class="col s12" (ngSubmit)="editUser()">
-   
-      <div class="modal-content">
-            <div class="row">
-              <div class="input-field col s6">
-                  <input type="hidden" name="id" [(ngModel)]="id">
 
-                <input id="Name" type="text" class="" placeholder="Name" [(ngModel)]="name" name="name">
-              </div>
-              <div class="input-field col s6">
-                <input id="email" type="text" class="" [(ngModel)]="email" placeholder="Email ID" name="email">
-              </div>
+      <div class="modal-content">
+        <div class="row">
+          <div class="input-field col s6">
+            <input type="hidden" name="id" [(ngModel)]="id">
+
+            <input id="Name" type="text" class="" placeholder="Name" [(ngModel)]="name" name="name">
+          </div>
+          <div class="input-field col s6">
+            <input id="email" type="text" class="" [(ngModel)]="email" placeholder="Email ID" name="email">
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="input-field col s6">
+            <input id="credit-demo" type="text" class="" [(ngModel)]="mobile" placeholder="Mobile No" name="mobile">
+          </div>
+        </div>
+        <div class="row">
+
+          <div class=" col s12">
+            <div class="">
+              <h6>TYPE:</h6>
             </div>
-            <div class="row">
-              
-              <div class="input-field col s6">
-                <input id="credit-demo" type="text" class="" [(ngModel)]="mobile" placeholder="Mobile No" name="mobile">
-              </div>
+            <br />
+            <div class="col s3" *ngFor="let a of role">
+              <input class="with-gap" name="roletype" type="radio" id="{{a.role}}" value="a.role" [(ngModel)]="roletype" (change)="getUserRoleValue(id)"
+              />
+              <label for="{{a.role}}">{{a.role}}</label>
             </div>
-            <div class="row">
-            
-              <div class=" col s12">
-               <div class=""><h6>TYPE:</h6></div>
-               <br />
-               <div class="col s3" *ngFor ="let a of role">
-                  <input class="with-gap" name="roletype" type="radio" id="{{a.role}}" [value]="a.role" [(ngModel)]="roletype" (change) = "getUserRoleValue(id)"/>
-                  <label for="{{a.role}}">{{a.role}}</label>
-               </div>
-              
-             </div>
-            </div>
-            
-            <div class="row">
-               <table>
-                 <thead>
-                    <th></th>
-                    <th>add</th>
-                    <th>view</th>
-                    <th>edit</th>
-                    <th>delete</th>
-                 </thead>
-                 <tbody>
-                    <tr>
-                       <td>Order</td>
-                       <td>
-                         <input type="checkbox" class="filled-in" id="o_add" [(ngModel)]="o_add" [value]="o_add" name="o_add" />
-                         <label for="o_add"></label>
-                  
-                       </td>
-                       <td>
-                         <input type="checkbox" class="filled-in" id="o_view" [(ngModel)]="o_view" [value]="o_view" name="o_view" />
-                         <label for="o_view"></label>
-                  
-                       </td>
-                       <td>  
-                           <input type="checkbox" class="filled-in" id="o_edit" [(ngModel)]="o_edit" [value]="o_edit"  name="o_edit"/>
-                           <label for="o_edit"></label>
-                         </td>
-                       <td>  
-                         <input type="checkbox" class="filled-in" id="o_delete" [(ngModel)]="o_delete" [value]="o_delete" name="o_delete"/>
-                         <label for="o_delete"></label>
-                       </td>
-                       
-                     </tr>
-                     <tr>
-                         <td>Inventory</td>
-                         <td>
-                           <input type="checkbox" class="filled-in" id="i_add" [(ngModel)]="i_add" [value]="i_add" name="i_add" />
-                           <label for="i_add"></label>
-                    
-                         </td>
-                         <td>
-                           <input type="checkbox" class="filled-in" id="i_view" [(ngModel)]="i_view" [value]="i_view" name="i_view" />
-                           <label for="i_view"></label>
-                    
-                         </td>
-                         <td>  
-                             <input type="checkbox" class="filled-in" id="i_edit" [(ngModel)]="i_edit" [value]="i_edit" name="i_edit"/>
-                             <label for="i_edit"></label>
-                           </td>
-                         <td>  
-                           <input type="checkbox" class="filled-in" id="i_delete" [(ngModel)]="i_delete"  [value]="i_delete" name="i_delete"/>
-                           <label for="i_delete"></label>
-                         </td>
-                       </tr>
-                       <tr>
-                       <td>Guest</td>
-                       <td>
-                         <input type="checkbox" class="filled-in" id="g_add" [(ngModel)]="g_add" name="g_add" [value]="g_add" />
-                         <label for="g_add"></label>
-                   
-                       </td>
-                       <td>
-                         <input type="checkbox" class="filled-in" id="g_view" [(ngModel)]="g_view" name="g_view" [value]="g_view" />
-                         <label for="g_view"></label>
-                   
-                       </td>
-                       <td>  
-                           <input type="checkbox" class="filled-in" id="g_edit" [(ngModel)]="g_edit"  name="g_edit" [value]="g_edit"/>
-                           <label for="g_edit"></label>
-                         </td>
-                       <td>  
-                         <input type="checkbox" class="filled-in" id="g_delete" [(ngModel)]="g_delete"  name="g_delete" [value]="g_delete"/>
-                         <label for="g_delete"></label>
-                       </td>
-                     </tr>
-                   
-                     <tr>
-                       <td>Brand</td>
-                       <td>
-                         <input type="checkbox" class="filled-in" id="b_add" [(ngModel)]="b_add" name="b_add" [value]="b_add" />
-                         <label for="b_add"></label>
-                   
-                       </td>
-                       <td>
-                         <input type="checkbox" class="filled-in" id="b_view" [(ngModel)]="b_view" name="b_view" [value]="b_view" />
-                         <label for="b_view"></label>
-                   
-                       </td>
-                       <td>  
-                           <input type="checkbox" class="filled-in" id="b_edit" [(ngModel)]="b_edit"  name="b_edit" [value]="b_edit"/>
-                           <label for="b_edit"></label>
-                         </td>
-                       <td>  
-                         <input type="checkbox" class="filled-in" id="b_delete" [(ngModel)]="b_delete"  name="b_delete" [value]="b_delete"/>
-                         <label for="b_delete"></label>
-                       </td>
-                     </tr>
-                     <tr>
-                       <td>Category</td>
-                       <td>
-                         <input type="checkbox" class="filled-in" id="c_add" [(ngModel)]="c_add" name="c_add" [value]="c_add" />
-                         <label for="c_add"></label>
-                   
-                       </td>
-                       <td>
-                         <input type="checkbox" class="filled-in" id="c_view" [(ngModel)]="c_view" name="c_view"  [value]="c_view"/>
-                         <label for="c_view"></label>
-                   
-                       </td>
-                       <td>  
-                           <input type="checkbox" class="filled-in" id="c_edit" [(ngModel)]="c_edit"  name="c_edit" [value]="c_edit"/>
-                           <label for="c_edit"></label>
-                         </td>
-                       <td>  
-                         <input type="checkbox" class="filled-in" id="c_delete" [(ngModel)]="c_delete"  name="c_delete" [value]="c_delete"/>
-                         <label for="c_delete"></label>
-                       </td>
-                     </tr>
-                  </tbody>
-              </table>
-              </div>
-          
-      
+
+          </div>
+        </div>
+
+        <div class="row">
+          <table>
+            <thead>
+              <th></th>
+              <th>add</th>
+              <th>view</th>
+              <th>edit</th>
+              <th>delete</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Order</td>
+                <td>
+                  <input type="checkbox" class="filled-in" id="o_add" [(ngModel)]="o_add" [value]="o_add" name="o_add" />
+                  <label for="o_add"></label>
+
+                </td>
+                <td>
+                  <input type="checkbox" class="filled-in" id="o_view" [(ngModel)]="o_view" [value]="o_view" name="o_view" />
+                  <label for="o_view"></label>
+
+                </td>
+                <td>
+                  <input type="checkbox" class="filled-in" id="o_edit" [(ngModel)]="o_edit" [value]="o_edit" name="o_edit" />
+                  <label for="o_edit"></label>
+                </td>
+                <td>
+                  <input type="checkbox" class="filled-in" id="o_delete" [(ngModel)]="o_delete" [value]="o_delete" name="o_delete" />
+                  <label for="o_delete"></label>
+                </td>
+
+              </tr>
+              <tr>
+                <td>Inventory</td>
+                <td>
+                  <input type="checkbox" class="filled-in" id="i_add" [(ngModel)]="i_add" [value]="i_add" name="i_add" />
+                  <label for="i_add"></label>
+
+                </td>
+                <td>
+                  <input type="checkbox" class="filled-in" id="i_view" [(ngModel)]="i_view" [value]="i_view" name="i_view" />
+                  <label for="i_view"></label>
+
+                </td>
+                <td>
+                  <input type="checkbox" class="filled-in" id="i_edit" [(ngModel)]="i_edit" [value]="i_edit" name="i_edit" />
+                  <label for="i_edit"></label>
+                </td>
+                <td>
+                  <input type="checkbox" class="filled-in" id="i_delete" [(ngModel)]="i_delete" [value]="i_delete" name="i_delete" />
+                  <label for="i_delete"></label>
+                </td>
+              </tr>
+              <tr>
+                <td>Guest</td>
+                <td>
+                  <input type="checkbox" class="filled-in" id="g_add" [(ngModel)]="g_add" name="g_add" [value]="g_add" />
+                  <label for="g_add"></label>
+
+                </td>
+                <td>
+                  <input type="checkbox" class="filled-in" id="g_view" [(ngModel)]="g_view" name="g_view" [value]="g_view" />
+                  <label for="g_view"></label>
+
+                </td>
+                <td>
+                  <input type="checkbox" class="filled-in" id="g_edit" [(ngModel)]="g_edit" name="g_edit" [value]="g_edit" />
+                  <label for="g_edit"></label>
+                </td>
+                <td>
+                  <input type="checkbox" class="filled-in" id="g_delete" [(ngModel)]="g_delete" name="g_delete" [value]="g_delete" />
+                  <label for="g_delete"></label>
+                </td>
+              </tr>
+
+              <tr>
+                <td>Brand</td>
+                <td>
+                  <input type="checkbox" class="filled-in" id="b_add" [(ngModel)]="b_add" name="b_add" [value]="b_add" />
+                  <label for="b_add"></label>
+
+                </td>
+                <td>
+                  <input type="checkbox" class="filled-in" id="b_view" [(ngModel)]="b_view" name="b_view" [value]="b_view" />
+                  <label for="b_view"></label>
+
+                </td>
+                <td>
+                  <input type="checkbox" class="filled-in" id="b_edit" [(ngModel)]="b_edit" name="b_edit" [value]="b_edit" />
+                  <label for="b_edit"></label>
+                </td>
+                <td>
+                  <input type="checkbox" class="filled-in" id="b_delete" [(ngModel)]="b_delete" name="b_delete" [value]="b_delete" />
+                  <label for="b_delete"></label>
+                </td>
+              </tr>
+              <tr>
+                <td>Category</td>
+                <td>
+                  <input type="checkbox" class="filled-in" id="c_add" [(ngModel)]="c_add" name="c_add" [value]="c_add" />
+                  <label for="c_add"></label>
+
+                </td>
+                <td>
+                  <input type="checkbox" class="filled-in" id="c_view" [(ngModel)]="c_view" name="c_view" [value]="c_view" />
+                  <label for="c_view"></label>
+
+                </td>
+                <td>
+                  <input type="checkbox" class="filled-in" id="c_edit" [(ngModel)]="c_edit" name="c_edit" [value]="c_edit" />
+                  <label for="c_edit"></label>
+                </td>
+                <td>
+                  <input type="checkbox" class="filled-in" id="c_delete" [(ngModel)]="c_delete" name="c_delete" [value]="c_delete" />
+                  <label for="c_delete"></label>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+      </div>
+      <div class="modal-footer p-t-15 ">
+        <a class="modal-action modal-close ">CANCEL</a>
+        <button class="modal-action  modal-close hedding-btn" type="submit">Update</button>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- edit user -->
+
+<!-- add account type -->
+<div id="add_type" class="modal modal-fixed-footer">
+  <form class="col s12" (ngSubmit)="addRole()">
+    <div class="modal-content">
+      <div class="row">
+        <div class="input-field col s12 m12 l12">
+          <input id="roletype" type="text" class="" [(ngModel)]="roletype" name="roletype">
+          <label for="roletype">Role Type</label>
+        </div>
+      </div>
+      <div class="row">
+        <!-- <div class="input-field col s6">
+                      <input id="email" type="text" class="">
+                      <label for="email">view</label>
+                    </div>
+                    <div class="input-field col s6">
+                      <input id="credit-demo" type="text" class="">
+                      <label for="credit_demo">edit.</label>
+                   -->
+
+        <table>
+          <thead>
+            <th></th>
+            <th>add</th>
+            <th>view</th>
+            <th>edit</th>
+            <th>delete</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Order</td>
+              <td>
+                <input type="checkbox" class="filled-in" id="r_o_add" [(ngModel)]="r_o_add" name="r_o_add" />
+                <label for="r_o_add"></label>
+
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="r_o_view" [(ngModel)]="r_o_view" name="r_o_view" />
+                <label for="r_o_view"></label>
+
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="r_o_edit" [(ngModel)]="r_o_edit" name="r_o_edit" />
+                <label for="r_o_edit"></label>
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="r_o_delete" [(ngModel)]="r_o_delete" name="r_o_delete" />
+                <label for="r_o_delete"></label>
+              </td>
+
+            </tr>
+            <tr>
+              <td>Inventory</td>
+              <td>
+                <input type="checkbox" class="filled-in" id="r_i_add" [(ngModel)]="r_i_add" name="r_i_add" />
+                <label for="r_i_add"></label>
+
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="r_i_view" [(ngModel)]="r_i_view" name="r_i_view" />
+                <label for="r_i_view"></label>
+
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="r_i_edit" [(ngModel)]="r_i_edit" name="r_i_edit" />
+                <label for="r_i_edit"></label>
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="r_i_delete" [(ngModel)]="r_i_delete" name="r_i_delete" />
+                <label for="r_i_delete"></label>
+              </td>
+            </tr>
+            <tr>
+              <td>Guest</td>
+              <td>
+                <input type="checkbox" class="filled-in" id="r_g_add" [(ngModel)]="r_g_add" name="r_g_add" />
+                <label for="r_g_add"></label>
+
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="r_g_view" [(ngModel)]="r_g_view" name="r_g_view" />
+                <label for="r_g_view"></label>
+
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="r_g_edit" [(ngModel)]="r_g_edit" name="r_g_edit" />
+                <label for="r_g_edit"></label>
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="r_g_delete" [(ngModel)]="r_g_delete" name="r_g_delete" />
+                <label for="r_g_delete"></label>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Brand</td>
+              <td>
+                <input type="checkbox" class="filled-in" id="r_b_add" [(ngModel)]="r_b_add" name="r_b_add" />
+                <label for="r_b_add"></label>
+
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="r_b_view" [(ngModel)]="r_b_view" name="r_b_view" />
+                <label for="r_b_view"></label>
+
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="r_b_edit" [(ngModel)]="r_b_edit" name="r_b_edit" />
+                <label for="r_b_edit"></label>
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="r_b_delete" [(ngModel)]="r_b_delete" name="r_b_delete" />
+                <label for="r_b_delete"></label>
+              </td>
+            </tr>
+            <tr>
+              <td>Category</td>
+              <td>
+                <input type="checkbox" class="filled-in" id="r_c_add" [(ngModel)]="r_c_add" name="r_c_add" />
+                <label for="r_c_add"></label>
+
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="r_c_view" [(ngModel)]="r_c_view" name="r_c_view" />
+                <label for="r_c_view"></label>
+
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="r_c_edit" [(ngModel)]="r_c_edit" name="r_c_edit" />
+                <label for="r_c_edit"></label>
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="r_c_delete" [(ngModel)]="r_c_delete" name="r_c_delete" />
+                <label for="r_c_delete"></label>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
     </div>
     <div class="modal-footer p-t-15 ">
       <a class="modal-action modal-close ">CANCEL</a>
-      <button class="modal-action    hedding-btn" type="submit" >ADD</button>
+      <button class="modal-action    hedding-btn" type="submit">ADD</button>
     </div>
-    </form>
-    </div>
+  </form>
 </div>
-  <!-- edit user -->
+<!-- end account type -->
 
-      <!-- add account type -->
-      <div id="add_type" class="modal modal-fixed-footer">
-        <form class="col s12" (ngSubmit)="addRole()">
-          <div class="modal-content">
-            <div class="row"> 
-              <div class="input-field col s12 m12 l12">
-                <input id="roletype" type="text" class="" [(ngModel)]="roletype" name="roletype">
-                <label for="roletype">Role Type</label>
-              </div>
-            </div> 
-                <div class="row">
-                    <!-- <div class="input-field col s6">
+<!--  edit account type -->
+<div id="edit_type" class="modal modal-fixed-footer">
+  <form class="col s12" (ngSubmit)="editRole()">
+    <div class="modal-content">
+      <div class="row">
+        <input type="hidden" name="r_id" [(ngModel)]="r_id">
+
+        <div class="input-field col s12 m12 l12">
+
+          <input id="roletype" type="text" class="" [(ngModel)]="roletype" name="roletype">
+        </div>
+      </div>
+      <div class="row">
+        <!-- <div class="input-field col s6">
                       <input id="email" type="text" class="">
                       <label for="email">view</label>
                     </div>
@@ -498,349 +674,197 @@
                       <input id="credit-demo" type="text" class="">
                       <label for="credit_demo">edit.</label>
                    -->
-  
-                   <table>
-                     <thead>
-                        <th></th>
-                        <th>add</th>
-                        <th>view</th>
-                        <th>edit</th>
-                        <th>delete</th>
-                     </thead>
-                     <tbody>
-                       <tr>
-                          <td>Order</td>
-                          <td>
-                            <input type="checkbox" class="filled-in" id="r_o_add" [(ngModel)]="r_o_add" name="r_o_add" />
-                            <label for="r_o_add"></label>
-                     
-                          </td>
-                          <td>
-                            <input type="checkbox" class="filled-in" id="r_o_view" [(ngModel)]="r_o_view" name="r_o_view" />
-                            <label for="r_o_view"></label>
-                     
-                          </td>
-                          <td>  
-                              <input type="checkbox" class="filled-in" id="r_o_edit" [(ngModel)]="r_o_edit"  name="r_o_edit"/>
-                              <label for="r_o_edit"></label>
-                            </td>
-                          <td>  
-                            <input type="checkbox" class="filled-in" id="r_o_delete" [(ngModel)]="r_o_delete"  name="r_o_delete"/>
-                            <label for="r_o_delete"></label>
-                          </td>
-                          
-                        </tr>
-                        <tr>
-                            <td>Inventory</td>
-                            <td>
-                              <input type="checkbox" class="filled-in" id="r_i_add" [(ngModel)]="r_i_add" name="r_i_add" />
-                              <label for="r_i_add"></label>
-                       
-                            </td>
-                            <td>
-                              <input type="checkbox" class="filled-in" id="r_i_view" [(ngModel)]="r_i_view" name="r_i_view" />
-                              <label for="r_i_view"></label>
-                       
-                            </td>
-                            <td>  
-                                <input type="checkbox" class="filled-in" id="r_i_edit" [(ngModel)]="r_i_edit"  name="r_i_edit"/>
-                                <label for="r_i_edit"></label>
-                              </td>
-                            <td>  
-                              <input type="checkbox" class="filled-in" id="r_i_delete" [(ngModel)]="r_i_delete"  name="r_i_delete"/>
-                              <label for="r_i_delete"></label>
-                            </td>
-                          </tr>
-                          <tr>
-                          <td>Guest</td>
-                          <td>
-                            <input type="checkbox" class="filled-in" id="r_g_add" [(ngModel)]="r_g_add" name="r_g_add" />
-                            <label for="r_g_add"></label>
-                      
-                          </td>
-                          <td>
-                            <input type="checkbox" class="filled-in" id="r_g_view" [(ngModel)]="r_g_view" name="r_g_view" />
-                            <label for="r_g_view"></label>
-                      
-                          </td>
-                          <td>  
-                              <input type="checkbox" class="filled-in" id="r_g_edit" [(ngModel)]="r_g_edit"  name="r_g_edit"/>
-                              <label for="r_g_edit"></label>
-                            </td>
-                          <td>  
-                            <input type="checkbox" class="filled-in" id="r_g_delete" [(ngModel)]="r_g_delete"  name="r_g_delete"/>
-                            <label for="r_g_delete"></label>
-                          </td>
-                        </tr>
-                      
-                        <tr>
-                          <td>Brand</td>
-                          <td>
-                            <input type="checkbox" class="filled-in" id="r_b_add" [(ngModel)]="r_b_add" name="r_b_add" />
-                            <label for="r_b_add"></label>
-                      
-                          </td>
-                          <td>
-                            <input type="checkbox" class="filled-in" id="r_b_view" [(ngModel)]="r_b_view" name="r_b_view" />
-                            <label for="r_b_view"></label>
-                      
-                          </td>
-                          <td>  
-                              <input type="checkbox" class="filled-in" id="r_b_edit" [(ngModel)]="r_b_edit"  name="r_b_edit"/>
-                              <label for="r_b_edit"></label>
-                            </td>
-                          <td>  
-                            <input type="checkbox" class="filled-in" id="r_b_delete" [(ngModel)]="r_b_delete"  name="r_b_delete"/>
-                            <label for="r_b_delete"></label>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Category</td>
-                          <td>
-                            <input type="checkbox" class="filled-in" id="r_c_add" [(ngModel)]="r_c_add" name="r_c_add" />
-                            <label for="r_c_add"></label>
-                      
-                          </td>
-                          <td>
-                            <input type="checkbox" class="filled-in" id="r_c_view" [(ngModel)]="r_c_view" name="r_c_view" />
-                            <label for="r_c_view"></label>
-                      
-                          </td>
-                          <td>  
-                              <input type="checkbox" class="filled-in" id="r_c_edit" [(ngModel)]="r_c_edit"  name="r_c_edit"/>
-                              <label for="r_c_edit"></label>
-                            </td>
-                          <td>  
-                            <input type="checkbox" class="filled-in" id="r_c_delete" [(ngModel)]="r_c_delete"  name="r_c_delete"/>
-                            <label for="r_c_delete"></label>
-                          </td>
-                        </tr>
-                     </tbody>
-                   </table>
-                  </div>
-              
-          
-        </div>
-        <div class="modal-footer p-t-15 ">
-          <a class="modal-action modal-close ">CANCEL</a>
-          <button class="modal-action    hedding-btn" type="submit" >ADD</button>
-        </div>
-        </form>
-        </div>
-        <!-- end account type -->
 
-      <!--  edit account type -->
-      <div id="edit_type" class="modal modal-fixed-footer">
-        <form class="col s12" (ngSubmit)="editRole()">
-          <div class="modal-content">
-            <div class="row"> 
-                <input type="hidden" name="r_id" [(ngModel)]="r_id">
+        <table>
+          <thead>
+            <th></th>
+            <th>add</th>
+            <th>view</th>
+            <th>edit</th>
+            <th>delete</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Order</td>
+              <td>
+                <input type="checkbox" class="filled-in" id="e_o_add" [(ngModel)]="e_o_add" name="e_o_add" value="e_o_add" />
+                <label for="e_o_add"></label>
 
-              <div class="input-field col s12 m12 l12">
-                
-                <input id="roletype" type="text" class="" [(ngModel)]="roletype" name="roletype">
-              </div>
-            </div> 
-                <div class="row">
-                    <!-- <div class="input-field col s6">
-                      <input id="email" type="text" class="">
-                      <label for="email">view</label>
-                    </div>
-                    <div class="input-field col s6">
-                      <input id="credit-demo" type="text" class="">
-                      <label for="credit_demo">edit.</label>
-                   -->
-  
-                   <table>
-                     <thead>
-                        <th></th>
-                        <th>add</th>
-                        <th>view</th>
-                        <th>edit</th>
-                        <th>delete</th>
-                     </thead>
-                     <tbody>
-                       <tr>
-                          <td>Order</td>
-                          <td>
-                            <input type="checkbox" class="filled-in" id="e_o_add" [(ngModel)]="e_o_add" name="e_o_add" value="e_o_add" />
-                            <label for="e_o_add"></label>
-                     
-                          </td>
-                          <td>
-                            <input type="checkbox" class="filled-in" id="e_o_view" [(ngModel)]="e_o_view" name="e_o_view" value="e_view" />
-                            <label for="e_o_view"></label>
-                     
-                          </td>
-                          <td>  
-                              <input type="checkbox" class="filled-in" id="e_o_edit" [(ngModel)]="e_o_edit"  name="e_o_edit" value="e_o_edit" />
-                              <label for="e_o_edit"></label>
-                            </td>
-                          <td>  
-                            <input type="checkbox" class="filled-in" id="e_o_delete" [(ngModel)]="e_o_delete"  name="e_o_delete" value="e_o_delete"/>
-                            <label for="e_o_delete"></label>
-                          </td>
-                          
-                        </tr>
-                        <tr>
-                            <td>Inventory</td>
-                            <td>
-                              <input type="checkbox" class="filled-in" id="e_i_add" [(ngModel)]="e_i_add" name="e_i_add" value="e_i_add" />
-                              <label for="e_i_add"></label>
-                       
-                            </td>
-                            <td>
-                              <input type="checkbox" class="filled-in" id="e_i_view" [(ngModel)]="e_i_view" name="e_i_view" value="e_i_view"  />
-                              <label for="e_i_view"></label>
-                       
-                            </td>
-                            <td>  
-                                <input type="checkbox" class="filled-in" id="e_i_edit" [(ngModel)]="e_i_edit"  name="e_i_edit" value="e_i_edit"/>
-                                <label for="e_i_edit"></label>
-                              </td>
-                            <td>  
-                              <input type="checkbox" class="filled-in" id="e_i_delete" [(ngModel)]="e_i_delete"  name="e_i_delete" value="e_i_delete"/>
-                              <label for="e_i_delete"></label>
-                            </td>
-                          </tr>
-                          <tr>
-                          <td>Guest</td>
-                          <td>
-                            <input type="checkbox" class="filled-in" id="e_g_add" [(ngModel)]="e_g_add" name="e_g_add" value="e_g_add" />
-                            <label for="e_g_add"></label>
-                      
-                          </td>
-                          <td>
-                            <input type="checkbox" class="filled-in" id="e_g_view" [(ngModel)]="e_g_view" name="e_g_view" value="e_g_view" />
-                            <label for="e_g_view"></label>
-                      
-                          </td>
-                          <td>  
-                              <input type="checkbox" class="filled-in" id="e_g_edit" [(ngModel)]="e_g_edit"  name="e_g_edit" value="e_g_edit"/>
-                              <label for="e_g_edit"></label>
-                            </td>
-                          <td>  
-                            <input type="checkbox" class="filled-in" id="e_g_delete" [(ngModel)]="e_g_delete"  name="e_g_delete" value="e_g_delete"/>
-                            <label for="e_g_delete"></label>
-                          </td>
-                        </tr>
-                      
-                        <tr>
-                          <td>Brand</td>
-                          <td>
-                            <input type="checkbox" class="filled-in" id="e_b_add" [(ngModel)]="e_b_add" name="e_b_add" value="e_b_add" />
-                            <label for="e_b_add"></label>
-                      
-                          </td>
-                          <td>
-                            <input type="checkbox" class="filled-in" id="e_b_view" [(ngModel)]="e_b_view" name="e_b_view" value="e_b_view" />
-                            <label for="e_b_view"></label>
-                      
-                          </td>
-                          <td>  
-                              <input type="checkbox" class="filled-in" id="e_b_edit" [(ngModel)]="e_b_edit"  name="e_b_edit" value="e_b_edit"/>
-                              <label for="e_b_edit"></label>
-                            </td>
-                          <td>  
-                            <input type="checkbox" class="filled-in" id="e_b_delete" [(ngModel)]="e_b_delete"  name="e_b_delete" value="e_b_delete"/>
-                            <label for="e_b_delete"></label>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Category</td>
-                          <td>
-                            <input type="checkbox" class="filled-in" id="e_c_add" [(ngModel)]="e_c_add" name="e_c_add" value="e_c_add" />
-                            <label for="e_c_add"></label>
-                      
-                          </td>
-                          <td>
-                            <input type="checkbox" class="filled-in" id="e_c_view" [(ngModel)]="e_c_view" name="e_c_view" value="e_c_view" />
-                            <label for="e_c_view"></label>
-                      
-                          </td>
-                          <td>  
-                              <input type="checkbox" class="filled-in" id="e_c_edit" [(ngModel)]="e_c_edit"  name="e_c_edit" value="e_c_edit"/>
-                              <label for="e_c_edit"></label>
-                            </td>
-                          <td>  
-                            <input type="checkbox" class="filled-in" id="e_c_delete" [(ngModel)]="e_c_delete"  name="e_c_delete" value="e_c_delete"/>
-                            <label for="e_c_delete"></label>
-                          </td>
-                        </tr>
-                     </tbody>
-                   </table>
-                  </div>
-              
-          
-        </div>
-        <div class="modal-footer p-t-15 ">
-          <a class="modal-action modal-close ">CANCEL</a>
-          <button class="modal-action    hedding-btn" type="submit" >ADD</button>
-        </div>
-        </form>
-        </div>
-        <!-- end edit account type -->
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="e_o_view" [(ngModel)]="e_o_view" name="e_o_view" value="e_view" />
+                <label for="e_o_view"></label>
 
-      <!-- add dealer type -->
-      <div id="add_dealer_type" class="modal modal-fixed-footer">
-        <form class="col s12" (ngSubmit)="addType()">
-          <div class="modal-content">
-                <div class="row">
-                  <div class="input-field col s12 m12 l12">
-                    <input id="d_type" type="text" class="" [(ngModel)]="d_type" name="d_type">
-                    <label for="d_type">Type</label>
-                  </div>
-                  </div>
-                  <div class="row">
-                  <div class="input-field col s3 m3 l3">
-                    <input id="disc" type="text" class="" [(ngModel)]="disc" name="disc">
-                    <label for="disc">Discount</label>
-                  </div>
-                </div>
-        </div>
-        <div class="modal-footer p-t-15 ">
-          <a class="modal-action modal-close ">CANCEL</a>
-          <button class="modal-action    hedding-btn" type="submit" >ADD</button>
-        </div>
-        </form>
-        </div>
-        <!-- end dealer type -->
-      <!-- edit dealer type -->
-      <div id="edit_dealer_type" class="modal modal-fixed-footer">
-          <input type="hidden" name="t_id" [(ngModel)]="t_id">
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="e_o_edit" [(ngModel)]="e_o_edit" name="e_o_edit" value="e_o_edit" />
+                <label for="e_o_edit"></label>
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="e_o_delete" [(ngModel)]="e_o_delete" name="e_o_delete" value="e_o_delete" />
+                <label for="e_o_delete"></label>
+              </td>
 
-          <form class="col s12" (ngSubmit)="editType()">
-            <div class="modal-content">
-                  <div class="row">
-                    <div class="input-field col s12 m12 l12">
-                      <input id="type" type="text" class="" [(ngModel)]="type" name="type">
-                   
-                    </div>
-                    </div>
-                    <div class="row">
-                    <div class="input-field col s3 m3 l3">
-                      <input id="disc" type="text" class="" [(ngModel)]="disc" name="disc">
-                   
-                    </div>
-                  </div>
-          </div>
-          <div class="modal-footer p-t-15 ">
-            <a class="modal-action modal-close ">CANCEL</a>
-            <button class="modal-action    hedding-btn" type="submit" >ADD</button>
-          </div>
-          </form>
-          </div>
-          <!-- end dealer type -->
-  
-  
+            </tr>
+            <tr>
+              <td>Inventory</td>
+              <td>
+                <input type="checkbox" class="filled-in" id="e_i_add" [(ngModel)]="e_i_add" name="e_i_add" value="e_i_add" />
+                <label for="e_i_add"></label>
+
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="e_i_view" [(ngModel)]="e_i_view" name="e_i_view" value="e_i_view" />
+                <label for="e_i_view"></label>
+
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="e_i_edit" [(ngModel)]="e_i_edit" name="e_i_edit" value="e_i_edit" />
+                <label for="e_i_edit"></label>
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="e_i_delete" [(ngModel)]="e_i_delete" name="e_i_delete" value="e_i_delete" />
+                <label for="e_i_delete"></label>
+              </td>
+            </tr>
+            <tr>
+              <td>Guest</td>
+              <td>
+                <input type="checkbox" class="filled-in" id="e_g_add" [(ngModel)]="e_g_add" name="e_g_add" value="e_g_add" />
+                <label for="e_g_add"></label>
+
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="e_g_view" [(ngModel)]="e_g_view" name="e_g_view" value="e_g_view" />
+                <label for="e_g_view"></label>
+
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="e_g_edit" [(ngModel)]="e_g_edit" name="e_g_edit" value="e_g_edit" />
+                <label for="e_g_edit"></label>
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="e_g_delete" [(ngModel)]="e_g_delete" name="e_g_delete" value="e_g_delete" />
+                <label for="e_g_delete"></label>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Brand</td>
+              <td>
+                <input type="checkbox" class="filled-in" id="e_b_add" [(ngModel)]="e_b_add" name="e_b_add" value="e_b_add" />
+                <label for="e_b_add"></label>
+
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="e_b_view" [(ngModel)]="e_b_view" name="e_b_view" value="e_b_view" />
+                <label for="e_b_view"></label>
+
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="e_b_edit" [(ngModel)]="e_b_edit" name="e_b_edit" value="e_b_edit" />
+                <label for="e_b_edit"></label>
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="e_b_delete" [(ngModel)]="e_b_delete" name="e_b_delete" value="e_b_delete" />
+                <label for="e_b_delete"></label>
+              </td>
+            </tr>
+            <tr>
+              <td>Category</td>
+              <td>
+                <input type="checkbox" class="filled-in" id="e_c_add" [(ngModel)]="e_c_add" name="e_c_add" value="e_c_add" />
+                <label for="e_c_add"></label>
+
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="e_c_view" [(ngModel)]="e_c_view" name="e_c_view" value="e_c_view" />
+                <label for="e_c_view"></label>
+
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="e_c_edit" [(ngModel)]="e_c_edit" name="e_c_edit" value="e_c_edit" />
+                <label for="e_c_edit"></label>
+              </td>
+              <td>
+                <input type="checkbox" class="filled-in" id="e_c_delete" [(ngModel)]="e_c_delete" name="e_c_delete" value="e_c_delete" />
+                <label for="e_c_delete"></label>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+    </div>
+    <div class="modal-footer p-t-15 ">
+      <a class="modal-action modal-close ">CANCEL</a>
+      <button class="modal-action    hedding-btn" type="submit">ADD</button>
+    </div>
+  </form>
+</div>
+<!-- end edit account type -->
+
+<!-- add dealer type -->
+<div id="add_dealer_type" class="modal modal-fixed-footer">
+  <form class="col s12" (ngSubmit)="addType()">
+    <div class="modal-content">
+      <div class="row">
+        <div class="input-field col s12 m12 l12">
+          <input id="d_type" type="text" class="" [(ngModel)]="d_type" name="d_type">
+          <label for="d_type">Type</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s3 m3 l3">
+          <input id="disc" type="text" class="" [(ngModel)]="disc" name="disc">
+          <label for="disc">Discount</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer p-t-15 ">
+      <a class="modal-action modal-close ">CANCEL</a>
+      <button class="modal-action    hedding-btn" type="submit">ADD</button>
+    </div>
+  </form>
+</div>
+<!-- end dealer type -->
+<!-- edit dealer type -->
+<div id="edit_dealer_type" class="modal modal-fixed-footer">
+  <input type="hidden" name="t_id" [(ngModel)]="t_id">
+
+  <form class="col s12" (ngSubmit)="editType()">
+    <div class="modal-content">
+      <div class="row">
+        <div class="input-field col s12 m12 l12">
+          <input id="type" type="text" class="" [(ngModel)]="type" name="type">
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s3 m3 l3">
+          <input id="disc" type="text" class="" [(ngModel)]="disc" name="disc">
+
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer p-t-15 ">
+      <a class="modal-action modal-close ">CANCEL</a>
+      <button class="modal-action    hedding-btn" type="submit">ADD</button>
+    </div>
+  </form>
+</div>
+<!-- end dealer type -->
+
+
 
 <script>
-  $(document).ready(function(){
-        // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
-        $('.modal').modal();
-      });
-      $('#add_user').modal('open');
-      $('#add_user').modal('close');
+  $(document).ready(function () {
+    // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+    $('.modal').modal();
+  });
+  $('#add_user').modal('open');
+  $('#add_user').modal('close');
 
   //  $('.modal').modal({
   //     dismissible: true, // Modal can be dismissed by clicking outside of the modal

@@ -52,7 +52,6 @@ const appRoutes = [
   {path: 'brand', component: BrandComponent},   
   {path: 'category', component: CategoryComponent},   
   {path: 'control', component: ControlComponent},   
-  {path: 'Profile', component: ProfileComponent},   
   {path: 'vieworder/:id', component: VieworderComponent},   
   {path: 'editorder/:id', component: EditorderComponent},   
   
@@ -72,7 +71,6 @@ const appRoutes = [
     LoginComponent,
     CategoryComponent,
     BrandComponent,
-    ProfileComponent,
     VieworderComponent,
     EditorderComponent,
     AddProductComponent,

@@ -19,7 +19,7 @@
                 </div>
               </div>
               <div class="col s6 l6 m6 right-align">
-                <button data-target="add_dealer" class="hedding-btn-2 modal-trigger">Add Dealer </button>
+                <button *ngIf="d_add == false" data-target="add_dealer" class="hedding-btn-2 modal-trigger">Add Dealer </button>
                 <button class="hedding-btn">Download Data </button>
               </div>
 
@@ -52,16 +52,14 @@
                       <td data-target="view_dealer" class="modal-trigger" (click)="viewDealer(a._id)">
                         <i class="fa fa-eye blue-text"></i>
                       </td>
-                      <!-- <td data-target="edit_dealer"  class="modal-trigger"><i class="fa fa-pencil-alt orange-text"></i></td>   -->
+                      <td *ngIf="d_edit == true" data-target="edit_dealer"  class="modal-trigger"><i class="fa fa-pencil-alt orange-text"></i></td>  
                     </tr>
                   </tbody>
                 </table>
               </div>
-
             </div>
           </div>
         </div>
-
       </div>
       <!--end container-->
     </section>

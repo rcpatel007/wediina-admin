@@ -18,7 +18,7 @@
                             Category MANAGEMENT
                           </div>  
                         </div>
-                        <form (ngSubmit)="addCategory()">
+                        <form *ngIf="c_add == true" (ngSubmit)="addCategory()">
                         <div class="col s12 l12 m12 mr-t-20 mr-b-m-30">
                           <div class="col s6 m6 l6">
                            <b> Brand:</b>
@@ -61,8 +61,8 @@
                 <tr  *ngIf="c.brand_id==b._id">
                   <td>{{b.name}}</td>
                   <td>{{c.name}}</td>
-                  <td data-target="edit_cat"  class=" modal-trigger" (click) = "getCategoryById(c._id)"><i class="fa fa-pencil-alt orange-text"></i></td>
-                  <td (click)="ConfirmDelete(c._id)" ><i class="fa fa-trash red-text"></i></td>  
+                  <td  *ngIf="c_edit == true" data-target="edit_cat"  class=" modal-trigger" (click) = "getCategoryById(c._id)"><i class="fa fa-pencil-alt orange-text"></i></td>
+                  <td *ngIf="c_delete == true" (click)="ConfirmDelete(c._id)" ><i class="fa fa-trash red-text"></i></td>  
                 </tr>     
              
               </ng-container>
@@ -92,7 +92,7 @@
       </div>
       <div class="col s12">
   
-        <form (ngSubmit)="updateCategory()">
+        <form  (ngSubmit)="updateCategory()">
           <div class="col s12 l12 m12  mr-t-20 mr-b-m-30">
               <select  [(ngModel)]="editedValue" name="editedValue">
                   <option disabled>--Select Brand Name --</option>

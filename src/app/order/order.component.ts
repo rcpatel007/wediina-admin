@@ -15,78 +15,102 @@ import { AccountService } from '../services/account.service';
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
-  count:any;
-  auth:any;
+  user_id: String;
+  count: any;
+  auth: any;
   order: Order[];
-  account:Account[];
-  product_details =new Array();
+  account: Account[];
+  product_details = new Array();
 
-  constructor(private router: Router, 
+  // user
+  o_add: boolean;
+  o_edit: boolean;
+  o_view: boolean;
+  o_delete: boolean;
+
+
+  constructor(private router: Router,
     private orderService: OrderService,
     private loginservice: LoginService,
-    private accountservice:AccountService,
+    private accountservice: AccountService,
+    private userservice: UserService,
     private globals: Globals) { }
 
 
   ngOnInit() {
-    if (this.globals.token === null){
+    if (this.globals.token === null) {
       this.router.navigate(["/login"]);
     }
-    this.auth = {"email": this.globals.email,"token": this.loginservice.token}
+    this.auth = { "email": this.globals.email, "token": this.loginservice.token }
     this.getOrder();
-    this.getUser();
+    this.getAccount();
+    this.getuser(this.user_id);
+    
   }
 
   getOrder() {
     this.count = 1;
-    
-    this.orderService.getOrder()
-                    .subscribe((Order) => {
-                      this.order = Order;  
-                    console.log(this.order);
-                  });
-                    
-  }
-  getUser(){
-    this.accountservice.getAccount()
-                    .subscribe((data) => {
-                      //  console.log(account);
-                      this.account =  data;
-                      console.log(this.account);
-                      
-                    });
-  }
-  
 
-  viewOrder(id){
+    this.orderService.getOrder()
+      .subscribe((Order) => {
+        this.order = Order;
+        console.log(this.order);
+      });
+
+  }
+  getAccount() {
+    this.accountservice.getAccount()
+      .subscribe((data) => {
+        //  console.log(account);
+        this.account = data;
+        console.log(this.account);
+
+      });
+  }
+
+
+  viewOrder(id) {
     this.orderService.viewOrder(id)
-                    .subscribe((data) => {
-                      this.product_details = data[0].products;
-                    //  console.log(this.product_detail);
-                    
-                    // }
-    });
+      .subscribe((data) => {
+        this.product_details = data[0].products;
+        //  console.log(this.product_detail);
+
+        // }
+      });
   }
 
 
   /*delete Order */
-ConfirmDelete(id)
-{
-var x = confirm("Are you sure you want to delete?");
-if (x)
-  return this.deleteOrder(id);
-else
-return false;
-}
+  ConfirmDelete(id) {
+    var x = confirm("Are you sure you want to delete?");
+    if (x)
+      return this.deleteOrder(id);
+    else
+      return false;
+  }
 
-  
-deleteOrder(id) {
-this.orderService.deleteOrder(id)
-             .subscribe(result => {
-              console.log(result);
-              this.getOrder();
+
+  deleteOrder(id) {
+    this.orderService.deleteOrder(id)
+      .subscribe(result => {
+        console.log(result);
+        this.getOrder();
       });
-}
+  }
 
-
+  getuser(user_id){
+    let id =environment.user_id
+   
+    this.userservice.getUserById(id)
+                       .subscribe((data) => {
+                      //  console.log(account);
+                         
+                          this.o_add = data.order.add;
+                          this.o_edit = data.order.edit;
+                          this.o_view = data.order.view;
+                          this.o_delete = data.order.delete;
+                          console.log(data);
+                      
+    });
+  }
 }

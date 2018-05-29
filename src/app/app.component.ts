@@ -16,18 +16,17 @@ export class AppComponent {
 
  constructor(private loginservice:LoginService){
 
-  // this.userRole();
+  this.userRole();
  }
 
 
  
 
-// userRole() {
-//   var jwtHelper = new JwtHelper();
-//   var parsedToken = jwtHelper.decodeToken(this.loginservice.token);
-//   environment.user_id = parsedToken.id;  
- 
+userRole() {
+  var jwtHelper = new JwtHelper();
+  var parsedToken = jwtHelper.decodeToken(this.loginservice.token);
+  environment.user_id = parsedToken.id;  
 
-// }
+}
 
 }

@@ -15,10 +15,19 @@ import { User } from '../model/User';
 })
 export class HeaderComponent implements OnInit {
   socket;
+
   msg = new Array();
   name: String;
-  user_id:String;
+  user_id: String;
   email: String;
+
+  // user
+  role: String;
+  o_view: boolean;
+  d_view: boolean;
+  i_view: boolean;
+  b_view: boolean;
+  c_view: boolean;
 
   constructor(private router: Router,
     private userservice: UserService,
@@ -46,9 +55,19 @@ export class HeaderComponent implements OnInit {
 
     this.userservice.getUserById(id)
       .subscribe((data) => {
-        //  console.log(account);
+         console.log(data);
         this.name = data.name;
         this.email = data.email;
+
+        this.o_view = data.order.view;
+        this.i_view = data.product.view;
+        this.d_view = data.dealer.view;
+        this.b_view = data.brand.view;
+        this.c_view = data.category.view;
+        this.role = data.role;
+
+        console.log(this.role);
+        
       });
 
 

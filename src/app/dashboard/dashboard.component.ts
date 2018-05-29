@@ -83,8 +83,7 @@ export class DashboardComponent implements OnInit {
   }
   
   getuser(user_id){
-    let id =environment.user_id
-   
+    let id =environment.user_id 
     this.userservice.getUserById(id)
                        .subscribe((data) => {
                       //  console.log(account);
@@ -115,14 +114,8 @@ export class DashboardComponent implements OnInit {
                           this.c_view = data.category.view;
                           this.c_delete = data.category.delete;
                           
-
-                          // console.log(data);
-                      
+                          console.log(data);               
     });
-
-
-
-
   }
   
   getAccount(){

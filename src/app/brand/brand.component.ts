@@ -6,6 +6,7 @@ import { Globals } from '../../globals';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import * as io from 'socket.io-client';
+import { UserService } from '../services/user.service';
 
 
 
@@ -17,16 +18,23 @@ import * as io from 'socket.io-client';
 export class BrandComponent implements OnInit {
   socket;
 
+  user_id:String;
   auth: any;
   brand: Brand[];
   id: String;
   name: String;
   slang: String;
 
+  // user
+  b_add: boolean;
+  b_edit: boolean;
+  b_view: boolean;
+  b_delete: boolean;
 
   constructor(private brandService: BrandService,
     private loginservice: LoginService,
     private router: Router,
+    private userservice: UserService,
     private globals: Globals
   ) { this.socket = io('https://jasmatech-backend-api.herokuapp.com'); }
 
@@ -37,18 +45,13 @@ export class BrandComponent implements OnInit {
       this.router.navigate(["/login"]);
     }
 
-    this.auth = { "email": this.globals.email, "token": this.loginservice.token }
+    this.getuser(this.user_id);
+    // this.auth = { "email": this.globals.email, "token": this.loginservice.token }
     this.getBrand();
 
   }
 
 
-  refresh() {
-
-    this.brand.length = 0;
-    this.getBrand();
-
-  }
 
   /* brand add*/
   addBrand() {
@@ -105,7 +108,7 @@ export class BrandComponent implements OnInit {
   }
 
 
-  
+
   /*delete brand */
   ConfirmDelete(id) {
 
@@ -129,4 +132,20 @@ export class BrandComponent implements OnInit {
       });
   }
 
+
+  getuser(user_id) {
+    let id = environment.user_id
+console.log('user id  '+id);
+
+    this.userservice.getUserById(id)
+      .subscribe((data) => {
+        //  console.log(account);
+        this.b_add = data.brand.add;
+        this.b_edit = data.brand.edit;
+        this.b_view = data.brand.view;
+        this.b_delete = data.brand.delete;
+   console.log(data);
+
+      });
+  }
 }

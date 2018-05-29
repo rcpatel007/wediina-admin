@@ -84,32 +84,32 @@
             <span class="nav-text">Dashboard</span>
           </div>
         </li>
-        <li class="bold" [routerLink]="['/order']">
+        <li *ngIf="o_view == true" class="bold" [routerLink]="['/order']">
           <div class="collapsible-header  waves-effect">
             <i class="fa fa-shopping-cart"></i>
             <span class="nav-text">Orders</span>
           </div>
         </li>
-        <li class="bold" [routerLink]="['/brand']">
+        <li *ngIf="b_view == true" class="bold" [routerLink]="['/brand']">
           <div class="collapsible-header  waves-effect">
             <i class="fa fa-boxes"></i>
             <span class="nav-text">Brand</span>
           </div>
         </li>
-        <li class="bold" [routerLink]="['/category']">
+        <li *ngIf="c_view == true" class="bold" [routerLink]="['/category']">
           <div class="collapsible-header  waves-effect">
             <i class="fa fa-boxes"></i>
             <span class="nav-text">Category</span>
           </div>
         </li>
 
-        <li class="bold" [routerLink]="['/inventory']">
+        <li *ngIf="i_view == true" class="bold" [routerLink]="['/inventory']">
           <div class="collapsible-header  waves-effect">
             <i class="fa fa-boxes"></i>
             <span class="nav-text">Inventory</span>
           </div>
         </li>
-        <li class="bold" [routerLink]="['/dealer']">
+        <li *ngIf="d_view == true" class="bold" [routerLink]="['/dealer']">
           <div class="collapsible-header  waves-effect">
             <i class="fa fa-user"></i>
             <span class="nav-text">Dealers</span>
