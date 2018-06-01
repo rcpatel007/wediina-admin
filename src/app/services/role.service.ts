@@ -12,7 +12,7 @@ export class RoleService {
 
   constructor(private http: Http, private loginService:LoginService) { }
 
-  // all category
+  // all role
   getRole() {
    //  headers = new Headers();    
     let headers = new Headers({'x-access-token': ''+ this.loginService.token});
@@ -21,7 +21,7 @@ export class RoleService {
  
  }
 
- // get Category by id
+ // get role by id
 
  getRoleById(id) {
    //  headers = new Headers();    
@@ -31,7 +31,7 @@ export class RoleService {
  
  }
 
- // add Dealer
+ // add role
 
  addRole(role) {    
    let headers = new Headers({'x-access-token': ''+ this.loginService.token});
@@ -40,7 +40,7 @@ export class RoleService {
  
  }
  
- // edit user
+ // edit role
 
  editRole(id, updaterole) {
  let headers = new Headers({'x-access-token': ''+ this.loginService.token});
@@ -49,7 +49,7 @@ export class RoleService {
 
 }
 
-// delete user
+// delete role
 
  deleteRole(id) {
  let headers = new Headers({'x-access-token': ''+ this.loginService.token});

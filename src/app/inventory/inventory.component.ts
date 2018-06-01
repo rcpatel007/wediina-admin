@@ -20,7 +20,7 @@ import { City } from '../model/City';
   styleUrls: ['./inventory.component.css']
 })
 export class InventoryComponent implements OnInit {
-  id:String;
+  id: String;
   product: Product[];
   city: City[];
   category: Category[];
@@ -108,129 +108,130 @@ export class InventoryComponent implements OnInit {
 
 
 
-  getproductById(id){
-    this.o_img.length=0;
+  getproductById(id) {
+    this.o_img.length = 0;
     this.productservice.getProductById(id)
-                      .subscribe(data => {
-                        this.id = data._id;
-                        this.p_img =data.product_image;
-                       
-                        for(let i=0; i<data.other_images.length; i++){
+      .subscribe(data => {
+        this.id = data._id;
+        this.p_img = data.product_image;
 
-                          this.o_img.push(data.other_images[i]);
-                        }
-                      console.log(this.o_img);  
-                      });  
-                      
-                      
-  
+        for (let i = 0; i < data.other_images.length; i++) {
+
+          this.o_img.push(data.other_images[i]);
+        }
+        console.log(this.o_img);
+      });
+
+
+
   }
-  
+
+  // single img update
 
 
-  
-/* Image convert base64 */
-imageUpload(evt){
-  var files = evt.target.files;
-  var file = files[0];
-
-if (files && file) {
-    var reader = new FileReader();
-
-    reader.onload =this.imagetoBase64.bind(this);
-
-    reader.readAsBinaryString(file);
-}
-}
 
 
-imagetoBase64(readerEvt) {
-var binaryString = readerEvt.target.result;
-       this.base64= btoa(binaryString);
-      // console.log(btoa(binaryString));
-       
-}
+  /* Image convert base64 */
+  imageUpload(evt) {
+    var files = evt.target.files;
+    var file = files[0];
 
+    if (files && file) {
+      var reader = new FileReader();
 
-// updateImage(){
-//  this.productservice.imgurImage(this.base64)
-//  .subscribe((result) => {
-//    console.log(result);
-//    this.p_img=result.data.link;
+      reader.onload = this.imagetoBase64.bind(this);
 
-//    let updateimg = {
-//     _id: this.id,
-//      prod_imag:this.p_img,
-//    }
-//    console.log(updateimg);
-//    this.productservice.editimg(updateimg)
-//                    .subscribe((res) => {
-//                      this.router.navigate(['products']);
-//                      console.log(updateimg);
-//                    });
-//  });
- 
-// }
-/* delete image*/
-deleteimg(o_image){
-  // console.log(o_image);
-  
-  for(let i=0; i<this.o_img.length; i++){
-    if(this.o_img[i] == o_image)
-    {
-      this.o_img.splice(i, 1);
+      reader.readAsBinaryString(file);
     }
   }
-  // console.log(this.other_img);
- }
 
 
-/*other image update */
-otherImageUpload(event) {
-  let files = [].slice.call(event.target.files);
-  // console.log(files);
-  // input = files.map(f => f.name).join(', ');
-  for(let i=0; i<files.length; i++){
-    if (files) {
-          var reader = new FileReader();
-          reader.onload =this.otherimagetoBase64.bind(this);
-          reader.readAsBinaryString(files[i]);
-      
+  imagetoBase64(readerEvt) {
+    var binaryString = readerEvt.target.result;
+    this.base64 = btoa(binaryString);
+    // console.log(btoa(binaryString));
+
+  }
+
+
+  updateImage() {
+    this.productservice.imgurImage(this.base64)
+      .subscribe((result) => {
+        console.log(result);
+        this.p_img = result.data.link;
+
+        let updateimg = {
+          _id: this.id,
+          product_image: this.p_img,
+        }
+        console.log(updateimg);
+        this.productservice.editimg(updateimg)
+          .subscribe((res) => {
+            this.getProduct();
+            console.log(updateimg);
+          });
+      });
+
+  }
+  /* delete image*/
+  deleteimg(o_image) {
+    // console.log(o_image);
+
+    for (let i = 0; i < this.o_img.length; i++) {
+      if (this.o_img[i] == o_image) {
+        this.o_img.splice(i, 1);
+      }
+    }
+    // console.log(this.other_img);
+  }
+
+
+  /*other image update */
+  otherImageUpload(event) {
+    let files = [].slice.call(event.target.files);
+    // console.log(files);
+    // input = files.map(f => f.name).join(', ');
+    for (let i = 0; i < files.length; i++) {
+      if (files) {
+        var reader = new FileReader();
+        reader.onload = this.otherimagetoBase64.bind(this);
+        reader.readAsBinaryString(files[i]);
+
+      }
     }
   }
-}
 
-otherimagetoBase64(readeEvent) {
+  otherimagetoBase64(readeEvent) {
 
-var binaryString = readeEvent.target.result;
-        
-  this.otherbase64= btoa(binaryString);
-      console.log(btoa(binaryString));
-      this.productservice.imgurotherImage(this.otherbase64)
-        .subscribe((result) => {
-          this.o_img.push(result.data.link)
-          console.log(this.o_img);
-    
-        });
-      
-}
-  
-// updateOtherImage(){
-//     let otherupdateimg = {
-//      _id: this.id,
-//      other_images:this.o_img,
-//     }
-//     console.log(otherupdateimg);
-//     this.productservice.othereditimg(otherupdateimg)
-//                     .subscribe((res) => {
-//                       this.router.navigate(['products']);
-//                       console.log(otherupdateimg);
-//                     });
+    var binaryString = readeEvent.target.result;
 
-  
-//  }
+    this.otherbase64 = btoa(binaryString);
+    console.log(btoa(binaryString));
+    this.productservice.imgurotherImage(this.otherbase64)
+      .subscribe((result) => {
+        this.o_img.push(result.data.link)
+        console.log(this.o_img);
 
- 
+      });
+
+  }
+
+  updateOtherImage() {
+    let otherupdateimg = {
+      _id: this.id,
+      other_images: this.o_img,
+    }
+    console.log(otherupdateimg);
+    this.productservice.othereditimg(otherupdateimg)
+      .subscribe((res) => {
+        this.getProduct();
+        console.log(otherupdateimg);
+      });
+
+
+  }
+
+
 
   /*delete brand */
   ConfirmDelete(id) {

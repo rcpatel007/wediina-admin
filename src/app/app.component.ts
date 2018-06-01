@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { environment } from '../environments/environment';
 import { LoginService } from './services/login.service';
-import {JwtHelper} from './Jwthelper';
 
 import { Globals } from 'globals';
 
@@ -16,17 +15,9 @@ export class AppComponent {
 
  constructor(private loginservice:LoginService){
 
-  this.userRole();
  }
 
 
  
-
-userRole() {
-  var jwtHelper = new JwtHelper();
-  var parsedToken = jwtHelper.decodeToken(this.loginservice.token);
-  environment.user_id = parsedToken.id;  
-
-}
 
 }

@@ -10,13 +10,13 @@ import { LoginService } from '../services/login.service';
   styleUrls: ['./vieworder.component.css']
 })
 export class VieworderComponent implements OnInit {
-  id:String;
+  id: String;
   _id: string;
   cust_name: String;
-  product_detail= new Array();
-  o_date:String;
+  product_detail = new Array();
+  o_date: String;
   d_date: String;
-  d_time:String;
+  d_time: String;
   o_discount: String;
   status: String;
   method: String;
@@ -31,74 +31,77 @@ export class VieworderComponent implements OnInit {
   mobile: String;
   address: String;
   gst_no: String;
-  constructor( private route: ActivatedRoute,
-     private router: Router ,
-      private orderservice: OrderService, 
-      private accountservice :AccountService,
+  type: String;
+  d_discount:String;
+
+  constructor(private route: ActivatedRoute,
+    private router: Router,
+    private orderservice: OrderService,
+    private accountservice: AccountService,
     private loginservice: LoginService) { }
 
+
   ngOnInit() {
-    if (this.loginservice.token === null){
+    if (this.loginservice.token === null) {
       this.router.navigate(["/login"]);
-      }
-  
+    }
+
 
     this.route.params.subscribe(params => {
       this._id = params['id'];
     });
     this.getorderById(this._id);
-    this.getAccountById(this.user_id);
-    
-  }
-
-  getAccountById(user_id){
-    
-    this.orderservice.getAccountById(user_id)
-                      .subscribe(data => {
-                        console.log(data);
-                        this.customername = data.name;
-                        this.email = data.email;
-                        this.company_name= data.company_name;
-                        this.mobile = data.mobile;
-                        this.address = data.address;
-                        this.gst_no = data.gst_number;
-                    console.log(data);
-                    
-                      });  
-                      
-
+   
   }
 
 
- getorderById(id){
-   this.orderservice.viewOrder(id)
-                   .subscribe(data => {
-                     console.log(data);
-                    this._id = data._id;
-                    this.user_id = data.user_id;
-                    this.o_date = data.order_date;
-                    this.d_date = data._date;
-                    this.d_time = data._time;
-                    this.product_detail = data.products;
-                    this.o_discount = data.o_discount;
-                    this.status = data.status;
-                    this.method = data.method;
-                  
-                  
-                   //  console.log(this.product_detail);
-                    for (let i=0; i<this.product_detail.length; i++){
-                      this.p_discount_total =(this.product_detail[i].price * this.product_detail[i].qty) - (this.product_detail[i].price * this.product_detail[i].qty) * this.product_detail[i].p_discount / 100;
-                      this.sub_total= this.sub_total +  this.p_discount_total;
-                      // console.log(this.sub_total);
-                      
-                    }
-                    this.o_discount_total = this.sub_total * data.o_discount / 100;
-                    this.grand_total = Math.round(this.sub_total - this.o_discount_total);
+  // single order
 
-                  //  console.log(this.o_discount_total);
-                   // }
-   });
+  getorderById(id) {
+    this.orderservice.viewOrder(id)
+      .subscribe(data => {
+        //  console.log(data);
+        this._id = data._id;
+        this.user_id = data.user_id;
+        this.o_date = data.order_date;
+        this.d_date = data._date;
+        this.d_time = data._time;
+        this.product_detail = data.products;
+        this.o_discount = data.o_discount;
+        this.status = data.status;
+        this.method = data.method;
 
- }
+        console.log(this.user_id);
+
+        //  console.log(this.product_detail);
+        for (let i = 0; i < this.product_detail.length; i++) {
+          this.p_discount_total = (this.product_detail[i].price * this.product_detail[i].qty) - (this.product_detail[i].price * this.product_detail[i].qty) * this.product_detail[i].p_discount / 100;
+          this.sub_total = this.sub_total + this.p_discount_total;
+          // console.log(this.sub_total);
+
+        }
+        this.o_discount_total = this.sub_total * data.o_discount / 100;
+        this.grand_total = Math.round(this.sub_total - this.o_discount_total);
+
+        //  console.log(this.o_discount_total);
+        this.orderservice.getAccountById(this.user_id)
+        .subscribe(data => {
+          this.customername = data.name;
+          this.email = data.email;
+          this.d_discount = data.discount;
+          this.company_name= data.company_name;
+          this.mobile = data.mobile;
+          this.gst_no = data.gst;
+          this.type = data.type;
+      console.log(data);
+      
+        });  
+        
+
+
+
+      });
+
+  }
 
 }

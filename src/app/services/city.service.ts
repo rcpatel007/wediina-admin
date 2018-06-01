@@ -24,11 +24,11 @@ export class CityService {
   
   }
 
-  // add Dealer
+  // add city
 
-  addcity(addcity) {    
+  addcity(cities) {    
     let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-     return this.http.post('https://jasmatech-backend-api.herokuapp.com/city/',addcity, {headers: headers})
+     return this.http.put('https://jasmatech-backend-api.herokuapp.com/city/',cities, {headers: headers})
       .pipe(map( res => res.json()));
   
   }

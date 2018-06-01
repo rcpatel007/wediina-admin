@@ -97,7 +97,7 @@ export class AddProductComponent implements OnInit {
   }
 
 
-  
+
   /* Image convert base64 */
   imageUpload(evt) {
     var files = evt.target.files;
@@ -191,7 +191,7 @@ export class AddProductComponent implements OnInit {
           .subscribe((res) => {
 
             this.router.navigate(["/inventory"]);
-    
+
             console.log(res);
 
           });

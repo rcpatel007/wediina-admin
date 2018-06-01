@@ -19,6 +19,15 @@ body{
 .orange-text{
 	color:#FBB03B;
 }
+.blue-text{
+	color: #3FA9F5;
+}
+.red-text{
+color: #D6303C;
+}
+.green-text{
+	color:#7AC943;
+}
 .orange-back{
 	background-color:#FBB03B;
 }
@@ -31,9 +40,8 @@ body{
 .red-back{
 background-color: #D6303C;
 }
-.blue-text{
-color: #3FA9F5;
-}
+
+
 .dark-blue-back{
 	background-color: #28669b;
 	}
@@ -83,6 +91,9 @@ color: #3FA9F5;
 .p-t-15{
 padding-top: 15px !important; 
 }
+.p-l-15{
+	padding-left: 15% !important; 
+	}
 /* logo */
 .logo-layout{
 	font-style: italic;
@@ -114,7 +125,7 @@ padding-top: 15px !important;
 	/* margin-top: 50%; */
 	padding: 4% 15%;
 	border: none;
-	width: 110%;
+	width: 100%;
 	color:#fff;	
 }
 .forget-btn{
@@ -123,7 +134,7 @@ padding-top: 15px !important;
 	/* margin-top: 50%; */
 	padding: 4% 15%;
 	border: none;
-	width: 110%;
+	width: 100%;
 	color:#fff;	
 }
 .logout-btn:hover{
@@ -139,7 +150,7 @@ padding-top: 15px !important;
     border: 3px solid #3FA9F5;
     width: 98px;
 	height: 100px;
-	margin-top: -50px;
+	margin-top: -35%;
 	margin-left: 28%;	
     /* padding: -5%; */
     color: #fff;
@@ -293,6 +304,17 @@ padding-top: 15px !important;
     -webkit-transition:all 2s;
     transition:all 2s;
     
+}
+.model-style{
+	border: 1px solid #4d4d4d !important;
+	margin-top: 20px !important;
+	border-radius: 15px !important;
+	padding: 15px !important;
+	overflow: scroll !important;
+}
+.model-head{
+	background-color: #28669b;
+	color:#fff;
 }
 
 .edit a {

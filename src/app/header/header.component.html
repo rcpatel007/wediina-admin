@@ -4,46 +4,34 @@
   <div class="navbar-fixed">
     <nav class="navbar-color">
       <div class="nav-wrapper">
-        <div class="center-align">
-          <a href="javascript:void(0);" class="waves-effect waves-block waves-light notification-button" data-activates="notifications-dropdown">
+        <div class="right-align">
+          <a href="javascript:void(0);" class=" right-align notification-button" data-activates="notifications-dropdown">
             <i class="fa fa-bell ">
-              <small class="notification-badge">5</small>
+              <small class="notification-badge">{{read}}</small>
             </i>
           </a>
         </div>
         <!-- notifications-dropdown -->
-        <ul id="notifications-dropdown center-align" class="dropdown-content">
+        <ul id="notifications-dropdown" class="dropdown-content">
           <li>
             <h6>NOTIFICATIONS
-              <span class="new badge">5</span>
             </h6>
           </li>
           <li class="divider"></li>
-          <li>
-            <a href="#!" class="grey-text text-darken-2" *ngFor="let m of msg">
-              <span class="material-icons icon-bg-circle cyan small">add_shopping_cart</span>{{m}}</a>
-            <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">2 hours ago</time>
+          <li *ngFor="let n of notification">
+
+            <a href="javascript:void(0);" class="grey-text text-darken-2" (click)="viewNotification(n.event_id)">
+              <i class="fa fa-long-arrow-down fa-fw"></i>
+              {{n.title}}</a>
           </li>
+          <li class="divider"></li>
           <li>
-            <a href="#!" class="grey-text text-darken-2">
-              <span class="material-icons icon-bg-circle red small">stars</span> Completed the task</a>
-            <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">3 days ago</time>
+            <h6>view All
+            </h6>
           </li>
-          <li>
-            <a href="#!" class="grey-text text-darken-2">
-              <span class="material-icons icon-bg-circle teal small">settings</span> Settings updated</a>
-            <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">4 days ago</time>
-          </li>
-          <li>
-            <a href="#!" class="grey-text text-darken-2">
-              <span class="material-icons icon-bg-circle deep-orange small">today</span> Director meeting started</a>
-            <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">6 days ago</time>
-          </li>
-          <li>
-            <a href="#!" class="grey-text text-darken-2">
-              <span class="material-icons icon-bg-circle amber small">trending_up</span> Generate monthly report</a>
-            <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">1 week ago</time>
-          </li>
+
+
+
         </ul>
       </div>
     </nav>
@@ -78,6 +66,7 @@
     <div class="divider"></div>
     <li class="no-padding">
       <ul class="collapsible">
+
         <li class="bold" [routerLink]="['/dashboard']">
           <div class="collapsible-header  waves-effect">
             <i class="fa fa-home"></i>
@@ -90,25 +79,41 @@
             <span class="nav-text">Orders</span>
           </div>
         </li>
-        <li *ngIf="b_view == true" class="bold" [routerLink]="['/brand']">
-          <div class="collapsible-header  waves-effect">
-            <i class="fa fa-boxes"></i>
-            <span class="nav-text">Brand</span>
-          </div>
-        </li>
-        <li *ngIf="c_view == true" class="bold" [routerLink]="['/category']">
-          <div class="collapsible-header  waves-effect">
-            <i class="fa fa-boxes"></i>
-            <span class="nav-text">Category</span>
-          </div>
+
+        <li class="no-padding">
+          <ul class="collapsible">
+            <li class="bold">
+              <div class="collapsible-header  waves-effect"  data-collapsible="accordion">
+                <i class="fa fa-boxes"></i>
+                <span class="nav-text">Inventory</span>
+              </div>
+              <div class="collapsible-body">
+                <ul class="collapsible" data-collapsible="accordion">
+                  <li *ngIf="i_view == true" class="bold" [routerLink]="['/inventory']">
+                    <div class="collapsible-header  p-l-15 waves-effect">
+                      <i class="fa fa-boxes"></i>
+                      <span class="nav-text">Product</span>
+                    </div>
+                  </li>
+                  <li *ngIf="b_view == true" class="bold" [routerLink]="['/brand']">
+                    <div class="collapsible-header p-l-15  waves-effect">
+                      <i class="fa fa-boxes"></i>
+                      <span class="nav-text">Brand</span>
+                    </div>
+                  </li>
+                  <li *ngIf="c_view == true" class="bold" [routerLink]="['/category']">
+                    <div class="collapsible-header p-l-15 waves-effect">
+                      <i class="fa fa-boxes"></i>
+                      <span class="nav-text">Category</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
         </li>
 
-        <li *ngIf="i_view == true" class="bold" [routerLink]="['/inventory']">
-          <div class="collapsible-header  waves-effect">
-            <i class="fa fa-boxes"></i>
-            <span class="nav-text">Inventory</span>
-          </div>
-        </li>
+
         <li *ngIf="d_view == true" class="bold" [routerLink]="['/dealer']">
           <div class="collapsible-header  waves-effect">
             <i class="fa fa-user"></i>
@@ -134,6 +139,24 @@
     </div>
 
   </ul>
-
+  <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only gradient-45deg-light-blue-cyan gradient-shadow">
+    <i class="material-icons">menu</i>
+  </a>
 </aside>
 <!-- END LEFT SIDEBAR NAV-->
+
+
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.collapsible');
+    var instances = M.Collapsible.init(elems, options);
+  });
+
+  // Or with jQuery
+
+  $(document).ready(function(){
+    $('.collapsible').collapsible();
+  });
+        
+
+</script>

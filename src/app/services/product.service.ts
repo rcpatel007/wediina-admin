@@ -59,6 +59,8 @@ export class ProductService {
 
  }
 
+//  imgur API
+
  imgurImage(base64){
   let headers = new Headers({'Authorization': 'Client-ID e22c18840a29adc'});
   return this.http.post('https://api.imgur.com/3/image',base64, {headers: headers})
@@ -73,6 +75,23 @@ imgurotherImage(otherbase64){
   // headers.append('authorization', 'e22c18840a29adc');
   return this.http.post('https://api.imgur.com/3/image',otherbase64, {headers: headers})
   .pipe(map( res => res.json()));
+
+}
+
+ /* get img by id */
+ editimg(updateimg) {
+  let headers = new Headers({'x-access-token': ''+ this.loginService.token});   
+  return this.http.put('https://jasmatech-backend-api.herokuapp.com/prod_update_image/'+updateimg._id, updateimg, {headers: headers})
+  .pipe(map( res => res.json()));
+
+
+}
+ /* get other img by id */
+ othereditimg(otherupdateimg) {
+  let headers = new Headers({'x-access-token': ''+ this.loginService.token});   
+  return this.http.put('https://jasmatech-backend-api.herokuapp.com/prod_update_other_images/'+otherupdateimg._id, otherupdateimg, {headers: headers})
+  .pipe(map( res => res.json()));
+
 
 }
 

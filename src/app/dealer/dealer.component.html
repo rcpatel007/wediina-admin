@@ -46,13 +46,15 @@
                     <tr *ngFor="let a of account">
                       <td>{{a.name}}</td>
                       <td>{{a.company_name}}</td>
-                      <td>{{a.email}}</td>
+                      <td><a href="mailto:{{a.email}}">{{a.email}}</a></td>
                       <td>{{a.mobile}}</td>
                       <td>{{a.discount}}</td>
                       <td data-target="view_dealer" class="modal-trigger" (click)="viewDealer(a._id)">
                         <i class="fa fa-eye blue-text"></i>
                       </td>
-                      <td *ngIf="d_edit == true" data-target="edit_dealer"  class="modal-trigger"><i class="fa fa-pencil-alt orange-text"></i></td>  
+                      <td *ngIf="d_edit == true" data-target="edit_dealer" class="modal-trigger">
+                        <i class="fa fa-pencil-alt orange-text"></i>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -139,7 +141,7 @@
     </div>
 
 
-    <!-- edit dealer -->
+    <!-- view dealer -->
     <div id="view_dealer" class="modal">
       <div class="modal-content">
 
@@ -159,7 +161,9 @@
               </tr>
               <tr>
                 <th>Mail ID</th>
-                <td>{{email}}</td>
+                <td>
+                  <a href="mailto:{{email}}">{{email}}</a>>
+                </td>
               </tr>
               <tr>
                 <th>Contact No.</th>

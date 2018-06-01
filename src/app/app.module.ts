@@ -29,8 +29,8 @@ import { ProductService } from './services/product.service';
 import { RoleService } from './services/role.service';
 import { UserService } from './services/user.service';
 import { CityService } from './services/city.service';
+import { NotificationService } from './services/notification.service';
 import { Globals } from '../globals';
-import { ProfileComponent } from './profile/profile.component';
 import { VieworderComponent } from './vieworder/vieworder.component';
 import { EditorderComponent } from './editorder/editorder.component';
 import { AddProductComponent } from './add-product/add-product.component';
@@ -77,6 +77,7 @@ const appRoutes = [
     EditproductComponent,
     ViewproductComponent,
     
+    
   ],
   imports: [
     BrowserModule,
@@ -97,6 +98,7 @@ const appRoutes = [
               RoleService,
               UserService,
               CityService,
+              NotificationService,
               Globals
              ],
   bootstrap: [AppComponent]

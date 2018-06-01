@@ -60,12 +60,11 @@ export class ViewproductComponent implements OnInit {
       this.id = params['id'];
     });
     this.getProductById(this.id);
-    this.getmodel(this.id);
-
-
+   
   }
 
 
+  // single product
 
   getProductById(id) {
     this.Productservice.getProductById(id)
@@ -81,6 +80,22 @@ export class ViewproductComponent implements OnInit {
         this.o_img = data.other_images;
         this.desc = data.desc;
 
+        this.Productservice.getProductById(id)
+        .subscribe(data => {
+          // console.log(data);
+  
+          for (let i = 0; i < data.length; i++) {
+            this.modeldata.push(Object.keys(data[0].model_info));
+          }
+  
+  
+          for (let j = 0; j < this.modeldata.length; j++) {
+            this.key_array = (Object.keys(this.modeldata[0]));
+            this.finalvalue.push(Object.values(this.modeldata[j]));
+          }
+          console.log(this.finalvalue);
+        });
+
         this.categoryservice.getCategoryById(this.cat_id)
           .subscribe(Category => {
             this.cat_name = Category.name;
@@ -93,25 +108,7 @@ export class ViewproductComponent implements OnInit {
       });
   }
 
-  getmodel(id) {
-    this.Productservice.getProductById(id)
-      .subscribe(data => {
-        // console.log(data);
+  // get model data
 
-        for (let i = 0; i < data.length; i++) {
-          this.modeldata.push(Object.keys(data[0].model_info));
-          // this.modelvalue.push(Object.values(data.model_info));
-
-          // this.finalArray = this.modeldata.getKeys();
-        }
-
-
-        for (let j = 0; j < this.modeldata.length; j++) {
-          this.key_array = (Object.keys(this.modeldata[0]));
-          this.finalvalue.push(Object.values(this.modeldata[j]));
-        }
-        console.log(this.finalvalue);
-        // }
-      });
-  }
+ 
 }

@@ -2,10 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
+import {JwtHelper} from '../Jwthelper';
 import * as io from 'socket.io-client';
 import { Token } from '@angular/compiler';
 import { UserService } from '../services/user.service';
 import { User } from '../model/User';
+import { NotificationService } from '../services/notification.service';
+import { Notification } from 'rxjs';
+import { Notificaiton } from '../model/notification';
 
 
 @Component({
@@ -17,10 +21,11 @@ export class HeaderComponent implements OnInit {
   socket;
 
   msg = new Array();
+  notification = new Array();
   name: String;
   user_id: String;
   email: String;
-
+  read: any;
   // user
   role: String;
   o_view: boolean;
@@ -31,7 +36,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(private router: Router,
     private userservice: UserService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private notificaitonservice: NotificationService
   ) { this.socket = io('https://jasmatech-backend-api.herokuapp.com'); }
 
   ngOnInit() {
@@ -39,15 +45,67 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(["/login"]);
     }
 
+    else if (this.loginService.token != null) {
+      this.userRole();
+    }
+  
     //  this.socket.on('hello', (data) => console.log(data));
-    this.socket.on('new-brand', (result) => {
+    this.socket.on('new-message', (result) => {
       // this.display = true;
-      this.msg.push("New Brand Added: " + result.data.name);
+      this.msg.push(+ result.data.name);
 
     });
+    this.getNotificaiton();
     this.getuser(this.user_id);
 
   }
+
+  
+userRole() {
+  var jwtHelper = new JwtHelper();
+  var parsedToken = jwtHelper.decodeToken(this.loginService.token);
+  environment.user_id = parsedToken.id;  
+}
+
+  getNotificaiton() {
+    this.read = 0;
+
+    this.notificaitonservice.getNotification()
+      .subscribe((result) => {
+        
+
+        for (let i = 0; i < result.length; i++) {
+
+          if (result.read = true) {
+            this.notification = result;
+            this.read = this.read + 1;
+
+          }
+        }
+        // console.log(this.notification);
+
+      });
+  }
+
+  viewNotification(id) {
+    let notificationupdate = {
+      read: false
+    }
+    // console.log(notificationupdate);
+
+    this.notificaitonservice.getNotificationById()
+      .subscribe((notificaiton) => {
+        this.notificaitonservice.editNotification(notificationupdate)
+          .subscribe(() => {
+
+          });
+          this.router.navigate(['vieworder/' + id]);
+
+      });
+
+
+  }
+
 
 
   getuser(user_id) {
@@ -55,7 +113,7 @@ export class HeaderComponent implements OnInit {
 
     this.userservice.getUserById(id)
       .subscribe((data) => {
-         console.log(data);
+        // console.log(data);
         this.name = data.name;
         this.email = data.email;
 
@@ -66,8 +124,8 @@ export class HeaderComponent implements OnInit {
         this.c_view = data.category.view;
         this.role = data.role;
 
-        console.log(this.role);
-        
+        // console.log(this.role);
+
       });
 
 

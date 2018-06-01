@@ -12,6 +12,8 @@ export class OrderService {
 
   constructor(private http: Http, private loginService:LoginService) { }
 
+// all order
+
   getOrder() {
     let headers = new Headers();    
         headers = new Headers({'x-access-token':'' +this.loginService.token});
@@ -21,6 +23,9 @@ export class OrderService {
       .pipe(map(res => res.json()));
       
   }
+
+  // single order get
+
   viewOrder(id) {
     //  headers = new Headers();    
      let headers = new Headers({'x-access-token': ''+ this.loginService.token});
@@ -28,22 +33,29 @@ export class OrderService {
       .pipe(map( res => res.json()));
   
   }
-  updateOrder(updateOrder) {
+
+  // update order
+
+  updateOrder(updateOrder, id) {
     //  headers = new Headers();    
      let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-      return this.http.put('https://jasmatech-backend-api.herokuapp.com/order/'+updateOrder._id ,updateOrder,{headers: headers})
+      return this.http.put('https://jasmatech-backend-api.herokuapp.com/order/'+id ,updateOrder,{headers: headers})
       .pipe(map( res => res.json()));
   
   }
 
-  getAccountById(user_id) {
+
+  // dealer data get
+
+  getAccountById(id) {
     //  headers = new Headers();    
      let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-      return this.http.get('https://jasmatech-backend-api.herokuapp.com/account/' +user_id,{headers: headers})
+      return this.http.get('https://jasmatech-backend-api.herokuapp.com/account/' +id,{headers: headers})
       .pipe(map( res => res.json()));
   
   }
  
+// delete order
 
   deleteOrder(id) {
     let headers = new Headers({'x-access-token': ''+ this.loginService.token});

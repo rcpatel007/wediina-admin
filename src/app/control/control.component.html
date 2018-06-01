@@ -12,12 +12,37 @@
               <form (ngSubmit)="addCity()">
                 <div class="control-headding">CITY SERVED IN</div>
                 <div class="input-field col s12">
-                  <textarea id="city" type="text" class="materialize-textarea   city_class" name="city_name" [(ngModel)]="city_name">{{city_name}}</textarea>
+                  <textarea id="city_name" type="text" class="materialize-textarea   city_class" name="city_name" [(ngModel)]="city_name"></textarea>
                 </div>
-                <div class="right-align">
-                  <button class="hedding-btn" type="submit">Update</button>
+                <div class="row">
+                  <!-- <div class=" col s6 l6 m6 left-align">
+                    <button class="hedding-btn-2"  (click)="cityShow()" > Display City </button>
+                  </div> -->
+                  <div class="right-align">
+                    <button class="hedding-btn" type="submit">Update</button>
+                  </div>
                 </div>
               </form>
+            </div>
+            <div class="container">
+              <div class="section">
+                <div class="row ">
+                  <div class="col s12 m12 l12 card mr-t-50">
+                    <table class="display mr-t-20 striped" cellspacing="0" width="100%">
+                      <thead>
+                        <tr>
+                          <th>City</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let c of city">
+                          <td>{{c.city}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
             <br />
             <br />
@@ -156,18 +181,18 @@
         <div class="modal-content">
           <div class="row">
             <div class="input-field col s6">
-              <input id="Name" type="text" class="" [(ngModel)]="name" name="name">
+              <input id="Name" type="text" class="" [(ngModel)]="u_name" name="u_name">
               <label for="Name">Name</label>
             </div>
             <div class="input-field col s6">
-              <input id="email" type="text" class="" [(ngModel)]="email" name="email">
+              <input id="email" type="text" class="" [(ngModel)]="u_email" name="u_email">
               <label for="email">Email</label>
             </div>
           </div>
           <div class="row">
 
-            <div class="input-field col s6">
-              <input id="credit-demo" type="text" class="" [(ngModel)]="mobile" name="mobile">
+            <div class="input-field col s6">mobile
+              <input id="credit-demo" type="text" class="" [(ngModel)]="u_mobile" name="u_mobile">
               <label for="credit_demo">Mobile No.</label>
             </div>
           </div>
@@ -341,17 +366,16 @@
       <div class="modal-content">
         <div class="row">
           <div class="input-field col s6">
-            <input type="hidden" name="id" [(ngModel)]="id">
-
+            <input type="hidden" name="id" [(ngModel)]="id"> Name:
             <input id="Name" type="text" class="" placeholder="Name" [(ngModel)]="name" name="name">
           </div>
-          <div class="input-field col s6">
+          <div class="input-field col s6">Email:
             <input id="email" type="text" class="" [(ngModel)]="email" placeholder="Email ID" name="email">
           </div>
         </div>
         <div class="row">
 
-          <div class="input-field col s6">
+          <div class="input-field col s6">MObile No.:
             <input id="credit-demo" type="text" class="" [(ngModel)]="mobile" placeholder="Mobile No" name="mobile">
           </div>
         </div>
@@ -866,18 +890,14 @@
   $('#add_user').modal('open');
   $('#add_user').modal('close');
 
-  //  $('.modal').modal({
-  //     dismissible: true, // Modal can be dismissed by clicking outside of the modal
-  //     opacity: .5, // Opacity of modal background
-  //     inDuration: 300, // Transition in duration
-  //     outDuration: 200, // Transition out duration
-  //     startingTop: '4%', // Starting top style attribute
-  //     endingTop: '10%', // Ending top style attribute
-  //     ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
-  //     alert("Ready");
-  //     console.log(modal, trigger);
-  //   },
-  //   complete: function() { alert('Closed'); } // Callback for Modal close
-  // }
-  // );
+
+
+  function myFunction() {
+    var x = document.getElementById("citysection");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
 </script>

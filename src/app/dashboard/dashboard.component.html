@@ -21,7 +21,6 @@
                     <div class="col s8 m8 right-align card-text-contain">
                       <p class="no-margin card-text">New Order</p>
                       <h5 class="mb-0 card-text-total">{{new_count}}</h5>
-
                     </div>
                   </div>
                 </div>
@@ -51,7 +50,7 @@
                       </div>
                     </div>
                     <div class="col s8 m8 right-align card-text-contain">
-                      <p class="no-margin card-text">Pedding Orders</p>
+                      <p class="no-margin card-text">Pending Orders</p>
                       <h5 class="mb-0 card-text-total">{{pendding}}</h5>
 
                     </div>
@@ -82,7 +81,7 @@
           <!--DataTables example Row grouping-->
           <div class="section">
             <div class="row ">
-              <div class="col s12 card mr-t-50">
+              <div *ngIf="o_view == true" class="col s12 card mr-t-50">
                 <div class="col s3 m3">
                   <div class="col s3 m3 section-icon orange-back">
                     <i class="fa fa-shopping-cart"></i>
@@ -91,7 +90,7 @@
                     New Order
                   </div>
                 </div>
-                <table *ngIf="o_view == true" id="" class="display mr-t-90 striped" cellspacing="0" width="100%">
+                <table  id="" class="display mr-t-90 striped" cellspacing="0" width="100%">
                   <thead>
                     <tr>
                       <th>NO</th>

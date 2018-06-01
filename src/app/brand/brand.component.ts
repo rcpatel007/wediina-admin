@@ -7,6 +7,9 @@ import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import * as io from 'socket.io-client';
 import { UserService } from '../services/user.service';
+import { NotificationService } from '../services/notification.service';
+import { getLocaleDateFormat } from '@angular/common';
+import { Local } from 'protractor/built/driverProviders';
 
 
 
@@ -18,7 +21,7 @@ import { UserService } from '../services/user.service';
 export class BrandComponent implements OnInit {
   socket;
 
-  user_id:String;
+  user_id: String;
   auth: any;
   brand: Brand[];
   id: String;
@@ -35,6 +38,7 @@ export class BrandComponent implements OnInit {
     private loginservice: LoginService,
     private router: Router,
     private userservice: UserService,
+    private notificaitonservice: NotificationService,
     private globals: Globals
   ) { this.socket = io('https://jasmatech-backend-api.herokuapp.com'); }
 
@@ -55,22 +59,39 @@ export class BrandComponent implements OnInit {
 
   /* brand add*/
   addBrand() {
+    
     let addbrand = {
       name: this.name,
     }
 
     this.brandService.addBrand(addbrand)
-      .subscribe(() => {
+      .subscribe((res) => {
+        // console.log(res);
+        let date_time = Date.now();
+        let event_id= "br_"+res.data._id;
+        
+        let notification = {
+          title: "new Brand Add",
+          user_id: environment.user_id,
+          event_id: event_id,
+          date_time: date_time,
+          read: false
 
-        this.socket.emit('brand-saved', { data: addbrand });
+        }
+        // console.log(notification);
+        this.socket.emit('new-event', { data: addbrand });
+        this.notificaitonservice.addNotification(notification)
+          .subscribe(() => {
 
-        // this.closeBtn.nativeElement.click();
-        // console.log(addbrand);
+          });
+        console.log(addbrand);
         this.getBrand();
 
       });
   }
+
   /*get brand by id */
+
   getBrandById(id) {
     this.brandService.getBrandById(id)
       .subscribe(data => {
@@ -135,7 +156,7 @@ export class BrandComponent implements OnInit {
 
   getuser(user_id) {
     let id = environment.user_id
-console.log('user id  '+id);
+    console.log('user id  ' + id);
 
     this.userservice.getUserById(id)
       .subscribe((data) => {
@@ -144,7 +165,7 @@ console.log('user id  '+id);
         this.b_edit = data.brand.edit;
         this.b_view = data.brand.view;
         this.b_delete = data.brand.delete;
-   console.log(data);
+        console.log(data);
 
       });
   }

@@ -12,7 +12,7 @@ export class AccountService {
   constructor(private http: Http,
               private loginservice:LoginService) { }
 
-  // all category
+  // all user
   getAccount() {
    //  headers = new Headers();    
     let headers = new Headers({'x-access-token': ''+ this.loginservice.token});
@@ -20,7 +20,7 @@ export class AccountService {
      .pipe(map( res => res.json()));
  
  }
- // get account by id
+ // get user by id
 
  getAccountById(id) {
    //  headers = new Headers();    
@@ -30,7 +30,7 @@ export class AccountService {
  
  }
 
- // add Dealer
+ // add user
 
  addAccount(account) {    
    let headers = new Headers({'x-access-token': ''+ this.loginservice.token});

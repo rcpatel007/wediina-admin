@@ -14,7 +14,7 @@ export class DealerService {
     
   }
  
-  // all Dealer
+  // all Dealer type
   getDealerType() {
     //  headers = new Headers();    
     let headers = new Headers();    
@@ -27,7 +27,7 @@ export class DealerService {
   
   }
 
-  // get Dealer by id
+  // get Dealer type by id
 
   getDealerTypeById(id) {
     //  headers = new Headers();    
@@ -37,7 +37,7 @@ export class DealerService {
   
   }
 
-  // add Dealer
+  // add Dealer type
 
   addDealerType(dealer) {    
     let headers = new Headers({'x-access-token': ''+ this.loginService.token});
@@ -46,7 +46,7 @@ export class DealerService {
   
   }
   
-  // edit user
+  // edit dealertype
 
   editDealerType(id, updatedealer) {
   let headers = new Headers({'x-access-token':+ this.loginService.token });
@@ -55,7 +55,7 @@ export class DealerService {
 
 }
 
-// delete user
+// delete dealer type
  
   deleteDealerType(id) {
   let headers = new Headers({'x-access-token': ''+ this.loginService.token});

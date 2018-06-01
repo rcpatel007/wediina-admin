@@ -19,9 +19,10 @@ export class EditorderComponent implements OnInit {
   d_date: String;
   d_time: String;
   o_discount: String;
+  p_discount:String;
   status: String;
   methodvalue: String;
-  statusValue: String;
+  statusvalue: String;
   showHide: boolean;
 
 
@@ -60,17 +61,18 @@ export class EditorderComponent implements OnInit {
     this.orderService.viewOrder(id)
       .subscribe(data => {
         console.log(data);
+        this.user_id = data.user_id;
         this.o_id = data._id;
         this.o_date = data.order_date;
         this.d_date = data._date;
         this.d_time = data._time;
         this.product_detail = data.products;
         this.o_discount = data.o_discount;
-        this.statusValue = data.status;
+        this.statusvalue = data.statusValue;
         this.methodvalue = data.method;
         console.log(this.product_detail);
 
-        //  console.log(data.cust_name);
+         console.log('helloo'+data.methodvalue);
         // }
       });
 
@@ -95,13 +97,15 @@ export class EditorderComponent implements OnInit {
       _time: this.d_time,
       // p_discount:this.p_discount,
       products: this.product_detail,
+      user_id: this.user_id,
       o_discount: this.o_discount,
-      // status: this.statusValue,
-      // method: this.methodvalue
+      status: this.statusvalue,
+       method: this.methodvalue
     }
     console.log(updateorder);
+    let id = this.o_id;
     // console.log(orderupdate);
-    this.orderService.updateOrder(updateorder)
+    this.orderService.updateOrder(updateorder,id)
       .subscribe((res) => {
         this.router.navigate(['vieworder/' + this.o_id]);
 

@@ -22,7 +22,7 @@ export class BrandService {
   
   }
 
-  // get Dealer by id
+  // get brand by id
 
   getBrandById(id) {
     //  headers = new Headers();    
@@ -32,7 +32,7 @@ export class BrandService {
   
   }
 
-  // add Dealer
+  // add brand
 
   addBrand(addbrand) {    
     let headers = new Headers({'x-access-token': ''+ this.loginService.token});
@@ -41,7 +41,7 @@ export class BrandService {
   
   }
   
-  // edit barnad
+  // edit brand
 
   editBrand(brand) {
   let headers = new Headers({'x-access-token':''+ this.loginService.token});
@@ -50,7 +50,7 @@ export class BrandService {
 
 }
 
-// delete user
+// delete brand
  
   deleteBrand(id) {
   let headers = new Headers({'x-access-token':''+ this.loginService.token});

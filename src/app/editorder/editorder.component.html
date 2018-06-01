@@ -49,17 +49,18 @@
                       </div>
                       <div class="form-group">
                         <label><Strong>Method:</Strong></label>
-                        <select  class="form-control" [(ngModel)]="methodvalue" name="methodvalue">
+                        <select [(ngModel)]="methodvalue" name="methodvalue">
                             <option id="pickup" name="pickup" value="Pickup">Pickup</option>
                             <option id="delivery" name="delivery" value="Delivery">Delivery</option>
                         </select>
                       </div>
                       <div class="form-group">
                         <label><Strong>Status:</Strong></label>
-                        <select class="form-control" [(ngModel)]="statusValue"  name="statusValue">
-                            <option id="new" name="new" value="new">New</option>
-                            <option id="inprocess" name="inprocess" value="in process">In Process</option>
-                            <option id="completed" name="completed" value="completed">Completed</option>
+                        <select  [(ngModel)]="statusvalue"  name="statusvalue">
+                            <option id="new" name="Received"  class="blue-text" value="Received">Received</option>
+                            <option id="inprocess" name="in process" class="orange-text" value="In process">In Process</option>
+                            <option id="completed" class="green-text" name="completed" value="completed">Completed</option>
+                            <option id="completed" class="red-text" name="Cancel" value="Cancel">Cancel</option>
                             
                         </select>
                       </div>

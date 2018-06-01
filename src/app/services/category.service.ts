@@ -31,7 +31,7 @@ export class CategoryService {
   
   }
 
-  // add Dealer
+  // add category
 
   addCategory(Category) {    
     let headers = new Headers({'x-access-token': ''+ this.loginService.token});

@@ -26,7 +26,7 @@
           <div class="section">
             <div class="row ">
               <div class="col s12 card mr-t-50">
-                <div class="col s6 m6 l6">
+                <div class="col s12 m12 l6">
                   <table id="" class="display mr-t-20 striped" cellspacing="0" width="100%">
                     <tbody>
                       <tr>
@@ -52,18 +52,19 @@
                     </tbody>
                   </table>
                 </div>
-                <div class="col s6 m6 l6 ">
+                <div class="col s12 m12 l6 model-style ">
+                  <div>Model Info:</div>
                   <ng-container>
                     <table id="" class="display mr-t-20 striped" cellspacing="0" width="100%">
-                      <thead>
+                      <thead class="model-head">
                         <ng-container *ngFor="let keyarray of key_array">
                           <th>{{keyarray}}</th>
                         </ng-container>
                       </thead>
                       <tbody>
                         <!-- <ng-container *ngFor="let keyarray of key_array"> -->
-                        <tr>
-                          <td *ngFor="let fv of finalvalue">{{fv.price}}</td>
+                        <tr *ngFor="let row of finalvalue">
+                          <td *ngFor="let col of row ">{{col}}</td>
                         </tr>
                         <!-- </ng-container> -->
 
