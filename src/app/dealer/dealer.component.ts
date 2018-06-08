@@ -13,6 +13,8 @@ import { DealertypeService } from '../services/dealertype.service';
 import { CityService } from '../services/city.service';
 import { City } from '../model/City';
 import { UserService } from '../services/user.service';
+import * as io from 'socket.io-client';
+import { NotificationService } from '../services/notification.service';
 
 
 
@@ -24,8 +26,10 @@ import { UserService } from '../services/user.service';
 })
 export class DealerComponent implements OnInit {
   @ViewChild('add_dealer') add_dealer: ElementRef;
+  socket;
 
-  user_id:String;
+  user_id: String;
+  id: String;
   auth: any;
   account: Account[];
   role: Role[];
@@ -42,10 +46,10 @@ export class DealerComponent implements OnInit {
 
   // user
 
-  d_add:boolean;
-  d_edit:boolean;
-  d_view:boolean;
-  d_delete:boolean;
+  d_add: boolean;
+  d_edit: boolean;
+  d_view: boolean;
+  d_delete: boolean;
 
 
   constructor(private router: Router,
@@ -54,7 +58,10 @@ export class DealerComponent implements OnInit {
     private dealertypeservice: DealertypeService,
     private cityservice: CityService,
     private userservice: UserService,
-    private globals: Globals) { }
+    private notificationService: NotificationService,
+    private globals: Globals) { 
+      this.socket = io('https://jasmatech-backend-api.herokuapp.com');
+    }
 
 
 
@@ -63,12 +70,20 @@ export class DealerComponent implements OnInit {
       this.router.navigate(["/login"]);
     }
 
-    this.auth = { "email": this.globals.email, "token": this.loginservice.token }
-    this.getuser(this.user_id);
+
+
+    // this.auth = { "email": this.globals.email, "token": this.loginservice.token }
     this.viewaccount();
     this.getRole();
     this.getCity();
+    this.id = environment.user_id;
+    this.getuser();
+    
+
+
   }
+
+
 
   getRole() {
     this.dealertypeservice.getType()
@@ -150,10 +165,26 @@ export class DealerComponent implements OnInit {
 
     }
     console.log(add_dealer);
-
-
     this.accountservice.addAccount(add_dealer)
-      .subscribe(() => {
+      .subscribe((res) => {
+        let date_time = Date.now();
+        let event_id = "de_" +res.data._id;
+
+        let notification = {
+          title: "Add New Dealer",
+          user_id: environment.user_id,
+          event_id: event_id,
+          date_time: date_time,
+          read: false
+
+        }
+        // console.log(notification);
+        this.socket.emit('new-event', { data: add_dealer });
+        this.notificationService.addNotification(notification)
+          .subscribe(() => {
+
+          });
+
         // console.log(add_dealer);
         this.viewaccount();
 
@@ -161,21 +192,17 @@ export class DealerComponent implements OnInit {
   }
 
 
-  getuser(user_id) {
-    let id = environment.user_id;
-    console.log('log'+environment.user_id);
+  getuser() {
+    console.log('lol '+this.id);
     
-
-    this.userservice.getUserById(id)
+    this.userservice.getUserById(this.id)
       .subscribe((data) => {
         this.d_add = data.dealer.add;
         this.d_edit = data.dealer.edit;
         this.d_view = data.dealer.view;
         this.d_delete = data.dealer.delete;
-  
-
         //  console.log(account);
-        // console.log(data);
+        console.log('1022000000000000000000000-----------'+data);
 
       });
   }

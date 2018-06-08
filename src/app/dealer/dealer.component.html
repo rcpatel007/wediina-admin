@@ -19,14 +19,13 @@
                 </div>
               </div>
               <div class="col s6 l6 m6 right-align">
-                <button *ngIf="d_add == false" data-target="add_dealer" class="hedding-btn-2 modal-trigger">Add Dealer </button>
+                <button  data-target="add_dealer" class="hedding-btn-2 modal-trigger">Add Dealer </button>
                 <button class="hedding-btn">Download Data </button>
               </div>
 
             </div>
           </div>
           <!--card stats end-->
-
           <!--DataTables example Row grouping-->
           <div class="section">
             <div class="row ">
@@ -34,6 +33,7 @@
                 <table id="" class="display mr-t-20 striped" cellspacing="0" width="100%">
                   <thead>
                     <tr>
+                      <th>No</th>
                       <th>Name</th>
                       <th>Company</th>
                       <th>Mail ID</th>
@@ -43,7 +43,8 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let a of account">
+                    <tr *ngFor="let a of account; let i=index">
+                      <td>{{i+1}}</td>
                       <td>{{a.name}}</td>
                       <td>{{a.company_name}}</td>
                       <td><a href="mailto:{{a.email}}">{{a.email}}</a></td>
@@ -162,7 +163,7 @@
               <tr>
                 <th>Mail ID</th>
                 <td>
-                  <a href="mailto:{{email}}">{{email}}</a>>
+                  <a href="mailto:{{email}}">{{email}}</a>
                 </td>
               </tr>
               <tr>

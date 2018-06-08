@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
   enquiry: any;
   complate: any;
   order_count: any;
-  order: Order[];
+  order =new Array;
   account: Account[];
   product_details = new Array();
   auth: any;
@@ -83,7 +83,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getuser(user_id) {
-    let id = environment.user_id
+    let id = environment.user_id;
     this.userservice.getUserById(id)
       .subscribe((data) => {
         //  console.log(account);
@@ -114,8 +114,8 @@ export class DashboardComponent implements OnInit {
         this.c_view = data.category.view;
         this.c_delete = data.category.delete;
 
-        console.log(data);
-      });
+        // console.log(data);
+      }); 
   }
 
   getAccount() {
@@ -127,7 +127,7 @@ export class DashboardComponent implements OnInit {
         //  console.log(account);
         this.account = data;
 
-        console.log(this.account);
+        // console.log(this.account);
 
       });
   }
@@ -141,12 +141,12 @@ export class DashboardComponent implements OnInit {
 
     this.orderService.getOrder()
       .subscribe((Order) => {
-        console.log(Order);
+        // console.log(Order);
 
         for (let i = 0; i < Order.length; i++) {
           if (Order[i].status == 'Received') {
             this.new_count = this.new_count + 1;
-            this.order = Order[i];
+            this.order.push(Order[i]);
 
             console.log(this.order);
           }
@@ -167,7 +167,7 @@ export class DashboardComponent implements OnInit {
         }
 
 
-        console.log(this.order);
+        // console.log(this.order);
 
 
         // console.log(this.enquriry_data);
@@ -207,7 +207,7 @@ export class DashboardComponent implements OnInit {
     this.orderService.viewOrder(id)
       .subscribe((data) => {
         this.product_details = data.products;
-        console.log(this.product_details);
+        // console.log(this.product_details);
 
         // }
       });
@@ -228,7 +228,7 @@ export class DashboardComponent implements OnInit {
   deleteOrder(id) {
     this.orderService.deleteOrder(id)
       .subscribe(result => {
-        console.log(result);
+        // console.log(result);
         this.getOrder();
       });
   }

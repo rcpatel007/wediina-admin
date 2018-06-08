@@ -1,122 +1,129 @@
 <div id="main">
   <!-- START WRAPPER -->
   <div class="wrapper">
-<app-header></app-header>
+    <app-header></app-header>
 
-<section id="content" class="mr-t-20">
-  <!--start container-->
-  <div class="container">
-    <div class="section">
+    <section id="content" class="mr-t-20">
+      <!--start container-->
+      <div class="container">
+        <div class="section">
           <!--card stats start-->
           <div id="card-stats">
-              <div class="row">
-                  <div class="col s6 l6 m6">  
-                      <div class="col s2 l2 m2 headding-icon dark-blue-back">
-                            <i class="fa fa-boxes"></i>
-                          </div>
-                          <div class="hedding-text p-l-80">
-                            Category MANAGEMENT
-                          </div>  
-                        </div>
-                        <form *ngIf="c_add == true" (ngSubmit)="addCategory()">
-                        <div class="col s12 l12 m12 mr-t-20 mr-b-m-30">
-                          <div class="col s6 m6 l6">
-                           <b> Brand:</b>
-                            <select  [(ngModel)]="selectedValue" name="selectedValue">
-                              <option disabled>--Select Brand Name --</option>
-                              <option  *ngFor = "let d of brand" [value]="d._id">{{d.name}}</option>
-                            </select>
-                          
-                     </div>
-                          <div class="input-field col s6 m6 l6">
-                            <input id="category" type="text" class=""  [(ngModel)]="ename" name="ename">
-                            <label for="category">Add Category</label>
-                          </div>
-                        <div class="right-align">
-                          <button class="hedding-btn  " type="submit ">ADD </button>
-                        </div>
-                        </div>
-                      </form>
-                         
-                      
+            <div class="row">
+              <div class="col s6 l6 m6">
+                <div class="col s2 l2 m2 headding-icon dark-blue-back">
+                  <i class="fa fa-boxes"></i>
+                </div>
+                <div class="hedding-text p-l-80">
+                  Category MANAGEMENT
+                </div>
               </div>
+              <form (ngSubmit)="addCategory()">
+                <div class="col s12 l12 m12 mr-t-20 mr-b-m-30">
+                  <div class="col s6 m6 l6">
+                    <b> Brand:</b>
+                    <select [(ngModel)]="selectedValue" name="selectedValue">
+                      <option disabled>--Select Brand Name --</option>
+                      <option *ngFor="let d of brand" [value]="d._id">{{d.name}}</option>
+                    </select>
+
+                  </div>
+                  <div class="input-field col s6 m6 l6">
+                    <input id="category" type="text" class="" [(ngModel)]="ename" name="ename">
+                    <label for="category">Add Category</label>
+                  </div>
+                  <div class="right-align">
+                    <button class="hedding-btn  " type="submit ">ADD </button>
+                  </div>
+                </div>
+              </form>
+
+
             </div>
-            <!--card stats end-->
-     
-     <!--DataTables example Row grouping-->
-      <div class="section">
-        <div class="row ">
-          <div class="col s12 card mr-t-50">
-            <table id="" class="display mr-t-20 striped" cellspacing="0" width="100%">
-              <thead>
-                <tr>
-                  <th>Brand Name</th> 
-                  <th>Category Name</th>
-                  <th colspan="3">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <ng-container *ngFor = "let c of category">
-                  <ng-container  *ngFor ="let b of brand"> 
-                <tr  *ngIf="c.brand_id==b._id">
-                  <td>{{b.name}}</td>
-                  <td>{{c.name}}</td>
-                  <td  *ngIf="c_edit == true" data-target="edit_cat"  class=" modal-trigger" (click) = "getCategoryById(c._id)"><i class="fa fa-pencil-alt orange-text"></i></td>
-                  <td *ngIf="c_delete == true" (click)="ConfirmDelete(c._id)" ><i class="fa fa-trash red-text"></i></td>  
-                </tr>     
-             
-              </ng-container>
-                </ng-container>
-               
-              </tbody>
-            </table>
           </div>
+          <!--card stats end-->
 
-    </div>
+          <!--DataTables example Row grouping-->
+          <div class="section">
+            <div class="row ">
+              <div class="col s12 card mr-t-50">
+                <table id="" class="display mr-t-20 striped" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Brand Name</th>
+                      <th>Category Name</th>
+                      <th colspan="3">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container *ngFor="let c of category; let i=index">
+                      <ng-container *ngFor="let b of brand">
+                       
+                        <tr *ngIf="c.brand_id==b._id">
+                          <td>{{i}}</td>
+                          <td>{{b.name}}</td>
+                          <td>{{c.name}}</td>
+                          <td data-target="edit_cat" class=" modal-trigger" (click)="getCategoryById(c._id)">
+                            <i class="fa fa-pencil-alt orange-text"></i>
+                          </td>
+                          <td (click)="ConfirmDelete(c._id)">
+                            <i class="fa fa-trash red-text"></i>
+                          </td>
+                        </tr>
+
+                      </ng-container>
+                    </ng-container>
+
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
       </div>
-    </div>
-  
+      <!--end container-->
+    </section>
+
+
   </div>
-  <!--end container-->
-</section>
-
-
-</div>
 </div>
 
 <div id="edit_cat" class="modal">
-    <div class="modal-content">
-     
-      <div class="col s12">
-        <h5> Category details</h5>
-      </div>
-      <div class="col s12">
-  
-        <form  (ngSubmit)="updateCategory()">
-          <div class="col s12 l12 m12  mr-t-20 mr-b-m-30">
-              <select  [(ngModel)]="editedValue" name="editedValue">
-                  <option disabled>--Select Brand Name --</option>
-                  <option  *ngFor = "let d of brand" [value]="d._id">{{d.name}}</option>
-                </select>
-              
-                <div class="input-field col s6 m6 l6">
-                    <b>Category</b>
-               
-                  <input id="category" type="text" class=""  [(ngModel)]="name" name="name">
-                  </div>
-               
-            <button class="hedding-btn modal-close" type="submit">Update </button>
+  <div class="modal-content">
+
+    <div class="col s12">
+      <h5> Category details</h5>
+    </div>
+    <div class="col s12">
+
+      <form (ngSubmit)="updateCategory()">
+        <div class="col s12 l12 m12  mr-t-20 mr-b-m-30">
+          <select [(ngModel)]="editedValue" name="editedValue">
+            <option disabled>--Select Brand Name --</option>
+            <option *ngFor="let d of brand" [value]="d._id">{{d.name}}</option>
+          </select>
+
+          <div class="input-field col s6 m6 l6">
+            <b>Category</b>
+
+            <input id="category" type="text" class="" [(ngModel)]="name" name="name">
           </div>
-        </form>
-       
+
+          <button class="hedding-btn modal-close" type="submit">Update </button>
+        </div>
+      </form>
+
     </div>
-    </div>
-  
   </div>
-  <script>
-    $(document).ready(function(){
-          // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
-          $('.modal').modal();
-        });
-  
-  </script>
+
+</div>
+<script>
+  $(document).ready(function () {
+    // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+    $('.modal').modal();
+  });
+
+</script>

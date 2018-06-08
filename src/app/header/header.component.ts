@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
-import {JwtHelper} from '../Jwthelper';
+import { JwtHelper } from '../Jwthelper';
 import * as io from 'socket.io-client';
 import { Token } from '@angular/compiler';
 import { UserService } from '../services/user.service';
@@ -19,7 +19,7 @@ import { Notificaiton } from '../model/notification';
 })
 export class HeaderComponent implements OnInit {
   socket;
-
+  id: String;
   msg = new Array();
   notification = new Array();
   name: String;
@@ -48,7 +48,7 @@ export class HeaderComponent implements OnInit {
     else if (this.loginService.token != null) {
       this.userRole();
     }
-  
+
     //  this.socket.on('hello', (data) => console.log(data));
     this.socket.on('new-message', (result) => {
       // this.display = true;
@@ -60,56 +60,83 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  
-userRole() {
-  var jwtHelper = new JwtHelper();
-  var parsedToken = jwtHelper.decodeToken(this.loginService.token);
-  environment.user_id = parsedToken.id;  
-}
+
+  userRole() {
+    var jwtHelper = new JwtHelper();
+    var parsedToken = jwtHelper.decodeToken(this.loginService.token);
+    environment.user_id = parsedToken.id;
+    console.log('login id' + environment.user_id);
+
+  }
 
   getNotificaiton() {
     this.read = 0;
 
     this.notificaitonservice.getNotification()
       .subscribe((result) => {
-        
+
 
         for (let i = 0; i < result.length; i++) {
 
-          if (result.read = true) {
+          if (result.read !=true) {
             this.notification = result;
             this.read = this.read + 1;
-
           }
         }
-        // console.log(this.notification);
-
+        console.log(result);
       });
   }
+  view(event_id) {
+    console.log(event_id);
+    this.read = this.read - 1;
+    this.getNotificaiton();
+    let event = event_id.split('_');
+    this.id = event[1];
+    // console.log('yd' + event[0]);
+    let id = this.id;
 
-  viewNotification(id) {
-    let notificationupdate = {
-      read: false
-    }
-    // console.log(notificationupdate);
+    switch (event[0]) {
+      case 'br':
 
-    this.notificaitonservice.getNotificationById()
-      .subscribe((notificaiton) => {
-        this.notificaitonservice.editNotification(notificationupdate)
+        let notification = {
+          read: true
+        }
+        console.log(notification);
+        this.notificaitonservice.getNotificationById(id, notification)
           .subscribe(() => {
 
+
+            this.router.navigate(['brand/']);
+
           });
-          this.router.navigate(['vieworder/' + id]);
 
-      });
+        break;
 
+      case 'ca':
+        this.router.navigate(['category/']);
 
+        break;
+      case 'or':
+        this.router.navigate(['vieworder/', id]);
+        break;
+      case 'pr':
+
+        this.router.navigate(['viewproduct/', id]);
+        break;
+      case 'de':
+        this.router.navigate(['dealer/']);
+
+        break;
+      default:
+
+        break;
+    }
   }
 
 
 
   getuser(user_id) {
-    let id = environment.user_id
+    let id = environment.user_id;
 
     this.userservice.getUserById(id)
       .subscribe((data) => {
@@ -139,6 +166,7 @@ userRole() {
     this.loginService.logout()
       .subscribe(() => {
 
+        localStorage.removeItem(this.loginService.token);
         this.router.navigate(["/login"]);
       });
 

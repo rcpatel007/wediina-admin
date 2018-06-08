@@ -3,13 +3,13 @@ import { BrandService } from '../services/brand.service';
 import { Brand } from '../model/brand';
 import { LoginService } from '../services/login.service';
 import { Globals } from '../../globals';
-import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import * as io from 'socket.io-client';
 import { UserService } from '../services/user.service';
 import { NotificationService } from '../services/notification.service';
 import { getLocaleDateFormat } from '@angular/common';
 import { Local } from 'protractor/built/driverProviders';
+import { environment } from '../../environments/environment';
 
 
 
@@ -48,10 +48,12 @@ export class BrandComponent implements OnInit {
     if (this.loginservice.token == null) {
       this.router.navigate(["/login"]);
     }
-
-    this.getuser(this.user_id);
+    this.id = environment.user_id;
+    // this.user_id = environment.user_id;
+    this.getuser();
     // this.auth = { "email": this.globals.email, "token": this.loginservice.token }
     this.getBrand();
+
 
   }
 
@@ -59,7 +61,7 @@ export class BrandComponent implements OnInit {
 
   /* brand add*/
   addBrand() {
-    
+
     let addbrand = {
       name: this.name,
     }
@@ -67,18 +69,21 @@ export class BrandComponent implements OnInit {
     this.brandService.addBrand(addbrand)
       .subscribe((res) => {
         // console.log(res);
-        let date_time = Date.now();
-        let event_id= "br_"+res.data._id;
-        
+        let date = Date.now();
+        // let date_time = new Date(date);
+        let finaldate = new Date(date);
+        let event_id = "br_" + res.data._id;
+
         let notification = {
-          title: "new Brand Add",
+          title: "new Brand Add: "+this.name,
           user_id: environment.user_id,
           event_id: event_id,
-          date_time: date_time,
+          name:this.name,
+          date_time: finaldate,
           read: false
 
         }
-        // console.log(notification);
+        console.log(notification);
         this.socket.emit('new-event', { data: addbrand });
         this.notificaitonservice.addNotification(notification)
           .subscribe(() => {
@@ -111,7 +116,26 @@ export class BrandComponent implements OnInit {
       // slang:this.slang      
     }
     this.brandService.editBrand(brand)
-      .subscribe(() => {
+      .subscribe((data) => {
+        let date_time = Date.now();
+        let event_id = "br_" + data._id;
+
+        let notification = {
+          title: "Edit Brand :" + this.name,
+          user_id: environment.user_id,
+          event_id: event_id,
+          name: this.name,
+          date_time: date_time,
+          read: false
+
+        }
+        // console.log(notification);
+        this.socket.emit('new-event', { data: brand });
+        this.notificaitonservice.addNotification(notification)
+          .subscribe(() => {
+
+          });
+
         console.log(brand);
         // this.editcloseBtn.nativeElement.click();
         this.getBrand();
@@ -124,6 +148,8 @@ export class BrandComponent implements OnInit {
     this.brandService.getBrand()
       .subscribe(Brand => {
         this.brand = Brand;
+        // console.log('helloooo'+environment.user_id);
+
 
       });
   }
@@ -154,18 +180,25 @@ export class BrandComponent implements OnInit {
   }
 
 
-  getuser(user_id) {
-    let id = environment.user_id
-    console.log('user id  ' + id);
+  getuser() {
 
-    this.userservice.getUserById(id)
+
+    console.log('lol ' + this.id);
+
+
+
+
+    this.userservice.getUserById(this.id)
       .subscribe((data) => {
-        //  console.log(account);
         this.b_add = data.brand.add;
         this.b_edit = data.brand.edit;
         this.b_view = data.brand.view;
         this.b_delete = data.brand.delete;
         console.log(data);
+
+
+        //  console.log(account);
+        // console.log(data);
 
       });
   }

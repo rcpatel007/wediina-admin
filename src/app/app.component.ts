@@ -11,13 +11,15 @@ import { Globals } from 'globals';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
- title = 'app';
+  title = 'app';
+  id: String;
+  constructor(private loginservice: LoginService) {
 
- constructor(private loginservice:LoginService){
+    this.id = environment.user_id;
 
- }
+  }
 
 
- 
+
 
 }

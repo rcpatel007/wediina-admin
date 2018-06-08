@@ -37,7 +37,7 @@
                       <th>Image</th>
                       <th>Name</th>
                       <th>Category</th>
-                      <th>pressure(PSI)</th>
+                      <th>Pressure(PSI)</th>
                       <th>Temprature</th>
                       <th colspan="2">Action</th>
                     </tr>
@@ -47,7 +47,8 @@
                       <ng-container *ngFor="let c of category">
 
                         <tr *ngIf="i.category_id === c._id">
-                          <td class="prod_img">
+                            
+                            <td class="prod_img">
                             <img src="{{i.product_image}}" class="img-thumbnail border-none  img-fluid" width="80" height="80" />
                             <div class="edit">
                               <button data-target="singleimg" class="modal-trigger b-radius-40" (click)="getproductById(i._id)">
@@ -62,11 +63,11 @@
                           <td>{{c.name}}</td>
                           <td>{{i.pressure}}</td>
                           <td>{{i.temprature}}</td>
-                          <td  [routerLink]="['/viewproduct', i._id]">
+                          <td [routerLink]="['/viewproduct', i._id]">
                             <i class="fa fa-eye blue-text"></i>
                           </td>
 
-                          <td  [routerLink]="['/editproduct', i._id]">
+                          <td [routerLink]="['/editproduct', i._id]">
                             <i class="fa fa-pencil-alt orange-text"></i>
                           </td>
                           <td (click)="ConfirmDelete(i._id)">

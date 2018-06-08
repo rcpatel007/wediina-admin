@@ -7,6 +7,8 @@ import { Brand } from '../model/brand';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
+import * as io from 'socket.io-client';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'app-category',
@@ -14,6 +16,7 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
+  socket;
 
   user_id: String;
   brand: Brand[];
@@ -38,7 +41,10 @@ export class CategoryComponent implements OnInit {
     private BrandService: BrandService,
     private userservice: UserService,
     private router: Router,
-    private loginservice: LoginService) { }
+    private loginservice: LoginService,
+    private notificationService: NotificationService) {
+    this.socket = io('https://jasmatech-backend-api.herokuapp.com');
+  }
 
   ngOnInit() {
 
@@ -79,7 +85,6 @@ export class CategoryComponent implements OnInit {
   }
   /* Update Category Name*/
   updateCategory() {
-
     let cat = {
       _id: this.id,
       name: this.name.toUpperCase(),
@@ -89,7 +94,25 @@ export class CategoryComponent implements OnInit {
 
     }
     this.CategoryService.editCategory(cat)
-      .subscribe(() => {
+      .subscribe((data) => {
+        let date_time = Date.now();
+        let event_id = "ca_" + data._id;
+
+        let notification = {
+          title: "Edit Category ",
+          user_id: environment.user_id,
+          event_id: event_id,
+          date_time: date_time,
+          read: false
+
+        }
+        // console.log(notification);
+        this.socket.emit('new-event', { data: cat });
+        this.notificationService.addNotification(notification)
+          .subscribe(() => {
+
+          });
+
         this.getCategory();
         // this.getBrand();
         console.log(cat);
@@ -113,7 +136,28 @@ export class CategoryComponent implements OnInit {
     }
     console.log(addcat);
     this.CategoryService.addCategory(addcat)
-      .subscribe(() => {
+      .subscribe((res) => {
+        let date_time = Date.now();
+        let event_id = "ca_" + res.data._id;
+          console.log(event_id);
+          console.log(res);
+          
+          
+        let notification = {
+          title: "new Category Add",
+          user_id: environment.user_id,
+          event_id: event_id,
+          date_time: date_time,
+          read: false
+
+        }
+        // console.log(notification);
+        this.socket.emit('new-event', { data: addcat });
+        this.notificationService.addNotification(notification)
+          .subscribe(() => {
+
+          });
+
         // console.log(addCategory);
         this.getCategory();
       });
@@ -141,8 +185,8 @@ export class CategoryComponent implements OnInit {
 
   getuser(user_id) {
     let id = environment.user_id;
-    console.log('log'+environment.user_id);
-    
+    console.log('log' + environment.user_id);
+
 
     this.userservice.getUserById(id)
       .subscribe((data) => {

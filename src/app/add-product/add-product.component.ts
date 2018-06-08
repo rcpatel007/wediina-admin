@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { ViewChild, ElementRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl, NgForm } from '@angular/forms';
+// import {InputError} from "../error";
 
 import { ProductService } from '../services/product.service';
 import { Product } from '../model/Product';
@@ -11,8 +13,10 @@ import { CategoryService } from '../services/category.service';
 import { Category } from '../model/category';
 import { CityService } from '../services/city.service';
 import { City } from '../model/City';
-
-
+import { UserService } from '../services/user.service';
+import * as io from 'socket.io-client';
+import { NotificationService } from '../services/notification.service';
+import { StockService } from '../services/stock.service';
 
 
 @Component({
@@ -21,6 +25,7 @@ import { City } from '../model/City';
   styleUrls: ['./add-product.component.css']
 })
 export class AddProductComponent implements OnInit {
+  socket;
 
   product: Product[];
   city: City[];
@@ -33,6 +38,7 @@ export class AddProductComponent implements OnInit {
   model_info = new Array;
   model_no: String;
   price: String;
+  qty: String;
   grade: String;
   size: String;
   base64: any;
@@ -46,7 +52,6 @@ export class AddProductComponent implements OnInit {
   model_info_array = [];
   keyValue = [];
   modeldata = [];
-
   finalArray = [];
 
 
@@ -54,10 +59,24 @@ export class AddProductComponent implements OnInit {
     private productservice: ProductService,
     private loginservice: LoginService,
     private cityservice: CityService,
-    private categoryservice: CategoryService) { }
+    private categoryservice: CategoryService,
+    private notificationService: NotificationService,
+    private stockservice: StockService
+  ) {
+    this.socket = io('https://jasmatech-backend-api.herokuapp.com');
+  }
 
   ngOnInit() {
     this.getCategory();
+
+
+    // this.someFormHandle = this.formBuilder.group({
+    //   'someNumber': ['', Validators.compose([Validators.required, 
+    //                                          Validators.minLength(7), 
+    //                                          this.divisibleByTen])]
+    // });
+
+    // this.someNumber = this.someFormHandle.find('someNumber');
 
   }
 
@@ -67,8 +86,10 @@ export class AddProductComponent implements OnInit {
     this.modeldata.push({
       model_no: '',
       price: '',
+      qty: '',
       size: '',
       grade: '',
+
       keyValue: []
     });
 
@@ -187,9 +208,38 @@ export class AddProductComponent implements OnInit {
         }
         console.log(product);
 
+// PRODCUT ADD
         this.productservice.addProdcut(product)
           .subscribe((res) => {
 
+// NOTIFIACITON ADD
+            let date_time = Date.now();
+            let event_id = "pa_" + res.data._id;
+
+            let notification = {
+              title: "new Product  Add",
+              user_id: environment.user_id,
+              event_id: event_id,
+              date_time: date_time,
+              read: false
+
+            }
+            // console.log(notification);
+            this.socket.emit('new-event', { data: product });
+            this.notificationService.addNotification(notification)
+              .subscribe(() => {
+
+              });
+// STOCK ADD  
+
+            let stock = {
+              product_id: res.data._id,
+              qty: this.qty
+            }
+            this.stockservice.addStock(stock)
+              .subscribe(() => {
+
+              });
             this.router.navigate(["/inventory"]);
 
             console.log(res);

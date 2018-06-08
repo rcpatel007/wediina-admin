@@ -23,10 +23,10 @@ export class NotificationService {
   
   // single notification
 
-  getNotificationById() {
+  getNotificationById(id, notification) {
     //  headers = new Headers();    
      let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-      return this.http.get('https://jasmatech-backend-api.herokuapp.com/notification/',{headers: headers})
+      return this.http.put('https://jasmatech-backend-api.herokuapp.com/read_notification/'+id,notification,{headers: headers})
       .pipe(map( res => res.json()));
   }
   

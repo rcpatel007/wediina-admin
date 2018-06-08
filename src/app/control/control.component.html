@@ -823,7 +823,7 @@
     </div>
     <div class="modal-footer p-t-15 ">
       <a class="modal-action modal-close ">CANCEL</a>
-      <button class="modal-action    hedding-btn" type="submit">ADD</button>
+      <button class="modal-action   modal-close   hedding-btn" type="submit">ADD</button>
     </div>
   </form>
 </div>
@@ -841,14 +841,14 @@
       </div>
       <div class="row">
         <div class="input-field col s3 m3 l3">
-          <input id="disc" type="text" class="" [(ngModel)]="disc" name="disc">
-          <label for="disc">Discount</label>
+          <input id="discount" type="text" class="" [(ngModel)]="discount" name="discount">
+          <label for="discount">Discount</label>
         </div>
       </div>
     </div>
     <div class="modal-footer p-t-15 ">
       <a class="modal-action modal-close ">CANCEL</a>
-      <button class="modal-action    hedding-btn" type="submit">ADD</button>
+      <button class="modal-action  modal-close  hedding-btn" type="submit">ADD</button>
     </div>
   </form>
 </div>
@@ -860,13 +860,13 @@
   <form class="col s12" (ngSubmit)="editType()">
     <div class="modal-content">
       <div class="row">
-        <div class="input-field col s12 m12 l12">
+        <div class="input-field col s12 m12 l12"> <b>  Type:</b>
           <input id="type" type="text" class="" [(ngModel)]="type" name="type">
 
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s3 m3 l3">
+        <div class="input-field col s3 m3 l3"> <b>Discount :</b>
           <input id="disc" type="text" class="" [(ngModel)]="disc" name="disc">
 
         </div>

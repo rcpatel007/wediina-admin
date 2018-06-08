@@ -36,10 +36,14 @@ import { EditorderComponent } from './editorder/editorder.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { EditproductComponent } from './editproduct/editproduct.component';
 import { ViewproductComponent } from './viewproduct/viewproduct.component';
+import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
+import { NotificationComponent } from './notification/notification.component';
+import { StockmanagementComponent } from './stockmanagement/stockmanagement.component';
 
 const appRoutes = [
   {path: '', component: LoginComponent},   
   {path: 'login', component: LoginComponent},   
+  {path: 'forgerPassword', component: ForgetpasswordComponent},   
   {path: 'header', component: HeaderComponent},   
   {path: 'dashboard', component: DashboardComponent},   
   {path: 'order', component: OrderComponent},   
@@ -47,11 +51,13 @@ const appRoutes = [
   {path: 'editproduct/:id', component: EditproductComponent},   
   {path: 'viewproduct/:id', component: ViewproductComponent},   
   {path: 'inventory', component: InventoryComponent},   
+  {path: 'stock', component: StockmanagementComponent},   
   {path: 'dealer', component: DealerComponent},   
   {path: 'guest', component: GuestComponent},   
   {path: 'brand', component: BrandComponent},   
   {path: 'category', component: CategoryComponent},   
   {path: 'control', component: ControlComponent},   
+  {path: 'notificaiton', component: NotificationComponent},   
   {path: 'vieworder/:id', component: VieworderComponent},   
   {path: 'editorder/:id', component: EditorderComponent},   
   
@@ -76,6 +82,9 @@ const appRoutes = [
     AddProductComponent,
     EditproductComponent,
     ViewproductComponent,
+    ForgetpasswordComponent,
+    NotificationComponent,
+    StockmanagementComponent,
     
     
   ],

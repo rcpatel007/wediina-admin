@@ -18,7 +18,7 @@
                   BRAND MANAGEMENT
                 </div>
               </div>
-              <form *ngIf="b_add == true" (ngSubmit)="addBrand()">
+              <form  (ngSubmit)="addBrand()">
                 <div  class="col s12 l12 m12 right-align mr-t-20 mr-b-m-30">
                   <div class="input-field col s12">
                     <input id="brand" name="brand" type="text" [(ngModel)]="name" class="">
@@ -45,13 +45,13 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let b of brand">
-                      <td>1</td>
+                    <tr *ngFor="let b of brand; let i =index">
+                      <td>{{i+1}}</td>
                       <td>{{b.name}}</td>
-                      <td *ngIf="b_edit == true" data-target="edit_brand" class=" modal-trigger" (click)="getBrandById(b._id) ">
+                      <td data-target="edit_brand" class=" modal-trigger" (click)="getBrandById(b._id) ">
                         <i class="fa fa-pencil-alt orange-text"></i>
                       </td>
-                      <td *ngIf="b_delete == true" (click)="ConfirmDelete(b._id)">
+                      <td (click)="ConfirmDelete(b._id)">
                         <i class="fa fa-trash red-text "></i>
                       </td>
                     </tr>
@@ -89,7 +89,7 @@
           <div class="right-align">
             <button class="hedding-btn modal-close" type="submit">Update </button>
           </div>
-        </div>
+        </div>  
       </form>
 
     </div>

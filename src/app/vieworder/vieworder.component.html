@@ -39,7 +39,7 @@
                         <th>
                           <strong> Customer Name: </strong>
                         </th>
-                        <td   class="cust_name">
+                        <td class="cust_name">
                           <div data-target="view_o_dealer" class="modal-trigger">{{customername}}</div>
                         </td>
                       </tr>
@@ -134,12 +134,12 @@
         </div>
       </div>
 
-      
 
-    <!-- view dealer -->
-    <div id="view_o_dealer" class="modal">
+
+      <!-- view dealer -->
+      <div id="view_o_dealer" class="modal">
         <div class="modal-content">
-  
+
           <div class="col s12">
             <h5>Details</h5>
           </div>
@@ -156,7 +156,9 @@
                 </tr>
                 <tr>
                   <th>Mail ID</th>
-                  <td><a href="mailto:{{email}}">{{email}}</a></td>
+                  <td>
+                    <a href="mailto:{{email}}">{{email}}</a>
+                  </td>
                 </tr>
                 <tr>
                   <th>Contact No.</th>
@@ -165,29 +167,29 @@
                 <tr>
                   <th>Discount #</th>
                   <td>{{d_discount}} %</td>
-  
+
                 </tr>
                 <tr>
                   <th>GST</th>
                   <td>{{gst_no}}</td>
-  
+
                 </tr>
                 <tr>
                   <th>Type</th>
                   <td>{{type}}</td>
-  
+
                 </tr>
                 <tr>
-                    <th>Address</th>
-                    <td>{{address}}</td>
-    
-                  </tr>
+                  <th>Address</th>
+                  <td>{{address}}</td>
+
+                </tr>
               </tbody>
             </table>
-  
+
           </div>
         </div>
-  
+
       </div>
       <!--end container-->
     </section>
@@ -198,7 +200,7 @@
 
 
 <script>
-    $(document).ready(function () {
-      $('.modal').modal();
-    });
-  </script>
+  $(document).ready(function () {
+    $('.modal').modal();
+  });
+</script>

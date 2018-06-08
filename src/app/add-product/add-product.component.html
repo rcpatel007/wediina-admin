@@ -32,7 +32,7 @@
 
                     <div class="row">
                       <div class="input-field col s12">
-                        <input id="name" type="text" [(ngModel)]="name" name="name" [(ngModel)]="name" class="">
+                        <input id="name" type="text" [(ngModel)]="name"  name="name" [(ngModel)]="name" class="">
                         <label for="name">Name</label>
                       </div>
 
@@ -88,12 +88,16 @@
                         <b>Model Info: </b>
                       </div>
                       <div class="input-field col s12">
+                        <input id="model_no" type="text" [(ngModel)]="modeldata[i].model_no" name="model_no{{i}}" [(ngModel)]="model_no" class="">
+                        <label for="model_no">Model No</label>
+                      </div>
+                      <div class="input-field col s12">
                         <input id="price" type="text" [(ngModel)]="modeldata[i].price" name="price{{i}}" [(ngModel)]="price" class="">
                         <label for="price">Price</label>
                       </div>
                       <div class="input-field col s12">
-                        <input id="model_no" type="text" [(ngModel)]="modeldata[i].model_no" name="model_no{{i}}" [(ngModel)]="model_no" class="">
-                        <label for="model_no">Model No</label>
+                        <input id="qty" type="text" [(ngModel)]="modeldata[i].qty" name="qty{{i}}" [(ngModel)]="qty" class="">
+                        <label for="qty">QTY.</label>
                       </div>
                       <div class="input-field col s12">
                         <input id="grade" type="text" [(ngModel)]="modeldata[i].grade" name="grade{{i}}" [(ngModel)]="grade" class="">

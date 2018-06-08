@@ -46,6 +46,7 @@ export class ControlComponent implements OnInit {
   getrole: String;
   role_disc: String;
   disc: String;
+  discount: String;
   t_id: String;
   r_id: String;
   type: String;
@@ -608,7 +609,7 @@ export class ControlComponent implements OnInit {
   addType() {
     let add_type = {
       type: this.d_type,
-      discount: this.disc,
+      discount: this.discount,
 
     }
     console.log(add_type);
@@ -616,6 +617,9 @@ export class ControlComponent implements OnInit {
 
     this.dealertypeservice.addType(add_type)
       .subscribe(() => {
+        this.d_type = null;
+
+        this.discount= null;
         this.getType();
         // console.log(this.viewUser);
 

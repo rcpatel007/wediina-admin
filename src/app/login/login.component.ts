@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { Globals } from '../../globals';
+// import { Globals } from '../../globals';
 
 
 
@@ -10,13 +10,13 @@ import { Globals } from '../../globals';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
-})
+})  
 export class LoginComponent implements OnInit {
   email: String;
   pwd: String;
   x_access_token: String;
 
-  constructor(private loginService: LoginService, private router: Router, private globals: Globals) { }
+  constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
     // if (this.loginService.token != null){
@@ -32,7 +32,11 @@ export class LoginComponent implements OnInit {
       email: this.email,
       password: this.pwd,
 
+      
+      
     }
+
+
     this.loginService.userLogin(user)
       .subscribe((result) => {
         if (result == true) {
@@ -42,34 +46,12 @@ export class LoginComponent implements OnInit {
         }
         else {
           this.router.navigate(["/login"]);
+          console.log('false ' + result);
+
         }
       });
   }
 
 
-  // private urlBase64Decode(str: string) {
-  //   var output = str.replace(/-/g, '+').replace(/_/g, '/');
-  //   switch (output.length % 4) {
-  //     case 0: { break; }
-  //     case 2: { output += '=='; break; }
-  //     case 3: { output += '='; break; }
-  //     default: {
-  //       throw 'Illegal base64url string!';
-  //     }
-  //   }
-  //   return decodeURIComponent(escape(window.atob(output)));
-  // }
-
-  // public decodeToken(token: string) {
-  //   var parts = token.split('.');
-  //   if (parts.length !== 3) {
-  //     throw new Error('JWT must have 3 parts');
-  //   }
-  //   var decoded = this.urlBase64Decode(parts[1]);
-  //   if (!decoded) {
-  //     throw new Error('Cannot decode the token');
-  //   }
-  //   return JSON.parse(decoded);
-  // }
-
+  
 }

@@ -39,19 +39,19 @@
                     <th>Mail ID</th>
                     <th>Contact No</th>
                     <th>Base City</th>
-                    <th colspan="2">Action</th>
+                    <!-- <th colspan="2">Action</th> -->
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor = "let g of guest" >
-                    <td>1</td>
+                  <tr *ngFor = "let g of guest;let i=index" >
+                    <td>{{i+1}}</td>
                     <td>{{g.name}}</td>
                     <td>{{g.company_name}}</td>
                     <td><a href="mailto:{{g.email}}">{{g.email}}</a></td>
                     <td>{{g.mobile}}</td>
                     <td>{{g.city}}</td>
                     <!-- <td data-target="view_guest"  class="modal-trigger" (click)="viewguest(g._id)"><i class="fa fa-eye blue-text"></i></td> -->
-                    <td><i class="fa fa-envelope orange-text"></i></td>  
+                    <!-- <td><i class="fa fa-envelope orange-text"></i></td>   -->
                   </tr>
                
                 </tbody>
