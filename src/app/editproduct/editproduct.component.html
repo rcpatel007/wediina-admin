@@ -68,12 +68,12 @@
                         <b>Model Info: </b>
                       </div>
                       <div class="input-field col s12">
-                        <b>Price</b>
-                        <input id="price" type="text" [(ngModel)]="modeldata[i].price" name="price{{i}}" [(ngModel)]="price" class="">
-                      </div>
-                      <div class="input-field col s12">
                         <b>Model No</b>
                         <input id="model_no" type="text" [(ngModel)]="modeldata[i].model_no" name="model_no{{i}}" [(ngModel)]="model_no" class="">
+                      </div>
+                      <div class="input-field col s12">
+                        <b>Price</b>
+                        <input id="price" type="text" [(ngModel)]="modeldata[i].price" name="price{{i}}" [(ngModel)]="price" class="">
                       </div>
                       <div class="input-field col s12">
                         <b>Grade</b>
@@ -83,13 +83,28 @@
                         <b>Size</b>
                         <input id="size" type="text" [(ngModel)]="modeldata[i].size" name="size{{i}}" [(ngModel)]="size" class="">
                       </div>
-                      <div *ngFor="let key of model.keyValue; let in=index" class="col s12 m12 l12">
+                      <!-- <div *ngFor="let key of model.keyValue; let in=index" class="col s12 m12 l12">
                         <div>
                           <div class="col s6 l6 m6 m-t-20">
                             <input type="text" [(ngModel)]="model.keyValue[in].key" name="model.keyValue[in].key{{in}}" #key="ngModel" required />
                           </div>
                           <div class="col s 6 m6 l6">
                             <input type="text" [(ngModel)]="model.keyValue[in].value" name="model.keyValue[in].value{{in}}" #value="ngModel" required
+                            />
+                          </div>
+                        </div>
+                        <br />
+                      </div> -->
+                        
+                      
+                      <div *ngFor="let key of modeldata[i].keyValue; let in=index" class="col s12 m12 l12">
+
+                        <div>
+                          <div class="col s6 l6 m6 m-t-20">
+                            <input type="text" [(ngModel)]="modeldata[i].keyValue[in].key" name="modeldata{{i}}.keyValue{{in}}.key{{in}}" #key="ngModel" required />
+                          </div>
+                          <div class="col s 6 m6 l6">
+                            <input type="text" [(ngModel)]="modeldata[i].keyValue[in].value" name="modeldata{{i}}.keyValue{{in}}.value{{in}}" #value="ngModel" required
                             />
                           </div>
                           <!--<p [hidden]="words2[in].value">Field is required</p> -->

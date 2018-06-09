@@ -22,6 +22,7 @@ export class EditproductComponent implements OnInit {
   temp: String;
   pressure: String;
   desc: String;
+  model_detail = new Array;
   model_info = new Array;
   model_no: String;
   base64: any;
@@ -33,8 +34,8 @@ export class EditproductComponent implements OnInit {
   catValue: any;
   model_info_array = [];
   keyValue = [];
-  modeldata = [];
-
+  modeldata = new Array;
+  m_data = [];
   finalArray = [];
 
 
@@ -42,7 +43,7 @@ export class EditproductComponent implements OnInit {
     private router: Router,
     private loginservice: LoginService,
     private Productservice: ProductService,
-    private categoryservice:CategoryService
+    private categoryservice: CategoryService
   ) { }
 
   ngOnInit() {
@@ -50,11 +51,10 @@ export class EditproductComponent implements OnInit {
     if (this.loginservice.token === null) {
       this.router.navigate(["/login"]);
     }
-
-
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
+
     this.getProductById(this.id);
     this.getCategory();
 
@@ -64,28 +64,22 @@ export class EditproductComponent implements OnInit {
     this.categoryservice.getCategory()
       .subscribe(Category => {
         this.category = Category;
-        console.log(this.category);
-
+        // console.log(this.category);
       });
   }
 
-
-  
   addmodel() {
-
-
     this.modeldata.push({
+      model_no: '',
       price: '',
+      qty: '',
       size: '',
       grade: '',
-      model_no: '',
       keyValue: []
     });
-
-
     // this.modeldata.push({ key: '', value: '' })
 
-    // console.log(this.model_info_array);
+    console.log(this.modeldata);
 
 
   }
@@ -93,68 +87,58 @@ export class EditproductComponent implements OnInit {
 
     this.modeldata[index].keyValue.push({ key: '', value: '' })
 
-    // console.log(this.model_info_array);
+    console.log(this.modeldata);
+
 
   }
 
   getProductById(id) {
     this.Productservice.getProductById(id)
       .subscribe(data => {
-        console.log(data);
+        // console.log(data);
         this.id = data._id;
         this.name = data.name;
         this.catValue = data.category_id;
-        this. pressure = data.pressure;
-        this.modeldata= data.model_info;
+        this.pressure = data.pressure;
+        this.modeldata = data.model_info;
         this.temp = data.temprature;
         this.p_img = data.product_image;
         this.o_img = data.other_images;
         this.desc = data.desc;
-        
-console.log();
 
-                // }
+        console.log(this.modeldata);
+
+      
       });
-
   }
+
   /*Update order */
   updateProduct() {
-    let id =this.id;
-      // this.finalArray = this.modeldata;
-
-      // for (let i = 0; i < this.finalArray.length; i++) {
-      //   for (let index = 0; index < this.finalArray[i].keyValue.length; index++) {
-      //     this.finalArray[i][this.finalArray[i].keyValue[index].key] = this.finalArray[i].keyValue[index].value;
-      //   }
-      //   delete this.finalArray[i].keyValue;
-      // }
-
-
-
-      console.log(this.finalArray);
-
-
-      let updateproduct = {
-
-
-        _id: this.id,
-        name:this.name,
-        category_id:this.catValue,
-        pressure:this.pressure,
-        temprature:this.temp,
-        // model_info:this.finalArray,
-        product_image:this.p_img,
-        other_images:this.o_img,
-        desc:this.desc,
-           }
-      console.log(updateproduct);
-      this.Productservice.editProduct(id,updateproduct)
-        .subscribe((res) => {
-          this.router.navigate(['viewproduct/' + this.id]);
-
-          console.log(res);
-        });
+    let id = this.id;
+    this.finalArray = this.modeldata;
+    for (let i = 0; i < this.finalArray.length; i++) {
+      for (let index = 0; index < this.finalArray[i].keyValue.length; index++) {
+        this.finalArray[i][this.finalArray[i].keyValue[index].key] = this.finalArray[i].keyValue[index].value;
+      }
+      delete this.finalArray[i].keyValue;
     }
-
-
+    console.log(this.finalArray);
+    let updateproduct = {
+      _id: this.id,
+      name: this.name,
+      category_id: this.catValue,
+      pressure: this.pressure,
+      temprature: this.temp,
+      model_info: this.finalArray,
+      product_image: this.p_img,
+      other_images: this.o_img,
+      desc: this.desc,
+    }
+    console.log(updateproduct);
+    this.Productservice.editProduct(id, updateproduct)
+      .subscribe((res) => {
+        this.router.navigate(['viewproduct/' + this.id]);
+        console.log(res);
+      });
+  }
 }

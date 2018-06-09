@@ -75,7 +75,7 @@
 
                     </div>
                     <br />
-                    <button class="modal-action hedding-btn" type="submit">ADD PRODUCT</button>
+                    <button class="modal-action hedding-btn"  onclick="Materialize.toast('Add New Product', 3000)" type="submit">ADD PRODUCT</button>
                   </div>
 
                   <div class="col s6 m6 l6 ">
@@ -108,14 +108,14 @@
                         <label for="size">Size</label>
                       </div>
 
-                      <div *ngFor="let key of model.keyValue; let in=index" class="col s12 m12 l12">
+                      <div *ngFor="let key of modeldata[i].keyValue; let in=index" class="col s12 m12 l12">
 
                         <div>
                           <div class="col s6 l6 m6 m-t-20">
-                            <input type="text" [(ngModel)]="model.keyValue[in].key" name="model.keyValue[in].key{{in}}" #key="ngModel" required />
+                            <input type="text" [(ngModel)]="modeldata[i].keyValue[in].key" name="modeldata{{i}}.keyValue{{in}}.key{{in}}" #key="ngModel" required />
                           </div>
                           <div class="col s 6 m6 l6">
-                            <input type="text" [(ngModel)]="model.keyValue[in].value" name="model.keyValue[in].value{{in}}" #value="ngModel" required
+                            <input type="text" [(ngModel)]="modeldata[i].keyValue[in].value" name="modeldata{{i}}.keyValue{{in}}.value{{in}}" #value="ngModel" required
                             />
                           </div>
                           <!--<p [hidden]="words2[in].value">Field is required</p> -->

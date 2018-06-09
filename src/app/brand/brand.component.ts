@@ -26,8 +26,7 @@ export class BrandComponent implements OnInit {
   brand: Brand[];
   id: String;
   name: String;
-  slang: String;
-
+  msg: String;
   // user
   b_add: boolean;
   b_edit: boolean;
@@ -61,7 +60,7 @@ export class BrandComponent implements OnInit {
 
   /* brand add*/
   addBrand() {
-
+    this.msg = "";
     let addbrand = {
       name: this.name,
     }
@@ -75,10 +74,10 @@ export class BrandComponent implements OnInit {
         let event_id = "br_" + res.data._id;
 
         let notification = {
-          title: "new Brand Add: "+this.name,
+          title: "new Brand Add: " + this.name,
           user_id: environment.user_id,
           event_id: event_id,
-          name:this.name,
+          name: this.name,
           date_time: finaldate,
           read: false
 
@@ -89,10 +88,21 @@ export class BrandComponent implements OnInit {
           .subscribe(() => {
 
           });
-        console.log(addbrand);
-        this.getBrand();
 
-      });
+        this.getBrand();
+        this.name = "";
+
+            this.msg ="New msg Added";
+            return
+        // this.msg = "New Brand Added"
+        // return this.msg;
+      },
+      (error =>{
+        console.log(error);
+
+      })
+    
+    );
   }
 
   /*get brand by id */
@@ -150,8 +160,9 @@ export class BrandComponent implements OnInit {
         this.brand = Brand;
         // console.log('helloooo'+environment.user_id);
 
+      }
 
-      });
+      );
   }
 
 
@@ -159,7 +170,7 @@ export class BrandComponent implements OnInit {
   /*delete brand */
   ConfirmDelete(id) {
 
-    var x = confirm("Are you sure you want to delete?" + id);
+    var x = confirm("Are you sure you want to delete?");
     if (x) {
       console.log(this.auth);
 
@@ -176,27 +187,29 @@ export class BrandComponent implements OnInit {
       .subscribe(result => {
         console.log(result);
         this.getBrand();
+
+        // this.msg ="Brand is Delete"
+        // return this.msg;
+
+        // console.log(this.msg);
       });
+
+
+
   }
 
 
   getuser() {
+    let id = environment.user_id;
 
-
-    console.log('lol ' + this.id);
-
-
-
-
-    this.userservice.getUserById(this.id)
+    // console.log('lol ' + this.id)
+    this.userservice.getUserById(id)
       .subscribe((data) => {
         this.b_add = data.brand.add;
         this.b_edit = data.brand.edit;
         this.b_view = data.brand.view;
         this.b_delete = data.brand.delete;
         console.log(data);
-
-
         //  console.log(account);
         // console.log(data);
 

@@ -19,7 +19,7 @@
                 </div>
               </div>
               <div class="col s6 l6 m6 right-align">
-                <button  data-target="add_dealer" class="hedding-btn-2 modal-trigger">Add Dealer </button>
+                <button data-target="add_dealer" class="hedding-btn-2 modal-trigger">Add Dealer </button>
                 <button class="hedding-btn">Download Data </button>
               </div>
 
@@ -47,13 +47,15 @@
                       <td>{{i+1}}</td>
                       <td>{{a.name}}</td>
                       <td>{{a.company_name}}</td>
-                      <td><a href="mailto:{{a.email}}">{{a.email}}</a></td>
+                      <td>
+                        <a href="mailto:{{a.email}}">{{a.email}}</a>
+                      </td>
                       <td>{{a.mobile}}</td>
                       <td>{{a.discount}}</td>
                       <td data-target="view_dealer" class="modal-trigger" (click)="viewDealer(a._id)">
                         <i class="fa fa-eye blue-text"></i>
                       </td>
-                      <td *ngIf="d_edit == true" data-target="edit_dealer" class="modal-trigger">
+                      <td data-target="edit_dealer" class="modal-trigger" (click)="viewDealer(a._id)">
                         <i class="fa fa-pencil-alt orange-text"></i>
                       </td>
                     </tr>
@@ -70,7 +72,6 @@
     <!-- add dealer -->
     <div id="add_dealer" class="modal">
       <div class="modal-content">
-
         <div class="col s12">
           <h5>Details</h5>
         </div>
@@ -80,6 +81,7 @@
               <div class="input-field col s6">
                 <input id="name" type="text" [(ngModel)]="name" name="name" class="">
                 <label for="name">Person Name</label>
+                <div *ngIf="loginForm.controls['email'].hasError('required') && loginForm.controls['email'].touched" class="alert alert-danger">You must add  name .</div>
               </div>
               <div class="input-field col s6">
                 <input id="cnm" type="text" class="" [(ngModel)]="cnm" name="cnm">
@@ -103,43 +105,106 @@
               </div>
               <div class=" col s6">CITY :
                 <select [(ngModel)]="selectedValue" name="selectedValue">
-                  <option disabled>--Select Brand Name --</option>
+                  <option disabled>--Select City Name --</option>
                   <option *ngFor="let c of city" [value]="c.city">{{c.city}}</option>
                 </select>
               </div>
               <div class="input-field col s6">GST ID:
                 <input id="purchase-code" type="text" C name="gst" [(ngModel)]="gst" name="gst" class="">
               </div>
-
               <div class=" col s12">
                 <div class="">
                   <h6>TYPE:</h6>
                 </div>
                 <br />
                 <div class="col s3" *ngFor="let a of role">
-                  <input class="with-gap" type="radio" id="{{a.type}}" value="{{roletype}}" name="type" [(ngModel)]="type" />
+                  <input class="with-gap" type="radio" id="{{a.type}}" value="{{a.type}}" name="type" [(ngModel)]="type" (change)="roleTypeChange(a._id)"/>
                   <label for="{{a.type}}">{{a.type}}</label>
                 </div>
-
-
               </div>
               <div class="input-field col col s3">
-                <input id="disc" type="text" class="" [(ngModel)]="discount" name="discount">
-                <label for="disc">Discout %</label>
+                  <b>Discout %</b>
+                <input id="disc" type="text" class="" [(ngModel)]="discount"  name="discount">
+              
               </div>
             </div>
             <div class="divider"></div>
             <br />
             <div class="modal-footer">
               <a class="modal-action modal-close ">CANCEL</a>
-              <button class="modal-action modal-close hedding-btn" type="submit">ADD</button>
+              <button class="modal-action modal-close hedding-btn" onclick="Materialize.toast('Add New Dealer', 3000)" type="submit">ADD</button>
             </div>
-
           </form>
         </div>
       </div>
-
     </div>
+
+    <!-- edit dealer -->
+
+    <div id="edit_dealer" class="modal">
+      <div class="modal-content">
+        <div class="col s12">
+          <h5>Details</h5>
+        </div>
+        <div class="col s12">
+          <form class="col s12" (ngSubmit)="editDealer()">
+            <div class="row">
+              <div class="input-field col s6">
+                <b>Person Name</b>
+                <input id="name" type="text" [(ngModel)]="e_name" name="e_name" class="">
+              </div>
+              <div class="input-field col s6">
+                <b>Company Name</b>
+                <input id="cnm" type="text" class="" [(ngModel)]="e_cnm" name="e_cnm">
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <b>Email ID</b>
+                <input id="email" type="text" class="" [(ngModel)]="e_email" name="e_email">
+              </div>
+              <div class="input-field col s6">
+                <b>Mobile No.</b>
+                <input id="credit-demo" type="text" class="" [(ngModel)]="e_mno" name="e_mno">
+              </div>
+            </div>
+            <div class="row">
+             
+              <div class=" col s6">CITY :
+                <select [(ngModel)]="editValue" name="editValue">
+                  <option disabled>--Select City Name --</option>
+                  <option *ngFor="let c of city" [value]="c.city">{{c.city}}</option>
+                </select>
+              </div>
+              <div class="input-field col s6">GST ID:
+                <input id="purchase-code" type="text" name="e_gst" [(ngModel)]="e_gst"  class="">
+              </div>
+              <div class=" col s12">
+                <div class="">
+                  <h6>TYPE:</h6>
+                </div>
+                <br />
+                <div class="col s3" *ngFor="let a of role">
+                  <input class="with-gap" type="radio" id="{{a.type}}" value="{{a.type}}" name="type" [(ngModel)]="type" (change)="getRoleValue(a._id)" />
+                  <label for="{{a.type}}">{{a.type}}</label>
+                </div>
+              </div>
+              <div class="input-field col col s3">
+                <b>Discout %</b>
+                <input id="disc" type="text" class="" [(ngModel)]="e_discount" name="e_discount">
+              </div>
+            </div>
+            <div class="divider"></div>
+            <br />
+            <div class="modal-footer">
+              <a class="modal-action modal-close ">CANCEL</a>
+              <button class="modal-action modal-close hedding-btn" type="submit" onclick="Materialize.toast('Dealer Edit', 3000)">Update</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
 
 
     <!-- view dealer -->
@@ -154,35 +219,35 @@
             <tbody>
               <tr>
                 <th>Name</th>
-                <td>{{name}}</td>
+                <td>{{e_name}}</td>
               </tr>
               <tr>
                 <th>Company</th>
-                <td>{{cnm}}</td>
+                <td>{{e_cnm}}</td>
               </tr>
               <tr>
                 <th>Mail ID</th>
                 <td>
-                  <a href="mailto:{{email}}">{{email}}</a>
+                  <a href="mailto:{{email}}">{{e_email}}</a>
                 </td>
               </tr>
               <tr>
                 <th>Contact No.</th>
-                <td>{{mno}}</td>
+                <td>{{e_mno}}</td>
               </tr>
               <tr>
                 <th>Discount #</th>
-                <td>{{discount}}</td>
+                <td>{{e_discount}}</td>
 
               </tr>
               <tr>
                 <th>GST</th>
-                <td>{{gst}}</td>
+                <td>{{e_gst}}</td>
 
               </tr>
               <tr>
                 <th>Type</th>
-                <td>{{Type}}</td>
+                <td>{{e_type}}</td>
 
               </tr>
             </tbody>
@@ -192,7 +257,7 @@
       </div>
 
     </div>
-  </div>
+  </div>                
 
   <script>
     $(document).ready(function () {

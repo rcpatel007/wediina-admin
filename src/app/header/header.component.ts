@@ -26,6 +26,7 @@ export class HeaderComponent implements OnInit {
   user_id: String;
   email: String;
   read: any;
+  n_id: String;
   // user
   role: String;
   o_view: boolean;
@@ -65,7 +66,7 @@ export class HeaderComponent implements OnInit {
     var jwtHelper = new JwtHelper();
     var parsedToken = jwtHelper.decodeToken(this.loginService.token);
     environment.user_id = parsedToken.id;
-    console.log('login id' + environment.user_id);
+    // console.log('login id' + environment.user_id);
 
   }
 
@@ -74,63 +75,111 @@ export class HeaderComponent implements OnInit {
 
     this.notificaitonservice.getNotification()
       .subscribe((result) => {
-
-
         for (let i = 0; i < result.length; i++) {
 
-          if (result.read !=true) {
+          if (result[i].read == false) {
             this.notification = result;
             this.read = this.read + 1;
           }
         }
-        console.log(result);
+        // console.log(result);
       });
   }
-  view(event_id) {
+  view(event_id, _id) {
     console.log(event_id);
-    this.read = this.read - 1;
+
     this.getNotificaiton();
     let event = event_id.split('_');
     this.id = event[1];
     // console.log('yd' + event[0]);
-    let id = this.id;
+    let id = _id;
+    let notification = {
+      read: true
+    }
+
+
+    // this.notificaitonservice.getNotificationById(id, notification)
+    //   .subscribe((data) => {
+    //     this.n_id = data._id;
+    //     console.log('id d'+this.n_id);
+
+    //   });
 
     switch (event[0]) {
       case 'br':
+        this.notificaitonservice.getNotificationById(id)
+          .subscribe((data) => {
 
-        let notification = {
-          read: true
-        }
-        console.log(notification);
-        this.notificaitonservice.getNotificationById(id, notification)
-          .subscribe(() => {
+            this.notificaitonservice.editNotification(id, notification)
+              .subscribe((res) => {
+                this.router.navigate(['brand/']);
+                this.getNotificaiton();
+                console.log(res);
+              });
+            // console.log(data);
+          });
+        break;
 
-
-            this.router.navigate(['brand/']);
-
+      case 'ca':
+        this.notificaitonservice.getNotificationById(id)
+          .subscribe((data) => {
+            this.notificaitonservice.editNotification(id, notification)
+              .subscribe((res) => {
+                this.router.navigate(['category/']);
+                this.getNotificaiton();
+                console.log(res);
+              });
+            // console.log(data);
+          });
+        break;
+      case 'or':
+        this.notificaitonservice.getNotificationById(id)
+          .subscribe((data) => {
+            this.notificaitonservice.editNotification(id, notification)
+              .subscribe((res) => {
+                this.router.navigate(['vieworder/', id]);
+                this.getNotificaiton();
+                console.log(res);
+              });
+            // console.log(data);
           });
 
         break;
 
-      case 'ca':
-        this.router.navigate(['category/']);
-
-        break;
-      case 'or':
-        this.router.navigate(['vieworder/', id]);
-        break;
       case 'pr':
+        this.notificaitonservice.getNotificationById(id)
+          .subscribe((data) => {
+            this.notificaitonservice.editNotification(id, notification)
+              .subscribe((res) => {
+                this.router.navigate(['viewproduct/', id]);
 
-        this.router.navigate(['viewproduct/', id]);
+                this.getNotificaiton();
+                console.log(res);
+              });
+            // console.log(data);
+          });
         break;
       case 'de':
-        this.router.navigate(['dealer/']);
+        this.notificaitonservice.getNotificationById(id)
+          .subscribe((data) => {
+            this.notificaitonservice.editNotification(id, notification)
+              .subscribe((res) => {
+                this.router.navigate(['dealer/']);
+                this.getNotificaiton();
+                console.log(res);
+              });
+            // console.log(data);
+          });
 
         break;
       default:
 
         break;
+
+
     }
+
+
   }
 
 

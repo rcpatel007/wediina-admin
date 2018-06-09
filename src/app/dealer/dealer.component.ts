@@ -3,6 +3,7 @@ import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { ViewChild, ElementRef } from '@angular/core';
 
+
 import { AccountService } from '../services/account.service';
 import { Account } from '../model/Dealer';
 import { LoginService } from '../services/login.service';
@@ -34,16 +35,26 @@ export class DealerComponent implements OnInit {
   account: Account[];
   role: Role[];
   city: City[];
-  name: string;
-  cnm: String;
-  email: String;
-  mno: String;
-  address: JSON;
-  gst: String;
-  type: String;
-  discount: String;
+  name: string = "";
+  cnm: String = "";
+  email: String = "";
+  mno: String = "";
+  all_address: JSON;
+  gst: String = "";
+  type: String = "";
+  discount: String = "";
   selectedValue: any;
-
+  e_name: string = "";
+  e_cnm: String = "";
+  e_email: String = "";
+  e_mno: String = "";
+  e_address: JSON;
+  e_gst: String = "";
+  e_type: String = "";
+  e_discount: String = "";
+  editValue: any;
+  address: String;
+  add = [];
   // user
 
   d_add: boolean;
@@ -59,9 +70,9 @@ export class DealerComponent implements OnInit {
     private cityservice: CityService,
     private userservice: UserService,
     private notificationService: NotificationService,
-    private globals: Globals) { 
-      this.socket = io('https://jasmatech-backend-api.herokuapp.com');
-    }
+    private globals: Globals) {
+    this.socket = io('https://jasmatech-backend-api.herokuapp.com');
+  }
 
 
 
@@ -78,7 +89,7 @@ export class DealerComponent implements OnInit {
     this.getCity();
     this.id = environment.user_id;
     this.getuser();
-    
+
 
 
   }
@@ -93,6 +104,17 @@ export class DealerComponent implements OnInit {
         console.log(data);
 
       });
+  }
+
+  roleTypeChange(id) {
+    this.dealertypeservice.getTypeById(id)
+      .subscribe((data) => {
+        this.discount = data.discount;
+        console.log(data);
+
+      })
+
+
   }
   getCity() {
     this.cityservice.getcity()
@@ -120,13 +142,15 @@ export class DealerComponent implements OnInit {
     this.accountservice.getAccountById(id)
       .subscribe((data) => {
         console.log(data);
-        this.name = data.name;
-        this.cnm = data.company_name;
-        this.email = data.email;
-        this.mno = data.mobile;
-        this.type = data.type;
-        this.gst = data.gst;
-        this.discount = data.discount;
+        this.id = data._id;
+        this.e_name = data.name;
+        this.e_cnm = data.company_name;
+        this.e_email = data.email;
+        this.e_mno = data.mobile;
+        this.e_type = data.type;
+        this.editValue = data.city;
+        this.e_gst = data.gst;
+        this.e_discount = data.discount;
 
       });
   }
@@ -152,11 +176,16 @@ export class DealerComponent implements OnInit {
   // }
   // }
   addDealer() {
+
+
+    this.add.push({ 'office': [this.address] })
+
     let add_dealer = {
       name: this.name,
       company_name: this.cnm,
       email: this.email,
       mobile: this.mno,
+      address: this.add,
       city: this.selectedValue,
       gst: this.gst,
       type: this.type,
@@ -168,10 +197,10 @@ export class DealerComponent implements OnInit {
     this.accountservice.addAccount(add_dealer)
       .subscribe((res) => {
         let date_time = Date.now();
-        let event_id = "de_" +res.data._id;
+        let event_id = "de_" + res.data._id;
 
         let notification = {
-          title: "Add New Dealer",
+          title: "Add New Dealer" + this.name,
           user_id: environment.user_id,
           event_id: event_id,
           date_time: date_time,
@@ -187,23 +216,84 @@ export class DealerComponent implements OnInit {
 
         // console.log(add_dealer);
         this.viewaccount();
+        this.name = "";
+        this.cnm = "";
+        this.email = "";
+        this.mno = "";
+        this.address = "";
+        this.selectedValue = "";
+        this.gst = "";
+        this.type = "";
+        this.discount = "";
+
+
+
+      });
+  }
+
+  editDealer() {
+    let edit_dealer = {
+
+      name: this.e_name,
+      company_name: this.e_cnm,
+      email: this.e_email,
+      mobile: this.e_mno,
+      city: this.editValue,
+      gst: this.e_gst,
+      type: this.type,
+      discount: this.e_discount
+    }
+    let id = this.id;
+    console.log(edit_dealer);
+    this.accountservice.editAccount(id, edit_dealer)
+      .subscribe((res) => {
+        console.log(res);
+
+        let date_time = Date.now();
+        let event_id = "de_" + res.data._id;
+
+        let notification = {
+          title: "Edit Dealer : " + this.name,
+          user_id: environment.user_id,
+          event_id: event_id,
+          date_time: date_time,
+          read: false
+
+        }
+        // console.log(notification);
+        this.socket.emit('new-event', { data: edit_dealer });
+        this.notificationService.addNotification(notification)
+          .subscribe(() => {
+
+          });
+
+        // console.log(add_dealer);
+        this.viewaccount();
+        this.name = "";
+        this.cnm = "";
+        this.email = "";
+        this.mno = "";
+        this.selectedValue = "";
+        this.gst = "";
+        this.type = "";
+        this.discount = "";
+
+
 
       });
   }
 
 
   getuser() {
-    console.log('lol '+this.id);
-    
-    this.userservice.getUserById(this.id)
+    let id = environment.user_id;
+
+    this.userservice.getUserById(id)
       .subscribe((data) => {
         this.d_add = data.dealer.add;
         this.d_edit = data.dealer.edit;
         this.d_view = data.dealer.view;
         this.d_delete = data.dealer.delete;
         //  console.log(account);
-        console.log('1022000000000000000000000-----------'+data);
-
       });
   }
 

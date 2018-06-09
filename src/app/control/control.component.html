@@ -19,7 +19,7 @@
                     <button class="hedding-btn-2"  (click)="cityShow()" > Display City </button>
                   </div> -->
                   <div class="right-align">
-                    <button class="hedding-btn" type="submit">Update</button>
+                    <button class="hedding-btn"  onclick="Materialize.toast('City ADD', 3000)" type="submit">Update</button>
                   </div>
                 </div>
               </form>
@@ -191,7 +191,7 @@
           </div>
           <div class="row">
 
-            <div class="input-field col s6">mobile
+            <div class="input-field col s6">
               <input id="credit-demo" type="text" class="" [(ngModel)]="u_mobile" name="u_mobile">
               <label for="credit_demo">Mobile No.</label>
             </div>
@@ -278,7 +278,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>Guest</td>
+                  <td>Dealer</td>
                   <td>
                     <input type="checkbox" class="filled-in" id="a_g_add" [(ngModel)]="a_g_add" name="a_g_add" [value]="a_g_add" />
                     <label for="a_g_add"></label>
@@ -352,7 +352,7 @@
         </div>
         <div class="modal-footer p-t-15 ">
           <a class="modal-action modal-close ">CANCEL</a>
-          <button class="modal-action  modal-close  hedding-btn" type="submit">ADD</button>
+          <button class="modal-action  modal-close  hedding-btn"  onclick="Materialize.toast('New Account ADD', 3000)" type="submit">ADD</button>
         </div>
       </form>
     </div>
@@ -362,7 +362,6 @@
 
   <div id="edit_user" class="modal modal-fixed-footer">
     <form class="col s12" (ngSubmit)="editUser()">
-
       <div class="modal-content">
         <div class="row">
           <div class="input-field col s6">
@@ -374,7 +373,6 @@
           </div>
         </div>
         <div class="row">
-
           <div class="input-field col s6">MObile No.:
             <input id="credit-demo" type="text" class="" [(ngModel)]="mobile" placeholder="Mobile No" name="mobile">
           </div>
@@ -387,9 +385,9 @@
             </div>
             <br />
             <div class="col s3" *ngFor="let a of role">
-              <input class="with-gap" name="roletype" type="radio" id="{{a.role}}" value="a.role" [(ngModel)]="roletype" (change)="getUserRoleValue(id)"
-              />
-              <label for="{{a.role}}">{{a.role}}</label>
+           <input class="with-gap"  name="roletype" type="radio" id="{{a.role}}" [value]="a.role" [(ngModel)]="roletype" (change)="getRoleValue(a._id)"
+                />
+                <label for="{{a.role}}">{{a.role}}</label>
             </div>
 
           </div>
@@ -449,23 +447,23 @@
                 </td>
               </tr>
               <tr>
-                <td>Guest</td>
+                <td>Dealer</td>
                 <td>
-                  <input type="checkbox" class="filled-in" id="g_add" [(ngModel)]="g_add" name="g_add" [value]="g_add" />
+                  <input type="checkbox" class="filled-in" id="g_add" [(ngModel)]="d_add" name="g_add" [value]="g_add" />
                   <label for="g_add"></label>
 
                 </td>
                 <td>
-                  <input type="checkbox" class="filled-in" id="g_view" [(ngModel)]="g_view" name="g_view" [value]="g_view" />
+                  <input type="checkbox" class="filled-in" id="g_view" [(ngModel)]="d_view" name="g_view" [value]="g_view" />
                   <label for="g_view"></label>
 
                 </td>
                 <td>
-                  <input type="checkbox" class="filled-in" id="g_edit" [(ngModel)]="g_edit" name="g_edit" [value]="g_edit" />
+                  <input type="checkbox" class="filled-in" id="g_edit" [(ngModel)]="d_edit" name="g_edit" [value]="g_edit" />
                   <label for="g_edit"></label>
                 </td>
                 <td>
-                  <input type="checkbox" class="filled-in" id="g_delete" [(ngModel)]="g_delete" name="g_delete" [value]="g_delete" />
+                  <input type="checkbox" class="filled-in" id="g_delete" [(ngModel)]="d_delete" name="g_delete" [value]="g_delete" />
                   <label for="g_delete"></label>
                 </td>
               </tr>
@@ -473,7 +471,7 @@
               <tr>
                 <td>Brand</td>
                 <td>
-                  <input type="checkbox" class="filled-in" id="b_add" [(ngModel)]="b_add" name="b_add" [value]="b_add" />
+                  <input type="checkbox" class="filled-in" id="b_add" [(ngModel)]="b_add" name="b_add"  [value]="b_add" />
                   <label for="b_add"></label>
 
                 </td>
@@ -483,7 +481,7 @@
 
                 </td>
                 <td>
-                  <input type="checkbox" class="filled-in" id="b_edit" [(ngModel)]="b_edit" name="b_edit" [value]="b_edit" />
+                  <input type="checkbox" class="filled-in" id="b_edit"  [(ngModel)]="b_edit" name="b_edit" [value]="b_edit" />
                   <label for="b_edit"></label>
                 </td>
                 <td>
@@ -494,7 +492,7 @@
               <tr>
                 <td>Category</td>
                 <td>
-                  <input type="checkbox" class="filled-in" id="c_add" [(ngModel)]="c_add" name="c_add" [value]="c_add" />
+                  <input type="checkbox" class="filled-in" id="c_add"  [(ngModel)]="c_add" name="c_add" [value]="c_add" />
                   <label for="c_add"></label>
 
                 </td>
@@ -504,7 +502,7 @@
 
                 </td>
                 <td>
-                  <input type="checkbox" class="filled-in" id="c_edit" [(ngModel)]="c_edit" name="c_edit" [value]="c_edit" />
+                  <input type="checkbox" class="filled-in" id="c_edit" [(ngModel)]="c_edit"  name="c_edit" [value]="c_edit" />
                   <label for="c_edit"></label>
                 </td>
                 <td>
@@ -520,7 +518,7 @@
       </div>
       <div class="modal-footer p-t-15 ">
         <a class="modal-action modal-close ">CANCEL</a>
-        <button class="modal-action  modal-close hedding-btn" type="submit">Update</button>
+        <button class="modal-action  modal-close hedding-btn"  onclick="Materialize.toast('Edit Account', 3000)" type="submit">Update</button>
       </div>
     </form>
   </div>
@@ -600,7 +598,7 @@
               </td>
             </tr>
             <tr>
-              <td>Guest</td>
+              <td>Dealer</td>
               <td>
                 <input type="checkbox" class="filled-in" id="r_g_add" [(ngModel)]="r_g_add" name="r_g_add" />
                 <label for="r_g_add"></label>
@@ -671,7 +669,7 @@
     </div>
     <div class="modal-footer p-t-15 ">
       <a class="modal-action modal-close ">CANCEL</a>
-      <button class="modal-action    hedding-btn" type="submit">ADD</button>
+      <button class="modal-action modal-close hedding-btn"  onclick="Materialize.toast('Add Type', 3000)" type="submit">ADD</button>
     </div>
   </form>
 </div>
@@ -752,7 +750,7 @@
               </td>
             </tr>
             <tr>
-              <td>Guest</td>
+              <td>Dealer</td>
               <td>
                 <input type="checkbox" class="filled-in" id="e_g_add" [(ngModel)]="e_g_add" name="e_g_add" value="e_g_add" />
                 <label for="e_g_add"></label>
@@ -823,7 +821,7 @@
     </div>
     <div class="modal-footer p-t-15 ">
       <a class="modal-action modal-close ">CANCEL</a>
-      <button class="modal-action   modal-close   hedding-btn" type="submit">ADD</button>
+      <button class="modal-action   modal-close   hedding-btn" onclick="Materialize.toast('Edit Account Type', 3000)" type="submit">ADD</button>
     </div>
   </form>
 </div>
@@ -848,7 +846,7 @@
     </div>
     <div class="modal-footer p-t-15 ">
       <a class="modal-action modal-close ">CANCEL</a>
-      <button class="modal-action  modal-close  hedding-btn" type="submit">ADD</button>
+      <button class="modal-action  modal-close  hedding-btn"  onclick="Materialize.toast('Add Dealer Type', 3000)" type="submit">ADD</button>
     </div>
   </form>
 </div>
@@ -874,7 +872,7 @@
     </div>
     <div class="modal-footer p-t-15 ">
       <a class="modal-action modal-close ">CANCEL</a>
-      <button class="modal-action    hedding-btn" type="submit">ADD</button>
+      <button class="modal-action  modal-close hedding-btn" type="submit" onclick="Materialize.toast('Edit Dealer Type', 3000)">ADD</button>
     </div>
   </form>
 </div>
@@ -883,12 +881,12 @@
 
 
 <script>
-  $(document).ready(function () {
-    // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
-    $('.modal').modal();
-  });
-  $('#add_user').modal('open');
-  $('#add_user').modal('close');
+  // $(document).ready(function () {
+  //   // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+  //   $('.modal').modal();
+  // });
+  // $('#add_user').modal('open');
+  // $('#add_user').modal('close');
 
 
 

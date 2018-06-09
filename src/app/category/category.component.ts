@@ -87,7 +87,7 @@ export class CategoryComponent implements OnInit {
   updateCategory() {
     let cat = {
       _id: this.id,
-      name: this.name.toUpperCase(),
+      name: this.name,
       brand_id: this.editedValue,
 
 
@@ -99,7 +99,7 @@ export class CategoryComponent implements OnInit {
         let event_id = "ca_" + data._id;
 
         let notification = {
-          title: "Edit Category ",
+          title: "Edit Category  :"+ this.name, 
           user_id: environment.user_id,
           event_id: event_id,
           date_time: date_time,
@@ -114,6 +114,8 @@ export class CategoryComponent implements OnInit {
           });
 
         this.getCategory();
+        this.name = "";
+        this.editedValue = "";
         // this.getBrand();
         console.log(cat);
       });
@@ -139,12 +141,12 @@ export class CategoryComponent implements OnInit {
       .subscribe((res) => {
         let date_time = Date.now();
         let event_id = "ca_" + res.data._id;
-          console.log(event_id);
-          console.log(res);
-          
-          
+        console.log(event_id);
+        console.log(res);
+
+
         let notification = {
-          title: "new Category Add",
+          title: "new Category Add" + this.ename,
           user_id: environment.user_id,
           event_id: event_id,
           date_time: date_time,
@@ -160,13 +162,16 @@ export class CategoryComponent implements OnInit {
 
         // console.log(addCategory);
         this.getCategory();
+        this.selectedValue ="";
+          this.ename ="";
+
       });
 
   }
 
   /*delete Category */
   ConfirmDelete(id) {
-    var x = confirm("Are you sure you want to delete?" + id);
+    var x = confirm("Are you sure you want to delete?");
     if (x)
       return this.deleteCategory(id);
 

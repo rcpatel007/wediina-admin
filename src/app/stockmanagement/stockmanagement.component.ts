@@ -54,7 +54,7 @@ export class StockmanagementComponent implements OnInit {
           
               for (let j = 0; j < this.modeldata.length; j++) {
                 // this.finalvalue.push(this.modeldata[j]);
-                this.model_value.push({'id': this.product[j]._id,'name': this.product[j].name, 'model_no': this.modeldata[j].model_no, 'qty': this.modeldata[j].qty });
+                this.model_value.push({'id': this.product[i]._id,'name': this.product[i].name, 'model_no': this.modeldata[j].model_no, 'qty': this.modeldata[j].qty });
               }
               
               // this.model_info.push({

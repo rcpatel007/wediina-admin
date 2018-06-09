@@ -30,27 +30,25 @@
                   <thead>
                     <tr>
                       <!-- <th>No</th> -->
-                      <th>product Name</th>
+                      <th>No</th>
+                      <th>Product Name</th>
                       <th>Model No</th>
                       <th>QTY</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <ng-container *ngFor="let s of stock">
-                      <ng-container *ngFor="let m of model_value">
-                            <tr *ngIf="s.product_id ===  m.id">
-                              <!-- <td>{{i+1}}</td> -->
-                              <th>
-                                <b>{{m.name}}</b>
-                              </th>
-                              <td>{{m.model_no}}</td>
-                              <td>{{m.qty}}</td>
-                            </tr>
-                      </ng-container>
-                    </ng-container>
+                    <tr *ngFor="let m of model_value;let i =index">
+                      <!-- <td>{{i+1}}</td> -->
+                     <td>{{i+1}}</td>
+                      <th>
+                        <b>{{m.name}}</b>
+                      </th>
+                      <td>{{m.model_no}}</td>
+                      <td>{{m.qty}}</td>
+                    </tr>
                   </tbody>
                 </table>
-                </div>
+              </div>
             </div>
           </div>
         </div>

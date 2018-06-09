@@ -33,7 +33,7 @@
                     <label for="category">Add Category</label>
                   </div>
                   <div class="right-align">
-                    <button class="hedding-btn  " type="submit ">ADD </button>
+                    <button class="hedding-btn" onclick="Materialize.toast('New Category add', 3000)" type="submit ">ADD </button>
                   </div>
                 </div>
               </form>
@@ -112,7 +112,7 @@
             <input id="category" type="text" class="" [(ngModel)]="name" name="name">
           </div>
 
-          <button class="hedding-btn modal-close" type="submit">Update </button>
+          <button class="hedding-btn modal-close"  onclick="Materialize.toast('Category Updated', 3000)" type="submit">Update </button>
         </div>
       </form>
 

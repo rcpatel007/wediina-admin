@@ -18,12 +18,13 @@
             </h6>
           </li>
           <li class="divider"></li>
-          <li *ngFor="let n of notification" (click)="view(n.event_id, n._id);">
-
-            <a href="javascript:void(0);" class="grey-text text-darken-2">
-              <i class="fa fa-long-arrow-down fa-fw"></i>
-              {{n.title}}</a>
-          </li>
+          <ng-container *ngFor="let n of notification">
+            <li *ngIf=" n.read == false" (click)="view(n.event_id, n._id);">
+              <a href="javascript:void(0);" class="grey-text text-darken-2">
+                <i class="fa fa-long-arrow-down fa-fw"></i>
+                {{n.title}}</a>
+            </li>
+          </ng-container>
           <li class="divider"></li>
           <li [routerLink]="['/notificaiton']">
             <h6>view All

@@ -81,43 +81,28 @@ export class AddProductComponent implements OnInit {
   }
 
   addmodel() {
-
-
     this.modeldata.push({
       model_no: '',
       price: '',
       qty: '',
       size: '',
       grade: '',
-
       keyValue: []
     });
-
-
     // this.modeldata.push({ key: '', value: '' })
-
-    // console.log(this.model_info_array);
-
-
+    console.log(this.modeldata);
   }
   add(index: number) {
-
     this.modeldata[index].keyValue.push({ key: '', value: '' })
-
-    // console.log(this.model_info_array);
-
-
+    console.log(this.modeldata);
   }
   getCategory() {
     this.categoryservice.getCategory()
       .subscribe(Category => {
         this.category = Category;
         console.log(this.category);
-
       });
   }
-
-
 
   /* Image convert base64 */
   imageUpload(evt) {
@@ -208,11 +193,11 @@ export class AddProductComponent implements OnInit {
         }
         console.log(product);
 
-// PRODCUT ADD
+        // PRODCUT ADD
         this.productservice.addProdcut(product)
           .subscribe((res) => {
 
-// NOTIFIACITON ADD
+            // NOTIFIACITON ADD
             let date_time = Date.now();
             let event_id = "pa_" + res.data._id;
 
@@ -230,7 +215,7 @@ export class AddProductComponent implements OnInit {
               .subscribe(() => {
 
               });
-// STOCK ADD  
+            // STOCK ADD  
 
             let stock = {
               product_id: res.data._id,

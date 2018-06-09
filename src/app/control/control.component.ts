@@ -40,7 +40,7 @@ export class ControlComponent implements OnInit {
   u_mobile: String;
   u_email: String;
   usertype: String;
-  prodcut: JSON;
+  product: JSON;
   d_type: string;
   roletype: String;
   getrole: String;
@@ -214,11 +214,8 @@ export class ControlComponent implements OnInit {
         console.log(this.city);
       });
   }
-
   // user
-
   addCity() {
-
     let city_array
     for (let i = 0; i < this.city_name.length; i++) {
       city_array = this.city_name.split(",");
@@ -229,19 +226,15 @@ export class ControlComponent implements OnInit {
       this.cities.push({ "city": city_array[i] });
     }
 
-    this.city_name = false;
+    this.city_name = "";
     let cityObj = {
       "cities": this.cities
     }
     console.log(cityObj);
     this.cityservice.addcity(cityObj)
       .subscribe((res) => {
-
         this.getcity();
       });
-
-
-
 
   }
   viewUser() {
@@ -280,7 +273,7 @@ export class ControlComponent implements OnInit {
         add: this.a_b_add,
         delete: this.a_b_delete
       },
-      Product: {
+      product: {
         view: this.a_i_view,
         edit: this.a_i_edit,
         add: this.a_i_add,
@@ -306,7 +299,7 @@ export class ControlComponent implements OnInit {
 
       });
   }
-  /*get Product by id */
+  /*get product by id */
   getuserById(id) {
     this.o_add = false;
     this.o_edit = false;
@@ -338,7 +331,7 @@ export class ControlComponent implements OnInit {
 
     this.userservice.getUserById(id)
       .subscribe(data => {
-        // console.log(data);
+        console.log(data);
 
         this.id = data._id;
         this.name = data.name;
@@ -375,7 +368,6 @@ export class ControlComponent implements OnInit {
       });
 
 
-
   }
 
   editUser() {
@@ -406,7 +398,7 @@ export class ControlComponent implements OnInit {
         delete: this.b_delete
       },
 
-      Product: {
+      product: {
         view: this.i_view,
         edit: this.i_edit,
         add: this.i_add,
@@ -422,7 +414,7 @@ export class ControlComponent implements OnInit {
 
 
     }
-    // console.log(updateuser);
+    console.log(updateuser);
 
 
     this.userservice.updateUser(id, updateuser)
@@ -471,7 +463,7 @@ export class ControlComponent implements OnInit {
         add: this.r_o_add,
         delete: this.r_o_delete
       },
-      Product: {
+      product: {
         view: this.r_i_view,
         edit: this.r_i_edit,
         add: this.r_i_add,
@@ -511,17 +503,17 @@ export class ControlComponent implements OnInit {
         this.e_o_view = data.order.view;
         this.e_o_delete = data.order.delete;
 
-        // this.i_add = data.prodcut.add;
-        this.e_i_edit = data.prodcut.edit;
-        this.e_i_view = data.prodcut.view;
-        this.e_i_delete = data.prodcut.delete;
+        // this.i_add = data.product.add;
+        this.e_i_edit = data.product.edit;
+        this.e_i_view = data.product.view;
+        this.e_i_delete = data.product.delete;
 
         this.e_b_add = data.brand.add;
         this.e_b_edit = data.category.edit;
         this.e_b_view = data.category.view;
         this.e_b_delete = data.category.delete;
 
-        this.e_d_add = data.de.add;
+        this.e_d_add = data.dealer.add;
         this.e_d_edit = data.dealer.edit;
         this.e_d_view = data.dealer.view;
         this.e_d_delete = data.dealer.delete;
@@ -532,7 +524,7 @@ export class ControlComponent implements OnInit {
         this.e_c_view = data.category.view;
         this.e_c_delete = data.category.delete;
 
-        // console.log(this.t_id);
+        console.log(data);
 
 
       });
@@ -566,7 +558,7 @@ export class ControlComponent implements OnInit {
         add: this.e_o_add,
         delete: this.e_o_delete
       },
-      Product: {
+      product: {
         view: this.e_i_view,
         edit: this.e_i_edit,
         add: this.e_i_add,
@@ -619,7 +611,7 @@ export class ControlComponent implements OnInit {
       .subscribe(() => {
         this.d_type = null;
 
-        this.discount= null;
+        this.discount = null;
         this.getType();
         // console.log(this.viewUser);
 
@@ -655,7 +647,6 @@ export class ControlComponent implements OnInit {
       discount: this.disc,
 
     }
-    console.log();
 
 
     this.dealertypeservice.editType(id, updatedealer)
@@ -678,17 +669,17 @@ export class ControlComponent implements OnInit {
         this.a_o_view = data.order.view;
         this.a_o_delete = data.order.delete;
 
-        this.a_i_add = data.prodcut.add;
-        this.a_i_edit = data.prodcut.edit;
-        this.a_i_view = data.prodcut.view;
-        this.a_i_delete = data.prodcut.delete;
+        this.a_i_add = data.product.add;
+        this.a_i_edit = data.product.edit;
+        this.a_i_view = data.product.view;
+        this.a_i_delete = data.product.delete;
 
         this.a_b_add = data.brand.add;
         this.a_b_edit = data.category.edit;
         this.a_b_view = data.category.view;
         this.a_b_delete = data.category.delete;
 
-        this.a_d_add = data.de.add;
+        this.a_d_add = data.dealer.add;
         this.a_d_edit = data.dealer.edit;
         this.a_d_view = data.dealer.view;
         this.a_d_delete = data.dealer.delete;
@@ -699,7 +690,7 @@ export class ControlComponent implements OnInit {
         this.a_c_view = data.category.view;
         this.a_c_delete = data.category.delete;
 
-        console.log(this.t_id);
+        // console.log(this.t_id);
 
 
       });
