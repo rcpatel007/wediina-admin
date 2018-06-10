@@ -18,15 +18,18 @@
                   BRAND MANAGEMENT
                 </div>
               </div>
-              
-              <form  (ngSubmit)="addBrand()" >
-                <div  class="col s12 l12 m12 right-align mr-t-20 mr-b-m-30">
+
+              <form *ngIf="b_add == true" (ngSubmit)="addBrand()">
+                <div class="red-text" *ngIf="msg !== null">{{msg}}</div>
+                <div class="green-text" *ngIf="success_msg !== null">{{success_msg}}</div>
+                <div class="col s12 l12 m12 right-align mr-t-20 mr-b-m-30">
                   <div class="input-field col s12">
                     <input id="brand" name="brand" type="text" [(ngModel)]="name" required class="">
                     <label for="brand">Add Brand</label>
+
                   </div>
 
-                  <button class="hedding-btn" onclick="Materialize.toast('New Brand add', 3000)" type="submit">ADD </button>
+                  <button class="hedding-btn" type="submit">ADD </button>
                 </div>
               </form>
             </div>
@@ -49,10 +52,10 @@
                     <tr *ngFor="let b of brand; let i =index">
                       <td>{{i+1}}</td>
                       <td>{{b.name}}</td>
-                      <td data-target="edit_brand" class=" modal-trigger" (click)="getBrandById(b._id) ">
+                      <td *ngIf="b_edit == true" data-target="edit_brand" class=" modal-trigger" (click)="getBrandById(b._id) ">
                         <i class="fa fa-pencil-alt orange-text"></i>
                       </td>
-                      <td (click)="ConfirmDelete(b._id)">
+                      <td *ngIf="b_delete == true" (click)="ConfirmDelete(b._id)">
                         <i class="fa fa-trash red-text "></i>
                       </td>
                     </tr>
@@ -90,7 +93,7 @@
           <div class="right-align">
             <button class="hedding-btn modal-close" type="submit">Update </button>
           </div>
-        </div>  
+        </div>
       </form>
 
     </div>

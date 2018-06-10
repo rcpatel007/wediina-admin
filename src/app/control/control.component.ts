@@ -52,8 +52,32 @@ export class ControlComponent implements OnInit {
   type: String;
   rolevalue: Boolean = false;
   userrolevalue: Boolean = false;
+  // error msg
+  errorcity: String;
+  successcity: String;
+  errorname: String;
+  erroremail: String;
+  errormobile: String;
+  errorrole: String;
+  successuser: String;
+  edit_errorname: String;
+  edit_erroremail: String;
+  edit_errormobile: String;
+  edit_errorrole: String;
+  edit_successuser: String;
+  errorroletype: String;
+  rolesuccess: String;
+  edit_errorroletype: String;
+  edit_rolesuccess: String;
+  errortype: String;
+  errordiscount: String;
+  edit_errortype: String;
+  edit_errordiscount: String;
+  typesuccess: String;
+  edit_typesuccess: String;
 
   // user
+
   a_o_add: boolean = false;
   a_o_edit: boolean = false;
   a_o_view: boolean = false;
@@ -216,26 +240,39 @@ export class ControlComponent implements OnInit {
   }
   // user
   addCity() {
-    let city_array
-    for (let i = 0; i < this.city_name.length; i++) {
-      city_array = this.city_name.split(",");
-      this.final_city.push({ city: city_array[i] });
+    if (this.city_name == null) {
+      this.errorcity = "Please  Enter City Name";
     }
 
-    for (let i = 0; i < city_array.length; i++) {
-      this.cities.push({ "city": city_array[i] });
-    }
+    else {
+      let city_array;
+      for (let i = 0; i < this.city_name.length; i++) {
+        city_array = this.city_name.split(",");
+        this.final_city.push({ city: city_array[i] });
+      }
 
-    this.city_name = "";
-    let cityObj = {
-      "cities": this.cities
-    }
-    console.log(cityObj);
-    this.cityservice.addcity(cityObj)
-      .subscribe((res) => {
-        this.getcity();
-      });
+      for (let i = 0; i < city_array.length; i++) {
+        this.cities.push({ "city": city_array[i] });
+      }
 
+      this.city_name = "";
+      if (this.city_name == null) {
+        this.errorcity = "Please  Enter City Name";
+      }
+
+      let cityObj = {
+        "cities": this.cities
+      }
+
+      console.log(cityObj);
+      this.cityservice.addcity(cityObj)
+        .subscribe((res) => {
+          this.getcity();
+
+          this.errorcity = null;
+          this.successcity = " City Add  successfully";
+        });
+    }
   }
   viewUser() {
     this.userservice.getUser()
@@ -249,57 +286,84 @@ export class ControlComponent implements OnInit {
     this.rolevalue = false;
   }
   addUser() {
-    let add_user = {
-      name: this.u_name,
-      email: this.u_email,
-      mobile: this.u_mobile,
-      role: this.roletype,
-      order: {
-        view: this.a_o_view,
-        edit: this.a_o_edit,
-        add: this.a_o_add,
-        delete: this.a_o_delete
-      },
-      dealer: {
-        view: this.a_d_view,
-        edit: this.a_d_edit,
-        add: this.a_d_add,
-        delete: this.a_d_delete
-      },
-
-      brand: {
-        view: this.a_b_view,
-        edit: this.a_b_edit,
-        add: this.a_b_add,
-        delete: this.a_b_delete
-      },
-      product: {
-        view: this.a_i_view,
-        edit: this.a_i_edit,
-        add: this.a_i_add,
-        delete: this.a_i_delete
-      },
-      category: {
-        view: this.a_c_view,
-        edit: this.a_c_edit,
-        add: this.a_c_add,
-        delete: this.a_c_delete
-      }
-
-
+    if (this.name == null ||
+      this.email == null ||
+      this.mobile == null ||
+      this.role == null) {
+      this.errorname = "Please Enter Name";
+      this.erroremail = "Please Enter email";
+      this.errormobile = "Please Enter Mobile";
+      this.errorrole = "Please select Role";
     }
-    console.log(add_user);
+    else if (this.name == null) {
+      this.errorname = "Please Enter Name";
+    }
+    else if (this.email == null) {
+      this.erroremail = "Please Enter email";
+    }
+    else if (this.mobile == null) {
+      this.errormobile = "Please Enter Mobile";
+    }
+    else if (this.role == null) {
+      this.errorrole = "Please Select Role";
+    }
+    else {
+      let add_user = {
+        name: this.u_name,
+        email: this.u_email,
+        mobile: this.u_mobile,
+        role: this.roletype,
+        order: {
+          view: this.a_o_view,
+          edit: this.a_o_edit,
+          add: this.a_o_add,
+          delete: this.a_o_delete
+        },
+        dealer: {
+          view: this.a_d_view,
+          edit: this.a_d_edit,
+          add: this.a_d_add,
+          delete: this.a_d_delete
+        },
 
-
-    this.userservice.addUser(add_user)
-      .subscribe((res) => {
-        // console.log(add_dealer);
-        this.viewUser();
-        // console.log(this.viewUser);
-
-      });
+        brand: {
+          view: this.a_b_view,
+          edit: this.a_b_edit,
+          add: this.a_b_add,
+          delete: this.a_b_delete
+        },
+        product: {
+          view: this.a_i_view,
+          edit: this.a_i_edit,
+          add: this.a_i_add,
+          delete: this.a_i_delete
+        },
+        category: {
+          view: this.a_c_view,
+          edit: this.a_c_edit,
+          add: this.a_c_add,
+          delete: this.a_c_delete
+        }
+      }
+      console.log(add_user);
+      this.userservice.addUser(add_user)
+        .subscribe((res) => {
+          // console.log(add_dealer);
+          this.viewUser();
+          // console.log(this.viewUser);
+          this.name = "";
+          this.email = "";
+          this.mobile = "";
+          this.role = null;
+          this.errorname = null;
+          this.erroremail = null;
+          this.errormobile = null;
+          this.errorrole = null;
+          this.successuser = " User Successfully Added";
+        });
+    }
   }
-  /*get product by id */
+  /*get user by id */
   getuserById(id) {
     this.o_add = false;
     this.o_edit = false;
@@ -327,7 +391,10 @@ export class ControlComponent implements OnInit {
     this.c_view = false;
     this.c_delete = false;
 
-
+    this.edit_errorname = null;
+    this.edit_erroremail = null;
+    this.edit_errormobile = null;
+    this.edit_errorrole = null;
 
     this.userservice.getUserById(id)
       .subscribe(data => {
@@ -372,65 +439,98 @@ export class ControlComponent implements OnInit {
 
   editUser() {
     let id = this.id;
-    let updateuser = {
-      _id: this.id,
-      name: this.name,
-      email: this.email,
-      mobile: this.mobile,
-      role: this.roletype,
-      order: {
-        view: this.o_view,
-        edit: this.o_edit,
-        add: this.o_add,
-        delete: this.o_delete
-      },
-      dealer: {
-        view: this.d_view,
-        edit: this.d_edit,
-        add: this.d_add,
-        delete: this.d_delete
-      },
+    if (this.name == null ||
+      this.email == null ||
+      this.mobile == null ||
+      this.role == null) {
+      this.edit_errorname = "Please Enter Name";
+      this.edit_erroremail = "Please Enter email";
+      this.edit_errormobile = "Please Enter Mobile";
+      this.edit_errorrole = "Please select Role";
+      this.edit_successuser = null;
+    }
+    else if (this.name == null) {
+      this.edit_errorname = "Please Enter Name";
+      this.edit_successuser = null;
+    }
+    else if (this.email == null) {
+      this.edit_erroremail = "Please Enter email";
+      this.edit_successuser = null;
+    }
+    else if (this.mobile == null) {
+      this.edit_errormobile = "Please Enter Mobile";
+      this.edit_successuser = null;
+    }
+    else if (this.role == null) {
+      this.edit_errorrole = "Please Select Role";
+      this.edit_successuser = null;
+    }
+    else {
+      let updateuser = {
+        _id: this.id,
+        name: this.name,
+        email: this.email,
+        mobile: this.mobile,
+        role: this.roletype,
+        order: {
+          view: this.o_view,
+          edit: this.o_edit,
+          add: this.o_add,
+          delete: this.o_delete
+        },
+        dealer: {
+          view: this.d_view,
+          edit: this.d_edit,
+          add: this.d_add,
+          delete: this.d_delete
+        },
 
-      brand: {
-        view: this.b_view,
-        edit: this.b_edit,
-        add: this.b_add,
-        delete: this.b_delete
-      },
+        brand: {
+          view: this.b_view,
+          edit: this.b_edit,
+          add: this.b_add,
+          delete: this.b_delete
+        },
 
-      product: {
-        view: this.i_view,
-        edit: this.i_edit,
-        add: this.i_add,
-        delete: this.i_delete
-      },
+        product: {
+          view: this.i_view,
+          edit: this.i_edit,
+          add: this.i_add,
+          delete: this.i_delete
+        },
 
-      category: {
-        view: this.c_view,
-        edit: this.c_edit,
-        add: this.c_add,
-        delete: this.c_delete
-      },
+        category: {
+          view: this.c_view,
+          edit: this.c_edit,
+          add: this.c_add,
+          delete: this.c_delete
+        },
 
+
+      }
+      console.log(updateuser);
+
+
+      this.userservice.updateUser(id, updateuser)
+        .subscribe(() => {
+          // console.log(add_dealer);
+          this.viewUser();
+          // console.log(this.viewUser);
+
+          this.name = "";
+          this.email = "";
+          this.mobile = "";
+          this.role = null;
+          this.edit_errorname = null;
+          this.edit_erroremail = null;
+          this.edit_errormobile = null;
+          this.edit_errorrole = null;
+          this.edit_successuser = " User Successfully Edit";
+        });
 
     }
-    console.log(updateuser);
-
-
-    this.userservice.updateUser(id, updateuser)
-      .subscribe(() => {
-        // console.log(add_dealer);
-        this.viewUser();
-        // console.log(this.viewUser);
-
-      });
   }
-
-
-
   // role
-
-
   getRole() {
     this.roleservice.getRole()
       .subscribe((data) => {
@@ -442,58 +542,54 @@ export class ControlComponent implements OnInit {
   }
 
   addRole() {
-    let role = {
-      role: this.roletype,
-      order: {
-        view: this.r_o_view,
-        edit: this.r_o_edit,
-        add: this.r_o_add,
-        delete: this.r_o_delete
-      },
-      dealer: {
-        view: this.r_o_view,
-        edit: this.r_o_edit,
-        add: this.r_o_add,
-        delete: this.r_o_delete
-      },
-
-      brand: {
-        view: this.r_o_view,
-        edit: this.r_o_edit,
-        add: this.r_o_add,
-        delete: this.r_o_delete
-      },
-      product: {
-        view: this.r_i_view,
-        edit: this.r_i_edit,
-        add: this.r_i_add,
-        delete: this.r_i_delete
-      },
-      category: {
-        view: this.r_c_view,
-        edit: this.r_c_edit,
-        add: this.r_c_add,
-        delete: this.r_c_delete
-      },
-
+    if (this.roletype == null) {
+      this.errorroletype = "Plese Enter Role Value";
     }
+    else {
+      let role = {
+        role: this.roletype,
+        order: {
+          view: this.r_o_view,
+          edit: this.r_o_edit,
+          add: this.r_o_add,
+          delete: this.r_o_delete
+        },
+        dealer: {
+          view: this.r_o_view,
+          edit: this.r_o_edit,
+          add: this.r_o_add,
+          delete: this.r_o_delete
+        },
 
-
-    // console.log(role);
-
-
-    this.roleservice.addRole(role)
-      .subscribe(() => {
-        this.getRole();
-        // console.log(this.viewUser);
-
-      });
+        brand: {
+          view: this.r_o_view,
+          edit: this.r_o_edit,
+          add: this.r_o_add,
+          delete: this.r_o_delete
+        },
+        product: {
+          view: this.r_i_view,
+          edit: this.r_i_edit,
+          add: this.r_i_add,
+          delete: this.r_i_delete
+        },
+        category: {
+          view: this.r_c_view,
+          edit: this.r_c_edit,
+          add: this.r_c_add,
+          delete: this.r_c_delete
+        },
+      }
+      // console.log(role);
+      this.roleservice.addRole(role)
+        .subscribe(() => {
+          this.getRole();
+          this, this.errorroletype = "";
+          this.rolesuccess = " Role successfully Added";
+        });
+    }
   }
-
-
   getRoleById(id) {
-
-
     this.roleservice.getRoleById(id)
       .subscribe((data) => {
         this.r_id = data._id;
@@ -529,65 +625,60 @@ export class ControlComponent implements OnInit {
 
       });
   }
-
-
-
   // edit role
-
   editRole() {
-    let id = this.r_id;
-    let role = {
-      _id: this.r_id,
-      role: this.roletype,
-      order: {
-        view: this.e_o_view,
-        edit: this.e_o_edit,
-        add: this.e_o_add,
-        delete: this.e_o_delete
-      },
-      dealer: {
-        view: this.e_o_view,
-        edit: this.e_o_edit,
-        add: this.e_o_add,
-        delete: this.e_o_delete
-      },
-
-      brand: {
-        view: this.e_o_view,
-        edit: this.e_o_edit,
-        add: this.e_o_add,
-        delete: this.e_o_delete
-      },
-      product: {
-        view: this.e_i_view,
-        edit: this.e_i_edit,
-        add: this.e_i_add,
-        delete: this.e_i_delete
-      },
-      category: {
-        view: this.e_c_view,
-        edit: this.e_c_edit,
-        add: this.e_c_add,
-        delete: this.e_c_delete
-      },
-
+    if (this.roletype == null) {
+      this.edit_errorroletype = "Please Enter Role Value";
     }
+    else {
+      let id = this.r_id;
+      let role = {
+        _id: this.r_id,
+        role: this.roletype,
+        order: {
+          view: this.e_o_view,
+          edit: this.e_o_edit,
+          add: this.e_o_add,
+          delete: this.e_o_delete
+        },
+        dealer: {
+          view: this.e_o_view,
+          edit: this.e_o_edit,
+          add: this.e_o_add,
+          delete: this.e_o_delete
+        },
 
+        brand: {
+          view: this.e_o_view,
+          edit: this.e_o_edit,
+          add: this.e_o_add,
+          delete: this.e_o_delete
+        },
+        product: {
+          view: this.e_i_view,
+          edit: this.e_i_edit,
+          add: this.e_i_add,
+          delete: this.e_i_delete
+        },
+        category: {
+          view: this.e_c_view,
+          edit: this.e_c_edit,
+          add: this.e_c_add,
+          delete: this.e_c_delete
+        },
+      }
+      // console.log(role);
+      this.roleservice.editRole(id, role)
+        .subscribe(() => {
+          this.getRole();
+          this.edit_errorroletype = "";
+          this.edit_rolesuccess = "Role Edited Successfully";
+          // console.log(this.viewUser);
 
-    // console.log(role);
-
-
-    this.roleservice.editRole(id, role)
-      .subscribe(() => {
-        this.getRole();
-        // console.log(this.viewUser);
-
-      });
+        });
+    }
   }
-
-
   // type
-
   getType() {
     this.dealertypeservice.getType()
       .subscribe((data) => {
@@ -599,67 +690,77 @@ export class ControlComponent implements OnInit {
   }
 
   addType() {
-    let add_type = {
-      type: this.d_type,
-      discount: this.discount,
-
+    if (this.d_type == null || this.discount == null) {
+      this.errortype = "Please Enter Role Type";
+      this.errordiscount = "Plese Enter Discount";
     }
-    console.log(add_type);
-
-
-    this.dealertypeservice.addType(add_type)
-      .subscribe(() => {
-        this.d_type = null;
-
-        this.discount = null;
-        this.getType();
-        // console.log(this.viewUser);
-
-      });
+    else if (this.d_type == null) {
+      this.errortype = "Please Enter Role Type";
+    }
+    else if (this.discount == null) {
+      this.errordiscount = "Plese Enter Discount";
+    }
+    else {
+      let add_type = {
+        type: this.d_type,
+        discount: this.discount,
+      }
+      console.log(add_type);
+      this.dealertypeservice.addType(add_type)
+        .subscribe(() => {
+          this.d_type = null;
+          this.discount = null;
+          this.getType();
+          // console.log(this.viewUser);
+          this.errortype ="";
+          this.errordiscount ="";
+          this.typesuccess = "Role Type ADD Successfully";
+        });
+    }
   }
-
   // edit type
-
   getTypeById(id) {
-
-
     this.dealertypeservice.getTypeById(id)
       .subscribe((data) => {
         this.t_id = data._id;
         this.type = data.type;
         this.disc = data.discount;
-
         // console.log(this.t_id);
-
-
       });
   }
-
   // edit type
-
-
-
   editType() {
-    let id = this.t_id;
-    let updatedealer = {
-      id: this.t_id,
-      type: this.type,
-      discount: this.disc,
-
+    if (this.type == null || this.disc == null) {
+      this.edit_errortype = "Please Enter Role Type";
+      this.edit_errordiscount = "Plese Enter Discount";
+    }
+ 
+    else if (this.type == null) {
+      this.edit_errorroletype = "Please Enter Role Type";
     }
 
-
-    this.dealertypeservice.editType(id, updatedealer)
-      .subscribe(() => {
-        this.getType();
-        // console.log(this.viewUser);
-
-      });
+    else if (this.disc == null) {
+      this.edit_errordiscount = "Plese Enter Discount";
+    }
+    else {
+      let id = this.t_id;
+      let updatedealer = {
+        id: this.t_id,
+        type: this.type,
+        discount: this.disc,
+      }
+      this.dealertypeservice.editType(id, updatedealer)
+        .subscribe(() => {
+          this.getType();
+          this.edit_errortype ="";
+          this.edit_errordiscount ="";
+          // console.log(this.viewUser);
+          this.edit_typesuccess = " Role Type Successfully Edit";
+        });
+    }
   }
-
   getRoleValue(id) {
     this.rolevalue = true;
-
     this.roleservice.getRoleById(id)
       .subscribe((data) => {
         this.r_id = data._id;
@@ -696,7 +797,5 @@ export class ControlComponent implements OnInit {
       });
 
   }
-
-
 }
 

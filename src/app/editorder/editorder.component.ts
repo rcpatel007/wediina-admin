@@ -113,10 +113,8 @@ export class EditorderComponent implements OnInit {
       });
   }
   getuser(user_id) {
-    let id = environment.user_id;
-    console.log('log'+environment.user_id);
-    
-
+    let id = localStorage.user_id;
+    console.log('log'+localStorage.user_id);
     this.userservice.getUserById(id)
       .subscribe((data) => {
         this.d_add = data.dealer.add;

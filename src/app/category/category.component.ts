@@ -27,16 +27,18 @@ export class CategoryComponent implements OnInit {
   brand_id: String;
   selectedValue: any;
   editedValue: any;
-
+  success_msg: String;
+  categoryErrrorMsg: String;
+  brandErrorMsg: String = null;
+  categoryMsg: String = null;
+  brandMsg: String = null;
+  update_success_msg: String = null;
 
   // user
   c_add: boolean;
   c_edit: boolean;
   c_view: boolean;
   c_delete: boolean;
-
-
-
   constructor(private CategoryService: CategoryService,
     private BrandService: BrandService,
     private userservice: UserService,
@@ -85,13 +87,11 @@ export class CategoryComponent implements OnInit {
   }
   /* Update Category Name*/
   updateCategory() {
+
     let cat = {
       _id: this.id,
       name: this.name,
       brand_id: this.editedValue,
-
-
-
     }
     this.CategoryService.editCategory(cat)
       .subscribe((data) => {
@@ -99,29 +99,26 @@ export class CategoryComponent implements OnInit {
         let event_id = "ca_" + data._id;
 
         let notification = {
-          title: "Edit Category  :"+ this.name, 
-          user_id: environment.user_id,
+          title: "Edit Category  :" + this.name,
+          user_id: localStorage.user_id,
           event_id: event_id,
           date_time: date_time,
           read: false
-
         }
         // console.log(notification);
         this.socket.emit('new-event', { data: cat });
         this.notificationService.addNotification(notification)
           .subscribe(() => {
-
           });
-
         this.getCategory();
         this.name = "";
         this.editedValue = "";
         // this.getBrand();
         console.log(cat);
       });
+
+
   }
-
-
 
   /*display Category*/
   getCategory() {
@@ -132,41 +129,50 @@ export class CategoryComponent implements OnInit {
   }
   /* Category add*/
   addCategory() {
-    let addcat = {
-      brand_id: this.selectedValue,
-      name: this.ename
+    if (this.ename == null) {
+      this.categoryMsg = "Please Enter category Name";
+      this.success_msg = "";
     }
-    console.log(addcat);
-    this.CategoryService.addCategory(addcat)
-      .subscribe((res) => {
-        let date_time = Date.now();
-        let event_id = "ca_" + res.data._id;
-        console.log(event_id);
-        console.log(res);
 
+    else if (this.selectedValue == null) {
+      this.success_msg = "";
+      this.brandMsg = "Please Select Brand ";
+    }
 
-        let notification = {
-          title: "new Category Add" + this.ename,
-          user_id: environment.user_id,
-          event_id: event_id,
-          date_time: date_time,
-          read: false
+    else {
+      let addcat = {
+        brand_id: this.selectedValue,
+        name: this.ename
+      }
+      console.log(addcat);
+      this.CategoryService.addCategory(addcat)
+        .subscribe((res) => {
+          let date_time = Date.now();
+          let event_id = "ca_" + res.data._id;
+          console.log(event_id);
+          console.log(res);
 
-        }
-        // console.log(notification);
-        this.socket.emit('new-event', { data: addcat });
-        this.notificationService.addNotification(notification)
-          .subscribe(() => {
-
-          });
-
-        // console.log(addCategory);
-        this.getCategory();
-        this.selectedValue ="";
-          this.ename ="";
-
-      });
-
+          let notification = {
+            title: "new Category Add" + this.ename,
+            user_id: localStorage.user_id,
+            event_id: event_id,
+            date_time: date_time,
+            read: false
+          }
+          // console.log(notification);
+          this.socket.emit('new-event', { data: addcat });
+          this.notificationService.addNotification(notification)
+            .subscribe(() => {
+            });
+          // console.log(addCategory);
+          this.getCategory();
+          this.selectedValue = null;
+          this.ename = null;
+          this.categoryMsg = "";
+          this.brandMsg = "";
+          this.success_msg = "Category Successfully Added";
+        });
+    }
   }
 
   /*delete Category */
@@ -174,11 +180,9 @@ export class CategoryComponent implements OnInit {
     var x = confirm("Are you sure you want to delete?");
     if (x)
       return this.deleteCategory(id);
-
     else
       return false;
   }
-
 
   deleteCategory(id) {
     this.CategoryService.deleteCategory(id)
@@ -189,23 +193,16 @@ export class CategoryComponent implements OnInit {
   }
 
   getuser(user_id) {
-    let id = environment.user_id;
-    console.log('log' + environment.user_id);
-
-
+    let id = localStorage.user_id;
+    console.log('log' + localStorage.user_id);
     this.userservice.getUserById(id)
       .subscribe((data) => {
         this.c_add = data.category.add;
         this.c_edit = data.category.edit;
         this.c_view = data.category.view;
         this.c_delete = data.category.delete;
-
-
         //  console.log(account);
         // console.log(data);
-
       });
   }
-
-
 }

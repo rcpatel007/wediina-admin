@@ -11,6 +11,9 @@
             <div class="row">
               <form (ngSubmit)="addCity()">
                 <div class="control-headding">CITY SERVED IN</div>
+                <div class="red-text" *ngIf="errorcity !== null">{{errorcity}}</div>
+                <div class="green-text" *ngIf="successcity  !== null">{{successcity}}</div>
+
                 <div class="input-field col s12">
                   <textarea id="city_name" type="text" class="materialize-textarea   city_class" name="city_name" [(ngModel)]="city_name"></textarea>
                 </div>
@@ -19,7 +22,7 @@
                     <button class="hedding-btn-2"  (click)="cityShow()" > Display City </button>
                   </div> -->
                   <div class="right-align">
-                    <button class="hedding-btn"  onclick="Materialize.toast('City ADD', 3000)" type="submit">Update</button>
+                    <button class="hedding-btn" onclick="Materialize.toast('City ADD', 3000)" type="submit">Update</button>
                   </div>
                 </div>
               </form>
@@ -183,10 +186,13 @@
             <div class="input-field col s6">
               <input id="Name" type="text" class="" [(ngModel)]="u_name" name="u_name">
               <label for="Name">Name</label>
+              <div class="red-text" *ngIf="errorname !== null">{{errorname}}</div>
             </div>
             <div class="input-field col s6">
               <input id="email" type="text" class="" [(ngModel)]="u_email" name="u_email">
               <label for="email">Email</label>
+              <div class="red-text" *ngIf="erroremail !== null">{{erroremail}}</div>
+
             </div>
           </div>
           <div class="row">
@@ -194,13 +200,14 @@
             <div class="input-field col s6">
               <input id="credit-demo" type="text" class="" [(ngModel)]="u_mobile" name="u_mobile">
               <label for="credit_demo">Mobile No.</label>
+              <div class="red-text" *ngIf="errormobile !== null">{{errormobile}}</div>
             </div>
           </div>
           <div class="row">
-
             <div class=" col s12">
               <div class="">
                 <h6>TYPE:</h6>
+                <div class="red-text" *ngIf="errorrole !== null">{{errorrole}}</div>
               </div>
               <br />
               <div class="col s3" *ngFor="let a of role">
@@ -208,11 +215,9 @@
                 />
                 <label for="{{a.role}}">{{a.role}}</label>
               </div>
-
-
             </div>
           </div>
-
+<!-- checkbox -->
           <div class="row" *ngIf="rolevalue == true">
             <!-- <div class="input-field col s6">
                     <input id="email" type="text" class="">
@@ -350,9 +355,13 @@
 
 
         </div>
+
         <div class="modal-footer p-t-15 ">
+          
+          <div class="green-text left-align" *ngIf="successuser !== null">{{successuser}}</div>
+
           <a class="modal-action modal-close ">CANCEL</a>
-          <button class="modal-action  modal-close  hedding-btn"  onclick="Materialize.toast('New Account ADD', 3000)" type="submit">ADD</button>
+          <button class="modal-action  hedding-btn" onclick="Materialize.toast('New Account ADD', 3000)" type="submit">ADD</button>
         </div>
       </form>
     </div>
@@ -367,14 +376,19 @@
           <div class="input-field col s6">
             <input type="hidden" name="id" [(ngModel)]="id"> Name:
             <input id="Name" type="text" class="" placeholder="Name" [(ngModel)]="name" name="name">
+            <div class="red-text" *ngIf="edit_errorname !== null">{{edit_errorname}}</div>
+
           </div>
           <div class="input-field col s6">Email:
             <input id="email" type="text" class="" [(ngModel)]="email" placeholder="Email ID" name="email">
+            <div class="red-text" *ngIf="edit_erroremail !== null">{{edit_erroremail}}</div>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">MObile No.:
             <input id="credit-demo" type="text" class="" [(ngModel)]="mobile" placeholder="Mobile No" name="mobile">
+            <div class="red-text" *ngIf="edit_errormobile !== null">{{edit_errormobile}}</div>
+
           </div>
         </div>
         <div class="row">
@@ -382,17 +396,18 @@
           <div class=" col s12">
             <div class="">
               <h6>TYPE:</h6>
+              <div class="red-text" *ngIf="edit_errorrole !== null">{{edit_errorrole}}</div>
+
             </div>
             <br />
             <div class="col s3" *ngFor="let a of role">
-           <input class="with-gap"  name="roletype" type="radio" id="{{a.role}}" [value]="a.role" [(ngModel)]="roletype" (change)="getRoleValue(a._id)"
-                />
-                <label for="{{a.role}}">{{a.role}}</label>
+              <input class="with-gap" name="roletype" type="radio" id="{{a.role}}" [value]="a.role" [(ngModel)]="roletype" (change)="getRoleValue(a._id)"
+              />
+              <label for="{{a.role}}">{{a.role}}</label>
             </div>
-
           </div>
         </div>
-
+<!-- checkbox -->
         <div class="row">
           <table>
             <thead>
@@ -471,7 +486,7 @@
               <tr>
                 <td>Brand</td>
                 <td>
-                  <input type="checkbox" class="filled-in" id="b_add" [(ngModel)]="b_add" name="b_add"  [value]="b_add" />
+                  <input type="checkbox" class="filled-in" id="b_add" [(ngModel)]="b_add" name="b_add" [value]="b_add" />
                   <label for="b_add"></label>
 
                 </td>
@@ -481,7 +496,7 @@
 
                 </td>
                 <td>
-                  <input type="checkbox" class="filled-in" id="b_edit"  [(ngModel)]="b_edit" name="b_edit" [value]="b_edit" />
+                  <input type="checkbox" class="filled-in" id="b_edit" [(ngModel)]="b_edit" name="b_edit" [value]="b_edit" />
                   <label for="b_edit"></label>
                 </td>
                 <td>
@@ -492,7 +507,7 @@
               <tr>
                 <td>Category</td>
                 <td>
-                  <input type="checkbox" class="filled-in" id="c_add"  [(ngModel)]="c_add" name="c_add" [value]="c_add" />
+                  <input type="checkbox" class="filled-in" id="c_add" [(ngModel)]="c_add" name="c_add" [value]="c_add" />
                   <label for="c_add"></label>
 
                 </td>
@@ -502,7 +517,7 @@
 
                 </td>
                 <td>
-                  <input type="checkbox" class="filled-in" id="c_edit" [(ngModel)]="c_edit"  name="c_edit" [value]="c_edit" />
+                  <input type="checkbox" class="filled-in" id="c_edit" [(ngModel)]="c_edit" name="c_edit" [value]="c_edit" />
                   <label for="c_edit"></label>
                 </td>
                 <td>
@@ -517,13 +532,15 @@
 
       </div>
       <div class="modal-footer p-t-15 ">
+        <div class="green-text left-align" *ngIf="edit_successuser !== null">{{edit_successuser}}</div>
+
         <a class="modal-action modal-close ">CANCEL</a>
-        <button class="modal-action  modal-close hedding-btn"  onclick="Materialize.toast('Edit Account', 3000)" type="submit">Update</button>
+        <button class="modal-action  hedding-btn" type="submit">Update</button>
       </div>
     </form>
   </div>
 </div>
-<!-- edit user -->
+<!-- edit end user -->
 
 <!-- add account type -->
 <div id="add_type" class="modal modal-fixed-footer">
@@ -533,6 +550,8 @@
         <div class="input-field col s12 m12 l12">
           <input id="roletype" type="text" class="" [(ngModel)]="roletype" name="roletype">
           <label for="roletype">Role Type</label>
+          <div class="red-text" *ngIf="errorroletype !== null">{{errorroletype}}</div>
+          
         </div>
       </div>
       <div class="row">
@@ -668,8 +687,9 @@
 
     </div>
     <div class="modal-footer p-t-15 ">
+          <div class="green-text left-align" *ngIf="rolesuccess !== null">{{rolesuccess}}</div>
       <a class="modal-action modal-close ">CANCEL</a>
-      <button class="modal-action modal-close hedding-btn"  onclick="Materialize.toast('Add Type', 3000)" type="submit">ADD</button>
+      <button class="modal-action  hedding-btn" type="submit">ADD</button>
     </div>
   </form>
 </div>
@@ -682,21 +702,13 @@
       <div class="row">
         <input type="hidden" name="r_id" [(ngModel)]="r_id">
 
-        <div class="input-field col s12 m12 l12">
-
+        <div class="input-field col s12 m12 l12"> Role Type  : 
           <input id="roletype" type="text" class="" [(ngModel)]="roletype" name="roletype">
+          <div class="red-text" *ngIf="edit_errorroletype !== null">{{edit_errorroletype}}</div>
+       
         </div>
       </div>
       <div class="row">
-        <!-- <div class="input-field col s6">
-                      <input id="email" type="text" class="">
-                      <label for="email">view</label>
-                    </div>
-                    <div class="input-field col s6">
-                      <input id="credit-demo" type="text" class="">
-                      <label for="credit_demo">edit.</label>
-                   -->
-
         <table>
           <thead>
             <th></th>
@@ -820,8 +832,9 @@
 
     </div>
     <div class="modal-footer p-t-15 ">
+        <div class="green-text left-align" *ngIf="edit_rolesuccess !== null">{{edit_rolesuccess}}</div>      
       <a class="modal-action modal-close ">CANCEL</a>
-      <button class="modal-action   modal-close   hedding-btn" onclick="Materialize.toast('Edit Account Type', 3000)" type="submit">ADD</button>
+      <button class="modal-action hedding-btn" type="submit">Update</button>
     </div>
   </form>
 </div>
@@ -835,18 +848,22 @@
         <div class="input-field col s12 m12 l12">
           <input id="d_type" type="text" class="" [(ngModel)]="d_type" name="d_type">
           <label for="d_type">Type</label>
+          <div class="red-text" *ngIf="errortype !== null">{{errortype}}</div>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s3 m3 l3">
           <input id="discount" type="text" class="" [(ngModel)]="discount" name="discount">
           <label for="discount">Discount</label>
+          <div class="red-text" *ngIf="errordiscount !== null">{{errordiscount}}</div>
+          
         </div>
       </div>
     </div>
     <div class="modal-footer p-t-15 ">
+        <div class="green-text left-align" *ngIf="typesuccess !== null">{{typesuccess}}</div>      
       <a class="modal-action modal-close ">CANCEL</a>
-      <button class="modal-action  modal-close  hedding-btn"  onclick="Materialize.toast('Add Dealer Type', 3000)" type="submit">ADD</button>
+      <button class="modal-action hedding-btn" type="submit">ADD</button>
     </div>
   </form>
 </div>
@@ -858,21 +875,25 @@
   <form class="col s12" (ngSubmit)="editType()">
     <div class="modal-content">
       <div class="row">
-        <div class="input-field col s12 m12 l12"> <b>  Type:</b>
+        <div class="input-field col s12 m12 l12">
+          <b> Type:</b>
           <input id="type" type="text" class="" [(ngModel)]="type" name="type">
-
+          <div class="red-text" *ngIf="edit_errortype !== null">{{edit_errortype}}</div>
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s3 m3 l3"> <b>Discount :</b>
+        <div class="input-field col s3 m3 l3">
+          <b>Discount :</b>
           <input id="disc" type="text" class="" [(ngModel)]="disc" name="disc">
-
+          <div class="red-text" *ngIf="edit_errordiscount !== null">{{edit_errordiscount}}</div>
         </div>
       </div>
     </div>
     <div class="modal-footer p-t-15 ">
+        <div class="green-text left-align" *ngIf="edit_typesuccess !== null">{{edit_typesuccess}}</div>      
+      
       <a class="modal-action modal-close ">CANCEL</a>
-      <button class="modal-action  modal-close hedding-btn" type="submit" onclick="Materialize.toast('Edit Dealer Type', 3000)">ADD</button>
+      <button class="modal-action hedding-btn" type="submit" >ADD</button>
     </div>
   </form>
 </div>

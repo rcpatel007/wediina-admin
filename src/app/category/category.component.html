@@ -18,7 +18,8 @@
                   Category MANAGEMENT
                 </div>
               </div>
-              <form (ngSubmit)="addCategory()">
+              <div class="green-text" *ngIf="success_msg !== null" onload="Materialize.toast('New Category add', 3000)">{{success_msg}}</div>
+              <form *ngIf="c_add == true" (ngSubmit)="addCategory()">
                 <div class="col s12 l12 m12 mr-t-20 mr-b-m-30">
                   <div class="col s6 m6 l6">
                     <b> Brand:</b>
@@ -26,14 +27,15 @@
                       <option disabled>--Select Brand Name --</option>
                       <option *ngFor="let d of brand" [value]="d._id">{{d.name}}</option>
                     </select>
-
+                    <div class="red-text" *ngIf="brandMsg !== null">{{brandMsg}}</div>
                   </div>
                   <div class="input-field col s6 m6 l6">
                     <input id="category" type="text" class="" [(ngModel)]="ename" name="ename">
                     <label for="category">Add Category</label>
+                    <div class="red-text" *ngIf="categoryMsg !== null">{{categoryMsg}}</div>
                   </div>
                   <div class="right-align">
-                    <button class="hedding-btn" onclick="Materialize.toast('New Category add', 3000)" type="submit ">ADD </button>
+                    <button class="hedding-btn"  type="submit ">ADD </button>
                   </div>
                 </div>
               </form>
@@ -59,30 +61,26 @@
                   <tbody>
                     <ng-container *ngFor="let c of category; let i=index">
                       <ng-container *ngFor="let b of brand">
-                       
+
                         <tr *ngIf="c.brand_id==b._id">
-                          <td>{{i}}</td>
+                          <td>{{i+1}}</td>
                           <td>{{b.name}}</td>
                           <td>{{c.name}}</td>
-                          <td data-target="edit_cat" class=" modal-trigger" (click)="getCategoryById(c._id)">
+                          <td *ngIf="c_edit == true" data-target="edit_cat" class=" modal-trigger" (click)="getCategoryById(c._id)">
                             <i class="fa fa-pencil-alt orange-text"></i>
                           </td>
-                          <td (click)="ConfirmDelete(c._id)">
+                          <td *ngIf="c_delete == true" (click)="ConfirmDelete(c._id)">
                             <i class="fa fa-trash red-text"></i>
                           </td>
                         </tr>
-
                       </ng-container>
                     </ng-container>
-
                   </tbody>
                 </table>
               </div>
-
             </div>
           </div>
         </div>
-
       </div>
       <!--end container-->
     </section>
@@ -100,7 +98,7 @@
     <div class="col s12">
 
       <form (ngSubmit)="updateCategory()">
-        <div class="col s12 l12 m12  mr-t-20 mr-b-m-30">
+        <div class="col s12 l12 m12  mr-t-20 mr-b-m-30"> <b>Brand :</b>
           <select [(ngModel)]="editedValue" name="editedValue">
             <option disabled>--Select Brand Name --</option>
             <option *ngFor="let d of brand" [value]="d._id">{{d.name}}</option>
@@ -112,7 +110,7 @@
             <input id="category" type="text" class="" [(ngModel)]="name" name="name">
           </div>
 
-          <button class="hedding-btn modal-close"  onclick="Materialize.toast('Category Updated', 3000)" type="submit">Update </button>
+          <button class="hedding-btn modal-close" onclick="Materialize.toast('Category Updated', 3000)" type="submit">Update </button>
         </div>
       </form>
 

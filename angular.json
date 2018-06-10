@@ -29,14 +29,14 @@
               "src/styles.css"
             ],
             "scripts": [
-              "src/assets/vendors/jquery-3.2.1.min.js",
-              "src/assets/js/materialize.min.js",
-              "src/assets/vendors/data-tables/js/jquery.dataTables.min.js",
-              "src/assets/js/scripts/data-tables.js",
-              "src/assets/js/scripts/advanced-ui-modals.js",
-              "src/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js",
-              "src/assets/js/plugins.js",
-              "src/assets/js/custom-script.js"
+              "./src/assets/vendors/jquery-3.2.1.min.js",
+              "./src/assets/js/materialize.min.js",
+              "./src/assets/vendors/data-tables/js/jquery.dataTables.min.js",
+              "./src/assets/js/scripts/data-tables.js",
+              "./src/assets/js/scripts/advanced-ui-modals.js",
+              "./src/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js",
+              "./src/assets/js/plugins.js",
+              "./src/assets/js/custom-script.js"
             ]
           },
           "configurations": {

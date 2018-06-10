@@ -13,6 +13,8 @@ import { JwtHelper } from '../Jwthelper';
 import { partition } from 'rxjs/operators';
 import { UserService } from '../services/user.service';
 
+declare var window: any;
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -26,7 +28,7 @@ export class DashboardComponent implements OnInit {
   enquiry: any;
   complate: any;
   order_count: any;
-  order =new Array;
+  order = new Array;
   account: Account[];
   product_details = new Array();
   auth: any;
@@ -60,7 +62,6 @@ export class DashboardComponent implements OnInit {
   c_view: boolean;
   c_delete: boolean;
 
-
   constructor(private router: Router,
     private loginservice: LoginService,
     private orderService: OrderService,
@@ -74,61 +75,32 @@ export class DashboardComponent implements OnInit {
     if (this.loginservice.token == null) {
       this.router.navigate(["/login"]);
     }
-
     // this.auth = {"email": this.loginservice.token,"token": this.loginservice.token}  
     this.getOrder();
     this.getAccount();
     this.getuser(this.user_id);
-
   }
 
   getuser(user_id) {
-    let id = environment.user_id;
+    let id = localStorage.user_id;
+    // let id = localStorage.user_id;
     this.userservice.getUserById(id)
       .subscribe((data) => {
         //  console.log(account);
-
         this.o_add = data.order.add;
         this.o_edit = data.order.edit;
         this.o_view = data.order.view;
         this.o_delete = data.order.delete;
-
-        this.i_add = data.product.add;
-        this.i_edit = data.product.edit;
-        this.i_view = data.product.view;
-        this.i_delete = data.product.delete;
-
-        this.d_add = data.dealer.add;
-        this.d_edit = data.dealer.edit;
-        this.d_view = data.dealer.view;
-        this.d_delete = data.dealer.delete;
-
-
-        this.b_add = data.brand.add;
-        this.b_edit = data.brand.edit;
-        this.b_view = data.brand.view;
-        this.b_delete = data.brand.delete;
-
-        this.c_add = data.category.add;
-        this.c_edit = data.category.edit;
-        this.c_view = data.category.view;
-        this.c_delete = data.category.delete;
-
         // console.log(data);
-      }); 
+      });
   }
 
   getAccount() {
-
-
-
     this.accountservice.getAccount()
       .subscribe((data) => {
         //  console.log(account);
         this.account = data;
-
         // console.log(this.account);
-
       });
   }
 
@@ -138,7 +110,6 @@ export class DashboardComponent implements OnInit {
     this.enquiry = 0;
     this.complate = 0;
     // console.log(auth);
-
     this.orderService.getOrder()
       .subscribe((Order) => {
         // console.log(Order);
@@ -165,56 +136,18 @@ export class DashboardComponent implements OnInit {
           }
 
         }
-
-
         // console.log(this.order);
-
-
         // console.log(this.enquriry_data);
       });
   }
-
-  // getOrder(auth) {
-  //   // let auth = {
-  //   //    "token": this.loginservice.token
-  //   //   }
-
-  //   this.count = 1;
-  //   this.order_count = 0;
-  //  console.log("g" +auth);
-
-  //   this.orderService.getOrder(auth)
-  //                   .subscribe((Order) => {
-  //                     console.log(Order.data);
-
-  //                     for(let i=0; i<Order.data.length; i++)
-  //                       {
-  //                         if(Order.data[i].status == 'new'){
-  //                         this.order_count = this.order_count + 1;
-  //                         // console.log(this.order_count);
-  //                         }
-  //                       }
-  //                       // console.log(this.auth);
-
-  //                      this.order = Order.data;
-
-  //                    console.log(this.order);
-  //                 });
-
-  // }
-
   viewOrder(id) {
     this.orderService.viewOrder(id)
       .subscribe((data) => {
         this.product_details = data.products;
         // console.log(this.product_details);
-
         // }
       });
-
   }
-
-
   /*delete order */
   ConfirmDelete(id) {
     var x = confirm("Are you sure you want to delete?");
@@ -223,8 +156,6 @@ export class DashboardComponent implements OnInit {
     else
       return false;
   }
-
-
   deleteOrder(id) {
     this.orderService.deleteOrder(id)
       .subscribe(result => {
@@ -232,7 +163,4 @@ export class DashboardComponent implements OnInit {
         this.getOrder();
       });
   }
-
-
-
 }

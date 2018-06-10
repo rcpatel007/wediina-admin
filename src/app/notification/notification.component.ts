@@ -21,6 +21,7 @@ import { AccountService } from '../services/account.service';
 import { log } from 'util';
 
 
+
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
@@ -50,10 +51,13 @@ export class NotificationComponent implements OnInit {
     private notificationservice: NotificationService,
     private orderservice: OrderService,
     private productservice: ProductService,
+    private loginservice :LoginService,
     private accountservice: AccountService) { }
 
   ngOnInit() {
-
+    if (this.loginservice.token === null) {
+      this.router.navigate(["/login"]);
+    }
     this.getNotification();
 
   }
@@ -62,7 +66,7 @@ export class NotificationComponent implements OnInit {
 
     this.notificationservice.getNotification()
       .subscribe((data) => {
-        
+
         console.log(data);
         this.notificaiton = data;
 

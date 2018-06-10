@@ -45,34 +45,31 @@ export class HeaderComponent implements OnInit {
     if (this.loginService.token === null) {
       this.router.navigate(["/login"]);
     }
-
     else if (this.loginService.token != null) {
       this.userRole();
     }
-
     //  this.socket.on('hello', (data) => console.log(data));
     this.socket.on('new-message', (result) => {
       // this.display = true;
       this.msg.push(+ result.data.name);
-
     });
     this.getNotificaiton();
     this.getuser(this.user_id);
 
   }
 
-
   userRole() {
     var jwtHelper = new JwtHelper();
     var parsedToken = jwtHelper.decodeToken(this.loginService.token);
-    environment.user_id = parsedToken.id;
-    // console.log('login id' + environment.user_id);
+    let id = parsedToken.id;
+    localStorage.setItem('user_id',id);
+    // console.log('login id' + localStorage.user_id);
+// console.log('id '+localStorage.user_id);
 
   }
 
   getNotificaiton() {
     this.read = 0;
-
     this.notificaitonservice.getNotification()
       .subscribe((result) => {
         for (let i = 0; i < result.length; i++) {
@@ -96,15 +93,7 @@ export class HeaderComponent implements OnInit {
     let notification = {
       read: true
     }
-
-
-    // this.notificaitonservice.getNotificationById(id, notification)
-    //   .subscribe((data) => {
-    //     this.n_id = data._id;
-    //     console.log('id d'+this.n_id);
-
-    //   });
-
+   
     switch (event[0]) {
       case 'br':
         this.notificaitonservice.getNotificationById(id)
@@ -173,20 +162,12 @@ export class HeaderComponent implements OnInit {
 
         break;
       default:
-
         break;
-
-
     }
-
-
   }
 
-
-
   getuser(user_id) {
-    let id = environment.user_id;
-
+    let id = localStorage.user_id;
     this.userservice.getUserById(id)
       .subscribe((data) => {
         // console.log(data);
@@ -199,16 +180,9 @@ export class HeaderComponent implements OnInit {
         this.b_view = data.brand.view;
         this.c_view = data.category.view;
         this.role = data.role;
-
         // console.log(this.role);
-
       });
-
-
-
-
   }
-
 
   logout() {
     localStorage.removeItem("token");

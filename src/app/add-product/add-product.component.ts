@@ -33,12 +33,12 @@ export class AddProductComponent implements OnInit {
   name: String;
   categoryid: String;
   temp: String;
-  pressure: String;
-  desc: String;
+  pressure: String;;
+  desc: String;;
   model_info = new Array;
-  model_no: String;
-  price: String;
-  qty: String;
+  model_no: String;;
+  price: String;;
+  qty: String;;
   grade: String;
   size: String;
   base64: any;
@@ -53,6 +53,17 @@ export class AddProductComponent implements OnInit {
   keyValue = [];
   modeldata = [];
   finalArray = [];
+  // error msg
+  errorName: String = null;
+  errorImg: String = null;
+  errorOtherImg: String = null;
+  errorCateory: String = null;
+  errorTemp: String = null;
+  errorPressure: String = null;
+  errorDesc: String = null;
+  errorModel: String = null;
+  successMsg: String = null;
+
 
 
   constructor(private router: Router,
@@ -67,17 +78,10 @@ export class AddProductComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.loginservice.token === null) {
+      this.router.navigate(["/login"]);
+    }
     this.getCategory();
-
-
-    // this.someFormHandle = this.formBuilder.group({
-    //   'someNumber': ['', Validators.compose([Validators.required, 
-    //                                          Validators.minLength(7), 
-    //                                          this.divisibleByTen])]
-    // });
-
-    // this.someNumber = this.someFormHandle.find('someNumber');
-
   }
 
   addmodel() {
@@ -103,21 +107,16 @@ export class AddProductComponent implements OnInit {
         console.log(this.category);
       });
   }
-
   /* Image convert base64 */
   imageUpload(evt) {
     var files = evt.target.files;
     var file = files[0];
-
     if (files && file) {
       var reader = new FileReader();
-
       reader.onload = this.imagetoBase64.bind(this);
-
       reader.readAsBinaryString(file);
     }
   }
-
 
   imagetoBase64(readerEvt) {
     var binaryString = readerEvt.target.result;
@@ -125,11 +124,7 @@ export class AddProductComponent implements OnInit {
     // console.log(btoa(binaryString));
 
   }
-
   /*add or remove input tag*/
-
-
-
   otherImageUpload(event) {
     let files = [].slice.call(event.target.files);
     // console.log(files);
@@ -139,15 +134,12 @@ export class AddProductComponent implements OnInit {
         var reader = new FileReader();
         reader.onload = this.otherimagetoBase64.bind(this);
         reader.readAsBinaryString(files[i]);
-
       }
     }
   }
 
   otherimagetoBase64(readeEvent) {
-
     var binaryString = readeEvent.target.result;
-
     this.otherbase64 = btoa(binaryString);
     // console.log(btoa(binaryString));
     this.productservice.imgurotherImage(this.otherbase64)
@@ -156,82 +148,119 @@ export class AddProductComponent implements OnInit {
         this.o_img.push(result.data.link)
       });
     // console.log(this.o_img);
-
   }
-
 
   addProduct() {
     this.productservice.imgurImage(this.base64)
       .subscribe((result) => {
         // console.log(result);
         this.p_img = result.data.link;
-
-
         this.finalArray = this.modeldata;
-
-        for (let i = 0; i < this.finalArray.length; i++) {
-          for (let index = 0; index < this.finalArray[i].keyValue.length; index++) {
-            this.finalArray[i][this.finalArray[i].keyValue[index].key] = this.finalArray[i].keyValue[index].value;
-          }
-          delete this.finalArray[i].keyValue;
-        }
-
-
-
-        console.log(this.finalArray);
-
-
-        let product = {
-          name: this.name,
-          category_id: this.catValue,
-          pressure: this.pressure,
-          temprature: this.temp,
-          model_info: this.finalArray,
-          desc: this.desc,
-          product_image: this.p_img,
-          other_images: this.o_img
-        }
-        console.log(product);
-
-        // PRODCUT ADD
-        this.productservice.addProdcut(product)
-          .subscribe((res) => {
-
-            // NOTIFIACITON ADD
-            let date_time = Date.now();
-            let event_id = "pa_" + res.data._id;
-
-            let notification = {
-              title: "new Product  Add",
-              user_id: environment.user_id,
-              event_id: event_id,
-              date_time: date_time,
-              read: false
-
-            }
-            // console.log(notification);
-            this.socket.emit('new-event', { data: product });
-            this.notificationService.addNotification(notification)
-              .subscribe(() => {
-
-              });
-            // STOCK ADD  
-
-            let stock = {
-              product_id: res.data._id,
-              qty: this.qty
-            }
-            this.stockservice.addStock(stock)
-              .subscribe(() => {
-
-              });
-            this.router.navigate(["/inventory"]);
-
-            console.log(res);
-
-          });
       });
+    if (this.name == null ||
+      this.p_img == null ||
+      this.o_img == null ||
+      this.catValue == null ||
+      this.temp == null ||
+      this.pressure == null ||
+      this.desc == null 
+      ) {
 
+      this.errorName = "Please Enter Product Name";
+      this.errorImg = " please Select Image";
+      this.errorOtherImg = "Please Select Other Images";
+      this.errorCateory = "Please Select Category";
+      this.errorTemp = "Please Enter Tempreture Value";
+      this.errorPressure = "Please Enter Pressure Value";
+      this.errorDesc = "Please Enter Description";
+      
+
+    }
+    else if (this.name == null) {
+      this.errorName = "Please Enter Product Name";
+    }
+    else if (this.p_img == null) {
+      this.errorImg = " please Select Image";
+    }
+    else if (this.o_img == null) {
+      this.errorOtherImg = "Please Select Other Images";
+    }
+    else if (this.catValue == null) {
+      this.errorCateory = "Please Select Category";
+    }
+    else if (this.temp == null) {
+      this.errorTemp = "Please Enter Tempreture Value";
+    }
+    else if (this.pressure == null) {
+      this.errorPressure = "Please Enter Pressure Value";
+
+    }
+    else if (this.desc == null) {
+      this.errorDesc = "Please Enter Description";
+    }
+    else {
+
+      for (let i = 0; i < this.finalArray.length; i++) {
+        for (let index = 0; index < this.finalArray[i].keyValue.length; index++) {
+          this.finalArray[i][this.finalArray[i].keyValue[index].key] = this.finalArray[i].keyValue[index].value;
+        }
+        delete this.finalArray[i].keyValue;
+      }
+      console.log(this.finalArray);
+      let product = {
+        name: this.name,
+        category_id: this.catValue,
+        pressure: this.pressure,
+        temprature: this.temp,
+        model_info: this.finalArray,
+        desc: this.desc,
+        product_image: this.p_img,
+        other_images: this.o_img
+      }
+      console.log(product);
+      // PRODCUT ADD
+      this.productservice.addProdcut(product)
+        .subscribe((res) => {
+          // NOTIFIACITON ADD
+          let date_time = Date.now();
+          let event_id = "pa_" + res.data._id;
+
+          let notification = {
+            title: "new Product  Add",
+            user_id: environment.user_id,
+            event_id: event_id,
+            date_time: date_time,
+            read: false
+          }
+          // console.log(notification);
+          this.socket.emit('new-event', { data: product });
+          this.notificationService.addNotification(notification)
+            .subscribe(() => {
+            });
+          // STOCK ADD  
+          let stock = {
+            product_id: res.data._id,
+            qty: this.qty
+          }
+          this.stockservice.addStock(stock)
+            .subscribe(() => { });
+          this.router.navigate(["/inventory"]);
+          console.log(res);
+
+          this.name = null;
+          this.catValue = null;
+          this.pressure = null;
+          this.temp = null;
+          this.finalArray = null;
+          this.desc = null;
+          this.p_img = null;
+          this.o_img = null;
+          this.successMsg = " Product Succesfully Added"
+        });
+
+
+
+    }
   }
 
 

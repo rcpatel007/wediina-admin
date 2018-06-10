@@ -77,7 +77,6 @@
             </div>
           </div>
           <!--card stats end-->
-
           <!--DataTables example Row grouping-->
           <div class="section">
             <div class="row ">
@@ -90,7 +89,7 @@
                     New Order
                   </div>
                 </div>
-                <table  id="" class="display mr-t-90 striped" cellspacing="0" width="100%">
+                <table  class="display mr-t-90 striped" cellspacing="0" width="100%">
                   <thead>
                     <tr>
                       <th>NO</th>
@@ -102,23 +101,16 @@
                     </tr>
                   </thead>
                   <tbody>
-
                     <ng-container *ngFor="let o of order; let i=index ">
-
                       <ng-container *ngFor="let a of account">
-
                         <tr *ngIf="o.user_id == a._id">
-
                           <td>{{i+1}}</td>
                           <td>{{a.name}}</td>
                           <td>{{a.company_name}}</td>
                           <td>{{o.order_date}}</td>
                           <td>Rs.1,00,000</td>
-                          <td (click)="viewOrder(o._id) " data-target="view_order" class=" modal-trigger">
+                          <td *ngIf="o_view == true" (click)="viewOrder(o._id) " data-target="view_order" class=" modal-trigger">
                             <i class="fa fa-eye blue-text"></i>
-                          </td>
-                          <td *ngIf="o_edit == true" (click)="ConfirmDelete(o._id)">
-                            <i class="fa fa-trash red-text"></i>
                           </td>
                         </tr>
                       </ng-container>
@@ -127,7 +119,6 @@
                 </table>
               </div>
               <!-- Enquiries -->
-
               <div *ngIf="o_view == true" class="col s12 card mr-t-50">
                 <div class="col s3 m3">
                   <div class="col s3 m3 section-icon green-back">

@@ -53,7 +53,7 @@
                           <td>{{o.order_date}}</td>
                           <td>{{o.status}}</td>
                           <td>Rs.1,00,000</td>
-                          <td [routerLink]="['/vieworder', o._id]">
+                          <td *ngIf="o_view == true" [routerLink]="['/vieworder', o._id]">
                             <i class="fa fa-eye blue-text"></i>
                           </td>
                           <td *ngIf="o_edit == true" [routerLink]="['/editorder', o._id]">

@@ -4,7 +4,7 @@
       <div class="col s12 m4 l4"></div>
       <div class="col s3 mr-p-t-4">
         <div id="login-page" class="row">
-          <form class="login-form z-depth-4 card-panel" (ngSubmit)="userLogin()" enctype="multipart/form-data">
+          <form class="login-form z-depth-4 card-panel"  (ngSubmit)="userLogin()" enctype="multipart/form-data">
             <div class="row">
               <div class="input-field col s12 center">
                 <div class="user-login">
@@ -14,7 +14,9 @@
               </div>
             </div>
             <div class="row">
+              <div class="red-text" *ngIf="msg !== null">{{msg}}</div>
               <div class="input-field col s12 mr-t-20">
+                
                 <i class="material-icons prefix pt-5">person_outline</i>
                 <input id="email" type="text" name="email" [(ngModel)]="email">
                 <label for="email" class="center-align">Email ID</label>

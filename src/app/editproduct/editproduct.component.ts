@@ -37,6 +37,16 @@ export class EditproductComponent implements OnInit {
   modeldata = new Array;
   m_data = [];
   finalArray = [];
+  // error msg
+  errorName: String = null;
+  errorImg: String = null;
+  errorOtherImg: String = null;
+  errorCateory: String = null;
+  errorTemp: String = null;
+  errorPressure: String = null;
+  errorDesc: String = null;
+  errorModel: String = null;
+  successMsg: String = null;
 
 
   constructor(private route: ActivatedRoute,
@@ -58,6 +68,15 @@ export class EditproductComponent implements OnInit {
     this.getProductById(this.id);
     this.getCategory();
 
+  }
+
+
+  deleteModel(type, modelIndex, modelKeyValueIndex) {
+    if (type === 'model') {
+      this.modeldata.splice(modelIndex, 1);
+    } else {
+      this.modeldata[modelIndex].keyValue.splice(modelKeyValueIndex, 1);
+    }
   }
 
   getCategory() {
@@ -100,45 +119,90 @@ export class EditproductComponent implements OnInit {
         this.name = data.name;
         this.catValue = data.category_id;
         this.pressure = data.pressure;
-        this.modeldata = data.model_info;
+        let temp_modeldata = data.model_info;
         this.temp = data.temprature;
         this.p_img = data.product_image;
         this.o_img = data.other_images;
         this.desc = data.desc;
 
-        console.log(this.modeldata);
+        for (let index = 0; index < temp_modeldata.length; index++) {
+          temp_modeldata[index].keyValue = [];
+          Object.keys(temp_modeldata[index]).forEach(key => {
+            if (key.toString() !== 'model_no' &&
+              key.toString() !== 'price' &&
+              key.toString() !== 'qty' &&
+              key.toString() !== 'size' &&
+              key.toString() !== 'grade' &&
+              key.toString() !== 'keyValue') {
 
-      
+              temp_modeldata[index].keyValue.push(
+                { key: key, value: temp_modeldata[index][key] }
+              )
+
+              delete temp_modeldata[index][key];
+            }
+          })
+        }
+        this.modeldata = [];
+        this.modeldata = temp_modeldata;
+
+        console.log(temp_modeldata);
+
+
       });
   }
 
   /*Update order */
   updateProduct() {
     let id = this.id;
-    this.finalArray = this.modeldata;
-    for (let i = 0; i < this.finalArray.length; i++) {
-      for (let index = 0; index < this.finalArray[i].keyValue.length; index++) {
-        this.finalArray[i][this.finalArray[i].keyValue[index].key] = this.finalArray[i].keyValue[index].value;
+
+   
+     if (this.name == "") {
+      this.errorName = "Please Enter Product Name";
+    }
+    else if (this.p_img == "") {
+      this.errorImg = " please Select Image";
+    }
+    else if (this.catValue == "") {
+      this.errorCateory = "Please Select Category";
+    }
+    else if (this.temp == "") {
+      this.errorTemp = "Please Enter Tempreture Value";
+    }
+    else if (this.pressure == "") {
+      this.errorPressure = "Please Enter Pressure Value";
+
+    }
+    else if (this.desc == "") {
+      this.errorDesc = "Please Enter Description";
+    }
+    else {
+
+      this.finalArray = this.modeldata;
+      for (let i = 0; i < this.finalArray.length; i++) {
+        for (let index = 0; index < this.finalArray[i].keyValue.length; index++) {
+          this.finalArray[i][this.finalArray[i].keyValue[index].key] = this.finalArray[i].keyValue[index].value;
+        }
+        delete this.finalArray[i].keyValue;
       }
-      delete this.finalArray[i].keyValue;
+      console.log(this.finalArray);
+      let updateproduct = {
+        _id: this.id,
+        name: this.name,
+        category_id: this.catValue,
+        pressure: this.pressure,
+        temprature: this.temp,
+        model_info: this.finalArray,
+        product_image: this.p_img,
+        other_images: this.o_img,
+        desc: this.desc,
+      }
+      console.log(updateproduct);
+      this.Productservice.editProduct(id, updateproduct)
+        .subscribe((res) => {
+          this.router.navigate(['viewproduct/' + this.id]);
+          console.log(res);
+        });
     }
-    console.log(this.finalArray);
-    let updateproduct = {
-      _id: this.id,
-      name: this.name,
-      category_id: this.catValue,
-      pressure: this.pressure,
-      temprature: this.temp,
-      model_info: this.finalArray,
-      product_image: this.p_img,
-      other_images: this.o_img,
-      desc: this.desc,
-    }
-    console.log(updateproduct);
-    this.Productservice.editProduct(id, updateproduct)
-      .subscribe((res) => {
-        this.router.navigate(['viewproduct/' + this.id]);
-        console.log(res);
-      });
   }
 }

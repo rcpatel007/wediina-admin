@@ -19,7 +19,7 @@
                 </div>
               </div>
               <div class="col s6 l6 m6 right-align">
-                <button [routerLink]="['/addproduct']" class="hedding-btn-2">Add Item </button>
+                <button  *ngIf="i_add == true"[routerLink]="['/addproduct']" class="hedding-btn-2">Add Item </button>
                 <button class="hedding-btn">Update Data </button>
               </div>
 
@@ -63,14 +63,14 @@
                           <td>{{c.name}}</td>
                           <td>{{i.pressure}}</td>
                           <td>{{i.temprature}}</td>
-                          <td [routerLink]="['/viewproduct', i._id]">
+                          <td *ngIf="i_view == true" [routerLink]="['/viewproduct', i._id]">
                             <i class="fa fa-eye blue-text"></i>
                           </td>
 
-                          <td [routerLink]="['/editproduct', i._id]">
+                          <td *ngIf="i_edit == true" [routerLink]="['/editproduct', i._id]">
                             <i class="fa fa-pencil-alt orange-text"></i>
                           </td>
-                          <td (click)="ConfirmDelete(i._id)">
+                          <td *ngIf="i_delete == true" (click)="ConfirmDelete(i._id)">
                             <i class="fa fa-trash red-text "></i>
                           </td>
                         </tr>

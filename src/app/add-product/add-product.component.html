@@ -32,8 +32,10 @@
 
                     <div class="row">
                       <div class="input-field col s12">
-                        <input id="name" type="text" [(ngModel)]="name"  name="name" [(ngModel)]="name" class="">
+                        <input id="name" type="text" [(ngModel)]="name" name="name" [(ngModel)]="name" class="">
                         <label for="name">Name</label>
+                        <div class="red-text" *ngIf="errorName !== null">{{errorName}}</div>
+
                       </div>
 
                     </div>
@@ -41,12 +43,14 @@
                       <div class="input-field col s12 mr-t-20">
                         <b> Image:</b> &nbsp;&nbsp;
                         <input id="p_img" type="file" class="" (change)="imageUpload($event)" [(ngModel)]="p_img" name="p_img">
+                        <div class="red-text" *ngIf="errorImg !== null">{{errorImg}}</div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="input-field col s12 mr-t-20">
                         <b>Other Image:</b> &nbsp;&nbsp;
                         <input id="img" type="file" multiple="multiple" class="" (change)="otherImageUpload($event)" [(ngModel)]="img" name="img">
+                        <div class="red-text" *ngIf="errorOtherImg !== null">{{errorOtherImg}}</div>
                       </div>
                     </div>
                     <div class="row">
@@ -57,25 +61,32 @@
                           <option value="" disabled selected>Select Category</option>
                           <option *ngFor="let c of category" value="{{c._id}}">{{c.name}}</option>
                         </select>
+                        <div class="red-text" *ngIf="errorCateory !== null">{{errorCateory}}</div>
+
                       </div>
                       <div class="input-field col s12">
                         <input id="temp" type="text" class="" [(ngModel)]="temp" name="temp">
                         <label for="temp">Temperature</label>
+                        <div class="red-text" *ngIf="errorTemp !== null">{{errorTemp}}</div>
                       </div>
                       <div class="input-field col s12">
                         <input id="pressure" type="text" class="" [(ngModel)]="pressure" name="pressure">
                         <label for="pressure">Pressure</label>
+                        <div class="red-text" *ngIf="errorPressure !== null">{{errorPressure}}</div>
+
                       </div>
                       <div class="input-field col s12">
                         <textarea id="desc" type="text" class="materialize-textarea" [(ngModel)]="desc" name="desc"></textarea>
                         <label for="desc">Description</label>
+                        <div class="red-text" *ngIf="errorDesc !== null">{{errorDesc}}</div>
+
                       </div>
 
 
 
                     </div>
                     <br />
-                    <button class="modal-action hedding-btn"  onclick="Materialize.toast('Add New Product', 3000)" type="submit">ADD PRODUCT</button>
+                    <button class="modal-action hedding-btn" type="submit">ADD PRODUCT</button>
                   </div>
 
                   <div class="col s6 m6 l6 ">
@@ -112,11 +123,12 @@
 
                         <div>
                           <div class="col s6 l6 m6 m-t-20">
-                            <input type="text" [(ngModel)]="modeldata[i].keyValue[in].key" name="modeldata{{i}}.keyValue{{in}}.key{{in}}" #key="ngModel" required />
+                            <input type="text" [(ngModel)]="modeldata[i].keyValue[in].key" name="modeldata{{i}}.keyValue{{in}}.key{{in}}" #key="ngModel"
+                              required />
                           </div>
                           <div class="col s 6 m6 l6">
-                            <input type="text" [(ngModel)]="modeldata[i].keyValue[in].value" name="modeldata{{i}}.keyValue{{in}}.value{{in}}" #value="ngModel" required
-                            />
+                            <input type="text" [(ngModel)]="modeldata[i].keyValue[in].value" name="modeldata{{i}}.keyValue{{in}}.value{{in}}" #value="ngModel"
+                              required />
                           </div>
                           <!--<p [hidden]="words2[in].value">Field is required</p> -->
                           <!-- {{formRef.form.word2}}          -->

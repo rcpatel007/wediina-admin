@@ -11,6 +11,7 @@ import { CategoryService } from '../services/category.service';
 import { Category } from '../model/category';
 import { CityService } from '../services/city.service';
 import { City } from '../model/City';
+import { UserService } from '../services/user.service';
 
 
 
@@ -42,15 +43,15 @@ export class InventoryComponent implements OnInit {
   key: String;
   catValue: any;
   cityValue: any;
-
-  // hello =[price:12,
-  //         size:12,
-  //         chirag:12,
-  //       ]
+  i_add: String;
+  i_view: String;
+  i_edit: String;
+  i_delete: String;
 
   constructor(private router: Router,
     private productservice: ProductService,
     private loginservice: LoginService,
+    private userservice: UserService,
     private cityservice: CityService,
     private categoryservice: CategoryService) { }
 
@@ -60,6 +61,7 @@ export class InventoryComponent implements OnInit {
     }
 
     this.getProduct();
+  this.getuser();
   }
 
   getCategory() {
@@ -121,38 +123,24 @@ export class InventoryComponent implements OnInit {
         }
         console.log(this.o_img);
       });
-
-
-
   }
-
   // single img update
-
-
-
-
   /* Image convert base64 */
   imageUpload(evt) {
     var files = evt.target.files;
     var file = files[0];
-
     if (files && file) {
       var reader = new FileReader();
-
       reader.onload = this.imagetoBase64.bind(this);
-
       reader.readAsBinaryString(file);
     }
   }
-
 
   imagetoBase64(readerEvt) {
     var binaryString = readerEvt.target.result;
     this.base64 = btoa(binaryString);
     // console.log(btoa(binaryString));
-
   }
-
 
   updateImage() {
     this.productservice.imgurImage(this.base64)
@@ -171,12 +159,10 @@ export class InventoryComponent implements OnInit {
             console.log(updateimg);
           });
       });
-
   }
   /* delete image*/
   deleteimg(o_image) {
     // console.log(o_image);
-
     for (let i = 0; i < this.o_img.length; i++) {
       if (this.o_img[i] == o_image) {
         this.o_img.splice(i, 1);
@@ -184,7 +170,6 @@ export class InventoryComponent implements OnInit {
     }
     // console.log(this.other_img);
   }
-
 
   /*other image update */
   otherImageUpload(event) {
@@ -202,18 +187,14 @@ export class InventoryComponent implements OnInit {
   }
 
   otherimagetoBase64(readeEvent) {
-
     var binaryString = readeEvent.target.result;
-
     this.otherbase64 = btoa(binaryString);
     console.log(btoa(binaryString));
     this.productservice.imgurotherImage(this.otherbase64)
       .subscribe((result) => {
         this.o_img.push(result.data.link)
         console.log(this.o_img);
-
       });
-
   }
 
   updateOtherImage() {
@@ -227,35 +208,37 @@ export class InventoryComponent implements OnInit {
         this.getProduct();
         console.log(otherupdateimg);
       });
-
-
   }
-
-
 
   /*delete brand */
   ConfirmDelete(id) {
-
     var x = confirm("Are you sure you want to delete?" + id);
     if (x) {
-
       return this.deleteProduct(id);
     }
-
     else
       return false;
   }
-
 
   deleteProduct(id) {
     this.productservice.deleteProduct(id)
       .subscribe(result => {
         console.log(result);
-
-        this.getProduct();
-
+        this.getProduct()
       });
   }
 
+  // user
+  getuser() {
+    let id = localStorage.user_id;
 
+    this.userservice.getUserById(id)
+      .subscribe((data) => {
+        this.i_add = data.product.add;
+        this.i_edit = data.product.edit;
+        this.i_view = data.product.view;
+        this.i_delete = data.product.delete;
+         console.log(data);
+      });
+  }
 }

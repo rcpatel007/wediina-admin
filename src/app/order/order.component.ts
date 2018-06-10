@@ -99,7 +99,7 @@ export class OrderComponent implements OnInit {
   }
 
   getuser(user_id){
-    let id =environment.user_id
+    let id =localStorage.user_id;
    
     this.userservice.getUserById(id)
                        .subscribe((data) => {

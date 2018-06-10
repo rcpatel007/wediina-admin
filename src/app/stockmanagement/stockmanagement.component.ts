@@ -32,6 +32,9 @@ export class StockmanagementComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if (this.loginservice.token === null) {
+      this.router.navigate(["/login"]);
+    }
 
     this.getStock();
     this.getProduct();
@@ -51,12 +54,12 @@ export class StockmanagementComponent implements OnInit {
 
             for (let i = 0; i < Product.length; i++) {
               this.modeldata = this.product[i].model_info;
-          
+
               for (let j = 0; j < this.modeldata.length; j++) {
                 // this.finalvalue.push(this.modeldata[j]);
-                this.model_value.push({'id': this.product[i]._id,'name': this.product[i].name, 'model_no': this.modeldata[j].model_no, 'qty': this.modeldata[j].qty });
+                this.model_value.push({ 'id': this.product[i]._id, 'name': this.product[i].name, 'model_no': this.modeldata[j].model_no, 'qty': this.modeldata[j].qty });
               }
-              
+
               // this.model_info.push({
               //   'id': this.product[i]._id,
               //   'name': this.product[i].name,

@@ -54,8 +54,6 @@ export class ViewproductComponent implements OnInit {
     if (this.loginservice.token === null) {
       this.router.navigate(["/login"]);
     }
-
-
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
