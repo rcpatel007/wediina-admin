@@ -4,6 +4,7 @@ import { OrderService } from '../services/order.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
 import { UserService } from '../services/user.service';
+declare var $:any;
 
 @Component({
   selector: 'app-editorder',
@@ -52,6 +53,27 @@ export class EditorderComponent implements OnInit {
       this.o_id = params['id'];
     });
     this.getorderById(this.o_id);
+
+    
+    $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
+    $("script[src='assets/js/materialize.min.js']").remove();
+    $("script[src='assets/js/scripts/advanced-ui-modals.js']").remove();
+
+    var dynamicScripts = [
+      "assets/css/themes/collapsible-menu/materialize.css",
+      "assets/js/materialize.min.js",
+      "assets/js/scripts/advanced-ui-modals.js",
+    ];
+
+    for (var i = 0; i < dynamicScripts.length; i++) {
+      let node = document.createElement('script');
+      node.src = dynamicScripts[i];
+      node.type = 'text/javascript';
+      node.async = false;
+      node.charset = 'utf-8';
+      document.getElementsByTagName('head')[0].appendChild(node);
+    }
+
 
   }
 

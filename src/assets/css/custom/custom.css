@@ -73,7 +73,7 @@ background-color: #D6303C;
 	margin-bottom: 20px;
 }
 .mr-t-50{
-	margin-top: 50px;
+	margin-top: 50px !important;
 }
 .mr-b-m-30{
 	margin-bottom: -30px;
@@ -114,7 +114,7 @@ padding-top: 15px !important;
 .logout-btn{
 	background-color: #A90329;
 	border-radius: 20px;
-	margin-top: 50%;
+	margin-top: 20%;
 	padding: 2% 15%;
 	border: none;
 	color:#fff;	

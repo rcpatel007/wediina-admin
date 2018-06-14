@@ -14,7 +14,7 @@ import { partition } from 'rxjs/operators';
 import { UserService } from '../services/user.service';
 
 declare var window: any;
-
+declare var $: any;
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
   account: Account[];
   product_details = new Array();
   auth: any;
-  enquriry_data: Order[];
+  enquriry_data =new Array;
   co: String = '1';
 
   // user
@@ -72,6 +72,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     if (this.loginservice.token == null) {
       this.router.navigate(["/login"]);
     }
@@ -79,6 +80,28 @@ export class DashboardComponent implements OnInit {
     this.getOrder();
     this.getAccount();
     this.getuser(this.user_id);
+  
+  
+    $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
+    $("script[src='assets/js/materialize.min.js']").remove();
+    $("script[src='assets/js/scripts/advanced-ui-modals.js']").remove();
+
+    var dynamicScripts = [
+      "assets/css/themes/collapsible-menu/materialize.css",
+      "assets/js/materialize.min.js",
+      "assets/js/scripts/advanced-ui-modals.js",
+    ];
+
+    for (var i = 0; i < dynamicScripts.length; i++) {
+      let node = document.createElement('script');
+      node.src = dynamicScripts[i];
+      node.type = 'text/javascript';
+      node.async = false;
+      node.charset = 'utf-8';
+      document.getElementsByTagName('head')[0].appendChild(node);
+    }
+
+
   }
 
   getuser(user_id) {
@@ -118,13 +141,13 @@ export class DashboardComponent implements OnInit {
           if (Order[i].status == 'Received') {
             this.new_count = this.new_count + 1;
             this.order.push(Order[i]);
-
+              
             console.log(this.order);
           }
-          if (Order[i].enquiry == 'true') {
+          if (Order[i].enquiry == true) {
             this.enquiry = this.enquiry + 1;
             // console.log(this.order_count);
-            this.enquriry_data = Order;
+            this.enquriry_data.push(Order[i]);
           }
           if (Order[i].status == 'pending') {
             this.pendding = this.pendding + 1;

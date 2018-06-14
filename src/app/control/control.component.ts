@@ -16,6 +16,7 @@ import { LoginService } from '../services/login.service';
 import { Globals } from '../../globals';
 import { Order } from '../model/Order';
 
+declare var $: any;
 
 @Component({
   selector: 'app-control',
@@ -225,6 +226,30 @@ export class ControlComponent implements OnInit {
     this.viewUser();
     this.getRole();
     this.getType();
+
+
+
+    $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
+    $("script[src='assets/js/materialize.min.js']").remove();
+    $("script[src='assets/js/scripts/advanced-ui-modals.js']").remove();
+
+    var dynamicScripts = [
+      "assets/css/themes/collapsible-menu/materialize.css",
+      "assets/js/materialize.min.js",
+      "assets/js/scripts/advanced-ui-modals.js",
+    ];
+
+    for (var i = 0; i < dynamicScripts.length; i++) {
+      let node = document.createElement('script');
+      node.src = dynamicScripts[i];
+      node.type = 'text/javascript';
+      node.async = false;
+      node.charset = 'utf-8';
+      document.getElementsByTagName('head')[0].appendChild(node);
+    }
+
+
+
   }
 
   /*display city*/
@@ -286,25 +311,27 @@ export class ControlComponent implements OnInit {
     this.rolevalue = false;
   }
   addUser() {
-    if (this.name == null ||
-      this.email == null ||
-      this.mobile == null ||
-      this.role == null) {
+
+    
+    if (this.u_name == null ||
+      this.u_email == null ||
+      this.u_mobile == null ||
+      this.roletype == null) {
       this.errorname = "Please Enter Name";
       this.erroremail = "Please Enter email";
       this.errormobile = "Please Enter Mobile";
       this.errorrole = "Please select Role";
     }
-    else if (this.name == null) {
+    else if (this.u_name == null) {
       this.errorname = "Please Enter Name";
     }
-    else if (this.email == null) {
+    else if (this.u_email == null) {
       this.erroremail = "Please Enter email";
     }
-    else if (this.mobile == null) {
+    else if (this.u_mobile == null) {
       this.errormobile = "Please Enter Mobile";
     }
-    else if (this.role == null) {
+    else if (this.roletype == null) {
       this.errorrole = "Please Select Role";
     }
     else {
@@ -348,8 +375,7 @@ export class ControlComponent implements OnInit {
       console.log(add_user);
       this.userservice.addUser(add_user)
         .subscribe((res) => {
-          // console.log(add_dealer);
-          this.viewUser();
+          console.log(res);
           // console.log(this.viewUser);
           this.name = "";
           this.email = "";
@@ -360,6 +386,8 @@ export class ControlComponent implements OnInit {
           this.errormobile = null;
           this.errorrole = null;
           this.successuser = " User Successfully Added";
+          this.viewUser();
+
         });
     }
   }
@@ -380,16 +408,16 @@ export class ControlComponent implements OnInit {
     this.b_view = false;
     this.b_delete = false;
 
-    this.d_add = false;
-    this.d_edit = false;
-    this.d_view = false;
-    this.d_delete = false;
+    this.d_add = null;
+    this.d_edit = null;
+    this.d_view = null;
+    this.d_delete = null;
 
 
-    this.c_add = false;
-    this.c_edit = false;
-    this.c_view = false;
-    this.c_delete = false;
+    this.c_add = null;
+    this.c_edit = null;
+    this.c_view = null;
+    this.c_delete = null;
 
     this.edit_errorname = null;
     this.edit_erroremail = null;
@@ -398,13 +426,13 @@ export class ControlComponent implements OnInit {
 
     this.userservice.getUserById(id)
       .subscribe(data => {
-        console.log(data);
-
+        console.log("hello" + data);
         this.id = data._id;
         this.name = data.name;
         this.email = data.email;
         this.mobile = data.mobile;
-        this.getrole = data.usertype;
+        this.getrole = data.role;
+        console.log(data);
 
         this.o_add = data.order.add;
         this.o_edit = data.order.edit;
@@ -520,12 +548,11 @@ export class ControlComponent implements OnInit {
           this.name = "";
           this.email = "";
           this.mobile = "";
-          this.role = null;
           this.edit_errorname = null;
           this.edit_erroremail = null;
           this.edit_errormobile = null;
           this.edit_errorrole = null;
-          this.edit_successuser = " User Successfully Edit";
+          this.edit_successuser = " User Successfully Updated";
         });
 
     }
@@ -580,7 +607,7 @@ export class ControlComponent implements OnInit {
           delete: this.r_c_delete
         },
       }
-      // console.log(role);
+      console.log(role);
       this.roleservice.addRole(role)
         .subscribe(() => {
           this.getRole();
@@ -599,15 +626,15 @@ export class ControlComponent implements OnInit {
         this.e_o_view = data.order.view;
         this.e_o_delete = data.order.delete;
 
-        // this.i_add = data.product.add;
+        this.e_i_add = data.product.add;
         this.e_i_edit = data.product.edit;
         this.e_i_view = data.product.view;
         this.e_i_delete = data.product.delete;
 
         this.e_b_add = data.brand.add;
-        this.e_b_edit = data.category.edit;
-        this.e_b_view = data.category.view;
-        this.e_b_delete = data.category.delete;
+        this.e_b_edit = data.brand.edit;
+        this.e_b_view = data.brand.view;
+        this.e_b_delete = data.brand.delete;
 
         this.e_d_add = data.dealer.add;
         this.e_d_edit = data.dealer.edit;
@@ -642,17 +669,17 @@ export class ControlComponent implements OnInit {
           delete: this.e_o_delete
         },
         dealer: {
-          view: this.e_o_view,
-          edit: this.e_o_edit,
-          add: this.e_o_add,
-          delete: this.e_o_delete
+          view: this.e_d_view,
+          edit: this.e_d_edit,
+          add: this.e_d_add,
+          delete: this.e_d_delete
         },
 
         brand: {
-          view: this.e_o_view,
-          edit: this.e_o_edit,
-          add: this.e_o_add,
-          delete: this.e_o_delete
+          view: this.e_b_view,
+          edit: this.e_b_edit,
+          add: this.e_b_add,
+          delete: this.e_b_delete
         },
         product: {
           view: this.e_i_view,
@@ -667,7 +694,7 @@ export class ControlComponent implements OnInit {
           delete: this.e_c_delete
         },
       }
-      // console.log(role);
+      console.log(role);
       this.roleservice.editRole(id, role)
         .subscribe(() => {
           this.getRole();
@@ -712,8 +739,8 @@ export class ControlComponent implements OnInit {
           this.discount = null;
           this.getType();
           // console.log(this.viewUser);
-          this.errortype ="";
-          this.errordiscount ="";
+          this.errortype = "";
+          this.errordiscount = "";
           this.typesuccess = "Role Type ADD Successfully";
         });
     }
@@ -734,7 +761,7 @@ export class ControlComponent implements OnInit {
       this.edit_errortype = "Please Enter Role Type";
       this.edit_errordiscount = "Plese Enter Discount";
     }
- 
+
     else if (this.type == null) {
       this.edit_errorroletype = "Please Enter Role Type";
     }
@@ -752,10 +779,10 @@ export class ControlComponent implements OnInit {
       this.dealertypeservice.editType(id, updatedealer)
         .subscribe(() => {
           this.getType();
-          this.edit_errortype ="";
-          this.edit_errordiscount ="";
+          this.edit_errortype = "";
+          this.edit_errordiscount = "";
           // console.log(this.viewUser);
-          this.edit_typesuccess = " Role Type Successfully Edit";
+          this.edit_typesuccess = " Role Type Successfully Updated";
         });
     }
   }
@@ -776,9 +803,9 @@ export class ControlComponent implements OnInit {
         this.a_i_delete = data.product.delete;
 
         this.a_b_add = data.brand.add;
-        this.a_b_edit = data.category.edit;
-        this.a_b_view = data.category.view;
-        this.a_b_delete = data.category.delete;
+        this.a_b_edit = data.brand.edit;
+        this.a_b_view = data.brand.view;
+        this.a_b_delete = data.brand.delete;
 
         this.a_d_add = data.dealer.add;
         this.a_d_edit = data.dealer.edit;
@@ -791,7 +818,7 @@ export class ControlComponent implements OnInit {
         this.a_c_view = data.category.view;
         this.a_c_delete = data.category.delete;
 
-        // console.log(this.t_id);
+        console.log(this.a_d_add);
 
 
       });

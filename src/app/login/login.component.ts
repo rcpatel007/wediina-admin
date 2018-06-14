@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Http, Response, Request, RequestMethod } from '@angular/http';
 
-
+declare var $:any;
 
 
 @Component({
@@ -15,24 +15,45 @@ import { Http, Response, Request, RequestMethod } from '@angular/http';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  email: String =null;
-  pwd: String =null;
+  email: String = null;
+  pwd: String = null;
   x_access_token: String;
   msg: String = null;
 
   constructor(private loginService: LoginService, private router: Router, fb: FormBuilder) { }
 
   ngOnInit() {
-    if (this.loginService.token != null){
+    if (this.loginService.token != null) {
       this.router.navigate(["/dashboard"]);
-      }
+    }
+
+    
+    $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
+    $("script[src='assets/js/materialize.min.js']").remove();
+    $("script[src='assets/js/scripts/advanced-ui-modals.js']").remove();
+
+    var dynamicScripts = [
+      "assets/css/themes/collapsible-menu/materialize.css",
+      "assets/js/materialize.min.js",
+      "assets/js/scripts/advanced-ui-modals.js",
+    ];
+
+    for (var i = 0; i < dynamicScripts.length; i++) {
+      let node = document.createElement('script');
+      node.src = dynamicScripts[i];
+      node.type = 'text/javascript';
+      node.async = false;
+      node.charset = 'utf-8';
+      document.getElementsByTagName('head')[0].appendChild(node);
+    }
+
 
   }
 
   userLogin() {
     // this.globals.email = this.email;
-    if (this.email == null || this.pwd == null)  {
-
+    if (this.email == null || this.pwd == null) {
+      this.msg = null;
       this.msg = "please enter email or password";
     }
 
@@ -56,7 +77,8 @@ export class LoginComponent implements OnInit {
           }
         },
           (error) => {
-            this.msg = "Email or Password  not Match";
+            this.msg = null;
+            this.msg = error._body;
             console.log(error);
 
           }

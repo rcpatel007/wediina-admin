@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../model/Product';
 import { Category } from '../model/category';
 import { CategoryService } from '../services/category.service';
-
+declare var $: any;
 
 @Component({
   selector: 'app-editproduct',
@@ -67,6 +67,28 @@ export class EditproductComponent implements OnInit {
 
     this.getProductById(this.id);
     this.getCategory();
+
+    
+    $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
+    $("script[src='assets/js/materialize.min.js']").remove();
+    $("script[src='assets/js/scripts/advanced-ui-modals.js']").remove();
+
+    var dynamicScripts = [
+      "assets/css/themes/collapsible-menu/materialize.css",
+      "assets/js/materialize.min.js",
+      "assets/js/scripts/advanced-ui-modals.js",
+    ];
+
+    for (var i = 0; i < dynamicScripts.length; i++) {
+      let node = document.createElement('script');
+      node.src = dynamicScripts[i];
+      node.type = 'text/javascript';
+      node.async = false;
+      node.charset = 'utf-8';
+      document.getElementsByTagName('head')[0].appendChild(node);
+    }
+
+
 
   }
 
@@ -155,9 +177,17 @@ export class EditproductComponent implements OnInit {
   /*Update order */
   updateProduct() {
     let id = this.id;
+    this.finalArray = this.modeldata;
+    for (let i = 0; i < this.finalArray.length; i++) {
+      for (let index = 0; index < this.finalArray[i].keyValue.length; index++) {
+        this.finalArray[i][this.finalArray[i].keyValue[index].key] = this.finalArray[i].keyValue[index].value;
+      }
+      delete this.finalArray[i].keyValue;
+    }
+    console.log(this.finalArray);
 
-   
-     if (this.name == "") {
+
+    if (this.name == "") {
       this.errorName = "Please Enter Product Name";
     }
     else if (this.p_img == "") {
@@ -178,14 +208,6 @@ export class EditproductComponent implements OnInit {
     }
     else {
 
-      this.finalArray = this.modeldata;
-      for (let i = 0; i < this.finalArray.length; i++) {
-        for (let index = 0; index < this.finalArray[i].keyValue.length; index++) {
-          this.finalArray[i][this.finalArray[i].keyValue[index].key] = this.finalArray[i].keyValue[index].value;
-        }
-        delete this.finalArray[i].keyValue;
-      }
-      console.log(this.finalArray);
       let updateproduct = {
         _id: this.id,
         name: this.name,

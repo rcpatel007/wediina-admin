@@ -50,9 +50,8 @@ export class LoginService {
       .pipe(map((response: Response) => {
         this.token == null;
         localStorage.removeItem('currentUser');
-
+        
         // store username and jwt token in local storage to keep user logged in between page refreshes
-
       }));
   }
 

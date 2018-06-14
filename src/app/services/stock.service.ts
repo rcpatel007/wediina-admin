@@ -36,7 +36,7 @@ export class StockService {
   // add stock
  addStock(stock) {
     let headers = new Headers({ 'x-access-token': '' + this.loginService.token });
-    return this.http.put('https://jasmatech-backend-api.herokuapp.com/stock/'+stock, { headers: headers })
+    return this.http.post('https://jasmatech-backend-api.herokuapp.com/stock/',stock, { headers: headers })
       .pipe(map(res => res.json()));
 
   }

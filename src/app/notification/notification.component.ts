@@ -20,7 +20,7 @@ import { Dealertype } from '../model/Dealertype';
 import { AccountService } from '../services/account.service';
 import { log } from 'util';
 
-
+declare var $: any;
 
 @Component({
   selector: 'app-notification',
@@ -51,14 +51,45 @@ export class NotificationComponent implements OnInit {
     private notificationservice: NotificationService,
     private orderservice: OrderService,
     private productservice: ProductService,
-    private loginservice :LoginService,
+    private loginservice: LoginService,
     private accountservice: AccountService) { }
 
   ngOnInit() {
+    $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
+    $("script[src='assets/js/materialize.min.js']").remove();
+    $("script[src='assets/js/scripts/advanced-ui-modals.js']").remove();
+
+    var dynamicScripts = [
+      "assets/css/themes/collapsible-menu/materialize.css",
+      "assets/js/materialize.min.js",
+      "assets/js/scripts/advanced-ui-modals.js",
+    ];
+
     if (this.loginservice.token === null) {
       this.router.navigate(["/login"]);
     }
     this.getNotification();
+
+    
+    $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
+    $("script[src='assets/js/materialize.min.js']").remove();
+    $("script[src='assets/js/scripts/advanced-ui-modals.js']").remove();
+
+    var dynamicScripts = [
+      "assets/css/themes/collapsible-menu/materialize.css",
+      "assets/js/materialize.min.js",
+      "assets/js/scripts/advanced-ui-modals.js",
+    ];
+
+    for (var i = 0; i < dynamicScripts.length; i++) {
+      let node = document.createElement('script');
+      node.src = dynamicScripts[i];
+      node.type = 'text/javascript';
+      node.async = false;
+      node.charset = 'utf-8';
+      document.getElementsByTagName('head')[0].appendChild(node);
+    }
+
 
   }
 

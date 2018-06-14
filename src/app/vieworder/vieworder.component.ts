@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { OrderService } from '../services/order.service';
 import { AccountService } from '../services/account.service';
 import { LoginService } from '../services/login.service';
+declare var $: any;
 
 @Component({
   selector: 'app-vieworder',
@@ -21,9 +22,9 @@ export class VieworderComponent implements OnInit {
   status: String;
   method: String;
   sub_total = 0;
-  p_discount_total = 0;
-  o_discount_total = 0;
-  grand_total = 0;
+  p_discount_total: number;
+  o_discount_total:number;
+  grand_total: number;
   user_id: String;
   customername: String;
   email: String;
@@ -32,7 +33,7 @@ export class VieworderComponent implements OnInit {
   address: String;
   gst_no: String;
   type: String;
-  d_discount:String;
+  d_discount: String;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -42,6 +43,7 @@ export class VieworderComponent implements OnInit {
 
 
   ngOnInit() {
+  
     if (this.loginservice.token === null) {
       this.router.navigate(["/login"]);
     }
@@ -51,7 +53,28 @@ export class VieworderComponent implements OnInit {
       this._id = params['id'];
     });
     this.getorderById(this._id);
-   
+
+    $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
+    $("script[src='assets/js/materialize.min.js']").remove();
+    $("script[src='assets/js/scripts/advanced-ui-modals.js']").remove();
+
+    var dynamicScripts = [
+      "assets/css/themes/collapsible-menu/materialize.css",
+      "assets/js/materialize.min.js",
+      "assets/js/scripts/advanced-ui-modals.js",
+    ];
+
+    for (var i = 0; i < dynamicScripts.length; i++) {
+      let node = document.createElement('script');
+      node.src = dynamicScripts[i];
+      node.type = 'text/javascript';
+      node.async = false;
+      node.charset = 'utf-8';
+      document.getElementsByTagName('head')[0].appendChild(node);
+    }
+
+
+  
   }
 
 
@@ -85,18 +108,18 @@ export class VieworderComponent implements OnInit {
 
         //  console.log(this.o_discount_total);
         this.orderservice.getAccountById(this.user_id)
-        .subscribe(data => {
-          this.customername = data.name;
-          this.email = data.email;
-          this.d_discount = data.discount;
-          this.company_name= data.company_name;
-          this.mobile = data.mobile;
-          this.gst_no = data.gst;
-          this.type = data.type;
-      console.log(data);
-      
-        });  
-        
+          .subscribe(data => {
+            this.customername = data.name;
+            this.email = data.email;
+            this.d_discount = data.discount;
+            this.company_name = data.company_name;
+            this.mobile = data.mobile;
+            this.gst_no = data.gst;
+            this.type = data.type;
+            console.log(data);
+
+          });
+
 
 
 

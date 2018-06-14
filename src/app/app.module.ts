@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
+// import { MatButtonModule, MatCheckboxModule } from '@angular/material';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -41,26 +43,26 @@ import { NotificationComponent } from './notification/notification.component';
 import { StockmanagementComponent } from './stockmanagement/stockmanagement.component';
 
 const appRoutes = [
-  {path: '', component: LoginComponent},   
-  {path: 'login', component: LoginComponent},   
-  {path: 'forgerPassword', component: ForgetpasswordComponent},   
-  {path: 'header', component: HeaderComponent},   
-  {path: 'dashboard', component: DashboardComponent},   
-  {path: 'order', component: OrderComponent},   
-  {path: 'addproduct', component: AddProductComponent},   
-  {path: 'editproduct/:id', component: EditproductComponent},   
-  {path: 'viewproduct/:id', component: ViewproductComponent},   
-  {path: 'inventory', component: InventoryComponent},   
-  {path: 'stock', component: StockmanagementComponent},   
-  {path: 'dealer', component: DealerComponent},   
-  {path: 'guest', component: GuestComponent},   
-  {path: 'brand', component: BrandComponent},   
-  {path: 'category', component: CategoryComponent},   
-  {path: 'control', component: ControlComponent},   
-  {path: 'notificaiton', component: NotificationComponent},   
-  {path: 'vieworder/:id', component: VieworderComponent},   
-  {path: 'editorder/:id', component: EditorderComponent},   
-  
+  { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'forgerPassword', component: ForgetpasswordComponent },
+  { path: 'header', component: HeaderComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'order', component: OrderComponent },
+  { path: 'addproduct', component: AddProductComponent },
+  { path: 'editproduct/:id', component: EditproductComponent },
+  { path: 'viewproduct/:id', component: ViewproductComponent },
+  { path: 'inventory', component: InventoryComponent },
+  { path: 'stock', component: StockmanagementComponent },
+  { path: 'dealer', component: DealerComponent },
+  { path: 'guest', component: GuestComponent },
+  { path: 'brand', component: BrandComponent },
+  { path: 'category', component: CategoryComponent },
+  { path: 'control', component: ControlComponent },
+  { path: 'notificaiton', component: NotificationComponent },
+  { path: 'vieworder/:id', component: VieworderComponent },
+  { path: 'editorder/:id', component: EditorderComponent },
+
 
 ];
 
@@ -85,8 +87,6 @@ const appRoutes = [
     ForgetpasswordComponent,
     NotificationComponent,
     StockmanagementComponent,
-    
-    
   ],
   imports: [
     BrowserModule,
@@ -95,22 +95,23 @@ const appRoutes = [
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
+    Ng2SearchPipeModule
   ],
   providers: [CookieService,
-              LoginService, 
-              OrderService,
-              AccountService,
-              CategoryService,
-              BrandService,
-              DealerService,
-              ProductService,
-              GuestService,
-              RoleService,
-              UserService,
-              CityService,
-              NotificationService,
-              Globals
-             ],
+    LoginService,
+    OrderService,
+    AccountService,
+    CategoryService,
+    BrandService,
+    DealerService,
+    ProductService,
+    GuestService,
+    RoleService,
+    UserService,
+    CityService,
+    NotificationService,
+    Globals
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

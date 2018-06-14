@@ -52,58 +52,6 @@
             <div class="divider"></div>
             <br />
             <br />
-
-            <!-- <div class="row">
-              <div class="col s12 control-headding">NOTIFICAITON SETTING</div>
-              <div class="col s12 mr-p-l-20 mr-b-20 center-align"> 
-                <div class="col s2"></div>
-                <div class="col s2">bell</div>
-                <div class="col s2">Mail</div>
-              </div>
-              <form>
-              <div class="col s12 mr-p-l-20 center-align">
-                <div class="col s2">New order</div>
-                <div class="col s2"> 
-                  <input type="checkbox" class="filled-in" id="neworder" checked="checked" />
-                  <label for="neworder"></label>
-                </div>
-                <div class="col s2">
-                    <input type="checkbox" class="filled-in" id="neworder_mail" />
-                  <label for="neworder_mail"></label>
-                </div>
-              </div>
-
-              <div class="col s12 mr-p-l-20 center-align">
-                  <div class="col s2">New Enquiers</div>
-                  <div class="col s2"> 
-                    <input type="checkbox" class="filled-in" id="neweq" checked="checked" />
-                    <label for="neweq"></label>
-                  </div>
-                  <div class="col s2">
-                      <input type="checkbox" class="filled-in" id="neweq_mail" />
-                    <label for="neweq_mail"></label>
-                  </div>
-                </div> 
-                <div class="col s12 mr-p-l-20 center-align">
-                    <div class="col s2">Order Canelled</div>
-                    <div class="col s2"> 
-                      <input type="checkbox" class="filled-in" id="o_cancel" />
-                      <label for="o_cancel"></label>
-                    </div>
-                    <div class="col s2">
-                        <input type="checkbox" class="filled-in" id="o_cancel_mail" checked="checked" />
-                      <label for="o_cancel_mail"></label>
-                    </div>
-                  </div>
-                  <div class="right-align">
-                      <button class="hedding-btn">APPLY</button>
-                    </div>
-                </form>
-          </div>
-          <br /><br />
-          <div class="divider"></div>
-          <br /><br /> -->
-
             <div class="row">
               <div class="control-headding col s6">ACCOUNT SETTINGS</div>
               <div class="col s6">
@@ -112,7 +60,7 @@
                 </div>
               </div>
               <div class="col s12 mr-t-20 center-align">
-                <a href="" data-target="edit_user" *ngFor="let u of user" class="modal-trigger" (click)="getuserById(u._id)">
+                <a data-target="edit_user" *ngFor="let u of user" class="modal-trigger" (click)="getuserById(u._id)">
                   <div class="col s3 ac_card">
                     <div class="col s2">
                       <i class="fa fa-2x fa-user"></i>
@@ -217,7 +165,7 @@
               </div>
             </div>
           </div>
-<!-- checkbox -->
+          <!-- checkbox -->
           <div class="row" *ngIf="rolevalue == true">
             <!-- <div class="input-field col s6">
                     <input id="email" type="text" class="">
@@ -285,23 +233,23 @@
                 <tr>
                   <td>Dealer</td>
                   <td>
-                    <input type="checkbox" class="filled-in" id="a_g_add" [(ngModel)]="a_g_add" name="a_g_add" [value]="a_g_add" />
-                    <label for="a_g_add"></label>
+                    <input type="checkbox" class="filled-in" id="a_d_add" [(ngModel)]="a_d_add" name="a_d_add" [value]="a_d_add" />
+                    <label for="a_d_add"></label>
 
                   </td>
                   <td>
-                    <input type="checkbox" class="filled-in" id="a_g_view" [(ngModel)]="a_g_view" name="a_g_view" [value]="a_g_view" />
-                    <label for="a_g_view"></label>
+                    <input type="checkbox" class="filled-in" id="a_d_view" [(ngModel)]="a_d_view" name="a_d_view" [value]="a_d_view" />
+                    <label for="a_d_view"></label>
 
                   </td>
                   <td>
-                    <input type="checkbox" class="filled-in" id="a_g_edit" [(ngModel)]="a_g_edit" name="a_g_edit" [value]="a_g_edit" />
-                    <label for="a_g_edit"></label>
+                    <input type="checkbox" class="filled-in" id="a_d_edit" [(ngModel)]="a_d_edit" name="a_d_edit" [value]="a_d_edit" />
+                    <label for="a_d_edit"></label>
                   </td>
                   <td>
-                    <input type="checkbox" class="filled-in" id="a_g_delete" [(ngModel)]="a_g_delete" name="a_g_delete" [value]="a_g_delete"
+                    <input type="checkbox" class="filled-in" id="a_d_delete" [(ngModel)]="a_d_delete" name="a_d_delete" [value]="a_d_delete"
                     />
-                    <label for="a_g_delete"></label>
+                    <label for="a_d_delete"></label>
                   </td>
                 </tr>
 
@@ -357,7 +305,7 @@
         </div>
 
         <div class="modal-footer p-t-15 ">
-          
+
           <div class="green-text left-align" *ngIf="successuser !== null">{{successuser}}</div>
 
           <a class="modal-action modal-close ">CANCEL</a>
@@ -390,14 +338,18 @@
             <div class="red-text" *ngIf="edit_errormobile !== null">{{edit_errormobile}}</div>
 
           </div>
+          <div class="input-field col s6">
+            <b>Type :</b>
+            {{getrole}}
+          </div>
         </div>
+       
         <div class="row">
 
           <div class=" col s12">
             <div class="">
               <h6>TYPE:</h6>
               <div class="red-text" *ngIf="edit_errorrole !== null">{{edit_errorrole}}</div>
-
             </div>
             <br />
             <div class="col s3" *ngFor="let a of role">
@@ -407,7 +359,7 @@
             </div>
           </div>
         </div>
-<!-- checkbox -->
+        <!-- checkbox -->
         <div class="row">
           <table>
             <thead>
@@ -528,12 +480,9 @@
             </tbody>
           </table>
         </div>
-
-
       </div>
       <div class="modal-footer p-t-15 ">
         <div class="green-text left-align" *ngIf="edit_successuser !== null">{{edit_successuser}}</div>
-
         <a class="modal-action modal-close ">CANCEL</a>
         <button class="modal-action  hedding-btn" type="submit">Update</button>
       </div>
@@ -551,9 +500,9 @@
           <input id="roletype" type="text" class="" [(ngModel)]="roletype" name="roletype">
           <label for="roletype">Role Type</label>
           <div class="red-text" *ngIf="errorroletype !== null">{{errorroletype}}</div>
-          
+
         </div>
-      </div>
+      </div>  
       <div class="row">
         <!-- <div class="input-field col s6">
                       <input id="email" type="text" class="">
@@ -619,22 +568,22 @@
             <tr>
               <td>Dealer</td>
               <td>
-                <input type="checkbox" class="filled-in" id="r_g_add" [(ngModel)]="r_g_add" name="r_g_add" />
-                <label for="r_g_add"></label>
+                <input type="checkbox" class="filled-in" id="r_d_add" [(ngModel)]="r_d_add" name="r_d_add" />
+                <label for="r_d_add"></label>
 
               </td>
               <td>
-                <input type="checkbox" class="filled-in" id="r_g_view" [(ngModel)]="r_g_view" name="r_g_view" />
-                <label for="r_g_view"></label>
+                <input type="checkbox" class="filled-in" id="r_d_view" [(ngModel)]="r_d_view" name="r_d_view" />
+                <label for="r_d_view"></label>
 
               </td>
               <td>
-                <input type="checkbox" class="filled-in" id="r_g_edit" [(ngModel)]="r_g_edit" name="r_g_edit" />
-                <label for="r_g_edit"></label>
+                <input type="checkbox" class="filled-in" id="r_d_edit" [(ngModel)]="r_d_edit" name="r_d_edit" />
+                <label for="r_d_edit"></label>
               </td>
               <td>
-                <input type="checkbox" class="filled-in" id="r_g_delete" [(ngModel)]="r_g_delete" name="r_g_delete" />
-                <label for="r_g_delete"></label>
+                <input type="checkbox" class="filled-in" id="r_d_delete" [(ngModel)]="r_d_delete" name="r_d_delete" />
+                <label for="r_d_delete"></label>
               </td>
             </tr>
 
@@ -687,7 +636,7 @@
 
     </div>
     <div class="modal-footer p-t-15 ">
-          <div class="green-text left-align" *ngIf="rolesuccess !== null">{{rolesuccess}}</div>
+      <div class="green-text left-align" *ngIf="rolesuccess !== null">{{rolesuccess}}</div>
       <a class="modal-action modal-close ">CANCEL</a>
       <button class="modal-action  hedding-btn" type="submit">ADD</button>
     </div>
@@ -702,10 +651,10 @@
       <div class="row">
         <input type="hidden" name="r_id" [(ngModel)]="r_id">
 
-        <div class="input-field col s12 m12 l12"> Role Type  : 
+        <div class="input-field col s12 m12 l12"> Role Type :
           <input id="roletype" type="text" class="" [(ngModel)]="roletype" name="roletype">
           <div class="red-text" *ngIf="edit_errorroletype !== null">{{edit_errorroletype}}</div>
-       
+
         </div>
       </div>
       <div class="row">
@@ -764,22 +713,22 @@
             <tr>
               <td>Dealer</td>
               <td>
-                <input type="checkbox" class="filled-in" id="e_g_add" [(ngModel)]="e_g_add" name="e_g_add" value="e_g_add" />
-                <label for="e_g_add"></label>
+                <input type="checkbox" class="filled-in" id="e_d_add" [(ngModel)]="e_d_add" name="e_d_add" value="e_d_add" />
+                <label for="e_d_add"></label>
 
               </td>
               <td>
-                <input type="checkbox" class="filled-in" id="e_g_view" [(ngModel)]="e_g_view" name="e_g_view" value="e_g_view" />
-                <label for="e_g_view"></label>
+                <input type="checkbox" class="filled-in" id="e_d_view" [(ngModel)]="e_d_view" name="e_d_view" value="e_d_view" />
+                <label for="e_d_view"></label>
 
               </td>
               <td>
-                <input type="checkbox" class="filled-in" id="e_g_edit" [(ngModel)]="e_g_edit" name="e_g_edit" value="e_g_edit" />
-                <label for="e_g_edit"></label>
+                <input type="checkbox" class="filled-in" id="e_d_edit" [(ngModel)]="e_d_edit" name="e_d_edit" value="e_d_edit" />
+                <label for="e_d_edit"></label>
               </td>
               <td>
-                <input type="checkbox" class="filled-in" id="e_g_delete" [(ngModel)]="e_g_delete" name="e_g_delete" value="e_g_delete" />
-                <label for="e_g_delete"></label>
+                <input type="checkbox" class="filled-in" id="e_d_delete" [(ngModel)]="e_d_delete" name="e_d_delete" value="e_d_delete" />
+                <label for="e_d_delete"></label>
               </td>
             </tr>
 
@@ -832,7 +781,7 @@
 
     </div>
     <div class="modal-footer p-t-15 ">
-        <div class="green-text left-align" *ngIf="edit_rolesuccess !== null">{{edit_rolesuccess}}</div>      
+      <div class="green-text left-align" *ngIf="edit_rolesuccess !== null">{{edit_rolesuccess}}</div>
       <a class="modal-action modal-close ">CANCEL</a>
       <button class="modal-action hedding-btn" type="submit">Update</button>
     </div>
@@ -856,12 +805,12 @@
           <input id="discount" type="text" class="" [(ngModel)]="discount" name="discount">
           <label for="discount">Discount</label>
           <div class="red-text" *ngIf="errordiscount !== null">{{errordiscount}}</div>
-          
+
         </div>
       </div>
     </div>
     <div class="modal-footer p-t-15 ">
-        <div class="green-text left-align" *ngIf="typesuccess !== null">{{typesuccess}}</div>      
+      <div class="green-text left-align" *ngIf="typesuccess !== null">{{typesuccess}}</div>
       <a class="modal-action modal-close ">CANCEL</a>
       <button class="modal-action hedding-btn" type="submit">ADD</button>
     </div>
@@ -890,10 +839,10 @@
       </div>
     </div>
     <div class="modal-footer p-t-15 ">
-        <div class="green-text left-align" *ngIf="edit_typesuccess !== null">{{edit_typesuccess}}</div>      
-      
+      <div class="green-text left-align" *ngIf="edit_typesuccess !== null">{{edit_typesuccess}}</div>
+
       <a class="modal-action modal-close ">CANCEL</a>
-      <button class="modal-action hedding-btn" type="submit" >ADD</button>
+      <button class="modal-action hedding-btn" type="submit">ADD</button>
     </div>
   </form>
 </div>

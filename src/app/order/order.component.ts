@@ -9,6 +9,7 @@ import { UserService } from '../services/user.service';
 import { Account } from '../model/Dealer';
 import { AccountService } from '../services/account.service';
 
+declare var $: any;
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
@@ -38,6 +39,27 @@ export class OrderComponent implements OnInit {
 
 
   ngOnInit() {
+
+    $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
+    $("script[src='assets/js/materialize.min.js']").remove();
+    $("script[src='assets/js/scripts/advanced-ui-modals.js']").remove();
+
+    var dynamicScripts = [
+      "assets/css/themes/collapsible-menu/materialize.css",
+      "assets/js/materialize.min.js",
+      "assets/js/scripts/advanced-ui-modals.js",
+    ];
+
+    for (var i = 0; i < dynamicScripts.length; i++) {
+      let node = document.createElement('script');
+      node.src = dynamicScripts[i];
+      node.type = 'text/javascript';
+      node.async = false;
+      node.charset = 'utf-8';
+      document.getElementsByTagName('head')[0].appendChild(node);
+    }
+
+
     if (this.globals.token === null) {
       this.router.navigate(["/login"]);
     }
@@ -45,7 +67,7 @@ export class OrderComponent implements OnInit {
     this.getOrder();
     this.getAccount();
     this.getuser(this.user_id);
-    
+
   }
 
   getOrder() {
@@ -98,19 +120,19 @@ export class OrderComponent implements OnInit {
       });
   }
 
-  getuser(user_id){
-    let id =localStorage.user_id;
-   
+  getuser(user_id) {
+    let id = localStorage.user_id;
+
     this.userservice.getUserById(id)
-                       .subscribe((data) => {
-                      //  console.log(account);
-                         
-                          this.o_add = data.order.add;
-                          this.o_edit = data.order.edit;
-                          this.o_view = data.order.view;
-                          this.o_delete = data.order.delete;
-                          console.log(data);
-                      
-    });
+      .subscribe((data) => {
+        //  console.log(account);
+
+        this.o_add = data.order.add;
+        this.o_edit = data.order.edit;
+        this.o_view = data.order.view;
+        this.o_delete = data.order.delete;
+        console.log(data);
+
+      });
   }
 }

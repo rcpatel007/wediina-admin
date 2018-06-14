@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { ViewChild, ElementRef } from '@angular/core';
-
+import { MaterializeAction } from 'angular2-materialize';
 
 import { AccountService } from '../services/account.service';
 import { Account } from '../model/Dealer';
@@ -17,11 +17,13 @@ import { UserService } from '../services/user.service';
 import * as io from 'socket.io-client';
 import { NotificationService } from '../services/notification.service';
 
+declare var $: any;
+
 @Component({
   selector: 'app-dealer',
   templateUrl: './dealer.component.html',
-  styleUrls: ['./dealer.component.css']
 })
+
 export class DealerComponent implements OnInit {
   @ViewChild('add_dealer') add_dealer: ElementRef;
   socket;
@@ -105,6 +107,24 @@ export class DealerComponent implements OnInit {
     this.id = localStorage.user_id;
     this.getuser();
 
+    $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
+    $("script[src='assets/js/materialize.min.js']").remove();
+    $("script[src='assets/js/scripts/advanced-ui-modals.js']").remove();
+
+    var dynamicScripts = [
+      "assets/css/themes/collapsible-menu/materialize.css",
+      "assets/js/materialize.min.js",
+      "assets/js/scripts/advanced-ui-modals.js",
+    ];
+
+    for (var i = 0; i < dynamicScripts.length; i++) {
+      let node = document.createElement('script');
+      node.src = dynamicScripts[i];
+      node.type = 'text/javascript';
+      node.async = false;
+      node.charset = 'utf-8';
+      document.getElementsByTagName('head')[0].appendChild(node);
+    }
 
 
   }
@@ -121,7 +141,7 @@ export class DealerComponent implements OnInit {
       });
   }
 
-  roleTypeChange(id) {
+  getRoleValue(id) {
     this.dealertypeservice.getTypeById(id)
       .subscribe((data) => {
         this.discount = data.discount;
@@ -131,6 +151,7 @@ export class DealerComponent implements OnInit {
 
 
   }
+
   getCity() {
     this.cityservice.getcity()
       .subscribe((data) => {
@@ -140,8 +161,6 @@ export class DealerComponent implements OnInit {
 
       });
   }
-
-
 
   viewaccount() {
     this.accountservice.getAccount()
@@ -170,28 +189,8 @@ export class DealerComponent implements OnInit {
       });
   }
 
-  // editDealer(){
-  //   let edit_dealer= {
-  //     name: this.name,
-  //     company_name: this.cnm,
-  //     email: this.email,
-  //     mobile: this.mno, 
-  //     city:this.selectedValue,
-  //     gst:this.gst,
-  //     type: this.type,
-  //     discount: this.discount
-  //   }
-  //     this.accountservice.(edit_dealer)
-  //     .subscribe(() => {
-  //       // console.log(add_dealer);
-  //       this.viewaccount();
-
-  //     });
-
-  // }
-  // }
   addDealer() {
-    this.add.push({ 'office': [this.address] })
+    this.add.push({ 'office': [this.address] });
 
     if (this.name == null ||
       this.cnm == null ||
@@ -216,14 +215,14 @@ export class DealerComponent implements OnInit {
 
     else if (this.name == null) {
       this.errorname = "Please Enter Name";
-      this.errorcnm = "";
-      this.erroremail = "";
-      this.errormno = "";
-      this.errorcity = "";
-      this.errortype = "";
-      this.errorgst = "";
-      this.erroradd = "";
-      this.errordiscount = "";
+      this.errorcnm = null;
+      this.erroremail = null;
+      this.errormno = null;
+      this.errorcity = null;
+      this.errortype = null;
+      this.errorgst = null;
+      this.erroradd = null;
+      this.errordiscount = null;
     }
     else if (this.cnm == null) {
       this.errorcnm = "Please Enter Company Name";
@@ -349,16 +348,16 @@ export class DealerComponent implements OnInit {
             });
 
           // console.log(add_dealer);
-          this.viewaccount();
-          this.name = "";
-          this.cnm = "";
-          this.email = "";
-          this.mno = "";
-          this.address = "";
-          this.selectedValue = "";
-          this.gst = "";
-          this.type = "";
-          this.discount = "";
+
+          this.name = null;
+          this.cnm = null;
+          this.email = null;
+          this.mno = null;
+          this.address = null;
+          this.selectedValue = null;
+          this.gst = null;
+          this.type = null;
+          this.discount = null;
           this.errorname = null;
           this.errorcnm = null;
           this.erroremail = null;
@@ -370,6 +369,7 @@ export class DealerComponent implements OnInit {
           this.errordiscount = null;
           this.successmsg = "Dealer Sucessfully Added";
           // this.add_dealer.nativeElement.click();
+          this.viewaccount();
 
 
         });
@@ -377,24 +377,23 @@ export class DealerComponent implements OnInit {
   }
 
   editDealer() {
-    let edit_dealer = {
+    // let edit_dealer = {
+    //   name: this.e_name,
+    //   company_name: this.e_cnm,
+    //   email: this.e_email,
+    //   mobile: this.e_mno,
+    //   city: this.editValue,
+    //   gst: this.e_gst,
+    //   type: this.type,
+    //   discount: this.e_discount
+    // }
+    // console.log(edit_dealer);
 
-      name: this.e_name,
-      company_name: this.e_cnm,
-      email: this.e_email,
-      mobile: this.e_mno,
-      city: this.editValue,
-      gst: this.e_gst,
-      type: this.type,
-      discount: this.e_discount
-    }
-    console.log(edit_dealer);
-    
     if (this.e_name == null ||
-      this.e_cnm == null ||
+        this.e_cnm == null ||
       this.e_email == null ||
       this.e_mno == null ||
-      this.editValue== null ||
+      this.editValue == null ||
       this.e_gst == null ||
       this.e_type == null ||
       this.e_discount == null) {
@@ -411,154 +410,93 @@ export class DealerComponent implements OnInit {
 
     else if (this.name == null) {
       this.editerrorname = "Please Enter Name";
-      this.editerrorcnm = "";
-      this.editerroremail = "";
-      this.editerrormno = "";
-      this.editerrorcity = "";
-      this.editerrortype = "";
-      this.editerrorgst = "";
-      this.editerroradd = "";
-      this.editerrordiscount = "";
+
     }
     else if (this.cnm == null) {
       this.editerrorcnm = "Please Enter Company Name";
-      this.editerrorname = null;
-      this.editerroremail = null;
-      this.editerrormno = null;
-      this.editerrorcity = null;
-      this.editerrortype = null;
-      this.editerrorgst = null;
-      this.editerroradd = null;
-      this.editerrordiscount = null;
+
     }
     else if (this.email == null) {
       this.editerroremail = "Please Enter Email";
-      this.editerrorname = null;
-      this.editerrorcnm = null;
-      this.editerrormno = null;
-      this.editerrorcity = null;
-      this.editerrortype = null;
-      this.editerrorgst = null;
-      this.editerroradd = null;
-      this.editerrordiscount = null;
+
     }
     else if (this.mno == null) {
       this.editerrormno = "Please Enter Mobile No.";
-      this.editerrorname = null;
-      this.editerrorcnm = null;
-      this.editerroremail = null;
-      this.editerrorcity = null;
-      this.editerrortype = null;
-      this.editerrorgst = null;
-      this.editerroradd = null;
-      this.editerrordiscount = null;
+
     }
     else if (this.editValue == null) {
       this.editerrorcity = "Please Select City";
-      this.editerrorname = null;
-      this.editerrorcnm = null;
-      this.editerroremail = null;
-      this.editerrormno = null;
-      this.editerrortype = null;
-      this.editerrorgst = null;
-      this.editerroradd = null;
-      this.editerrordiscount = null;
+
     }
     else if (this.gst == null) {
       this.editerrorgst = "Please Enter GST No.";
-      this.editerrorname = null;
-      this.editerrorcnm = null;
-      this.editerroremail = null;
-      this.editerrormno = null;
-      this.editerrorcity = null;
-      this.editerrortype = null;
-      this.editerroradd = null;
-      this.editerrordiscount = null;
+
     }
     else if (this.type == null) {
       this.editerrortype = "Please Select Dealer Type";
-      this.editerrorname = null;
-      this.editerrorcnm = null;
-      this.editerroremail = null;
-      this.editerrormno = null;
-      this.editerrorcity = null;
-      this.editerrorgst = null;
-      this.editerroradd = null;
-      this.editerrordiscount = null;
+
     }
     else if (this.discount == null) {
       this.editerrordiscount = "Please Enter Discount";
-      this.editerrorname = null;
-      this.editerrorcnm = null;
-      this.editerroremail = null;
-      this.editerrormno = null;
-      this.editerrorcity = null;
-      this.editerrortype = null;
-      this.editerrorgst = null;
-      this.editerroradd = null;
     }
     else {
-    let edit_dealer = {
+      let edit_dealer = {
 
-      name: this.e_name,
-      company_name: this.e_cnm,
-      email: this.e_email,
-      mobile: this.e_mno,
-      city: this.editValue,
-      gst: this.e_gst,
-      type: this.type,
-      discount: this.e_discount
+        name: this.e_name,
+        company_name: this.e_cnm,
+        email: this.e_email,
+        mobile: this.e_mno,
+        city: this.editValue,
+        gst: this.e_gst,
+        type: this.type,
+        discount: this.e_discount
+      }
+      let id = this.id;
+      console.log(edit_dealer);
+      this.accountservice.editAccount(id, edit_dealer)
+        .subscribe((res) => {
+          console.log(res);
+
+          let date_time = Date.now();
+          let event_id = "de_" + res.data._id;
+
+          let notification = {
+            title: "Edit Dealer : " + this.name,
+            user_id: localStorage.user_id,
+            event_id: event_id,
+            date_time: date_time,
+            read: false
+
+          }
+          // console.log(notification);
+          this.socket.emit('new-event', { data: edit_dealer });
+          this.notificationService.addNotification(notification)
+            .subscribe(() => {
+
+            });
+
+          // console.log(add_dealer);
+          this.name = null;
+          this.cnm = null;
+          this.email = null;
+          this.mno = null;
+          this.selectedValue = null;
+          this.gst = null;
+          this.type = null;
+          this.discount = null;
+          this.editerrorname = null;
+          this.editerrorcnm = null;
+          this.editerroremail = null;
+          this.editerrormno = null;
+          this.editerrorcity = null;
+          this.editerrortype = null;
+          this.editerrorgst = null;
+          this.editerroradd = null;
+          this.editerrordiscount = null;
+          this.editsuccessmsg = "Dealer Sucessfully Edit";
+          this.viewaccount();
+        });
     }
-    let id = this.id;
-    console.log(edit_dealer);
-    this.accountservice.editAccount(id, edit_dealer)
-      .subscribe((res) => {
-        console.log(res);
-
-        let date_time = Date.now();
-        let event_id = "de_" + res.data._id;
-
-        let notification = {
-          title: "Edit Dealer : " + this.name,
-          user_id: localStorage.user_id,
-          event_id: event_id,
-          date_time: date_time,
-          read: false
-
-        }
-        // console.log(notification);
-        this.socket.emit('new-event', { data: edit_dealer });
-        this.notificationService.addNotification(notification)
-          .subscribe(() => {
-
-          });
-
-        // console.log(add_dealer);
-        this.viewaccount();
-        this.name = "";
-        this.cnm = "";
-        this.email = "";
-        this.mno = "";
-        this.selectedValue = "";
-        this.gst = "";
-        this.type = "";
-        this.discount = "";
-        this.editerrorname = null;
-        this.editerrorcnm = null;
-        this.editerroremail = null;
-        this.editerrormno = null;
-        this.editerrorcity = null;
-        this.editerrortype = null;
-        this.editerrorgst = null;
-        this.editerroradd = null;
-        this.editerrordiscount = null;
-        this.editsuccessmsg = "Dealer Sucessfully Edit";
-     
-
-
-
-      });
-  }
 
   }
   getuser() {

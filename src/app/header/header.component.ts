@@ -10,7 +10,7 @@ import { User } from '../model/User';
 import { NotificationService } from '../services/notification.service';
 import { Notification } from 'rxjs';
 import { Notificaiton } from '../model/notification';
-
+declare var $:any;
 
 @Component({
   selector: 'app-header',
@@ -42,6 +42,7 @@ export class HeaderComponent implements OnInit {
   ) { this.socket = io('https://jasmatech-backend-api.herokuapp.com'); }
 
   ngOnInit() {
+    
     if (this.loginService.token === null) {
       this.router.navigate(["/login"]);
     }
@@ -55,6 +56,27 @@ export class HeaderComponent implements OnInit {
     });
     this.getNotificaiton();
     this.getuser(this.user_id);
+
+    $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
+    $("script[src='assets/js/materialize.min.js']").remove();
+    $("script[src='assets/js/scripts/advanced-ui-modals.js']").remove();
+
+    var dynamicScripts = [
+      "assets/css/themes/collapsible-menu/materialize.css",
+      "assets/js/materialize.min.js",
+      "assets/js/scripts/advanced-ui-modals.js",
+    ];
+
+    for (var i = 0; i < dynamicScripts.length; i++) {
+      let node = document.createElement('script');
+      node.src = dynamicScripts[i];
+      node.type = 'text/javascript';
+      node.async = false;
+      node.charset = 'utf-8';
+      document.getElementsByTagName('head')[0].appendChild(node);
+    }
+
+
 
   }
 
@@ -190,7 +212,12 @@ export class HeaderComponent implements OnInit {
       .subscribe(() => {
 
         localStorage.removeItem(this.loginService.token);
+        localStorage.removeItem('user_id');
+        // console.log(localStorage.user_id);
+        if (localStorage.user_id === null) {
+        }
         this.router.navigate(["/login"]);
+     
       });
 
   }

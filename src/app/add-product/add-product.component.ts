@@ -17,7 +17,7 @@ import { UserService } from '../services/user.service';
 import * as io from 'socket.io-client';
 import { NotificationService } from '../services/notification.service';
 import { StockService } from '../services/stock.service';
-
+declare var $: any;
 
 @Component({
   selector: 'app-add-product',
@@ -82,6 +82,28 @@ export class AddProductComponent implements OnInit {
       this.router.navigate(["/login"]);
     }
     this.getCategory();
+
+
+    $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
+    $("script[src='assets/js/materialize.min.js']").remove();
+    $("script[src='assets/js/scripts/advanced-ui-modals.js']").remove();
+
+    var dynamicScripts = [
+      "assets/css/themes/collapsible-menu/materialize.css",
+      "assets/js/materialize.min.js",
+      "assets/js/scripts/advanced-ui-modals.js",
+    ];
+
+    for (var i = 0; i < dynamicScripts.length; i++) {
+      let node = document.createElement('script');
+      node.src = dynamicScripts[i];
+      node.type = 'text/javascript';
+      node.async = false;
+      node.charset = 'utf-8';
+      document.getElementsByTagName('head')[0].appendChild(node);
+    }
+
+
   }
 
   addmodel() {
@@ -122,6 +144,12 @@ export class AddProductComponent implements OnInit {
     var binaryString = readerEvt.target.result;
     this.base64 = btoa(binaryString);
     // console.log(btoa(binaryString));
+    this.productservice.imgurImage(this.base64)
+      .subscribe((result) => {
+        // console.log(result);
+        this.p_img = result.data.link;
+
+      });
 
   }
   /*add or remove input tag*/
@@ -151,21 +179,22 @@ export class AddProductComponent implements OnInit {
   }
 
   addProduct() {
-    this.productservice.imgurImage(this.base64)
-      .subscribe((result) => {
-        // console.log(result);
-        this.p_img = result.data.link;
-        this.finalArray = this.modeldata;
-      });
+
+    this.finalArray = this.modeldata;
+    for (let i = 0; i < this.finalArray.length; i++) {
+      for (let index = 0; index < this.finalArray[i].keyValue.length; index++) {
+        this.finalArray[i][this.finalArray[i].keyValue[index].key] = this.finalArray[i].keyValue[index].value;
+      }
+      delete this.finalArray[i].keyValue;
+    }
     if (this.name == null ||
       this.p_img == null ||
       this.o_img == null ||
       this.catValue == null ||
       this.temp == null ||
       this.pressure == null ||
-      this.desc == null 
-      ) {
-
+      this.desc == null
+    ) {
       this.errorName = "Please Enter Product Name";
       this.errorImg = " please Select Image";
       this.errorOtherImg = "Please Select Other Images";
@@ -173,39 +202,73 @@ export class AddProductComponent implements OnInit {
       this.errorTemp = "Please Enter Tempreture Value";
       this.errorPressure = "Please Enter Pressure Value";
       this.errorDesc = "Please Enter Description";
-      
-
     }
     else if (this.name == null) {
       this.errorName = "Please Enter Product Name";
+      this.errorImg = "";
+      this.errorOtherImg = "";
+      this.errorCateory = "";
+      this.errorTemp = "";
+      this.errorPressure = "";
+      this.errorDesc = "";
     }
-    else if (this.p_img == null) {
-      this.errorImg = " please Select Image";
-    }
+    // else if (this.p_img == null) {
+    //   this.errorImg = " please Select Image";
+    //   this.errorName = "";
+    //   this.errorOtherImg = "";
+    //   this.errorCateory = "";
+    //   this.errorTemp = "";
+    //   this.errorPressure = "";
+    //   this.errorDesc = "";
+    // }
     else if (this.o_img == null) {
       this.errorOtherImg = "Please Select Other Images";
+      this.errorName = "";
+      this.errorImg = "";
+      this.errorCateory = "";
+      this.errorTemp = "";
+      this.errorPressure = "";
+      this.errorDesc = "";
     }
     else if (this.catValue == null) {
       this.errorCateory = "Please Select Category";
+      this.errorName = "";
+      this.errorImg = "";
+      this.errorOtherImg = "";
+      this.errorTemp = "";
+      this.errorPressure = "";
+      this.errorDesc = "";
     }
     else if (this.temp == null) {
       this.errorTemp = "Please Enter Tempreture Value";
+      this.errorName = "";
+      this.errorImg = "";
+      this.errorOtherImg = "";
+      this.errorCateory = "";
+      this.errorPressure = "";
+      this.errorDesc = "";
     }
     else if (this.pressure == null) {
       this.errorPressure = "Please Enter Pressure Value";
-
+      this.errorName = "";
+      this.errorImg = "";
+      this.errorOtherImg = "";
+      this.errorCateory = "";
+      this.errorTemp = "";
+      this.errorDesc = "";
     }
     else if (this.desc == null) {
       this.errorDesc = "Please Enter Description";
+      this.errorName = "Please Enter Product Name";
+      this.errorImg = "";
+      this.errorOtherImg = "";
+      this.errorCateory = "";
+      this.errorTemp = "";
+      this.errorPressure = "";
+
     }
     else {
 
-      for (let i = 0; i < this.finalArray.length; i++) {
-        for (let index = 0; index < this.finalArray[i].keyValue.length; index++) {
-          this.finalArray[i][this.finalArray[i].keyValue[index].key] = this.finalArray[i].keyValue[index].value;
-        }
-        delete this.finalArray[i].keyValue;
-      }
       console.log(this.finalArray);
       let product = {
         name: this.name,

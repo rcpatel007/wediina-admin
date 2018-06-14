@@ -17,7 +17,7 @@
                 <div class="hedding-text p-l-80">
                   DEALER MANAGEMENT
                 </div>
-             
+
               </div>
               <div class="col s6 l6 m6 right-align">
                 <button *ngIf="d_add == true" data-target="add_dealer" class="hedding-btn-2 modal-trigger">Add Dealer </button>
@@ -31,6 +31,10 @@
           <div class="section">
             <div class="row ">
               <div class="col s12 card mr-t-50">
+                <div class="col s3 right">
+                  <input type="text" placeholder="Search" id="search" [(ngModel)]="term">
+                </div>
+
                 <table id="" class="display mr-t-20 striped" cellspacing="0" width="100%">
                   <thead>
                     <tr>
@@ -44,7 +48,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let a of account; let i=index">
+                    <tr *ngFor="let a of account |filter:term; let i=index">
                       <td>{{i+1}}</td>
                       <td>{{a.name}}</td>
                       <td>{{a.company_name}}</td>
@@ -80,7 +84,7 @@
           <form class="col s12" (ngSubmit)="addDealer()">
             <div class="row">
               <div class="input-field col s6">
-                <input id="name" type="text" [(ngModel)]="name" name="name" class="">
+                <input id="name" type="text" [(ngModel)]="    name" name="name" class="">
                 <label for="name">Person Name</label>
                 <div class="red-text" *ngIf="errorname !== null">{{errorname}}</div>
               </div>
@@ -105,44 +109,33 @@
 
               </div>
             </div>
+            <div class=" col s6">CITY :
+              <select [(ngModel)]="selectedValue" name="selectedValue">
+                <option disabled>--Select City Name --</option>
+                <option *ngFor="let c of city" [value]="c.city">{{c.city}}</option>
+              </select>
+              <div class="red-text" *ngIf="errorcity !== null">{{errorcity}}</div>
+            </div>
+            <div class=" row">
+              <div class="">
+                <h6>TYPE:</h6>
+                <div class="red-text" *ngIf="errortype !== null">{{errortype}}</div>
+              </div>
+              <br />
+              <div class="col s3" *ngFor="let a of role">
+                <input class="with-gap" type="radio" id="{{a.type}}" value="{{a.type}}" name="type" [(ngModel)]="type" (change)="getRoleValue(a._id)"
+                />
+                <label for="{{a.type}}">{{a.type}}</label>
+              </div>
+            </div>
             <div class="row">
-              <div class="input-field col s12">
-                <textarea id="address" type="text" class="materialize-textarea" [(ngModel)]="address" name="address"></textarea>
-                <label for="address">Address</label>
-                <div class="red-text" *ngIf="erroradd !== null">{{erroradd}}</div>
-
-              </div>
-              <div class=" col s6">CITY :
-                <select [(ngModel)]="selectedValue" name="selectedValue">
-                  <option disabled>--Select City Name --</option>
-                  <option *ngFor="let c of city" [value]="c.city">{{c.city}}</option>
-                </select>
-                <div class="red-text" *ngIf="errorcity !== null">{{errorcity}}</div>
-
-              </div>
-              <div class="input-field col s6">GST ID:
-                <input id="purchase-code" type="text" C name="gst" [(ngModel)]="gst" name="gst" class="">
-                <div class="red-text" *ngIf="errorgst !== null">{{errorgst}}</div>
-
-              </div>
-              <div class=" col s12">
-                <div class="">
-                  <h6>TYPE:</h6>
-                  <div class="red-text" *ngIf="errortype !== null">{{errortype}}</div>
-               
-                </div>
-                <br />
-                <div class="col s3" *ngFor="let a of role">
-                  <input class="with-gap" type="radio" id="{{a.type}}" value="{{a.type}}" name="type" [(ngModel)]="type" (change)="roleTypeChange(a._id)"/>
-                  <label for="{{a.type}}">{{a.type}}</label>
-                </div>
-              </div>
               <div class="input-field col col s3">
                 <b>Discout %</b>
                 <input id="disc" type="text" class="" [(ngModel)]="discount" name="discount">
-                <div class="red-text" *ngIf="errordiscount !== null">{{errordiscount}}</div>
+                <div class="red-text" *ngIf="editerrordiscount !== null">{{editerrordiscount}}</div>
               </div>
             </div>
+
             <div class="divider"></div>
             <br />
             <div class="green-text" *ngIf="successmsg !== null">{{successmsg}}</div>
@@ -168,26 +161,26 @@
               <div class="input-field col s6">
                 <b>Person Name</b>
                 <input id="name" type="text" [(ngModel)]="e_name" name="e_name" class="">
-                <div class="red-text" *ngIf="editerrorname !== null">{{editerrorname}}</div>              
+                <div class="red-text" *ngIf="editerrorname !== null">{{editerrorname}}</div>
               </div>
               <div class="input-field col s6">
                 <b>Company Name</b>
                 <input id="cnm" type="text" class="" [(ngModel)]="e_cnm" name="e_cnm">
                 <div class="red-text" *ngIf="editerrorcnm !== null">{{editerrorcnm}}</div>
-             
+
               </div>
             </div>
             <div class="row">
               <div class="input-field col s6">
                 <b>Email ID</b>
                 <input id="email" type="text" class="" [(ngModel)]="e_email" name="e_email">
-                <div class="red-text" *ngIf="editerroremail !== null">{{editerroremail}}</div>              
+                <div class="red-text" *ngIf="editerroremail !== null">{{editerroremail}}</div>
               </div>
               <div class="input-field col s6">
                 <b>Mobile No.</b>
                 <input id="credit-demo" type="text" class="" [(ngModel)]="e_mno" name="e_mno">
                 <div class="red-text" *ngIf="editerrormno !== null">{{editerrormno}}</div>
-              
+
               </div>
             </div>
             <div class="row">
@@ -198,17 +191,17 @@
                   <option *ngFor="let c of city" [value]="c.city">{{c.city}}</option>
                 </select>
                 <div class="red-text" *ngIf="editerrorcity !== null">{{editerrorcity}}</div>
-                
+
               </div>
               <div class="input-field col s6">GST ID:
                 <input id="purchase-code" type="text" name="e_gst" [(ngModel)]="e_gst" class="">
                 <div class="red-text" *ngIf="editerrorgst !== null">{{editerrorgst}}</div>
-             
+
               </div>
               <div class=" col s12">
                 <div class="">
                   <h6>TYPE:</h6>
-                  <div class="red-text" *ngIf="editerrortype !== null">{{editerrortype}}</div>                  
+                  <div class="red-text" *ngIf="editerrortype !== null">{{editerrortype}}</div>
                 </div>
                 <br />
                 <div class="col s3" *ngFor="let a of role">
@@ -221,13 +214,13 @@
                 <b>Discout %</b>
                 <input id="disc" type="text" class="" [(ngModel)]="e_discount" name="e_discount">
                 <div class="red-text" *ngIf="editerrordiscount !== null">{{editerrordiscount}}</div>
-              
+
               </div>
             </div>
             <div class="divider"></div>
             <br />
             <div class="green-text" *ngIf="editsuccessmsg !== null">{{editsuccessmsg}}</div>
-            
+
             <div class="modal-footer">
               <a class="modal-action modal-close ">CANCEL</a>
               <button class="modal-action hedding-btn" type="submit" onclick="Materialize.toast('Dealer Edit', 3000)">Update</button>

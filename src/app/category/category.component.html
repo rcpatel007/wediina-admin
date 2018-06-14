@@ -49,6 +49,9 @@
           <div class="section">
             <div class="row ">
               <div class="col s12 card mr-t-50">
+                  <div class="col s3 right">
+                      <input type="text" placeholder="Search" id="search" [(ngModel)]="term">
+                    </div>   
                 <table id="" class="display mr-t-20 striped" cellspacing="0" width="100%">
                   <thead>
                     <tr>
@@ -59,7 +62,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <ng-container *ngFor="let c of category; let i=index">
+                    <ng-container *ngFor="let c of category |filter:term; let i=index">
                       <ng-container *ngFor="let b of brand">
 
                         <tr *ngIf="c.brand_id==b._id">

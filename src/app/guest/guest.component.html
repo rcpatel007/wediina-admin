@@ -1,73 +1,77 @@
 <div id="main">
-    <!-- START WRAPPER -->
-    <div class="wrapper">
-  <app-header></app-header>
-  
-  <section id="content" class="mr-t-20">
-    <!--start container-->
-    <div class="container">
-      <div class="section">
-            <!--card stats start-->
-            <div id="card-stats">
-                <div class="row">
-                    <div class="col s6 l6 m6">  
-                        <div class="col s2 l2 m2 headding-icon dark-blue-back">
-                              <i class="fa fa-user-cog"></i>
-                            </div>
-                            <div class="hedding-text p-l-80">
-                              GUESTS MANAGEMENT
-                            </div>
-                          </div>
-                          <div class="col s6 l6 m6 right-align">
-                            <button class="hedding-btn">Download Data </button>
-                          </div>
-                           
+  <!-- START WRAPPER -->
+  <div class="wrapper">
+    <app-header></app-header>
+
+    <section id="content" class="mr-t-20">
+      <!--start container-->
+      <div class="container">
+        <div class="section">
+          <!--card stats start-->
+          <div id="card-stats">
+            <div class="row">
+              <div class="col s6 l6 m6">
+                <div class="col s2 l2 m2 headding-icon dark-blue-back">
+                  <i class="fa fa-user-cog"></i>
+                </div>
+                <div class="hedding-text p-l-80">
+                  GUESTS MANAGEMENT
                 </div>
               </div>
-              <!--card stats end-->
-       
-       <!--DataTables example Row grouping-->
-        <div class="section">
-          <div class="row ">
-            <div class="col s12 card mr-t-50">
-              <table id="" class="display mr-t-20 striped" cellspacing="0" width="100%">
-                <thead>
-                  <tr>
-                    <th>Inquiry#</th>
-                    <th>Name</th>
-                    <th>Company</th>
-                    <th>Mail ID</th>
-                    <th>Contact No</th>
-                    <th>Base City</th>
-                    <!-- <th colspan="2">Action</th> -->
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor = "let g of guest;let i=index" >
-                    <td>{{i+1}}</td>
-                    <td>{{g.name}}</td>
-                    <td>{{g.company_name}}</td>
-                    <td><a href="mailto:{{g.email}}">{{g.email}}</a></td>
-                    <td>{{g.mobile}}</td>
-                    <td>{{g.city}}</td>
-                    <!-- <td data-target="view_guest"  class="modal-trigger" (click)="viewguest(g._id)"><i class="fa fa-eye blue-text"></i></td> -->
-                    <!-- <td><i class="fa fa-envelope orange-text"></i></td>   -->
-                  </tr>
-  
-                </tbody>
-              </table>
-            </div>
- 
-      </div>
-        </div>
-      </div>
-    
-    </div>
-    <!--end container-->
-  </section>
-  
-  
-  </div>
-  </div>
+              <div class="col s6 l6 m6 right-align">
+                <button class="hedding-btn">Download Data </button>
+              </div>
 
-   
+            </div>
+          </div>
+          <!--card stats end-->
+
+          <!--DataTables example Row grouping-->
+          <div class="section">
+            <div class="row ">
+              <div class="col s12 card mr-t-50">
+                <div class="col s3 right">
+                  <input type="text" placeholder="Search" id="search" [(ngModel)]="term">
+                </div>
+
+                <table id="" class="display mr-t-20 striped" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>Inquiry#</th>
+                      <th>Name</th>
+                      <th>Company</th>
+                      <th>Mail ID</th>
+                      <th>Contact No</th>
+                      <th>Base City</th>
+                      <!-- <th colspan="2">Action</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let g of guest | filter:term;let i=index">
+                      <td>{{i+1}}</td>
+                      <td>{{g.name}}</td>
+                      <td>{{g.company_name}}</td>
+                      <td>
+                        <a href="mailto:{{g.email}}">{{g.email}}</a>
+                      </td>
+                      <td>{{g.mobile}}</td>
+                      <td>{{g.city}}</td>
+                      <!-- <td data-target="view_guest"  class="modal-trigger" (click)="viewguest(g._id)"><i class="fa fa-eye blue-text"></i></td> -->
+                      <!-- <td><i class="fa fa-envelope orange-text"></i></td>   -->
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!--end container-->
+    </section>
+
+
+  </div>
+</div>

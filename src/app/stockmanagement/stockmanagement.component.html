@@ -18,6 +18,36 @@
                   STOCK MANAGEMENT
                 </div>
               </div>
+
+              <form  (ngSubmit)="addStock()">
+                <div class="col s12 l12 m12 mr-t-20 mr-b-m-30">
+                  <div class="col s4 m4 l4">
+                    <b> Product Name:</b>
+                    <select [(ngModel)]="productvalue" name="productvalue" (change)="modelNameFetch(productvalue);">
+                      <option disabled>--Select Product Name --</option>
+                      <option *ngFor="let p of product" [value]="p._id" >{{p.name}}</option>
+                    </select>
+                    </div>
+                    <div class="col s4 m4 l4 ">
+                        <b> Model Name:</b>
+                    <select [(ngModel)]="modelname" name="modelname">
+                        <option disabled>--SelectModel Name --</option>
+                        <option *ngFor="let model of final_model_data" [value]="model">{{model}}</option>
+                    </select>
+                   
+                  </div>
+                  <div class="input-field col s4 m4 l4 mr-t-20">
+                    <input id="category" type="text" class="" [(ngModel)]="qty" name="qty">
+                    <label for="category">Add QTY</label>
+                   
+                    <div class="right-align">
+                        <button class="hedding-btn" type="submit ">ADD </button>
+                      </div>
+                    </div>
+                  </div>
+                
+              </form>
+
             </div>
           </div>
           <!--card stats end-->
@@ -26,6 +56,9 @@
           <div class="section">
             <div class="row ">
               <div class="col s12 card mr-t-50">
+                <div class="col s3 right">
+                  <input type="text" placeholder="Search" id="search" [(ngModel)]="term">
+                </div>
                 <table class="display mr-t-20 striped" cellspacing="0" width="100%">
                   <thead>
                     <tr>
@@ -37,9 +70,9 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let m of model_value;let i =index">
+                    <tr *ngFor="let m of stock |filter:term ;let i =index ">
                       <!-- <td>{{i+1}}</td> -->
-                     <td>{{i+1}}</td>
+                      <td>{{i+1}}</td>
                       <th>
                         <b>{{m.name}}</b>
                       </th>
