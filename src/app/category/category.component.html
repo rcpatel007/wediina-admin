@@ -18,24 +18,35 @@
                   Category MANAGEMENT
                 </div>
               </div>
-              <div class="green-text" *ngIf="success_msg !== null" onload="Materialize.toast('New Category add', 3000)">{{success_msg}}</div>
-              <form *ngIf="c_add == true" (ngSubmit)="addCategory()">
+              <form *ngIf="c_add == true" #frm1="ngForm" (ngSubmit)="addCategory()">
                 <div class="col s12 l12 m12 mr-t-20 mr-b-m-30">
                   <div class="col s6 m6 l6">
                     <b> Brand:</b>
-                    <select [(ngModel)]="selectedValue" name="selectedValue">
+                    <select [(ngModel)]="selectedValue" name="selectedValue" #selected="ngModel" required ngModel class="validate">
                       <option disabled>--Select Brand Name --</option>
                       <option *ngFor="let d of brand" [value]="d._id">{{d.name}}</option>
                     </select>
-                    <div class="red-text" *ngIf="brandMsg !== null">{{brandMsg}}</div>
+                    <div *ngIf="selected?.touched">
+                      <div class="red-text left" *ngIf="selected.errors?.required">
+                        Brand Name Required*
+                      </div>
+                    </div>
                   </div>
                   <div class="input-field col s6 m6 l6">
-                    <input id="category" type="text" class="" [(ngModel)]="ename" name="ename">
+                    <input id="category" type="text" class="" [(ngModel)]="ename" name="ename" #category="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
+                      required ngModel class="validate">
                     <label for="category">Add Category</label>
-                    <div class="red-text" *ngIf="categoryMsg !== null">{{categoryMsg}}</div>
+                    <div *ngIf="category?.touched">
+                      <div class="red-text left" *ngIf="category.errors?.required">
+                        Category Name Required*
+                      </div>
+                      <div class="red-text left" *ngIf="category.errors?.pattern">
+                        Category Name is Invalid*
+                      </div>
+                    </div>
                   </div>
                   <div class="right-align">
-                    <button class="hedding-btn"  type="submit ">ADD </button>
+                    <button class="btn btn-primary" [disabled]="frm1.invalid" onclick="Materialize.toast('Categoty Added', 4000)" type="submit ">ADD </button>
                   </div>
                 </div>
               </form>
@@ -49,9 +60,9 @@
           <div class="section">
             <div class="row ">
               <div class="col s12 card mr-t-50">
-                  <div class="col s3 right">
-                      <input type="text" placeholder="Search" id="search" [(ngModel)]="term">
-                    </div>   
+                <div class="col s3 right">
+                  <input type="text" placeholder="Search" id="search" [(ngModel)]="term">
+                </div>
                 <table id="" class="display mr-t-20 striped" cellspacing="0" width="100%">
                   <thead>
                     <tr>
@@ -100,20 +111,33 @@
     </div>
     <div class="col s12">
 
-      <form (ngSubmit)="updateCategory()">
-        <div class="col s12 l12 m12  mr-t-20 mr-b-m-30"> <b>Brand :</b>
-          <select [(ngModel)]="editedValue" name="editedValue">
+      <form #frm2="ngForm" (ngSubmit)="updateCategory()">
+        <div class="col s12 l12 m12  mr-t-20 mr-b-m-30">
+          <b>Brand :</b>
+          <select [(ngModel)]="editedValue" name="editedValue" #edited="ngModel" required ngModel class="validate">
             <option disabled>--Select Brand Name --</option>
             <option *ngFor="let d of brand" [value]="d._id">{{d.name}}</option>
           </select>
+          <div *ngIf="edited?.touched">
+            <div class="red-text left" *ngIf="edited.errors?.required">
+              Brand Name Required*
+            </div>
+          </div>
 
           <div class="input-field col s6 m6 l6">
             <b>Category</b>
-
-            <input id="category" type="text" class="" [(ngModel)]="name" name="name">
+            <input id="category" type="text" class="" [(ngModel)]="name" name="name" #categoryedit="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
+            required ngModel class="validate">
           </div>
-
-          <button class="hedding-btn modal-close" onclick="Materialize.toast('Category Updated', 3000)" type="submit">Update </button>
+          <div *ngIf="categoryedit?.touched">
+            <div class="red-text left" *ngIf="categoryedit.errors?.required">
+              Category Name Required*
+            </div>
+            <div class="red-text left" *ngIf="categoryedit.errors?.pattern">
+              Category Name is Invalid*
+            </div>
+          </div>
+          <button class="btn btn-primary right modal-close" [disabled]="frm2.invalid" onclick="Materialize.toast('Category Updated', 3000)" type="submit">Update </button>
         </div>
       </form>
 

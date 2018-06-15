@@ -29,13 +29,7 @@ export class CategoryComponent implements OnInit {
   brand_id: String;
   selectedValue: any;
   editedValue: any;
-  success_msg: String;
-  categoryErrrorMsg: String;
-  brandErrorMsg: String = null;
-  categoryMsg: String = null;
-  brandMsg: String = null;
-  update_success_msg: String = null;
-
+  
   // user
   c_add: boolean;
   c_edit: boolean;
@@ -153,17 +147,7 @@ export class CategoryComponent implements OnInit {
   }
   /* Category add*/
   addCategory() {
-    if (this.ename == null) {
-      this.categoryMsg = "Please Enter category Name";
-      this.success_msg = "";
-    }
-
-    else if (this.selectedValue == null) {
-      this.success_msg = "";
-      this.brandMsg = "Please Select Brand ";
-    }
-
-    else {
+   
       let addcat = {
         brand_id: this.selectedValue,
         name: this.ename
@@ -192,11 +176,9 @@ export class CategoryComponent implements OnInit {
           this.getCategory();
           this.selectedValue = null;
           this.ename = null;
-          this.categoryMsg = "";
-          this.brandMsg = "";
-          this.success_msg = "Category Successfully Added";
+         
         });
-    }
+   
   }
 
   /*delete Category */

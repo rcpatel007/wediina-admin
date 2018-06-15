@@ -39,6 +39,7 @@
                   <thead>
                     <tr>
                       <th>No</th>
+                     <th> Dealer Type</th>
                       <th>Name</th>
                       <th>Company</th>
                       <th>Mail ID</th>
@@ -50,6 +51,7 @@
                   <tbody>
                     <tr *ngFor="let a of account |filter:term; let i=index">
                       <td>{{i+1}}</td>
+                      <td>{{a.type}}</td>
                       <td>{{a.name}}</td>
                       <td>{{a.company_name}}</td>
                       <td>
@@ -75,73 +77,115 @@
     </section>
 
     <!-- add dealer -->
-    <div id="add_dealer" class="modal">
+    <div id="add_dealer" class="modal ">
       <div class="modal-content">
         <div class="col s12">
           <h5>Details</h5>
         </div>
         <div class="col s12">
-          <form class="col s12" (ngSubmit)="addDealer()">
+          <form class="col s12" #frm1="ngForm" (ngSubmit)="addDealer()">
             <div class="row">
               <div class="input-field col s6">
-                <input id="name" type="text" [(ngModel)]="    name" name="name" class="">
+                <input id="name" type="text" [(ngModel)]="name" name="name" #pname="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" required ngModel
+                  class="validate">
                 <label for="name">Person Name</label>
-                <div class="red-text" *ngIf="errorname !== null">{{errorname}}</div>
+                <div *ngIf="pname?.touched">
+                  <div class="red-text left" *ngIf="pname.errors?.required">
+                    Dealer Name Required*
+                  </div>
+                  <div class="red-text left" *ngIf="pname.errors?.pattern">
+                    Dealer Name is Invalid*
+                  </div>
+                </div>
               </div>
               <div class="input-field col s6">
-                <input id="cnm" type="text" class="" [(ngModel)]="cnm" name="cnm">
+                <input id="cnm" type="text" class="" [(ngModel)]="cnm" name="cnm" #company="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" required
+                  ngModel class="validate">
                 <label for="cnm">Company Name</label>
-                <div class="red-text" *ngIf="errorcnm !== null">{{errorcnm}}</div>
-
+                <div *ngIf="company?.touched">
+                  <div class="red-text left" *ngIf="company.errors?.required">
+                    Company Name Required*
+                  </div>
+                  <div class="red-text left" *ngIf="company.errors?.pattern">
+                    Company Name is Invalid*
+                  </div>
+                </div>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s6">
-                <input id="email" type="text" class="" [(ngModel)]="email" name="email">
+                <input id="email" type="text" class="" [(ngModel)]="email" name="email" #mail="ngModel" required ngModel class="validate">
                 <label for="email">Email ID</label>
-                <div class="red-text" *ngIf="erroremail !== null">{{erroremail}}</div>
-
+                <div *ngIf="mail?.touched">
+                  <div class="red-text left" *ngIf="mail.errors?.required">
+                    Email Required*
+                  </div>
+                  
+                </div>
               </div>
               <div class="input-field col s6">
-                <input id="credit-demo" type="text" class="" [(ngModel)]="mno" name="mno">
+                <input id="credit-demo" type="text" class="" [(ngModel)]="mno" name="mno" minlength="10" maxlength="10" #mobile="ngModel"
+                  pattern="[0-9]+" required ngModel class="validate">
                 <label for="credit_demo">Mobile No.</label>
-                <div class="red-text" *ngIf="errormno !== null">{{errormno}}</div>
-
+                <div *ngIf="mobile?.touched">
+                  <div class="red-text left" *ngIf="mobile.errors?.required">
+                    Contact No Required*
+                  </div>
+                  <div [hidden]="!mobile?.hasError('minlength')" class="red-text">
+                    Please enter valid Contact No
+                  </div>
+                </div>
               </div>
             </div>
             <div class=" col s6">CITY :
-              <select [(ngModel)]="selectedValue" name="selectedValue">
+              <select [(ngModel)]="selectedValue" name="selectedValue" #cityname="ngModel" required ngModel class="validate">
                 <option disabled>--Select City Name --</option>
                 <option *ngFor="let c of city" [value]="c.city">{{c.city}}</option>
               </select>
-              <div class="red-text" *ngIf="errorcity !== null">{{errorcity}}</div>
+              <div *ngIf="cityname?.touched">
+                <div class="red-text left" *ngIf="cityname.errors?.required">
+                  City Required*
+                </div>
+              </div>
             </div>
             <div class=" row">
               <div class="">
                 <h6>TYPE:</h6>
-                <div class="red-text" *ngIf="errortype !== null">{{errortype}}</div>
+                <div *ngIf="rtype?.touched">
+                  <div class="red-text left" *ngIf="roletype.errors?.required">
+                    Dealet Type Required*
+                  </div>
+                </div>
               </div>
               <br />
               <div class="col s3" *ngFor="let a of role">
                 <input class="with-gap" type="radio" id="{{a.type}}" value="{{a.type}}" name="type" [(ngModel)]="type" (change)="getRoleValue(a._id)"
-                />
+                  #rtype="ngModel" required ngModel class="validate" />
                 <label for="{{a.type}}">{{a.type}}</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col col s3">
                 <b>Discout %</b>
-                <input id="disc" type="text" class="" [(ngModel)]="discount" name="discount">
-                <div class="red-text" *ngIf="editerrordiscount !== null">{{editerrordiscount}}</div>
+                <input id="disc" type="text" class="" [(ngModel)]="discount" name="discount" #disc="ngModel" pattern="[0-9]+" required ngModel
+                  class="validate">
+                <div *ngIf="disc?.touched">
+                  <div class="red-text left" *ngIf="disc.errors?.required">
+                    Discount Required*
+                  </div>
+                  <div class="red-text left" *ngIf="disc.errors?.pattern">
+                    Discount Invalid*
+                  </div>
+                </div>
               </div>
             </div>
 
             <div class="divider"></div>
             <br />
-            <div class="green-text" *ngIf="successmsg !== null">{{successmsg}}</div>
             <div class="modal-footer">
               <a class="modal-action modal-close ">CANCEL</a>
-              <button class="modal-action  hedding-btn" type="submit">ADD</button>
+              <button class="modal-action  modal-close btn btn-primary" [disabled]="frm1.invalid" onclick="Materialize.toast('Dealer Added', 4000)"
+                type="submit">ADD</button>
             </div>
           </form>
         </div>
@@ -156,74 +200,116 @@
           <h5>Details</h5>
         </div>
         <div class="col s12">
-          <form class="col s12" (ngSubmit)="editDealer()">
+          <form class="col s12" #frm2="ngForm" (ngSubmit)="editDealer()">
             <div class="row">
               <div class="input-field col s6">
                 <b>Person Name</b>
-                <input id="name" type="text" [(ngModel)]="e_name" name="e_name" class="">
-                <div class="red-text" *ngIf="editerrorname !== null">{{editerrorname}}</div>
+                <input id="name" type="text" [(ngModel)]="e_name" name="e_name" #enm="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" required ngModel
+                  class="validate">
+                <div *ngIf="enm?.touched">
+                  <div class="red-text left" *ngIf="enm.errors?.required">
+                    Dealer Name Required*
+                  </div>
+                  <div class="red-text left" *ngIf="enm.errors?.pattern">
+                    Dealer Name is Invalid*
+                  </div>
+                </div>
               </div>
               <div class="input-field col s6">
                 <b>Company Name</b>
-                <input id="cnm" type="text" class="" [(ngModel)]="e_cnm" name="e_cnm">
-                <div class="red-text" *ngIf="editerrorcnm !== null">{{editerrorcnm}}</div>
-
+                <input id="cnm" type="text" class="" [(ngModel)]="e_cnm" name="e_cnm" #ecnm="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" required
+                  ngModel class="validate">
+                <div *ngIf="ecnm?.touched">
+                  <div class="red-text left" *ngIf="ecnm.errors?.required">
+                    Company Name Required*
+                  </div>
+                  <div class="red-text left" *ngIf="ecnm.errors?.pattern">
+                    Company Name is Invalid*
+                  </div>
+                </div>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s6">
                 <b>Email ID</b>
-                <input id="email" type="text" class="" [(ngModel)]="e_email" name="e_email">
-                <div class="red-text" *ngIf="editerroremail !== null">{{editerroremail}}</div>
+                <input id="email" type="text" class="" [(ngModel)]="e_email" name="e_email" #eemail="ngModel" required ngModel class="validate">
+                <div *ngIf="eemail?.touched">
+                  <div class="red-text left" *ngIf="eemail.errors?.required">
+                    Email Required*
+                  </div>
+
+                </div>
               </div>
               <div class="input-field col s6">
                 <b>Mobile No.</b>
-                <input id="credit-demo" type="text" class="" [(ngModel)]="e_mno" name="e_mno">
-                <div class="red-text" *ngIf="editerrormno !== null">{{editerrormno}}</div>
-
+                <input id="credit-demo" type="text" class="" [(ngModel)]="e_mno" name="e_mno" minlength="10" maxlength="10" #emno="ngModel"
+                  pattern="[0-9]+" required ngModel class="validate">
+                <div *ngIf="emno?.touched">
+                  <div class="red-text left" *ngIf="emno.errors?.required">
+                    Contact No Required*
+                  </div>
+                  <div [hidden]="!emno?.hasError('minlength')" class="red-text">
+                    Please enter valid Contact No
+                  </div>
+                </div>
               </div>
             </div>
             <div class="row">
 
               <div class=" col s6">CITY :
-                <select [(ngModel)]="editValue" name="editValue">
+                <select [(ngModel)]="editValue" name="editValue" #ecity="ngModel" required ngModel class="validate">
                   <option disabled>--Select City Name --</option>
                   <option *ngFor="let c of city" [value]="c.city">{{c.city}}</option>
                 </select>
-                <div class="red-text" *ngIf="editerrorcity !== null">{{editerrorcity}}</div>
-
+                <div *ngIf="ecity?.touched">
+                  <div class="red-text left" *ngIf="ecity.errors?.required">
+                    City Required*
+                  </div>
+                </div>
               </div>
               <div class="input-field col s6">GST ID:
-                <input id="purchase-code" type="text" name="e_gst" [(ngModel)]="e_gst" class="">
-                <div class="red-text" *ngIf="editerrorgst !== null">{{editerrorgst}}</div>
-
+                <input id="purchase-code" type="text" name="e_gst" [(ngModel)]="e_gst" #gstno="ngModel" required ngModel class="validate">
+                <div *ngIf="gstno?.touched">
+                  <div class="red-text left" *ngIf="gstno.errors?.required">
+                    GST No Required*
+                  </div>
+                </div>
               </div>
               <div class=" col s12">
                 <div class="">
                   <h6>TYPE:</h6>
-                  <div class="red-text" *ngIf="editerrortype !== null">{{editerrortype}}</div>
+                  <div *ngIf="etype?.touched">
+                    <div class="red-text left" *ngIf="etype.errors?.required">
+                      Dealer Type Required*
+                    </div>
+                  </div>
                 </div>
                 <br />
                 <div class="col s3" *ngFor="let a of role">
                   <input class="with-gap" type="radio" id="{{a.type}}" value="{{a.type}}" name="type" [(ngModel)]="type" (change)="getRoleValue(a._id)"
-                  />
+                    #etype="ngModel" required ngModel class="validate" />
                   <label for="{{a.type}}">{{a.type}}</label>
                 </div>
               </div>
               <div class="input-field col col s3">
                 <b>Discout %</b>
-                <input id="disc" type="text" class="" [(ngModel)]="e_discount" name="e_discount">
-                <div class="red-text" *ngIf="editerrordiscount !== null">{{editerrordiscount}}</div>
-
+                <input id="disc" type="text" class="" [(ngModel)]="e_discount" name="e_discount" #edisc="ngModel" pattern="[0-9]+"
+                  required ngModel class="validate">
+                <div *ngIf="edisc?.touched">
+                  <div class="red-text left" *ngIf="edisc.errors?.required">
+                    Discount Required*
+                  </div>
+                  <div class="red-text left" *ngIf="edisc.errors?.pattern">
+                    Discount is Invalid*
+                  </div>
+                </div>
               </div>
             </div>
             <div class="divider"></div>
             <br />
-            <div class="green-text" *ngIf="editsuccessmsg !== null">{{editsuccessmsg}}</div>
-
             <div class="modal-footer">
               <a class="modal-action modal-close ">CANCEL</a>
-              <button class="modal-action hedding-btn" type="submit" onclick="Materialize.toast('Dealer Edit', 3000)">Update</button>
+              <button class="modal-action btn modal-close btn-primary" [disabled]="frm2.invalid" type="submit" onclick="Materialize.toast('Dealer Edit', 4000)">Update</button>
             </div>
           </form>
         </div>

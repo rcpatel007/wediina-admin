@@ -37,17 +37,6 @@ export class EditproductComponent implements OnInit {
   modeldata = new Array;
   m_data = [];
   finalArray = [];
-  // error msg
-  errorName: String = null;
-  errorImg: String = null;
-  errorOtherImg: String = null;
-  errorCateory: String = null;
-  errorTemp: String = null;
-  errorPressure: String = null;
-  errorDesc: String = null;
-  errorModel: String = null;
-  successMsg: String = null;
-
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -68,7 +57,7 @@ export class EditproductComponent implements OnInit {
     this.getProductById(this.id);
     this.getCategory();
 
-    
+
     $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
     $("script[src='assets/js/materialize.min.js']").remove();
     $("script[src='assets/js/scripts/advanced-ui-modals.js']").remove();
@@ -113,7 +102,6 @@ export class EditproductComponent implements OnInit {
     this.modeldata.push({
       model_no: '',
       price: '',
-      qty: '',
       size: '',
       grade: '',
       keyValue: []
@@ -152,7 +140,6 @@ export class EditproductComponent implements OnInit {
           Object.keys(temp_modeldata[index]).forEach(key => {
             if (key.toString() !== 'model_no' &&
               key.toString() !== 'price' &&
-              key.toString() !== 'qty' &&
               key.toString() !== 'size' &&
               key.toString() !== 'grade' &&
               key.toString() !== 'keyValue') {
@@ -186,45 +173,23 @@ export class EditproductComponent implements OnInit {
     }
     console.log(this.finalArray);
 
-
-    if (this.name == "") {
-      this.errorName = "Please Enter Product Name";
+    let updateproduct = {
+      _id: this.id,
+      name: this.name,
+      category_id: this.catValue,
+      pressure: this.pressure,
+      temprature: this.temp,
+      model_info: this.finalArray,
+      product_image: this.p_img,
+      other_images: this.o_img,
+      desc: this.desc,
     }
-    else if (this.p_img == "") {
-      this.errorImg = " please Select Image";
-    }
-    else if (this.catValue == "") {
-      this.errorCateory = "Please Select Category";
-    }
-    else if (this.temp == "") {
-      this.errorTemp = "Please Enter Tempreture Value";
-    }
-    else if (this.pressure == "") {
-      this.errorPressure = "Please Enter Pressure Value";
-
-    }
-    else if (this.desc == "") {
-      this.errorDesc = "Please Enter Description";
-    }
-    else {
-
-      let updateproduct = {
-        _id: this.id,
-        name: this.name,
-        category_id: this.catValue,
-        pressure: this.pressure,
-        temprature: this.temp,
-        model_info: this.finalArray,
-        product_image: this.p_img,
-        other_images: this.o_img,
-        desc: this.desc,
-      }
-      console.log(updateproduct);
-      this.Productservice.editProduct(id, updateproduct)
-        .subscribe((res) => {
-          this.router.navigate(['viewproduct/' + this.id]);
-          console.log(res);
-        });
-    }
+    console.log(updateproduct);
+    this.Productservice.editProduct(id, updateproduct)
+      .subscribe((res) => {
+        this.router.navigate(['viewproduct/' + this.id]);
+        console.log(res);
+      });
   }
 }
+  

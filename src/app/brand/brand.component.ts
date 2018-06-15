@@ -28,8 +28,7 @@ export class BrandComponent implements OnInit {
   brand: Brand[];
   id: String;
   name: String =null;
-  msg: String;
-  success_msg: String;
+  brandname:String;
   // user
   b_add: boolean;
   b_edit: boolean;
@@ -79,18 +78,12 @@ export class BrandComponent implements OnInit {
    
   }
 
- 
+  
 
   /* brand add*/
   addBrand() {
 
-    if (this.name == null) {
-      this.msg = "please Enter Brand";
-      
-    }
-
-    else {
-      let addbrand = {
+     let addbrand = {
         name: this.name,
       }
 
@@ -103,7 +96,7 @@ export class BrandComponent implements OnInit {
           let event_id = "br_" + res.data._id;
 
           let notification = {
-            title: "new Brand Add: " + this.name,
+            title: "new Brand Add: " + this.brandname,
             user_id: localStorage.user_id,
             event_id: event_id,
             name: this.name,
@@ -119,15 +112,11 @@ export class BrandComponent implements OnInit {
             });
 
           this.getBrand();
-          this.name = "";
-            this.msg ="";
-          this.success_msg = "Brand Sucessfully Added";
+          this.name = ""  ;
           return
-          // this.msg = "New Brand Added"
-          // return this.msg;
+       
         });
     }
-  }
 
   /*get brand by id */
 

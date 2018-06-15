@@ -53,17 +53,7 @@ export class AddProductComponent implements OnInit {
   keyValue = [];
   modeldata = [];
   finalArray = [];
-  // error msg
-  errorName: String = null;
-  errorImg: String = null;
-  errorOtherImg: String = null;
-  errorCateory: String = null;
-  errorTemp: String = null;
-  errorPressure: String = null;
-  errorDesc: String = null;
-  errorModel: String = null;
-  successMsg: String = null;
-
+  
 
 
   constructor(private router: Router,
@@ -110,7 +100,6 @@ export class AddProductComponent implements OnInit {
     this.modeldata.push({
       model_no: '',
       price: '',
-      qty: '',
       size: '',
       grade: '',
       keyValue: []
@@ -187,88 +176,7 @@ export class AddProductComponent implements OnInit {
       }
       delete this.finalArray[i].keyValue;
     }
-    if (this.name == null ||
-      this.p_img == null ||
-      this.o_img == null ||
-      this.catValue == null ||
-      this.temp == null ||
-      this.pressure == null ||
-      this.desc == null
-    ) {
-      this.errorName = "Please Enter Product Name";
-      this.errorImg = " please Select Image";
-      this.errorOtherImg = "Please Select Other Images";
-      this.errorCateory = "Please Select Category";
-      this.errorTemp = "Please Enter Tempreture Value";
-      this.errorPressure = "Please Enter Pressure Value";
-      this.errorDesc = "Please Enter Description";
-    }
-    else if (this.name == null) {
-      this.errorName = "Please Enter Product Name";
-      this.errorImg = "";
-      this.errorOtherImg = "";
-      this.errorCateory = "";
-      this.errorTemp = "";
-      this.errorPressure = "";
-      this.errorDesc = "";
-    }
-    // else if (this.p_img == null) {
-    //   this.errorImg = " please Select Image";
-    //   this.errorName = "";
-    //   this.errorOtherImg = "";
-    //   this.errorCateory = "";
-    //   this.errorTemp = "";
-    //   this.errorPressure = "";
-    //   this.errorDesc = "";
-    // }
-    else if (this.o_img == null) {
-      this.errorOtherImg = "Please Select Other Images";
-      this.errorName = "";
-      this.errorImg = "";
-      this.errorCateory = "";
-      this.errorTemp = "";
-      this.errorPressure = "";
-      this.errorDesc = "";
-    }
-    else if (this.catValue == null) {
-      this.errorCateory = "Please Select Category";
-      this.errorName = "";
-      this.errorImg = "";
-      this.errorOtherImg = "";
-      this.errorTemp = "";
-      this.errorPressure = "";
-      this.errorDesc = "";
-    }
-    else if (this.temp == null) {
-      this.errorTemp = "Please Enter Tempreture Value";
-      this.errorName = "";
-      this.errorImg = "";
-      this.errorOtherImg = "";
-      this.errorCateory = "";
-      this.errorPressure = "";
-      this.errorDesc = "";
-    }
-    else if (this.pressure == null) {
-      this.errorPressure = "Please Enter Pressure Value";
-      this.errorName = "";
-      this.errorImg = "";
-      this.errorOtherImg = "";
-      this.errorCateory = "";
-      this.errorTemp = "";
-      this.errorDesc = "";
-    }
-    else if (this.desc == null) {
-      this.errorDesc = "Please Enter Description";
-      this.errorName = "Please Enter Product Name";
-      this.errorImg = "";
-      this.errorOtherImg = "";
-      this.errorCateory = "";
-      this.errorTemp = "";
-      this.errorPressure = "";
-
-    }
-    else {
-
+    
       console.log(this.finalArray);
       let product = {
         name: this.name,
@@ -318,18 +226,6 @@ export class AddProductComponent implements OnInit {
           this.desc = null;
           this.p_img = null;
           this.o_img = null;
-          this.successMsg = " Product Succesfully Added"
-        });
-
-
-
+                });
     }
   }
-
-
-
-
-
-
-
-}

@@ -26,67 +26,109 @@
           <div class="section">
             <div class="row ">
               <div class="col s12 card mr-t-50">
-                <form class="col s12 mr-t-b-10" #formRef="ngForm" (ngSubmit)="addProduct()">
+                <form class="col s12 mr-t-b-10"  #formRef="ngForm" (ngSubmit)="addProduct()">
                   <div class="col s6 m6 l6">
-
-
                     <div class="row">
                       <div class="input-field col s12">
-                        <input id="name" type="text" [(ngModel)]="name" name="name" [(ngModel)]="name" class="">
+                        <input id="name" type="text" [(ngModel)]="name" name="name" [(ngModel)]="name" #productName="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
+                          required ngModel class="validate">
                         <label for="name">Name</label>
-                        <div class="red-text" *ngIf="errorName !== null">{{errorName}}</div>
-
+                        <div *ngIf="productName?.touched">
+                          <div class="red-text left" *ngIf="productName.errors?.required">
+                            Product Name Required*
+                          </div>
+                          <div class="red-text left" *ngIf="productName.errors?.pattern">
+                            Product Name is Invalid*
+                          </div>
+                        </div>
                       </div>
-
                     </div>
                     <div class="row">
                       <div class="input-field col s12 mr-t-20">
                         <b> Image:</b> &nbsp;&nbsp;
-                        <input id="p_img" type="file" class="" (change)="imageUpload($event)" [(ngModel)]="p_img" name="p_img">
-                        <div class="red-text" *ngIf="errorImg !== null">{{errorImg}}</div>
+                        <input id="p_img" type="file" (change)="imageUpload($event)" [(ngModel)]="p_img" name="p_img" #pimg="ngModel" accept="png"
+                          required ngModel class="validate">
+                      </div>
+
+                      <div *ngIf="pimg?.touched">
+                        <div class="red-text left" *ngIf="pimg.errors?.required">
+                          Product Image Required*
+                        </div>
+                        <div class="red-text left" *ngIf="pimg.errors?.accept">
+                          Please Select PNG file Only.
+                        </div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="input-field col s12 mr-t-20">
                         <b>Other Image:</b> &nbsp;&nbsp;
-                        <input id="img" type="file" multiple="multiple" class="" (change)="otherImageUpload($event)" [(ngModel)]="img" name="img">
-                        <div class="red-text" *ngIf="errorOtherImg !== null">{{errorOtherImg}}</div>
+                        <input id="img" type="file" multiple="multiple" class="" (change)="otherImageUpload($event)" #oimg="ngModel" accept="png"
+                          required ngModel class="validate" [(ngModel)]="img" name="img">
+                      </div>
+                      <div *ngIf="oimg?.touched">
+                        <div class="red-text left" *ngIf="oimg.errors?.required">
+                          Product Image Required*
+                        </div>
+                        <div class="red-text left" *ngIf="oimg.errors?.accept">
+                          Please Select PNG file Only.
+                        </div>
                       </div>
                     </div>
                     <div class="row">
 
                       <div class="col s12 mr-t-20">
                         Category:
-                        <select [(ngModel)]="catValue" name="catValue">
+                        <select [(ngModel)]="catValue" name="catValue" #cat="ngModel" required ngModel class="validate">
                           <option value="" disabled selected>Select Category</option>
                           <option *ngFor="let c of category" value="{{c._id}}">{{c.name}}</option>
                         </select>
-                        <div class="red-text" *ngIf="errorCateory !== null">{{errorCateory}}</div>
-
+                        <div *ngIf="cat?.touched">
+                          <div class="red-text left" *ngIf="cat.errors?.required">
+                            Select Category Required*
+                          </div>
+                        </div>
                       </div>
                       <div class="input-field col s12">
-                        <input id="temp" type="text" class="" [(ngModel)]="temp" name="temp">
+                        <input id="temp" type="text" class="" [(ngModel)]="temp" #temperature="ngModel" pattern="[0-9]+" required ngModel class="validate"
+                          name="temp">
                         <label for="temp">Temperature</label>
-                        <div class="red-text" *ngIf="errorTemp !== null">{{errorTemp}}</div>
+                        <div *ngIf="temperature?.touched">
+                          <div class="red-text left" *ngIf="temperature.errors?.required">
+                            Temperature Required*
+                          </div>
+                          <div class="red-text left" *ngIf="temperature.errors?.pattern">
+                            Temperature Input is Invalid*
+                          </div>
+                        </div>
                       </div>
+
                       <div class="input-field col s12">
-                        <input id="pressure" type="text" class="" [(ngModel)]="pressure" name="pressure">
+                        <input id="pressure" type="text" class="" [(ngModel)]="pressure" name="pressure" #pre="ngModel" pattern="[0-9]+" required
+                          ngModel class="validate">
                         <label for="pressure">Pressure</label>
-                        <div class="red-text" *ngIf="errorPressure !== null">{{errorPressure}}</div>
-
+                        <div *ngIf="pre?.touched">
+                          <div class="red-text left" *ngIf="pre.errors?.required">
+                            Pressure Required*
+                          </div>
+                          <div class="red-text left" *ngIf="pre.errors?.pattern">
+                            pressure Input is Invalid*
+                          </div>
+                        </div>
                       </div>
                       <div class="input-field col s12">
-                        <textarea id="desc" type="text" class="materialize-textarea" [(ngModel)]="desc" name="desc"></textarea>
+                        <textarea id="desc" type="text" class="materialize-textarea" [(ngModel)]="desc" name="desc" #desp="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
+                          required ngModel></textarea>
                         <label for="desc">Description</label>
-                        <div class="red-text" *ngIf="errorDesc !== null">{{errorDesc}}</div>
-
+                        <div *ngIf="desp?.touched">
+                          <div class="red-text left" *ngIf="desp.errors?.required">
+                            Description Required*
+                          </div>
+                        </div>
                       </div>
-
-
-
                     </div>
                     <br />
-                    <button class="modal-action hedding-btn" type="submit">ADD PRODUCT</button>
+                    <button class="modal-action btn btn-primary" [disabled]="formRef.invalid" onclick="Materialize.toast('Product Added', 4000)"
+                      type="submit">ADD PRODUCT</button>
                   </div>
 
                   <div class="col s6 m6 l6 ">
@@ -99,36 +141,71 @@
                         <b>Model Info: </b>
                       </div>
                       <div class="input-field col s12">
-                        <input id="model_no" type="text" [(ngModel)]="modeldata[i].model_no" name="model_no{{i}}" [(ngModel)]="model_no" class="">
+                        <input id="model_no" type="text" [(ngModel)]="modeldata[i].model_no" name="model_no{{i}}" [(ngModel)]="model_no" #mno="ngModel"
+                          required ngModel class="validate">
                         <label for="model_no">Model No</label>
+                        <div *ngIf="mno?.touched">
+                          <div class="red-text left" *ngIf="mno.errors?.required">
+                            Model No. Required*
+                          </div>
+                        </div>
                       </div>
                       <div class="input-field col s12">
-                        <input id="price" type="text" [(ngModel)]="modeldata[i].price" name="price{{i}}" [(ngModel)]="price" class="">
+                        <input id="price" type="text" [(ngModel)]="modeldata[i].price" name="price{{i}}" [(ngModel)]="price" #rs="ngModel" pattern="[0-9]+"
+                          required ngModel class="validate">
                         <label for="price">Price</label>
+                        <div *ngIf="rs?.touched">
+                          <div class="red-text left" *ngIf="rs.errors?.required">
+                            Price Required*
+                          </div>
+                          <div class="red-text left" *ngIf="rs.errors?.pattern">
+                            Price Input is Invalid*
+                          </div>
+                        </div>
                       </div>
+
                       <div class="input-field col s12">
-                        <input id="qty" type="text" [(ngModel)]="modeldata[i].qty" name="qty{{i}}" [(ngModel)]="qty" class="">
-                        <label for="qty">QTY.</label>
-                      </div>
-                      <div class="input-field col s12">
-                        <input id="grade" type="text" [(ngModel)]="modeldata[i].grade" name="grade{{i}}" [(ngModel)]="grade" class="">
+                        <input id="grade" type="text" [(ngModel)]="modeldata[i].grade" name="grade{{i}}" [(ngModel)]="grade" #gr="ngModel"
+                          required ngModel class="validate">
                         <label for="grade">Grade</label>
+                        <div *ngIf="gr?.touched">
+                          <div class="red-text left" *ngIf="gr.errors?.required">
+                            Grade Required*
+                          </div>
+                        </div>
                       </div>
                       <div class="input-field col s12">
-                        <input id="size" type="text" [(ngModel)]="modeldata[i].size" name="size{{i}}" [(ngModel)]="size" class="">
+                        <input id="size" type="text" [(ngModel)]="modeldata[i].size" name="size{{i}}" [(ngModel)]="size" #sizevalid="ngModel" pattern="[0-9][0-9 ]+"
+                          required ngModel class="validate">
                         <label for="size">Size</label>
+                        <div *ngIf="sizevalid?.touched">
+                          <div class="red-text left" *ngIf="sizevalid.errors?.required">
+                            Size Required*
+                          </div>
+                          <div class="red-text left" *ngIf="sizevalid.errors?.pattern">
+                            Size Input is Invalid*
+                          </div>
+                        </div>
                       </div>
-
                       <div *ngFor="let key of modeldata[i].keyValue; let in=index" class="col s12 m12 l12">
-
                         <div>
                           <div class="col s6 l6 m6 m-t-20">
                             <input type="text" [(ngModel)]="modeldata[i].keyValue[in].key" name="modeldata{{i}}.keyValue{{in}}.key{{in}}" #key="ngModel"
-                              required />
+                              #dynamickey="ngModel" required ngModel class="validate" />
+                            <div *ngIf="dynamickey?.touched">
+                              <div class="red-text left" *ngIf="dynamickey.errors?.required">
+                                Model Key Required*
+                              </div>
+                            </div>
                           </div>
                           <div class="col s 6 m6 l6">
                             <input type="text" [(ngModel)]="modeldata[i].keyValue[in].value" name="modeldata{{i}}.keyValue{{in}}.value{{in}}" #value="ngModel"
-                              required />
+                            #dynamicvalue="ngModel" required ngModel class="validate" />
+                            <div *ngIf="dynamicvalue?.touched">
+                              <div class="red-text left" *ngIf="dynamicvalue.errors?.required">
+                                Model Value Required*
+                              </div>
+                            </div>
                           </div>
                           <!--<p [hidden]="words2[in].value">Field is required</p> -->
                           <!-- {{formRef.form.word2}}          -->

@@ -32,37 +32,70 @@
                     <div class="row">
                       <div class="input-field col s12">
                         <b>Name:</b>
-                        <input id="name" type="text" [(ngModel)]="name" name="name" [(ngModel)]="name" class="">
-                        <div class="red-text" *ngIf="errorName !== null">{{errorName}}</div>
+                        <input id="name" type="text" [(ngModel)]="name" name="name" [(ngModel)]="name" #productName="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
+                          required ngModel class="validate">
+                        <div *ngIf="productName?.touched">
+                          <div class="red-text left" *ngIf="productName.errors?.required">
+                            Product Name Required*
+                          </div>
+                          <div class="red-text left" *ngIf="productName.errors?.pattern">
+                            Product Name is Invalid*
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col s12 mr-t-20">
                         <b>Category:</b>
-                        <select [(ngModel)]="catValue" name="catValue">
+                        <select [(ngModel)]="catValue" name="catValue" #cat="ngModel" required ngModel class="validate">
                           <option value="" disabled selected>Select Category</option>
                           <option *ngFor="let c of category" value="{{c._id}}">{{c.name}}</option>
                         </select>
-                        <div class="red-text" *ngIf="errorCateory !== null">{{errorCateory}}</div>
+                        <div *ngIf="cat?.touched">
+                          <div class="red-text left" *ngIf="cat.errors?.required">
+                            Select Category Required*
+                          </div>
+                        </div>
                       </div>
                       <div class="input-field col s12">
                         <b>Tempreture</b>
-                        <input id="temp" type="text" class="" [(ngModel)]="temp" name="temp">
-                        <div class="red-text" *ngIf="errorTemp !== null">{{errorTemp}}</div>
+                        <input id="temp" type="text" class="" [(ngModel)]="temp" name="temp" #temperature="ngModel" pattern="[0-9]+" required ngModel
+                          class="validate">
+                        <div *ngIf="temperature?.touched">
+                          <div class="red-text left" *ngIf="temperature.errors?.required">
+                            Temperature Required*
+                          </div>
+                          <div class="red-text left" *ngIf="temperature.errors?.pattern">
+                            Temperature Input is Invalid*
+                          </div>
+                        </div>
                       </div>
                       <div class="input-field col s12">
                         <b>Pressure</b>
-                        <input id="pressure" type="text" class="" [(ngModel)]="pressure" name="pressure">
-                        <div class="red-text" *ngIf="errorPressure !== null">{{errorPressure}}</div>
+                        <input id="pressure" type="text" class="" [(ngModel)]="pressure" name="pressure" #pre="ngModel" pattern="[0-9]+" required
+                          ngModel class="validate">
+                        <div *ngIf="pre?.touched">
+                          <div class="red-text left" *ngIf="pre.errors?.required">
+                            Pressure Required*
+                          </div>
+                          <div class="red-text left" *ngIf="pre.errors?.pattern">
+                            pressure Input is Invalid*
+                          </div>
+                        </div>
                       </div>
                       <div class="input-field col s12">
                         <b>Description</b>
-                        <textarea id="desc" type="text" class="materialize-textarea" [(ngModel)]="desc" name="desc">{{desc}}</textarea>
-                        <div class="red-text" *ngIf="errorDesc !== null">{{errorDesc}}</div>
+                        <textarea id="desc" type="text" class="materialize-textarea" [(ngModel)]="desc" name="desc" #desp="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
+                          required ngModel>{{desc}}</textarea>
+                        <div *ngIf="desp?.touched">
+                          <div class="red-text left" *ngIf="desp.errors?.required">
+                            Description Required*
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <br />
-                    <button class="modal-action hedding-btn" type="submit">UPDATE PRODUCT</button>
+                    <button class="modal-action btn btn-primary" type="submit" [disabled]="formRef.invalid" onclick="Materialize.toast('Product Updated', 4000)">UPDATE PRODUCT</button>
                   </div>
                   <div class="col s6 m6 l6 ">
                     <div class="input-field col s12 p-t-15" *ngFor="let model of modeldata; let i=index">
@@ -77,48 +110,72 @@
                       </div>
                       <div class="input-field col s12">
                         <b>Model No</b>
-                        <input id="model_no" type="text" [(ngModel)]="modeldata[i].model_no" name="model_no{{i}}" [(ngModel)]="model_no" class="">
+                        <input id="model_no" type="text" [(ngModel)]="modeldata[i].model_no" name="model_no{{i}}" [(ngModel)]="model_no" #mno="ngModel"
+                          required ngModel class="validate">
+                        <div *ngIf="mno?.touched">
+                          <div class="red-text left" *ngIf="mno.errors?.required">
+                            Model No. Required*
+                          </div>
+                        </div>
                       </div>
                       <div class="input-field col s12">
                         <b>Price</b>
-                        <input id="price" type="text" [(ngModel)]="modeldata[i].price" name="price{{i}}" [(ngModel)]="price" class="">
+                        <input id="price" type="text" [(ngModel)]="modeldata[i].price" name="price{{i}}" [(ngModel)]="price" #rs="ngModel" pattern="[0-9]+"
+                          required ngModel class="validate">
+                        <div *ngIf="rs?.touched">
+                          <div class="red-text left" *ngIf="rs.errors?.required">
+                            Price Required*
+                          </div>
+                          <div class="red-text left" *ngIf="rs.errors?.pattern">
+                            Price Input is Invalid*
+                          </div>
+                        </div>
                       </div>
                       <div class="input-field col s12">
                         <b>Grade</b>
-                        <input id="grade" type="text" [(ngModel)]="modeldata[i].grade" name="grade{{i}}" [(ngModel)]="grade" class="">
+                        <input id="grade" type="text" [(ngModel)]="modeldata[i].grade" name="grade{{i}}" [(ngModel)]="grade" class="" #gr="ngModel"
+                          required ngModel class="validate">
+                        <div *ngIf="gr?.touched">
+                          <div class="red-text left" *ngIf="gr.errors?.required">
+                            Grade Required*
+                          </div>
+                        </div>
                       </div>
                       <div class="input-field col s12">
                         <b>Size</b>
-                        <input id="size" type="text" [(ngModel)]="modeldata[i].size" name="size{{i}}" [(ngModel)]="size" class="">
-                      </div>
-                      <!-- <div *ngFor="let key of model.keyValue; let in=index" class="col s12 m12 l12">
-                        <div>
-                          <div class="col s6 l6 m6 m-t-20">
-                            <input type="text" [(ngModel)]="model.keyValue[in].key" name="model.keyValue[in].key{{in}}" #key="ngModel" required />
+                        <input id="size" type="text" [(ngModel)]="modeldata[i].size" name="size{{i}}" [(ngModel)]="size" #sizevalid="ngModel" pattern="[0-9][0-9 ]+"
+                          required ngModel class="validate">
+                        <div *ngIf="sizevalid?.touched">
+                          <div class="red-text left" *ngIf="sizevalid.errors?.required">
+                            Size Required*
                           </div>
-                          <div class="col s 6 m6 l6">
-                            <input type="text" [(ngModel)]="model.keyValue[in].value" name="model.keyValue[in].value{{in}}" #value="ngModel" required
-                            />
+                          <div class="red-text left" *ngIf="sizevalid.errors?.pattern">
+                            Size Input is Invalid*
                           </div>
                         </div>
-                        <br />
-                      </div> -->
-
-
+                      </div>
                       <div *ngFor="let key of modeldata[i].keyValue; let in=index" class="col s12 m12 l12">
                         <div>
-
                           <div class="col s6 l6 m6 m-t-20">
                             <input type="text" [(ngModel)]="modeldata[i].keyValue[in].key" name="modeldata{{i}}.keyValue{{in}}.key{{in}}" #key="ngModel"
-                              required />
+                            #dynamickey="ngModel" required ngModel class="validate" />
+                            <div *ngIf="dynamickey?.touched">
+                              <div class="red-text left" *ngIf="dynamickey.errors?.required">
+                                Model Key Required*
+                              </div>
+                            </div>
                           </div>
                           <div class="col s 6 m6 l6">
                             <input type="text" [(ngModel)]="modeldata[i].keyValue[in].value" name="modeldata{{i}}.keyValue{{in}}.value{{in}}" #value="ngModel"
-                              required />
+                            #dynamicvalue="ngModel" required ngModel class="validate" />
+                            <div *ngIf="dynamicvalue?.touched">
+                              <div class="red-text left" *ngIf="dynamicvalue.errors?.required">
+                                Model Value Required*
+                              </div>
+                            </div>
                           </div>
                           <!--<p [hidden]="words2[in].value">Field is required</p> -->
                           <!-- {{formRef.form.word2}}          -->
-
                         </div>
                         <a (click)="deleteModel('modelKeyValue', i, in)">
                           <i class="fa fa-window-close"></i>

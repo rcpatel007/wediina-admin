@@ -53,30 +53,7 @@ export class ControlComponent implements OnInit {
   type: String;
   rolevalue: Boolean = false;
   userrolevalue: Boolean = false;
-  // error msg
-  errorcity: String;
-  successcity: String;
-  errorname: String;
-  erroremail: String;
-  errormobile: String;
-  errorrole: String;
-  successuser: String;
-  edit_errorname: String;
-  edit_erroremail: String;
-  edit_errormobile: String;
-  edit_errorrole: String;
-  edit_successuser: String;
-  errorroletype: String;
-  rolesuccess: String;
-  edit_errorroletype: String;
-  edit_rolesuccess: String;
-  errortype: String;
-  errordiscount: String;
-  edit_errortype: String;
-  edit_errordiscount: String;
-  typesuccess: String;
-  edit_typesuccess: String;
-
+  
   // user
 
   a_o_add: boolean = false;
@@ -265,11 +242,7 @@ export class ControlComponent implements OnInit {
   }
   // user
   addCity() {
-    if (this.city_name == null) {
-      this.errorcity = "Please  Enter City Name";
-    }
-
-    else {
+   
       let city_array;
       for (let i = 0; i < this.city_name.length; i++) {
         city_array = this.city_name.split(",");
@@ -281,10 +254,7 @@ export class ControlComponent implements OnInit {
       }
 
       this.city_name = "";
-      if (this.city_name == null) {
-        this.errorcity = "Please  Enter City Name";
-      }
-
+   
       let cityObj = {
         "cities": this.cities
       }
@@ -294,10 +264,8 @@ export class ControlComponent implements OnInit {
         .subscribe((res) => {
           this.getcity();
 
-          this.errorcity = null;
-          this.successcity = " City Add  successfully";
         });
-    }
+    
   }
   viewUser() {
     this.userservice.getUser()
@@ -312,29 +280,6 @@ export class ControlComponent implements OnInit {
   }
   addUser() {
 
-    
-    if (this.u_name == null ||
-      this.u_email == null ||
-      this.u_mobile == null ||
-      this.roletype == null) {
-      this.errorname = "Please Enter Name";
-      this.erroremail = "Please Enter email";
-      this.errormobile = "Please Enter Mobile";
-      this.errorrole = "Please select Role";
-    }
-    else if (this.u_name == null) {
-      this.errorname = "Please Enter Name";
-    }
-    else if (this.u_email == null) {
-      this.erroremail = "Please Enter email";
-    }
-    else if (this.u_mobile == null) {
-      this.errormobile = "Please Enter Mobile";
-    }
-    else if (this.roletype == null) {
-      this.errorrole = "Please Select Role";
-    }
-    else {
       let add_user = {
         name: this.u_name,
         email: this.u_email,
@@ -381,15 +326,11 @@ export class ControlComponent implements OnInit {
           this.email = "";
           this.mobile = "";
           this.role = null;
-          this.errorname = null;
-          this.erroremail = null;
-          this.errormobile = null;
-          this.errorrole = null;
-          this.successuser = " User Successfully Added";
+         
           this.viewUser();
 
         });
-    }
+    
   }
   /*get user by id */
   getuserById(id) {
@@ -419,10 +360,6 @@ export class ControlComponent implements OnInit {
     this.c_view = null;
     this.c_delete = null;
 
-    this.edit_errorname = null;
-    this.edit_erroremail = null;
-    this.edit_errormobile = null;
-    this.edit_errorrole = null;
 
     this.userservice.getUserById(id)
       .subscribe(data => {
@@ -467,33 +404,7 @@ export class ControlComponent implements OnInit {
 
   editUser() {
     let id = this.id;
-    if (this.name == null ||
-      this.email == null ||
-      this.mobile == null ||
-      this.role == null) {
-      this.edit_errorname = "Please Enter Name";
-      this.edit_erroremail = "Please Enter email";
-      this.edit_errormobile = "Please Enter Mobile";
-      this.edit_errorrole = "Please select Role";
-      this.edit_successuser = null;
-    }
-    else if (this.name == null) {
-      this.edit_errorname = "Please Enter Name";
-      this.edit_successuser = null;
-    }
-    else if (this.email == null) {
-      this.edit_erroremail = "Please Enter email";
-      this.edit_successuser = null;
-    }
-    else if (this.mobile == null) {
-      this.edit_errormobile = "Please Enter Mobile";
-      this.edit_successuser = null;
-    }
-    else if (this.role == null) {
-      this.edit_errorrole = "Please Select Role";
-      this.edit_successuser = null;
-    }
-    else {
+   
       let updateuser = {
         _id: this.id,
         name: this.name,
@@ -548,14 +459,9 @@ export class ControlComponent implements OnInit {
           this.name = "";
           this.email = "";
           this.mobile = "";
-          this.edit_errorname = null;
-          this.edit_erroremail = null;
-          this.edit_errormobile = null;
-          this.edit_errorrole = null;
-          this.edit_successuser = " User Successfully Updated";
         });
 
-    }
+   
   }
   // role
   getRole() {
@@ -569,10 +475,7 @@ export class ControlComponent implements OnInit {
   }
 
   addRole() {
-    if (this.roletype == null) {
-      this.errorroletype = "Plese Enter Role Value";
-    }
-    else {
+    
       let role = {
         role: this.roletype,
         order: {
@@ -611,10 +514,8 @@ export class ControlComponent implements OnInit {
       this.roleservice.addRole(role)
         .subscribe(() => {
           this.getRole();
-          this, this.errorroletype = "";
-          this.rolesuccess = " Role successfully Added";
-        });
-    }
+               });
+    
   }
   getRoleById(id) {
     this.roleservice.getRoleById(id)
@@ -654,10 +555,6 @@ export class ControlComponent implements OnInit {
   }
   // edit role
   editRole() {
-    if (this.roletype == null) {
-      this.edit_errorroletype = "Please Enter Role Value";
-    }
-    else {
       let id = this.r_id;
       let role = {
         _id: this.r_id,
@@ -698,12 +595,9 @@ export class ControlComponent implements OnInit {
       this.roleservice.editRole(id, role)
         .subscribe(() => {
           this.getRole();
-          this.edit_errorroletype = "";
-          this.edit_rolesuccess = "Role Edited Successfully";
           // console.log(this.viewUser);
 
         });
-    }
   }
   // type
   getType() {
@@ -717,17 +611,7 @@ export class ControlComponent implements OnInit {
   }
 
   addType() {
-    if (this.d_type == null || this.discount == null) {
-      this.errortype = "Please Enter Role Type";
-      this.errordiscount = "Plese Enter Discount";
-    }
-    else if (this.d_type == null) {
-      this.errortype = "Please Enter Role Type";
-    }
-    else if (this.discount == null) {
-      this.errordiscount = "Plese Enter Discount";
-    }
-    else {
+   
       let add_type = {
         type: this.d_type,
         discount: this.discount,
@@ -739,11 +623,9 @@ export class ControlComponent implements OnInit {
           this.discount = null;
           this.getType();
           // console.log(this.viewUser);
-          this.errortype = "";
-          this.errordiscount = "";
-          this.typesuccess = "Role Type ADD Successfully";
+       
         });
-    }
+    
   }
   // edit type
   getTypeById(id) {
@@ -757,19 +639,7 @@ export class ControlComponent implements OnInit {
   }
   // edit type
   editType() {
-    if (this.type == null || this.disc == null) {
-      this.edit_errortype = "Please Enter Role Type";
-      this.edit_errordiscount = "Plese Enter Discount";
-    }
-
-    else if (this.type == null) {
-      this.edit_errorroletype = "Please Enter Role Type";
-    }
-
-    else if (this.disc == null) {
-      this.edit_errordiscount = "Plese Enter Discount";
-    }
-    else {
+   
       let id = this.t_id;
       let updatedealer = {
         id: this.t_id,
@@ -779,12 +649,9 @@ export class ControlComponent implements OnInit {
       this.dealertypeservice.editType(id, updatedealer)
         .subscribe(() => {
           this.getType();
-          this.edit_errortype = "";
-          this.edit_errordiscount = "";
-          // console.log(this.viewUser);
-          this.edit_typesuccess = " Role Type Successfully Updated";
+        
         });
-    }
+    
   }
   getRoleValue(id) {
     this.rolevalue = true;
