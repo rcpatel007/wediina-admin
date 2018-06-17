@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService, private router: Router, fb: FormBuilder) { }
 
   ngOnInit() {
-    if (this.loginService.token != null) {
+    if (localStorage.user_id != null) {
       this.router.navigate(["/dashboard"]);
     }
 

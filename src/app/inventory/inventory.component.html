@@ -74,7 +74,7 @@
                           <td *ngIf="i_edit == true" [routerLink]="['/editproduct', i._id]">
                             <i class="fa fa-pencil-alt orange-text"></i>
                           </td>
-                          <td *ngIf="i_delete == true" (click)="ConfirmDelete(i._id)">
+                          <td *ngIf="i_delete == true" (click)="delete(i._id)">
                             <i class="fa fa-trash red-text "></i>
                           </td>
                         </tr>

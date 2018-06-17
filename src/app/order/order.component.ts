@@ -71,7 +71,6 @@ export class OrderComponent implements OnInit {
   }
 
   getOrder() {
-    this.count = 1;
 
     this.orderService.getOrder()
       .subscribe((Order) => {

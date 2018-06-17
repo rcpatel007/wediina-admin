@@ -163,14 +163,14 @@ export class DealerComponent implements OnInit {
   }
 
   addDealer() {
-    this.add.push({ 'office': [this.address] });
+    let add = {'office': [this.address],'warehouse':[],'other':[]};
 
     let add_dealer = {
       name: this.name,
       company_name: this.cnm,
       email: this.email,
       mobile: this.mno,
-      address: this.add,
+      address: add,
       city: this.selectedValue,
       gst: this.gst,
       type: this.type,
@@ -219,7 +219,6 @@ export class DealerComponent implements OnInit {
   editDealer() {
 
     let edit_dealer = {
-
       name: this.e_name,
       company_name: this.e_cnm,
       email: this.e_email,
@@ -230,40 +229,42 @@ export class DealerComponent implements OnInit {
       discount: this.e_discount
     }
     let id = this.id;
-    console.log(edit_dealer);
-    this.accountservice.editAccount(id, edit_dealer)
-      .subscribe((res) => {
-        console.log(res);
+    console.log(edit_dealer );
 
-        let date_time = Date.now();
-        let event_id = "de_" + res.data._id;
+console.log(id);
+    // this.accountservice.editAccount(id, edit_dealer)
+    //   .subscribe((res) => {
+    //     console.log(res);
 
-        let notification = {
-          title: "Edit Dealer : " + this.name,
-          user_id: localStorage.user_id,
-          event_id: event_id,
-          date_time: date_time,
-          read: false
+    //     let date_time = Date.now();
+    //     let event_id = "de_" + res.data._id;
 
-        }
-        // console.log(notification);
-        this.socket.emit('new-event', { data: edit_dealer });
-        this.notificationService.addNotification(notification)
-          .subscribe(() => {
+    //     let notification = {
+    //       title: "Edit Dealer : " + this.name,
+    //       user_id: localStorage.user_id,
+    //       event_id: event_id,
+    //       date_time: date_time,
+    //       read: false
 
-          });
+    //     }
+    //     // console.log(notification);
+    //     this.socket.emit('new-event', { data: edit_dealer });
+    //     this.notificationService.addNotification(notification)
+    //       .subscribe(() => {
 
-        // console.log(add_dealer);
-        this.name = null;
-        this.cnm = null;
-        this.email = null;
-        this.mno = null;
-        this.selectedValue = null;
-        this.gst = null;
-        this.type = null;
-        this.discount = null;
-        this.viewaccount();
-      });
+    //       });
+
+    //     // console.log(add_dealer);
+    //     this.name = null;
+    //     this.cnm = null;
+    //     this.email = null;
+    //     this.mno = null;
+    //     this.selectedValue = null;
+    //     this.gst = null;
+    //     this.type = null;
+    //     this.discount = null;
+    //     this.viewaccount();
+    //   });
   }
   getuser() {
     let id = localStorage.user_id;

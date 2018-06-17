@@ -1,0 +1,235 @@
+<div id="main">
+  <!-- START WRAPPER -->
+  <div class="wrapper">
+    <app-header></app-header>
+
+    <section id="content" class="mr-t-20">
+      <!--start container-->
+      <div class="container">
+        <div class="section">
+          <!--card stats start-->
+          <div id="card-stats">
+            <div class="row">
+              <div class="col s6 l6 m6">
+                <div class="col s2 l2 m2 headding-icon dark-blue-back">
+                  <i class="fa fa-boxes"></i>
+                </div>
+                <div class="hedding-text p-l-80">
+                  Add New Order
+                </div>
+              </div>
+              <form class="col s12 mr-t-b-10 card" #formRef="ngForm" (ngSubmit)="addProduct()">
+
+                <div class="row">
+                  <table>
+                    <div class="col s12 m6 l6">
+                      <tr>
+                        <th>company Name :</th>
+                        <td>
+                          <select [(ngModel)]="user" name="user" #cnm="ngModel" (click)="getUser(user)" required ngModel class="validate">
+                            <option value="" disabled selected>Select Company Name</option>
+                            <option *ngFor="let c of dealer" value="{{c._id}}">{{c.company_name}}</option>
+                          </select>
+                          <div *ngIf="cnm?.touched">
+                            <div class="red-text left" *ngIf="cnm.errors?.required">
+                              Select Company Name Required*
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Name :</th>
+                        <td>{{user_name}}</td>
+                      </tr>
+                      <tr>
+                        <th>MObile No</th>
+                        <td>{{user_mobile}}</td>
+                      </tr>
+                      <tr>
+                        <th>Email</th>
+                        <td>{{user_email}}</td>
+                      </tr>
+                    </div>
+                    <div class="col s12 m6 l6 mr-t-20">
+                      <tr>
+                        <th>GST Number</th>
+                        <td>{{user_gst}}</td>
+                      </tr>
+                      <tr>
+                        <th>Discount</th>
+                        <td>{{user_discount}} %</td>
+                      </tr>
+                      <tr>
+                        <th>City</th>
+                        <td>{{user_city}}</td>
+                      </tr>
+
+                      <tr>
+                        <th>Type</th>
+                        <td>{{user_type}}</td>
+                      </tr>
+                    </div>
+                  </table>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!--card stats end-->
+
+          <!--DataTables example Row grouping-->
+          <div class="section">
+            <div class="row ">
+              <div class="col s12 card mr-t-50">
+                <form #frm="ngForm" (ngSubmit)="addtocart()">
+                  <table>
+                    <thead>
+                      <th>Brand</th>
+                      <th>Category</th>
+                      <th>Product Name</th>
+                      <th>Model No</th>
+                      <th>Price</th>
+                      <th>Qty</th>
+                      <th>Discount</th>
+
+                    </thead>
+                    <tbody>
+                      <td>
+                        <select [(ngModel)]="brandid" name="brandid" #bnm="ngModel" (click)="getCategory(brandid)" required ngModel class="validate">
+                          <option value="" disabled selected>Select Brand Name</option>
+                          <option *ngFor="let b of brand" value="{{b._id}}">{{b.name}}</option>
+                        </select>
+                        <div *ngIf="bnm?.touched">
+                          <div class="red-text left" *ngIf="bnm.errors?.required">
+                            Select Brand Required*
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <select [(ngModel)]="pid" name="pid" #catnm="ngModel" (click)="getprod(pid)" required ngModel class="validate">
+                          <option value="" disabled selected>Select Category Name</option>
+                          <option *ngFor="let c of category" value="{{c._id}}">{{c.name}}</option>
+                        </select>
+                        <div *ngIf="catnm?.touched">
+                          <div class="red-text left" *ngIf="catnm.errors?.required">
+                            Select Category Required*
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <select [(ngModel)]="mid" name="mid" #prod="ngModel" (click)="getmodel(mid)" required ngModel class="validate">
+                          <option value="" disabled selected>Select Product Name</option>
+                          <option *ngFor="let p of product" value="{{p._id}}">{{p.name}}</option>
+                        </select>
+                        <div *ngIf="prod?.touched">
+                          <div class="red-text left" *ngIf="prod.errors?.required">
+                            Select Product Required*
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <select [(ngModel)]="model_no" name="model_no" #mno="ngModel" (change)="getprice(model_no)" required ngModel class="validate">
+                          <option value="" disabled selected>Select Model Name</option>
+                          <option *ngFor="let m of model" value="{{m.model_no}}">{{m.model_no}}</option>
+                        </select>
+                        <div *ngIf="mno?.touched">
+                          <div class="red-text left" *ngIf="mno.errors?.required">
+                            Select Model Required*
+                          </div>
+                        </div>
+                      </td>
+                      <td>{{price}}</td>
+                      <td>
+                        <input type="text" [(ngModel)]="qty" name="qty" placeholder="QTY" #qtys="ngModel" pattern="[0-9]+" required ngModel class="validate">
+                        <div *ngIf="qtys?.touched">
+                          <div class="red-text left" *ngIf="qtys.errors?.required">
+                            Qty Required*
+                          </div>
+                          <div class="red-text left" *ngIf="qtys.errors?.pattern">
+                            Enter Valid Qty*
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <input type="text" [(ngModel)]="discount" name="discount" placeholder="discount" #disc="ngModel" pattern="[0-9]+" required
+                          ngModel class="validate">
+                        <div *ngIf="disc?.touched">
+                          <div class="red-text left" *ngIf="disc.errors?.required">
+                            Discount Required*
+                          </div>
+                          <div class="red-text left" *ngIf="disc.errors?.pattern">
+                            Enter Valid Discount*
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <button class="btn btn-primary" type="submit" [disabled]="frm.invalid">add</button>
+                      </td>
+                    </tbody>
+                  </table>
+                </form>
+                <div class="divider"></div>
+                <table>
+                  <thead>
+                    <th>No</th>
+                    <th>Product</th>
+                    <th>Model No</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>total</th>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let c of cart;let i =index">
+                      <td>{{i+1}}</td>
+                      <td>{{c.prod_name}}</td>
+                      <td>{{c.model_no}}</td>
+                      <td>{{c.qty}}</td>
+                      <td>{{c.price}}</td>
+                      <td>{{c.qty * c.price}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="card col s12">
+                <div class="col s12 m3 l3 right mr-r-p-8">
+                  <table class="right-align">
+                    <tbody>
+                      <tr>
+                        <th>Sub Total :</th>
+                        <td>{{subtotal}}</td>
+                      </tr>
+                      <tr>
+                        <th>Dealer Discount Total :</th>
+                        <td>{{discountotal}}</td>
+                      </tr>
+                      <tr>
+                        <th>Grand Total :</th>
+                        <td>
+                          <b>{{grandtotal}}</b>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+               
+              </div>
+              <div class="center">
+                  <button class="btn btn-primary"[disabled]="grandtotal == 0" (click)="sendOrder()"> Submit Order</button>
+                </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!--end container-->
+    </section>
+
+
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+    $('.modal').modal();
+  });
+
+</script>

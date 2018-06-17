@@ -39,7 +39,7 @@
                   <thead>
                     <tr>
                       <th>No</th>
-                     <th> Dealer Type</th>
+                      <th> Dealer Type</th>
                       <th>Name</th>
                       <th>Company</th>
                       <th>Mail ID</th>
@@ -114,13 +114,17 @@
             </div>
             <div class="row">
               <div class="input-field col s6">
-                <input id="email" type="text" class="" [(ngModel)]="email" name="email" #mail="ngModel" required ngModel class="validate">
+                <input id="email" type="text" class="" [(ngModel)]="email" name="email" #mail="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                  required ngModel class="validate">
                 <label for="email">Email ID</label>
                 <div *ngIf="mail?.touched">
                   <div class="red-text left" *ngIf="mail.errors?.required">
                     Email Required*
                   </div>
-                  
+                  <div class="red-text left" *ngIf="mail.errors?.pattern">
+                    Please Enter valid Email*
+                  </div>
+
                 </div>
               </div>
               <div class="input-field col s6">
@@ -137,14 +141,36 @@
                 </div>
               </div>
             </div>
-            <div class=" col s6">CITY :
-              <select [(ngModel)]="selectedValue" name="selectedValue" #cityname="ngModel" required ngModel class="validate">
-                <option disabled>--Select City Name --</option>
-                <option *ngFor="let c of city" [value]="c.city">{{c.city}}</option>
-              </select>
-              <div *ngIf="cityname?.touched">
-                <div class="red-text left" *ngIf="cityname.errors?.required">
-                  City Required*
+            <div class="input-field col s12">
+              <div *ngIf="add?.touched">
+                <div class="red-text left" *ngIf="add.errors?.required">
+                  Address Required*
+                </div>
+              </div>
+              <textarea id="address" type="text" class="materialize-textarea" [(ngModel)]="address" name="address" #add="ngModel" required
+                ngModel></textarea>
+              <label for="address">Address</label>
+
+            </div>
+            <div class="row">
+              <div class=" col s6">CITY :
+                <select [(ngModel)]="selectedValue" name="selectedValue" #cityname="ngModel" required ngModel class="validate">
+                  <option disabled>--Select City Name --</option>
+                  <option *ngFor="let c of city" [value]="c.city">{{c.city}}</option>
+                </select>
+                <div *ngIf="cityname?.touched">
+                  <div class="red-text left" *ngIf="cityname.errors?.required">
+                    City Required*
+                  </div>
+                </div>
+              </div>
+              <div class="input-field col s6">
+                <input id="gst" type="text" name="gst" [(ngModel)]="gst" #gstid="ngModel" required ngModel class="validate">
+                <label for="gst">GST ID</label>
+                <div *ngIf="gstid?.touched">
+                  <div class="red-text left" *ngIf="gstid.errors?.required">
+                    GST No Required*
+                  </div>
                 </div>
               </div>
             </div>
@@ -232,10 +258,14 @@
             <div class="row">
               <div class="input-field col s6">
                 <b>Email ID</b>
-                <input id="email" type="text" class="" [(ngModel)]="e_email" name="e_email" #eemail="ngModel" required ngModel class="validate">
+                <input id="email" type="text" class="" [(ngModel)]="e_email" name="e_email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                  #eemail="ngModel" required ngModel class="validate">
                 <div *ngIf="eemail?.touched">
                   <div class="red-text left" *ngIf="eemail.errors?.required">
                     Email Required*
+                  </div>
+                  <div class="red-text left" *ngIf="mail.errors?.pattern">
+                    Please Enter Valid Email*
                   </div>
 
                 </div>
@@ -293,8 +323,8 @@
               </div>
               <div class="input-field col col s3">
                 <b>Discout %</b>
-                <input id="disc" type="text" class="" [(ngModel)]="e_discount" name="e_discount" #edisc="ngModel" pattern="[0-9]+"
-                  required ngModel class="validate">
+                <input id="disc" type="text" class="" [(ngModel)]="e_discount" name="e_discount" #edisc="ngModel" pattern="[0-9]+" required
+                  ngModel class="validate">
                 <div *ngIf="edisc?.touched">
                   <div class="red-text left" *ngIf="edisc.errors?.required">
                     Discount Required*

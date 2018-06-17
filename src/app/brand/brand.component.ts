@@ -12,8 +12,9 @@ import { NotificationService } from '../services/notification.service';
 import { getLocaleDateFormat } from '@angular/common';
 import { Local } from 'protractor/built/driverProviders';
 import { environment } from '../../environments/environment';
+import { CategoryService } from '../services/category.service';
 
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-brand',
@@ -27,8 +28,8 @@ export class BrandComponent implements OnInit {
   auth: any;
   brand: Brand[];
   id: String;
-  name: String =null;
-  brandname:String;
+  name: String = null;
+  brandname: String;
   // user
   b_add: boolean;
   b_edit: boolean;
@@ -40,6 +41,7 @@ export class BrandComponent implements OnInit {
     private router: Router,
     private userservice: UserService,
     private notificaitonservice: NotificationService,
+    private categoryservice: CategoryService,
     private globals: Globals
   ) { this.socket = io('https://jasmatech-backend-api.herokuapp.com'); }
 
@@ -55,7 +57,7 @@ export class BrandComponent implements OnInit {
     // this.auth = { "email": this.globals.email, "token": this.loginservice.token }
     this.getBrand();
 
-    
+
     $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
     $("script[src='assets/js/materialize.min.js']").remove();
     $("script[src='assets/js/scripts/advanced-ui-modals.js']").remove();
@@ -75,48 +77,48 @@ export class BrandComponent implements OnInit {
       document.getElementsByTagName('head')[0].appendChild(node);
     }
 
-   
+
   }
 
-  
+
 
   /* brand add*/
   addBrand() {
 
-     let addbrand = {
-        name: this.name,
-      }
-
-      this.brandService.addBrand(addbrand)
-        .subscribe((res) => {
-          // console.log(res);
-          let date = Date.now();
-          // let date_time = new Date(date);
-          let finaldate = new Date(date);
-          let event_id = "br_" + res.data._id;
-
-          let notification = {
-            title: "new Brand Add: " + this.brandname,
-            user_id: localStorage.user_id,
-            event_id: event_id,
-            name: this.name,
-            date_time: finaldate,
-            read: false
-
-          }
-          console.log(notification);
-          this.socket.emit('new-event', { data: addbrand });
-          this.notificaitonservice.addNotification(notification)
-            .subscribe(() => {
-
-            });
-
-          this.getBrand();
-          this.name = ""  ;
-          return
-       
-        });
+    let addbrand = {
+      name: this.name,
     }
+
+    this.brandService.addBrand(addbrand)
+      .subscribe((res) => {
+        // console.log(res);
+        let date = Date.now();
+        // let date_time = new Date(date);
+        let finaldate = new Date(date);
+        let event_id = "br_" + res.data._id;
+
+        let notification = {
+          title: "new Brand Add: " + this.name,
+          user_id: localStorage.user_id,
+          event_id: event_id,
+          name: this.name,
+          date_time: finaldate,
+          read: false
+
+        }
+        console.log(notification);
+        this.socket.emit('new-event', { data: addbrand });
+        this.notificaitonservice.addNotification(notification)
+          .subscribe(() => {
+
+          });
+
+        this.getBrand();
+        this.name = "";
+        return
+
+      });
+  }
 
   /*get brand by id */
 
@@ -179,6 +181,27 @@ export class BrandComponent implements OnInit {
   }
 
 
+  delete(id) {
+    let brandid = id;
+    console.log(" id " + brandid);
+
+    this.categoryservice.getCategory()
+      .subscribe((Category) => {
+        console.log(Category);
+        let flag = false;
+        for (let index = 0; index < Category.length; index++) {
+          if (brandid === Category[index].brand_id) {
+            flag = true;
+            alert("This Brand Also Exists In Some other Categories. So, It Can Not Be Deleted.");
+            break;
+          }
+        }
+
+        if (flag == false) {
+          this.ConfirmDelete(id);
+        }
+      });
+  }
 
   /*delete brand */
   ConfirmDelete(id) {

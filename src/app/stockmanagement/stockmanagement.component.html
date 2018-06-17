@@ -19,33 +19,52 @@
                 </div>
               </div>
 
-              <form  (ngSubmit)="addStock()">
+              <form #frm1="ngForm" (ngSubmit)="addStock()">
                 <div class="col s12 l12 m12 mr-t-20 mr-b-m-30">
                   <div class="col s4 m4 l4">
                     <b> Product Name:</b>
-                    <select [(ngModel)]="productvalue" name="productvalue" (change)="modelNameFetch(productvalue);">
+                    <select [(ngModel)]="productvalue" name="productvalue" (change)="modelNameFetch(productvalue);" #productValue="ngModel" required
+                      ngModel class="validate">
                       <option disabled>--Select Product Name --</option>
-                      <option *ngFor="let p of product" [value]="p._id" >{{p.name}}</option>
+                      <option *ngFor="let p of product" [value]="p._id">{{p.name}}</option>
                     </select>
+                    <div *ngIf="productValue?.touched">
+                      <div class="red-text left" *ngIf="productValue.errors?.required">
+                        Select Product Name Required*
+                      </div>
                     </div>
-                    <div class="col s4 m4 l4 ">
-                        <b> Model Name:</b>
-                    <select [(ngModel)]="modelname" name="modelname">
-                        <option disabled>--SelectModel Name --</option>
-                        <option *ngFor="let model of final_model_data" [value]="model">{{model}}</option>
-                    </select>
-                   
+
                   </div>
-                  <div class="input-field col s4 m4 l4 mr-t-20">
-                    <input id="category" type="text" class="" [(ngModel)]="qty" name="qty">
-                    <label for="category">Add QTY</label>
-                   
-                    <div class="right-align">
-                        <button class="hedding-btn" type="submit ">ADD </button>
+                  <div class="col s4 m4 l4 ">
+                    <b> Model Name:</b>
+                    <select [(ngModel)]="modelname" name="modelname" #model="ngModel" required ngModel class="validate">
+                      <option disabled>--SelectModel Name --</option>
+                      <option *ngFor="let model of final_model_data" [value]="model">{{model}}</option>
+                    </select>
+                    <div *ngIf="model?.touched">
+                      <div class="red-text left" *ngIf="model.errors?.required">
+                        Select Model No Required*
                       </div>
                     </div>
                   </div>
-                
+                  <div class="input-field col s4 m4 l4 mr-t-20">
+                    <input id="category" type="text" class="" [(ngModel)]="qty" name="qty" #qtys="ngModel" pattern="[0-9]+" required ngModel
+                      class="validate">
+                    <label for="category">Add QTY</label>
+                    <div *ngIf="qtys?.touched">
+                      <div class="red-text left" *ngIf="qtys.errors?.required">
+                        Qty Required*
+                      </div>
+                      <div class="red-text left" *ngIf="qtys.errors?.pattern">
+                        Enter Valid Qty*
+                      </div>
+                    </div>
+                    <div class="right-align">
+                      <button class="btn btn-primary" [disabled]="frm1.invalid" type="submit ">ADD </button>
+                    </div>
+                  </div>
+                </div>
+
               </form>
 
             </div>
@@ -70,15 +89,20 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let m of stock |filter:term ;let i =index ">
-                      <!-- <td>{{i+1}}</td> -->
-                      <td>{{i+1}}</td>
-                      <th>
-                        <b>{{m.name}}</b>
-                      </th>
-                      <td>{{m.model_no}}</td>
-                      <td>{{m.qty}}</td>
-                    </tr>
+
+                    <ng-container *ngFor="let s of stock_model |filter:term ;let i =index ">
+                      <ng-container *ngFor="let p of product">
+                        <tr *ngIf="s.product_id == p._id">
+                          <!-- <td>{{i+1}}</td> -->
+                          <td>{{i+1}}</td>
+                          <th>
+                            <b>{{p.name}}</b>
+                          </th>
+                          <td>{{s.model_no}}</td>
+                          <td>{{s.qty}}</td>
+                        </tr>
+                      </ng-container>
+                    </ng-container>
                   </tbody>
                 </table>
               </div>

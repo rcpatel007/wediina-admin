@@ -43,13 +43,22 @@ export class LoginService {
 
   // logout
 
+  sendMail(mail) {
+    //  headers = new Headers();    
+    let headers = new Headers({ 'x-access-token': '' + localStorage.token });
+    return this.http.post('https://jasmatech-backend-api.herokuapp.com/logout', { headers: headers })
+      .pipe(map((response: Response) => {
+        this.token == null;
+        
+        // store username and jwt token in local storage to keep user logged in between page refreshes
+      }));
+  }
   logout() {
     //  headers = new Headers();    
     let headers = new Headers({ 'x-access-token': '' + localStorage.token });
     return this.http.get('https://jasmatech-backend-api.herokuapp.com/logout', { headers: headers })
       .pipe(map((response: Response) => {
         this.token == null;
-        localStorage.removeItem('currentUser');
         
         // store username and jwt token in local storage to keep user logged in between page refreshes
       }));

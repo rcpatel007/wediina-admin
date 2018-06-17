@@ -24,28 +24,28 @@ export class StockService {
 
   // id wise stock get
 
-  getStockById(id) {
+  getStockById(product_id) {
     //  headers = new Headers();    
     let headers = new Headers({ 'x-access-token': '' + this.loginService.token });
-    return this.http.get('https://jasmatech-backend-api.herokuapp.com/stock/' + id, { headers: headers })
+    return this.http.get('https://jasmatech-backend-api.herokuapp.com/stock/' + product_id, { headers: headers })
       .pipe(map(res => res.json()));
 
   }
 
 
   // add stock
- addStock(stock) {
+  addStock(stock) {
     let headers = new Headers({ 'x-access-token': '' + this.loginService.token });
-    return this.http.post('https://jasmatech-backend-api.herokuapp.com/stock/',stock, { headers: headers })
+    return this.http.post('https://jasmatech-backend-api.herokuapp.com/stock/', stock, { headers: headers })
       .pipe(map(res => res.json()));
 
   }
- // edit stock
- editStock(id, qty) {
-  let headers = new Headers({ 'x-access-token': '' + this.loginService.token });
-  return this.http.put('https://jasmatech-backend-api.herokuapp.com/stock/' + id,qty, { headers: headers })
-    .pipe(map(res => res.json()));
+  // edit stock
+  editStock(product_id, stock) {
+    let headers = new Headers({ 'x-access-token': '' + this.loginService.token });
+    return this.http.put('https://jasmatech-backend-api.herokuapp.com/stock_qty/' + product_id, stock, { headers: headers })
+      .pipe(map(res => res.json()));
 
-}
+  }
 
 }

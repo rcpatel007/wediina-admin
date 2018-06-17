@@ -20,7 +20,7 @@
                     </div>
                     <div class="col s8 m8 right-align card-text-contain">
                       <p class="no-margin card-text">New Order</p>
-                      <h5 class="mb-0 card-text-total">{{new_count}}</h5>
+                      <h5 class="mb-0 card-text-total">{{newcount}}</h5>
                     </div>
                   </div>
                 </div>
@@ -33,10 +33,12 @@
                         <i class="fa fa-user-cog"></i>
                       </div>
                     </div>
-                    <div onclick="smoothScroll(document.getElementById('enquiry'))" class="col s8 m8 right-align card-text-contain">
-                      <p class="no-margin card-text">New Enquiries</p>
-                      <h5 class="mb-0 card-text-total">{{enquiry}}</h5>
-                    </div>
+                    <a href="#enquiry">
+                      <div class="col s8 m8 right-align card-text-contain">
+                        <p class="no-margin card-text">New Enquiries</p>
+                        <h5 class="mb-0 card-text-total">{{enquiry}}</h5>
+                      </div>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -89,9 +91,9 @@
                   </div>
                 </div>
                 <div class="col s3 right">
-                    <input type="text" placeholder="Search" id="search" [(ngModel)]="term">
-                  </div>
-  
+                  <input type="text" placeholder="Search By Name or Company Name" id="search" [(ngModel)]="term">
+                </div>
+
                 <table class="display mr-t-90 striped" cellspacing="0" width="100%">
                   <thead>
                     <tr>
@@ -103,13 +105,13 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <ng-container *ngFor="let o of order |filter:term; let i=index ">
-                      <ng-container *ngFor="let a of account">
+                    <ng-container *ngFor="let o of order ; let i=index ">
+                      <ng-container *ngFor="let a of account |filter:term">
                         <tr *ngIf="o.user_id == a._id">
-                          <td>{{i+1}}</td>
-                          <td>{{a.name}}</td>
-                          <td>{{a.company_name}}</td>
-                          <td>{{o.order_date}}</td>
+                          <td [routerLink]="['/vieworder', o._id]">{{i+1}}</td>
+                          <td [routerLink]="['/vieworder', o._id]">{{a.name}}</td>
+                          <td [routerLink]="['/vieworder', o._id]">{{a.company_name}}</td>
+                          <td [routerLink]="['/vieworder', o._id]">{{o.order_date}}</td>
                           <td *ngIf="o_view == true" (click)="viewOrder(o._id) " data-target="view_order" class=" modal-trigger">
                             <i class="fa fa-eye blue-text"></i>
                           </td>
@@ -129,6 +131,10 @@
                     New Enquiries
                   </div>
                 </div>
+                <div class="col s3 right">
+                  <input type="text" placeholder="Search By Name or Company Name" id="search" [(ngModel)]="term1">
+                </div>
+
                 <table id="" class="display mr-t-90 striped" cellspacing="0" width="100%">
                   <thead>
                     <tr>
@@ -136,20 +142,18 @@
                       <th>Name</th>
                       <th>Company</th>
                       <th>Order Date</th>
-                      <th colspan="3">Action</th>
+                      <th colspan="2">Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <ng-container *ngFor="let e of enquriry_data; let i=index ">
-                      <ng-container *ngFor="let a of account">
+                    <ng-container *ngFor="let e of enquriryData; let i=index ">
+                      <ng-container *ngFor="let a of account |filter:term1">
                         <tr *ngIf="e.user_id == a._id">
-                          <td></td>
-                          <td>{{i+1}}</td>
-                          <td>{{a.name}}</td>
-                          <td>{{a.company_name}}</td>
-                          <td>{{e.order_date}}</td>
-
-                          <td *ngIf="o_view == true" (click)="viewOrder(o._id) " data-target="view_order" class=" modal-trigger">
+                          <td [routerLink]="['/vieworder', e._id]">{{i+1}}</td>
+                          <td [routerLink]="['/vieworder', e._id]">{{a.name}}</td>
+                          <td [routerLink]="['/vieworder', e._id]">{{a.company_name}}</td>
+                          <td [routerLink]="['/vieworder', e._id]">{{e.order_date}}</td>
+                          <td *ngIf="o_view == true" (click)="viewOrder(e._id) " data-target="view_order" class=" modal-trigger">
                             <i class="fa fa-eye blue-text"></i>
                           </td>
                         </tr>
@@ -159,6 +163,50 @@
                 </table>
               </div>
               <!-- Enquiries end -->
+              <!-- pendding order -->
+              <div *ngIf="o_view == true" id="enquiry" class="col s12 card mr-t-50  scrollspy">
+                <div class="col s3 m3">
+                  <div class="col s3 m3 section-icon red-back">
+                    <i class="fa fa-shopping-cart"></i>
+                  </div>
+                  <div class="col s9 m9 section-text">
+                    Pendding Order
+                  </div>
+                </div>
+                <div class="col s3 right">
+                  <input type="text" placeholder="Search By Name or Company Name" id="search" [(ngModel)]="term2">
+                </div>
+
+                <table id="" class="display mr-t-90 striped" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>NO</th>
+                      <th>Name</th>
+                      <th>Company</th>
+                      <th>Order Date</th>
+                      <th colspan="2">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container *ngFor="let e of penddingOrder ; let i=index ">
+                      <ng-container *ngFor="let a of account |filter:term2">
+                        <tr *ngIf="e.user_id == a._id">
+
+                          <td [routerLink]="['/vieworder', e._id]">{{i+1}}</td>
+                          <td [routerLink]="['/vieworder', e._id]">{{a.name}}</td>
+                          <td [routerLink]="['/vieworder', e._id]">{{a.company_name}}</td>
+                          <td [routerLink]="['/vieworder', e._id]">{{e.order_date}}</td>
+
+                          <td *ngIf="o_view == true" (click)="viewOrder(e._id) " data-target="view_order" class=" modal-trigger">
+                            <i class="fa fa-eye blue-text"></i>
+                          </td>
+                        </tr>
+                      </ng-container>
+                    </ng-container>
+                  </tbody>
+                </table>
+              </div>
+              <!-- pendding order -->
             </div>
           </div>
         </div>
@@ -199,28 +247,7 @@
   //   // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
   //   $('.modal').modal();
   // });
-
-
-  window.smoothScroll = function (target) {
-    var scrollContainer = target;
-    do { //find scroll container
-      scrollContainer = scrollContainer.parentNode;
-      if (!scrollContainer) return;
-      scrollContainer.scrollTop += 1;
-    } while (scrollContainer.scrollTop == 0);
-
-    var targetY = 0;
-    do { //find the top of target relatively to the container
-      if (target == scrollContainer) break;
-      targetY += target.offsetTop;
-    } while (target = target.offsetParent);
-
-    scroll = function (c, a, b, i) {
-      i++; if (i > 30) return;
-      c.scrollTop = a + (b - a) / 30 * i;
-      setTimeout(function () { scroll(c, a, b, i); }, 20);
-    }
-    // start scrolling
-    scroll(scrollContainer, scrollContainer.scrollTop, targetY, 0);
-  }
+  $(document).ready(function () {
+    $('.scrollspy').scrollSpy();
+  });
 </script>

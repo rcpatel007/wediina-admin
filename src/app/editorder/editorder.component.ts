@@ -4,7 +4,9 @@ import { OrderService } from '../services/order.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
 import { UserService } from '../services/user.service';
-declare var $:any;
+import { StockService } from '../services/stock.service';
+import { log } from 'util';
+declare var $: any;
 
 @Component({
   selector: 'app-editorder',
@@ -14,17 +16,19 @@ declare var $:any;
 export class EditorderComponent implements OnInit {
   user_id: String;
   o_id: string;
+  pid = new Array;
   cust_name: String;
   product_detail = new Array();
   o_date: String;
   d_date: String;
   d_time: String;
   o_discount: String;
-  p_discount:String;
+  p_discount: String;
   status: String;
   methodvalue: String;
   statusvalue: String;
   showHide: boolean;
+  stock = [];
 
 
   // user
@@ -40,6 +44,7 @@ export class EditorderComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private userservice: UserService,
+    private stockservice: StockService,
     private loginservice: LoginService
   ) { }
 
@@ -54,7 +59,7 @@ export class EditorderComponent implements OnInit {
     });
     this.getorderById(this.o_id);
 
-    
+
     $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
     $("script[src='assets/js/materialize.min.js']").remove();
     $("script[src='assets/js/scripts/advanced-ui-modals.js']").remove();
@@ -90,11 +95,14 @@ export class EditorderComponent implements OnInit {
         this.d_time = data._time;
         this.product_detail = data.products;
         this.o_discount = data.o_discount;
-        this.statusvalue = data.statusValue;
+        this.statusvalue = data.status;
         this.methodvalue = data.method;
         console.log(this.product_detail);
+        for (let index = 0; index < data.products.length; index++) {
+          this.pid.push(data.products[index].product_id);
 
-         console.log('helloo'+data.methodvalue);
+        }
+        console.log(this.pid);
         // }
       });
 
@@ -122,28 +130,59 @@ export class EditorderComponent implements OnInit {
       user_id: this.user_id,
       o_discount: this.o_discount,
       status: this.statusvalue,
-       method: this.methodvalue
+      method: this.methodvalue
+    }
+
+    if (this.statusvalue == "Completed") {
+      let modeldata = [];
+      let product_id: String;
+      for (let index = 0; index < this.pid.length; index++) {
+        product_id = this.pid[index];
+        this.stockservice.getStockById(product_id)
+          .subscribe((res) => {
+            for (let secondindex = 0; secondindex < res.length; secondindex++) {
+              if (this.pid[index] == res[secondindex].product_id) {
+                for (let thirdindex = 0; thirdindex < res[secondindex].models.length; thirdindex++) {
+                  for (let fourthindex = 0; fourthindex < this.product_detail.length; fourthindex++) {
+                    res[secondindex].models[thirdindex].qty = res[secondindex].models[thirdindex].qty - this.product_detail[fourthindex].qty;
+                    break;
+
+                  }
+                }
+              }
+              let stock = {
+                models: res[secondindex].models
+              }
+              this.stockservice.editStock(product_id, stock)
+                .subscribe((result) => {
+                  console.log(result);
+                });
+              console.log(stock);
+            }
+          });
+      }
     }
     console.log(updateorder);
     let id = this.o_id;
     // console.log(orderupdate);
-    this.orderService.updateOrder(updateorder,id)
+    this.orderService.updateOrder(updateorder, id)
       .subscribe((res) => {
         this.router.navigate(['vieworder/' + this.o_id]);
+
 
         console.log(res);
       });
   }
   getuser(user_id) {
     let id = localStorage.user_id;
-    console.log('log'+localStorage.user_id);
+    console.log('log' + localStorage.user_id);
     this.userservice.getUserById(id)
       .subscribe((data) => {
         this.d_add = data.dealer.add;
         this.d_edit = data.dealer.edit;
         this.d_view = data.dealer.view;
         this.d_delete = data.dealer.delete;
-  
+
 
         //  console.log(account);
         // console.log(data);

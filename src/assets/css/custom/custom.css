@@ -40,8 +40,18 @@ color: #D6303C;
 .red-back{
 background-color: #D6303C;
 }
+.city-view{
+	height: 300px;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: auto;
+}
+.btn{
 
-
+	background-color: #7AC943 !important;
+	border-radius: 40px !important;
+	margin: 4px 24px !important;
+	padding: -5px 15px;
+}
 .dark-blue-back{
 	background-color: #28669b;
 	}
@@ -62,6 +72,9 @@ background-color: #D6303C;
 .mr-t-90{
 	margin-top: 90px !important;
 
+}
+.mr-r-p-8{
+	margin-right: 8% !important;
 }
 .mr-p-t-4{
 	margin-top: 4%;

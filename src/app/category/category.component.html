@@ -83,7 +83,7 @@
                           <td *ngIf="c_edit == true" data-target="edit_cat" class=" modal-trigger" (click)="getCategoryById(c._id)">
                             <i class="fa fa-pencil-alt orange-text"></i>
                           </td>
-                          <td *ngIf="c_delete == true" (click)="ConfirmDelete(c._id)">
+                          <td *ngIf="c_delete == true" (click)="delete(c._id)">
                             <i class="fa fa-trash red-text"></i>
                           </td>
                         </tr>

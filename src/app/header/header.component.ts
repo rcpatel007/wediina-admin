@@ -207,14 +207,11 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem("token");
-    this.loginService.logout()
+        this.loginService.logout()
       .subscribe(() => {
-
-        localStorage.removeItem(this.loginService.token);
-        localStorage.removeItem('user_id');
+        localStorage.clear();
         // console.log(localStorage.user_id);
-        if (localStorage.user_id === null) {
+        if (this.loginService.token === null) {
         }
         this.router.navigate(["/login"]);
      

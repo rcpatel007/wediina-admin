@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import * as io from 'socket.io-client';
 import { NotificationService } from '../services/notification.service';
+import { ProductService } from '../services/product.service';
 
 declare var $: any;
 
@@ -40,6 +41,7 @@ export class CategoryComponent implements OnInit {
     private userservice: UserService,
     private router: Router,
     private loginservice: LoginService,
+    private productservice:ProductService,
     private notificationService: NotificationService) {
     this.socket = io('https://jasmatech-backend-api.herokuapp.com');
   }
@@ -179,6 +181,27 @@ export class CategoryComponent implements OnInit {
          
         });
    
+  }
+
+  delete(id) {
+    let catid = id;
+  
+    this.productservice.getProduct()
+      .subscribe((Product) => {
+        console.log(Product);
+        let flag = false;
+        for (let index = 0; index < Product.length; index++) {
+          if (catid === Product[index].category_id) {
+            flag = true;
+            alert("This Category Also Exists In Some other Products. So, It Can Not Be Deleted.");
+            break;
+          }
+        }
+
+        if (flag == false) {
+          this.ConfirmDelete(id);
+        }
+      });
   }
 
   /*delete Category */

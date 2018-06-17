@@ -9,7 +9,7 @@
         <div class="section">
           <div id="card-stats">
             <div class="row">
-              <form #frm1="ngForm" (ngSubmit)="addCity()">
+              <form #frm="ngForm" (ngSubmit)="addCity()">
                 <div class="control-headding">CITY SERVED IN</div>
                 <div class="input-field col s12">
                   <textarea id="city_name" type="text" class="materialize-textarea   city_class" name="city_name" [(ngModel)]="city_name" #cityname="ngModel"
@@ -25,7 +25,7 @@
                     <button class="hedding-btn-2"  (click)="cityShow()" > Display City </button>
                   </div> -->
                   <div class="right-align">
-                    <button class="btn btn-primary " [disabled]="frm1.invalid" onclick="Materialize.toast('City ADDED', 3000)" type="submit">Update</button>
+                    <button class="btn btn-primary " [disabled]="frm.invalid" onclick="Materialize.toast('City ADDED', 3000)" type="submit">Update</button>
                   </div>
                 </div>
               </form>
@@ -33,13 +33,10 @@
             <div class="container">
               <div class="section">
                 <div class="row ">
-                  <div class="col s12 m12 l12 card mr-t-50">
+                  <h5>City List</h5>
+
+                  <div class="col s12 m12 l12 card city-view ">
                     <table class="display mr-t-20 striped" cellspacing="0" width="100%">
-                      <thead>
-                        <tr>
-                          <th>City</th>
-                        </tr>
-                      </thead>
                       <tbody>
                         <tr *ngFor="let c of city">
                           <td>{{c.city}}</td>
@@ -148,13 +145,16 @@
               </div>
             </div>
             <div class="input-field col s6">
-              <input id="email" type="text" class="" [(ngModel)]="u_email" name="u_email" #usermail="ngModel" required ngModel class="validate">
+              <input id="email" type="text" class="" [(ngModel)]="u_email" name="u_email" #usermail="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                required ngModel class="validate">
               <label for="email">Email</label>
               <div *ngIf="usermail?.touched">
                 <div class="red-text left" *ngIf="usermail.errors?.required">
                   Email Required*
                 </div>
-
+                <div class="red-text left" *ngIf="usermail.errors?.pattern">
+                  Please Enter valid Email*
+                </div>
               </div>
             </div>
           </div>
@@ -165,7 +165,7 @@
               <label for="credit_demo">Mobile No.</label>
               <div *ngIf="mno?.touched">
                 <div class="red-text left" *ngIf="mno.errors?.required">
-                  Contact No Required*
+                  Contact No. Required*
                 </div>
                 <div [hidden]="!mno?.hasError('minlength')" class="red-text">
                   Please enter valid Contact No
@@ -185,9 +185,14 @@
               </div>
               <br />
               <div class="col s3" *ngFor="let a of role">
-                <input class="with-gap" name="roletype" type="radio" id="{{a.role}}" [value]="a.role" [(ngModel)]="roletype" (change)="getRoleValue(a._id)"
+                <input class="with-gap" name="addroletype" type="radio" id="{{a.role}}" [value]="a.role" [(ngModel)]="addroletype" (change)="getRoleValue(a._id)"
                   #rtype="ngModel" required ngModel class="validate" />
                 <label for="{{a.role}}">{{a.role}}</label>
+                <div *ngIf="rtype?.touched">
+                  <div class="red-text left" *ngIf="rtype.errors?.required">
+                    Role Type Required*
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -330,7 +335,7 @@
 
         </div>
 
-        <div class="modal-footer p-t-15 ">
+        <div class="modal-footer ">
           <a class="modal-action modal-close ">CANCEL</a>
           <button class="modal-action modal-close btn btn-primary" [disabled]="frm1.invalid" onclick="Materialize.toast('New Account ADD', 4000)"
             type="submit">ADD</button>
@@ -359,11 +364,14 @@
             </div>
           </div>
           <div class="input-field col s6">Email:
-            <input id="email" type="text" class="" [(ngModel)]="email" placeholder="Email ID" name="email" #eemail="ngModel" required
-              ngModel class="validate">
+            <input id="email" type="text" class="" [(ngModel)]="email" placeholder="Email ID" name="email" #eemail="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+              required ngModel class="validate">
             <div *ngIf="eemail?.touched">
               <div class="red-text left" *ngIf="eemail.errors?.required">
                 Email Required*
+              </div>
+              <div class="red-text left" *ngIf="eemail.errors?.pattern">
+                Please Enter valid Email*
               </div>
 
             </div>
@@ -375,7 +383,7 @@
               maxlength="10" pattern="[0-9]+" required ngModel class="validate">
             <div *ngIf="emno?.touched">
               <div class="red-text left" *ngIf="emno.errors?.required">
-                Contact No Required*
+                Contact No. Required*
               </div>
               <div [hidden]="!emno?.hasError('minlength')" class="red-text">
                 Please enter valid Contact No
@@ -529,7 +537,7 @@
           </table>
         </div>
       </div>
-      <div class="modal-footer p-t-15 ">
+      <div class="modal-footer ">
         <a class="modal-action modal-close ">CANCEL</a>
         <button class="modal-action modal-close btn btn-primary" [disabled]="frm2.invalid" onclick="Materialize.toast(' Account Updated', 4000)"
           type="submit">Update</button>
@@ -545,9 +553,9 @@
     <div class="modal-content">
       <div class="row">
         <div class="input-field col s12 m12 l12">
-          <input id="roletype" type="text" class="" [(ngModel)]="roletype" name="roletype" #rolename="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
+          <input id="accounttype" type="text" class="" [(ngModel)]="accounttype" name="accounttype" #rolename="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
             required ngModel class="validate">
-          <label for="roletype">Role Type</label>
+          <label for="accounttype">Role Type</label>
           <div *ngIf="rolename?.touched">
             <div class="red-text left" *ngIf="rolename.errors?.required">
               Role Value Required*
@@ -681,7 +689,7 @@
 
 
     </div>
-    <div class="modal-footer p-t-15 ">
+    <div class="modal-footer  ">
       <a class="modal-action modal-close ">CANCEL</a>
       <button class="modal-action modal-close btn btn-primary" [disabled]="frm3.invalid" onclick="Materialize.toast(' Account Type Added', 4000)"
         type="submit">ADD</button>
@@ -831,7 +839,7 @@
         </table>
       </div>
     </div>
-    <div class="modal-footer p-t-15 ">
+    <div class="modal-footer">
       <a class="modal-action modal-close ">CANCEL</a>
       <button class="modal-action modal-close btn btn-primary" [disabled]="frm4.invalid" onclick="Materialize.toast(' Account Type Updated', 4000)"
         type="submit">Update</button>
@@ -875,7 +883,7 @@
         </div>
       </div>
     </div>
-    <div class="modal-footer p-t-15 ">
+    <div class="modal-footer">
       <a class="modal-action modal-close ">CANCEL</a>
       <button class="modal-action modal-close btn btn-primary" [disabled]="frm5.invalid" onclick="Materialize.toast(' Dealer Type Added', 4000)"
         type="submit">ADD</button>
@@ -892,23 +900,23 @@
       <div class="row">
         <div class="input-field col s12 m12 l12">
           <b> Type:</b>
-          <input id="type" type="text" class="" [(ngModel)]="type" name="type" #edealertype="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" required
-            ngModel class="validate">
-            <div *ngIf="edealertype?.touched">
-              <div class="red-text left" *ngIf="edealertype.errors?.required">
-                Dealer Type Required*
-              </div>
-              <div class="red-text left" *ngIf="edealertype.errors?.pattern">
-                Dealer Type is Invalid*
-              </div>
+          <input id="type" type="text" class="" [(ngModel)]="type" name="type" #edealertype="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
+            required ngModel class="validate">
+          <div *ngIf="edealertype?.touched">
+            <div class="red-text left" *ngIf="edealertype.errors?.required">
+              Dealer Type Required*
             </div>
+            <div class="red-text left" *ngIf="edealertype.errors?.pattern">
+              Dealer Type is Invalid*
+            </div>
+          </div>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s3 m3 l3">
           <b>Discount :</b>
-          <input id="disc" type="text" class="" [(ngModel)]="disc" name="disc" #editdisc="ngModel" pattern="[0-9]+" required
-          ngModel class="validate">
+          <input id="disc" type="text" class="" [(ngModel)]="disc" name="disc" #editdisc="ngModel" pattern="[0-9]+" required ngModel
+            class="validate">
           <div *ngIf="editdisc?.touched">
             <div class="red-text left" *ngIf="editdisc.errors?.required">
               Discount Required*
@@ -920,7 +928,7 @@
         </div>
       </div>
     </div>
-    <div class="modal-footer p-t-15 ">
+    <div class="modal-footer">
       <a class="modal-action modal-close ">CANCEL</a>
       <button class="modal-action modal-close btn btn-primary" [disabled]="frm6.invalid" onclick="Materialize.toast(' Dealer Type Updated', 4000)"
         type="submit">ADD</button>

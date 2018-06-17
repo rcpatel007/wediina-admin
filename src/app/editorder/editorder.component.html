@@ -1,107 +1,161 @@
 <div id="main">
-    <!-- START WRAPPER -->
-    <div class="wrapper">
-  <app-header></app-header>
-  
-  <section id="content" class="mr-t-20">
-    <!--start container-->
-    <div class="container">
-      <div class="section">
-            <!--card stats start-->
-            <div id="card-stats">
-                <div class="row">
-                    <div class="col s6 l6 m6">  
-                        <div class="col s2 l2 m2 headding-icon dark-blue-back">
-                              <i class="fa fa-shopping-cart"></i>
-                            </div>
-                            <div class="hedding-text p-l-80">
-                              Order Details
-                            </div>
-                          </div>
-                          <div class="col s6 l6 m6 right-align">
+  <!-- START WRAPPER -->
+  <div class="wrapper">
+    <app-header></app-header>
 
-                            <button class="hedding-btn">Download Data </button>
-                          </div>
-                           
+    <section id="content" class="mr-t-20">
+      <!--start container-->
+      <div class="container">
+        <div class="section">
+          <!--card stats start-->
+          <div id="card-stats">
+            <div class="row">
+              <div class="col s6 l6 m6">
+                <div class="col s2 l2 m2 headding-icon dark-blue-back">
+                  <i class="fa fa-shopping-cart"></i>
+                </div>
+                <div class="hedding-text p-l-80">
+                  Order Details
                 </div>
               </div>
-              <!--card stats end-->
-       
-       <!--DataTables example Row grouping-->
-        <div class="section">
-          <div class="row ">
-            <div class="col s12 card mr-t-50">
-              
-                <div class="container col l6 m6 s6">
-                    <form (ngSubmit)="updateOrder()">
-                        <input type="hidden" name="id" [(ngModel)]="_id">
-                      <div class="form-group">
-                        <label><Strong>Order Discount (%):</Strong></label>
-                        <input type="number" class="form-control" required="required" placeholder="Enter Order Wise Discount" id="o_discount" name="o_discount" [(ngModel)]="o_discount">
-                      </div>
-                      <div class="form-group">
-                        <label><Strong>Delivery/ PickUP Date:</Strong></label>
-                        <input type="date" class="form-control" required="required" placeholder="Enter Name" id="d_date" name="d_date" [(ngModel)]="d_date">
-                       </div>
-                      <div class="form-group">
-                        <label><Strong>Time:</Strong></label>
-                        <input type="time" class="form-control" required="required" placeholder="Enter Name" id="d_time" name="d_time" [(ngModel)]="d_time">
-                      </div>
-                      <div class="form-group">
-                        <label><Strong>Method:</Strong></label>
-                        <select [(ngModel)]="methodvalue" name="methodvalue">
-                            <option id="pickup" name="pickup" value="Pickup">Pickup</option>
-                            <option id="delivery" name="delivery" value="Delivery">Delivery</option>
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label><Strong>Status:</Strong></label>
-                        <select  [(ngModel)]="statusvalue"  name="statusvalue">
-                            <option id="new" name="Received"  class="blue-text" value="Received">Received</option>
-                            <option id="inprocess" name="in process" class="orange-text" value="In process">In Process</option>
-                            <option id="completed" class="green-text" name="completed" value="completed">Completed</option>
-                            <option id="completed" class="red-text" name="Cancel" value="Cancel">Cancel</option>
-                            
-                        </select>
-                      </div>
-                    <br /> <br />
-                      <button type="submit" class="btn btn-default">Update</button>
-                      <br />
-                    </form>
-                    <br />
+              <div class="col s6 l6 m6 right-align">
+
+                <button class="hedding-btn">Download Data </button>
               </div>
-                <div class="col l6 m6 s6">
-                <form (ngSubmit)="updateOrder()" enctype="multipart/form-data">
-                  <table class="table table-bordered striped" id="dataTable" width="100%" cellspacing="0">
-                        <tr class="card-header">
-                          <th>Products</th>
-                          <th>Qty</th>
-                          <th>Unit Price (Rs.)</th>
-                          <th>Discount (%)</th>
-                        </tr>  
-                        <tr *ngFor= "let p of product_detail">
-                            <!-- <input type="number" class="form-control col-lg-6" required="required" placeholder="Enter product_id" id="product_id" name="product_id" value="{{product_id}}"> -->
-                            <td hidden>{{p.product_id}}</td>
-                            <td>{{p.prod_name}}</td>
-                          <td>  {{p.qty}}  </td>
-                          <td> &#x20b9; {{p.price}}</td>
-                          <td><input type="number" class="form-control col-lg-4" required="required" placeholder="Enter Discount" id="p_discount" name="p_discount" [(ngModel)]="p.p_discount">
-                          </td>                
-                        </tr>
-                 </table>
-                  </form>
-              </div>
+
             </div>
- 
-      </div>
+          </div>
+          <!--card stats end-->
+
+          <!--DataTables example Row grouping-->
+          <div class="section">
+            <div class="row ">
+              <div class="col s12 card mr-t-50">
+
+                <div class="container col l6 m6 s6">
+                  <form #frm="ngForm" (ngSubmit)="updateOrder()">
+                    <input type="hidden" name="id" [(ngModel)]="_id">
+                    <div class="form-group">
+                      <label>
+                        <Strong>Order Discount (%):</Strong>
+                      </label>
+                      <input type="number" class="form-control" minlength="0" #disc="ngModel" pattern="[0-9]+" required ngModel class="validate" placeholder="Enter Order Wise Discount"
+                        id="o_discount" name="o_discount" [(ngModel)]="o_discount">
+                      <div *ngIf="disc?.touched">
+                        <div class="red-text left" *ngIf="disc.errors?.required">
+                          Discount Required*
+                        </div>
+                        <div class="red-text left" *ngIf="disc.errors?.pattern">
+                          Discount value is Invalid*
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>
+                        <Strong>Delivery/ PickUP Date:</Strong>
+                      </label>
+                      <input type="date" class="form-control" #dt="ngModel" required ngModel class="validate" placeholder="Enter Name" id="d_date"
+                        name="d_date" [(ngModel)]="d_date">
+                      <div *ngIf="dt?.touched">
+                        <div class="red-text left" *ngIf="dt.errors?.required">
+                          Delivery Date Required*
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>
+                        <Strong>Time:</Strong>
+                      </label>
+                      <input type="time" class="form-control" #dtime="ngModel" required ngModel class="validate" placeholder="Enter Name" id="d_time"
+                        name="d_time" [(ngModel)]="d_time">
+                      <div *ngIf="dtime?.touched">
+                        <div class="red-text left" *ngIf="dtime.errors?.required">
+                          Delivery Time Required*
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>
+                        <Strong>Method:</Strong>
+                      </label>
+                      <select [(ngModel)]="methodvalue" name="methodvalue" #methods="ngModel" required ngModel class="validate">
+                        <option id="pickup" name="pickup" value="Pickup">Pickup</option>
+                        <option id="delivery" name="delivery" value="Delivery">Delivery</option>
+                      </select>
+                      <div *ngIf="methods?.touched">
+                        <div class="red-text left" *ngIf="methods.errors?.required">
+                          Please Select Delivery Method*
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>
+                        <Strong>Status:</Strong>
+                      </label>
+                      <select [(ngModel)]="statusvalue" name="statusvalue"  #st="ngModel" required ngModel class="validate">
+                        <option id="new" name="Received" class="blue-text" value="Received">Received</option>
+                        <option id="inprocess" name="in process" class="orange-text" value="In process">In Process</option>
+                        <option id="completed" class="green-text" name="completed" value="completed">Completed</option>
+                        <option id="completed" class="red-text" name="Cancel" value="Cancel">Cancel</option>
+                      </select>
+                      <div *ngIf="st?.touched">
+                        <div class="red-text left" *ngIf="st.errors?.required">
+                          Please Select Status Value*
+                        </div>
+
+                      </div>
+                    </div>
+                    <br />
+                    <br />
+                    <button type="submit" class="btn btn-primary" [disabled]="frm.invalid">Update</button>
+                    <br />
+                  </form>
+                  <br />
+                </div>
+                <div class="col l6 m6 s6">
+                  <form (ngSubmit)="updateOrder()" enctype="multipart/form-data">
+                    <table class="table table-bordered striped" id="dataTable" width="100%" cellspacing="0">
+                      <tr class="card-header">
+                        <th>Products</th>
+                        <th>Qty</th>
+                        <th>Unit Price (Rs.)</th>
+                        <th>Discount (%)</th>
+                      </tr>
+                      <tr *ngFor="let p of product_detail">
+                        <!-- <input type="number" class="form-control col-lg-6" #productName="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
+                          required ngModel class="validate" placeholder="Enter product_id" id="product_id" name="product_id" value="{{product_id}}"> -->
+                        <td hidden>{{p.product_id}}</td>
+                        <td>{{p.prod_name}}</td>
+                        <td> {{p.qty}} </td>
+                        <td> &#x20b9; {{p.price}}</td>
+                        <td>
+                          <input type="number" class="form-control col-lg-4" minlength="0" #pdisc="ngModel" pattern="[0-9]+" required ngModel class="validate" placeholder="Enter Discount"
+                            id="p_discount" name="p_discount" [(ngModel)]="p.p_discount">
+                            <div *ngIf="pdisc?.touched">
+                              <div class="red-text left" *ngIf="pdisc.errors?.required">
+                                Enter Discount Value*
+                              </div>
+      
+                            </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </form>
+                </div>
+              </div>
+
+            </div>
+          </div>
         </div>
+
       </div>
-    
-    </div>
-    
-    <!--end container-->
-  </section>
-  
-  
+
+      <!--end container-->
+    </section>
+
+
   </div>
-  </div>
+</div>

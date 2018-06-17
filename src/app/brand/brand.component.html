@@ -34,7 +34,7 @@
                       </div>
                     </div>
                   </div>
-                  <button class="hedding-btn btn btn-primary" [disabled]="frm.invalid" onclick="Materialize.toast('brand ADDED', 3000)" type="submit">ADD </button>
+                  <button class=" btn btn-primary" [disabled]="frm.invalid" onclick="Materialize.toast('brand ADDED', 3000)" type="submit">ADD </button>
                 </div>
               </form>
             </div>
@@ -64,7 +64,7 @@
                       <td *ngIf="b_edit == true" data-target="edit_brand" class=" modal-trigger" (click)="getBrandById(b._id) ">
                         <i class="fa fa-pencil-alt orange-text"></i>
                       </td>
-                      <td *ngIf="b_delete == true" (click)="ConfirmDelete(b._id)">
+                      <td *ngIf="b_delete == true" (click)="delete(b._id)">
                         <i class="fa fa-trash red-text "></i>
                       </td>
                     </tr>

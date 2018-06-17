@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieService } from 'angular2-cookie/services/cookies.service';
 // import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+// import { Ng2CompleterModule } from "ng2-completer";
+// import { Ng2SimpleAutocomplete } from 'ng2-simple-autocomplete';  
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -41,6 +43,8 @@ import { ViewproductComponent } from './viewproduct/viewproduct.component';
 import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
 import { NotificationComponent } from './notification/notification.component';
 import { StockmanagementComponent } from './stockmanagement/stockmanagement.component';
+import { AddorderComponent } from './addorder/addorder.component';
+import { CartService } from './services/cart.service';
 
 const appRoutes = [
   { path: '', component: LoginComponent },
@@ -49,6 +53,7 @@ const appRoutes = [
   { path: 'header', component: HeaderComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'order', component: OrderComponent },
+  { path: 'addorder', component: AddorderComponent },
   { path: 'addproduct', component: AddProductComponent },
   { path: 'editproduct/:id', component: EditproductComponent },
   { path: 'viewproduct/:id', component: ViewproductComponent },
@@ -87,12 +92,15 @@ const appRoutes = [
     ForgetpasswordComponent,
     NotificationComponent,
     StockmanagementComponent,
+    AddorderComponent,
+    // Ng2SimpleAutocomplete,
   ],
   imports: [
     BrowserModule,
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
+    // Ng2CompleterModule,
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
     Ng2SearchPipeModule
@@ -109,6 +117,7 @@ const appRoutes = [
     RoleService,
     UserService,
     CityService,
+    CartService,
     NotificationService,
     Globals
   ],

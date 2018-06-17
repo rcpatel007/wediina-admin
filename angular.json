@@ -25,6 +25,7 @@
             "styles": [
               "src/assets/css/themes/collapsible-menu/materialize.css",
               "src/assets/css/themes/collapsible-menu/style.css",
+              "src/assets/css/custom/custom.css",
               "src/assets/vendors/perfect-scrollbar/perfect-scrollbar.css",
               "src/assets/vendors/jvectormap/jquery-jvectormap.css",
               "src/assets/vendors/flag-icon/css/flag-icon.min.css",
@@ -49,7 +50,8 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
+              
+               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
               "extractCss": true,

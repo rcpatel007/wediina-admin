@@ -23,18 +23,18 @@ declare var $: any;
 export class DashboardComponent implements OnInit {
 
   user_id: String;
-  new_count: any;
+  newcount: any;
   pendding: any;
   enquiry: any;
   complate: any;
   order_count: any;
   order = new Array;
+  penddingOrder =new Array;
   account: Account[];
   product_details = new Array();
   auth: any;
-  enquriry_data =new Array;
-  co: String = '1';
-
+  enquriryData = new Array;
+ 
   // user
 
   o_add: boolean;
@@ -72,16 +72,16 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    
-    if (this.loginservice.token == null) {
+
+    if (localStorage.user_id == null) {
       this.router.navigate(["/login"]);
     }
     // this.auth = {"email": this.loginservice.token,"token": this.loginservice.token}  
     this.getOrder();
     this.getAccount();
     this.getuser(this.user_id);
-  
-  
+
+
     $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
     $("script[src='assets/js/materialize.min.js']").remove();
     $("script[src='assets/js/scripts/advanced-ui-modals.js']").remove();
@@ -128,7 +128,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getOrder() {
-    this.new_count = 0;
+    this.newcount = 0;
     this.pendding = 0;
     this.enquiry = 0;
     this.complate = 0;
@@ -139,21 +139,24 @@ export class DashboardComponent implements OnInit {
 
         for (let i = 0; i < Order.length; i++) {
           if (Order[i].status == 'Received') {
-            this.new_count = this.new_count + 1;
+           
             this.order.push(Order[i]);
-              
+            this.newcount = this.newcount + 1;
             console.log(this.order);
+            console.log(this.newcount);
+            
           }
-          if (Order[i].enquiry == true) {
+          else if (Order[i].enquiry == true) {
             this.enquiry = this.enquiry + 1;
             // console.log(this.order_count);
-            this.enquriry_data.push(Order[i]);
+            this.enquriryData.push(Order[i]);
           }
-          if (Order[i].status == 'pending') {
+         else if (Order[i].status == 'In process') {
             this.pendding = this.pendding + 1;
+            this.penddingOrder.push(Order[i]);
             // console.log(this.order_count);
           }
-          if (Order[i].status == 'completed') {
+          else if (Order[i].status == 'completed') {
             this.complate = this.complate + 1;
             // console.log(this.order_count);
           }

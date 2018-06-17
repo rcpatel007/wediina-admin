@@ -56,7 +56,7 @@ export class InventoryComponent implements OnInit {
     private categoryservice: CategoryService) { }
 
   ngOnInit() {
-    
+
     $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
     $("script[src='assets/js/materialize.min.js']").remove();
     $("script[src='assets/js/scripts/advanced-ui-modals.js']").remove();
@@ -231,9 +231,27 @@ export class InventoryComponent implements OnInit {
       });
   }
 
+
+  delete(id) {
+    let pid = id;
+    console.log(" id " + pid);
+
+    this.productservice.getProductById(id)
+      .subscribe((Product) => {
+        console.log(Product);
+        let flag = true;
+        if (Product.model_info.length > 0) {
+          alert("This Product Also Exists In Some other MOdels. So, It Can Not Be Deleted.");
+          flag = false;
+        }
+        else {
+          this.ConfirmDelete(id);
+        }
+      });
+  }
   /*delete brand */
   ConfirmDelete(id) {
-    var x = confirm("Are you sure you want to delete?" + id);
+    var x = confirm("Are you sure you want to delete?");
     if (x) {
       return this.deleteProduct(id);
     }
@@ -245,7 +263,7 @@ export class InventoryComponent implements OnInit {
     this.productservice.deleteProduct(id)
       .subscribe(result => {
         console.log(result);
-        this.getProduct()
+        this.getProduct();
       });
   }
 
