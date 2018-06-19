@@ -182,11 +182,10 @@ export class StockmanagementComponent implements OnInit {
         let flag = false;
         // console.log(id);
         if (res.length > 0) {
-          for (let i = 0; i < res[0].length; i++) {
-            if (product_id == res[0].product_id) {
+          for (let i = 0; i < res[0].models.length; i++) {
+            if (res[0].models[i].model_no == this.modelname) {
               res[0].models[i].qty = Number(res[0].models[i].qty) + Number(this.qty);
               flag = true;
-              // console.log(tempcart.products[i].qty);
               break;
             }
             // console.log(res[0]);

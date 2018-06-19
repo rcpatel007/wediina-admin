@@ -19,7 +19,6 @@ export class LoginService {
   // this.email = currentUser && currentUser.email; 
 
   userLogin(user) {
-
     let headers = new Headers();
     return this.http.post('https://jasmatech-backend-api.herokuapp.com/validate_user_login', user, { headers: headers })
       .pipe(map((response: Response) => {

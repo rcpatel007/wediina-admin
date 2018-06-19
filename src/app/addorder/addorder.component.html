@@ -89,8 +89,7 @@
                       <th>Model No</th>
                       <th>Price</th>
                       <th>Qty</th>
-                      <th>Discount</th>
-
+                   
                     </thead>
                     <tbody>
                       <td>
@@ -149,18 +148,7 @@
                           </div>
                         </div>
                       </td>
-                      <td>
-                        <input type="text" [(ngModel)]="discount" name="discount" placeholder="discount" #disc="ngModel" pattern="[0-9]+" required
-                          ngModel class="validate">
-                        <div *ngIf="disc?.touched">
-                          <div class="red-text left" *ngIf="disc.errors?.required">
-                            Discount Required*
-                          </div>
-                          <div class="red-text left" *ngIf="disc.errors?.pattern">
-                            Enter Valid Discount*
-                          </div>
-                        </div>
-                      </td>
+                   
                       <td>
                         <button class="btn btn-primary" type="submit" [disabled]="frm.invalid">add</button>
                       </td>
@@ -213,7 +201,7 @@
                
               </div>
               <div class="center">
-                  <button class="btn btn-primary"[disabled]="grandtotal == 0" (click)="sendOrder()"> Submit Order</button>
+                  <button class="btn btn-primary" [disabled]="grandtotal == 0" (click)="sendOrder()"> Submit Order</button>
                 </div>
             </div>
           </div>

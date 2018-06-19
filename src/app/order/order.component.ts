@@ -125,7 +125,6 @@ export class OrderComponent implements OnInit {
     this.userservice.getUserById(id)
       .subscribe((data) => {
         //  console.log(account);
-
         this.o_add = data.order.add;
         this.o_edit = data.order.edit;
         this.o_view = data.order.view;

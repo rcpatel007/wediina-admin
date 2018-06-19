@@ -90,6 +90,7 @@
                   <table class="striped" id="dataTable" width="100%" cellspacing="0">
                     <tr class="card-header">
                       <th>Products</th>
+                      <th>Model No</th>
                       <th>Qty</th>
                       <th>Unit Price (&#x20b9;)</th>
                       <th>Amount</th>
@@ -100,6 +101,7 @@
                     </tr>
                     <tr *ngFor="let p of product_detail" class="b-b">
                       <td>{{p.prod_name}}</td>
+                      <td>{{p.model_no}}</td>
                       <td>{{p.qty}} </td>
                       <td>{{p.price}}</td>
                       <td>{{(p.price * p.qty)}}</td>

@@ -77,6 +77,8 @@ export class DealerComponent implements OnInit {
     if (this.loginservice.token === null) {
       this.router.navigate(["/login"]);
     }
+
+  console.log(this.loginservice.token);
     // this.auth = { "email": this.globals.email, "token": this.loginservice.token }
     this.viewaccount();
     this.getRole();
@@ -163,7 +165,7 @@ export class DealerComponent implements OnInit {
   }
 
   addDealer() {
-    let add = {'office': [this.address],'warehouse':[],'other':[]};
+    let add = { 'office': [this.address], 'warehouse': [], 'other': [] };
 
     let add_dealer = {
       name: this.name,
@@ -183,7 +185,7 @@ export class DealerComponent implements OnInit {
         let event_id = "de_" + res.data._id;
 
         let notification = {
-          title: "Add New Dealer" + this.name,
+          title: "Add New Dealer :" + this.name,
           user_id: localStorage.user_id,
           event_id: event_id,
           date_time: date_time,
@@ -208,17 +210,13 @@ export class DealerComponent implements OnInit {
         this.gst = null;
         this.type = null;
         this.discount = null;
-
         // this.add_dealer.nativeElement.click();
         this.viewaccount();
-
       });
-
   }
 
   editDealer() {
-
-    let edit_dealer = {
+    let account = {
       name: this.e_name,
       company_name: this.e_cnm,
       email: this.e_email,
@@ -229,42 +227,39 @@ export class DealerComponent implements OnInit {
       discount: this.e_discount
     }
     let id = this.id;
-    console.log(edit_dealer );
+    console.log(account);
 
-console.log(id);
-    // this.accountservice.editAccount(id, edit_dealer)
-    //   .subscribe((res) => {
-    //     console.log(res);
+    console.log(id);
+    this.accountservice.editAccount(id, account)
+      .subscribe((res) => {
+        console.log(res);
 
-    //     let date_time = Date.now();
-    //     let event_id = "de_" + res.data._id;
+        let date_time = Date.now();
+        let event_id = "de_" + res.data._id;
+        let notification = {
+          title: "Edit Dealer : " + this.name,
+          user_id: localStorage.user_id,
+          event_id: event_id,
+          date_time: date_time,
+          read: false
+        }
+        // console.log(notification);
+        this.socket.emit('new-event', { data: account });
+        this.notificationService.addNotification(notification)
+          .subscribe(() => {
+          });
 
-    //     let notification = {
-    //       title: "Edit Dealer : " + this.name,
-    //       user_id: localStorage.user_id,
-    //       event_id: event_id,
-    //       date_time: date_time,
-    //       read: false
-
-    //     }
-    //     // console.log(notification);
-    //     this.socket.emit('new-event', { data: edit_dealer });
-    //     this.notificationService.addNotification(notification)
-    //       .subscribe(() => {
-
-    //       });
-
-    //     // console.log(add_dealer);
-    //     this.name = null;
-    //     this.cnm = null;
-    //     this.email = null;
-    //     this.mno = null;
-    //     this.selectedValue = null;
-    //     this.gst = null;
-    //     this.type = null;
-    //     this.discount = null;
-    //     this.viewaccount();
-    //   });
+        // console.log(add_dealer);
+        this.name = null;
+        this.cnm = null;
+        this.email = null;
+        this.mno = null;
+        this.selectedValue = null;
+        this.gst = null;
+        this.type = null;
+        this.discount = null;
+        this.viewaccount();
+      });
   }
   getuser() {
     let id = localStorage.user_id;
@@ -278,7 +273,4 @@ console.log(id);
         //  console.log(account);
       });
   }
-
-
-
 }

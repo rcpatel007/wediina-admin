@@ -146,7 +146,7 @@ export class BrandComponent implements OnInit {
         let event_id = "br_" + data._id;
 
         let notification = {
-          title: "Edit Brand :" + this.name,
+          title: "Edit Brand : " + this.name,
           user_id: localStorage.user_id,
           event_id: event_id,
           name: this.name,

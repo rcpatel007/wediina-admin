@@ -34,21 +34,19 @@
           <div class="row margin">
             <div class="input-field col s12 margin">
               <i class="material-icons prefix pt-5">lock_outline</i>
-              <input id="pwd" type="password" name="pwd" [(ngModel)]="pwd" #password="ngModel"required
-              ngModel class="validate">
+              <input id="pwd" type="password" name="pwd" [(ngModel)]="pwd" #password="ngModel" required ngModel class="validate">
               <label for="pwd">Password</label>
               <div *ngIf="password?.touched">
                 <div class="red-text left" *ngIf="password.errors?.required">
                   Password Required*
                 </div>
-                
               </div>
             </div>
           </div>
 
           <div class="row center-align">
             <div class="input-field col s12">
-              <button type="submit" class="login-btn"  [disabled]="frm.invalid">Login</button>
+              <button type="submit" class="login-btn" [disabled]="frm.invalid">Login</button>
             </div>
             <div class="input-field col s12">
               <button class="forget-btn" [routerLink]="['/forgerPassword']">Forget Password</button>

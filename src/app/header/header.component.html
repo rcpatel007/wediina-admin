@@ -5,7 +5,7 @@
     <nav class="navbar-color">
       <div class="nav-wrapper">
         <div class="center-align">
-          <a href="javascript:void(0);" class=" right-align notification-button" data-activates="notifications-dropdown">
+          <a (click)="view_notification();" class=" right-align notification-button">
             <i class="fa fa-bell ">
               <small class="notification-badge">{{read}}</small>
             </i>
@@ -22,7 +22,8 @@
             <li *ngIf=" n.read == false" (click)="view(n.event_id, n._id);">
               <a href="javascript:void(0);" class="grey-text text-darken-2">
                 <i class="fa fa-long-arrow-down fa-fw"></i>
-                {{n.title}}</a>
+                {{n.title}}
+              </a>
             </li>
           </ng-container>
           <li class="divider"></li>
@@ -65,8 +66,8 @@
     <li class="no-padding">
       <ul class="collapsible">
 
-        <li class="bold" [routerLink]="['/dashboard']">
-          <div class="collapsible-header  waves-effect">
+        <li class="bold" [routerLinkActive]="['collapsible-header:active']" [routerLink]="['/dashboard']">
+          <div class="collapsible-header  waves-effect ">
             <i class="fa fa-home"></i>
             <span class="nav-text">Dashboard</span>
           </div>
@@ -83,7 +84,9 @@
             <li class="bold">
               <div class="collapsible-header  waves-effect" data-collapsible="accordion">
                 <i class="fa fa-boxes"></i>
-                <span class="nav-text">Inventory</span>
+                <span class="nav-text">Inventory <i class="fa fa-angle-down" style="font-size: 16px;
+                  text-align: right;
+                  margin-left: 40px;"></i></span>
               </div>
               <div class="collapsible-body">
                 <ul class="collapsible" data-collapsible="accordion">

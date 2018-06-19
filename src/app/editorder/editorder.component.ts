@@ -87,7 +87,7 @@ export class EditorderComponent implements OnInit {
     let id = this.o_id;
     this.orderService.viewOrder(id)
       .subscribe(data => {
-        console.log(data);
+        // console.log(data);
         this.user_id = data.user_id;
         this.o_id = data._id;
         this.o_date = data.order_date;
@@ -97,9 +97,9 @@ export class EditorderComponent implements OnInit {
         this.o_discount = data.o_discount;
         this.statusvalue = data.status;
         this.methodvalue = data.method;
-        console.log(this.product_detail);
-        for (let index = 0; index < data.products.length; index++) {
-          this.pid.push(data.products[index].product_id);
+        // console.log(this.product_detail);
+        for (let index = 0; index < this.product_detail.length; index++) {
+          this.pid.push(this.product_detail[index].prodcut_id);
 
         }
         console.log(this.pid);
@@ -132,37 +132,36 @@ export class EditorderComponent implements OnInit {
       status: this.statusvalue,
       method: this.methodvalue
     }
+    let modeldata = [];
+    for (let index = 0; index < this.product_detail.length; index++) {
+      this.stockservice.getStockById(this.product_detail[index].prodcut_id)
+        .subscribe((res) => {
+          // console.log(res);
+          for (let secondindex = 0; secondindex < res[0].models.length; secondindex++) {
+            if (this.product_detail[index].model_no == res[0].models[secondindex].model_no) {
+              // console.log(res[0].models[secondindex]);
+              res[0].models[secondindex].qty = res[0].models[secondindex].qty - this.product_detail[index].qty;
 
-    if (this.statusvalue == "Completed") {
-      let modeldata = [];
-      let product_id: String;
-      for (let index = 0; index < this.pid.length; index++) {
-        product_id = this.pid[index];
-        this.stockservice.getStockById(product_id)
-          .subscribe((res) => {
-            for (let secondindex = 0; secondindex < res.length; secondindex++) {
-              if (this.pid[index] == res[secondindex].product_id) {
-                for (let thirdindex = 0; thirdindex < res[secondindex].models.length; thirdindex++) {
-                  for (let fourthindex = 0; fourthindex < this.product_detail.length; fourthindex++) {
-                    res[secondindex].models[thirdindex].qty = res[secondindex].models[thirdindex].qty - this.product_detail[fourthindex].qty;
-                    break;
-
-                  }
-                }
-              }
-              let stock = {
-                models: res[secondindex].models
-              }
-              this.stockservice.editStock(product_id, stock)
+              let prodcut_id = this.product_detail[index].prodcut_id;
+              //  console.log();
+              let stock = [];
+              let models = { models: res[0].models }
+              console.log(models);
+              this.stockservice.editStock(prodcut_id, models)
                 .subscribe((result) => {
                   console.log(result);
                 });
-              console.log(stock);
+                
             }
-          });
-      }
+          }
+          // console.log(res[0].models);
+        });
     }
-    console.log(updateorder);
+
+
+
+    // let flag: boolean;
+    // console.log(updateorder);
     let id = this.o_id;
     // console.log(orderupdate);
     this.orderService.updateOrder(updateorder, id)
@@ -170,12 +169,12 @@ export class EditorderComponent implements OnInit {
         this.router.navigate(['vieworder/' + this.o_id]);
 
 
-        console.log(res);
-      });
+    console.log(res);
+    });
   }
   getuser(user_id) {
     let id = localStorage.user_id;
-    console.log('log' + localStorage.user_id);
+    // console.log('log' + localStorage.user_id);
     this.userservice.getUserById(id)
       .subscribe((data) => {
         this.d_add = data.dealer.add;

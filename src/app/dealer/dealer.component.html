@@ -308,16 +308,16 @@
               <div class=" col s12">
                 <div class="">
                   <h6>TYPE:</h6>
-                  <div *ngIf="etype?.touched">
-                    <div class="red-text left" *ngIf="etype.errors?.required">
+                  <div *ngIf="edittype?.touched">
+                    <div class="red-text left" *ngIf="edittype.errors?.required">
                       Dealer Type Required*
                     </div>
                   </div>
                 </div>
                 <br />
                 <div class="col s3" *ngFor="let a of role">
-                  <input class="with-gap" type="radio" id="{{a.type}}" value="{{a.type}}" name="type" [(ngModel)]="type" (change)="getRoleValue(a._id)"
-                    #etype="ngModel" required ngModel class="validate" />
+                  <input class="with-gap" type="radio" id="{{a.type}}" value="{{a.type}}" name="e_type" [(ngModel)]="e_type" (change)="getRoleValue(a._id)"
+                    #edittype="ngModel" required ngModel class="validate" />
                   <label for="{{a.type}}">{{a.type}}</label>
                 </div>
               </div>

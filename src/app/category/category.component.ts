@@ -163,7 +163,7 @@ export class CategoryComponent implements OnInit {
           console.log(res);
 
           let notification = {
-            title: "new Category Add" + this.ename,
+            title: "new Category Add : " + this.ename,
             user_id: localStorage.user_id,
             event_id: event_id,
             date_time: date_time,

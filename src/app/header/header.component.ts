@@ -34,6 +34,7 @@ export class HeaderComponent implements OnInit {
   i_view: boolean;
   b_view: boolean;
   c_view: boolean;
+  counter:boolean=false;
 
   constructor(private router: Router,
     private userservice: UserService,
@@ -212,12 +213,22 @@ export class HeaderComponent implements OnInit {
         localStorage.clear();
         // console.log(localStorage.user_id);
         if (this.loginService.token === null) {
-        }
+        
         this.router.navigate(["/login"]);
-     
+        }
       });
 
   }
 
+  view_notification(){
+if(this.counter==false){
+  document.getElementById('notifications-dropdown').style.display="block";
+  this.counter=true;
+}else{
+  document.getElementById('notifications-dropdown').style.display="none";
+  this.counter=false;
+}
+  
+  }
 
 }

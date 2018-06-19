@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
 
   }
 
-  userLogin() {
+  userLogin() { 
     // this.globals.email = this.email;
     if (this.email == null || this.pwd == null) {
       this.msg = null;

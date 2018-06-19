@@ -99,11 +99,11 @@ export class VieworderComponent implements OnInit {
         //  console.log(this.product_detail);
         for (let i = 0; i < this.product_detail.length; i++) {
           this.p_discount_total = (this.product_detail[i].price * this.product_detail[i].qty) - (this.product_detail[i].price * this.product_detail[i].qty) * this.product_detail[i].p_discount / 100;
-          this.sub_total = this.sub_total + this.p_discount_total;
+          this.sub_total = Math.round(this.sub_total + this.p_discount_total);
           // console.log(this.sub_total);
 
         }
-        this.o_discount_total = this.sub_total * data.o_discount / 100;
+        this.o_discount_total = Math.round(this.sub_total * data.o_discount / 100);
         this.grand_total = Math.round(this.sub_total - this.o_discount_total);
 
         //  console.log(this.o_discount_total);

@@ -4,7 +4,7 @@ import { LoginService } from '../services/login.service';
 import { Order } from '../model/Order';
 import { Globals } from '../../globals';
 import { environment } from '../../environments/environment';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd  } from '@angular/router';
 import { CategoryService } from '../services/category.service';
 import { Category } from '../model/category';
 import { Account } from '../model/Dealer';
@@ -68,6 +68,17 @@ export class DashboardComponent implements OnInit {
     private userservice: UserService,
     private accountservice: AccountService,
     private globals: Globals) {
+      // router.events.subscribe(s => {
+      //   if (s instanceof NavigationEnd) {
+      //     const tree = router.parseUrl(router.url);
+      //     if (tree.fragment) {
+      //       const element = document.querySelector("#" + tree.fragment);
+      //       if (element) { element.scrollIntoView(true); }
+      //     }
+        
+      // });
+  
+    
 
   }
 
@@ -104,6 +115,9 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  goTo(location: string): void {
+    window.location.hash = location;
+}
   getuser(user_id) {
     let id = localStorage.user_id;
     // let id = localStorage.user_id;
