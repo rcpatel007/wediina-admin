@@ -21,7 +21,7 @@
               </div>
               <div class="col s6 l6 m6 right-align">
                 <button *ngIf="d_add == true" data-target="add_dealer" class="hedding-btn-2 modal-trigger">Add Dealer </button>
-                <button class="hedding-btn">Download Data </button>
+                <button class="hedding-btn" (click)="printContent('dealer-download')">Download Data </button>
               </div>
 
             </div>
@@ -30,12 +30,12 @@
           <!--DataTables example Row grouping-->
           <div class="section">
             <div class="row ">
-              <div class="col s12 card mr-t-50">
+              <div class="col s12 card mr-t-50" id="dealer-download">
                 <div class="col s3 right">
                   <input type="text" placeholder="Search" id="search" [(ngModel)]="term">
                 </div>
 
-                <table id="" class="display mr-t-20 striped" cellspacing="0" width="100%">
+                <table  class="display mr-t-20 striped" cellspacing="0" width="100%">
                   <thead>
                     <tr>
                       <th>No</th>
@@ -316,7 +316,7 @@
                 </div>
                 <br />
                 <div class="col s3" *ngFor="let a of role">
-                  <input class="with-gap" type="radio" id="{{a.type}}" value="{{a.type}}" name="e_type" [(ngModel)]="e_type" (change)="getRoleValue(a._id)"
+                  <input class="with-gap overlay" type="radio" id="{{a.type}}" value="{{a.type}}" name="e_type" [(ngModel)]="e_type" (change)="getRoleValue(a._id)"
                     #edittype="ngModel" required ngModel class="validate" />
                   <label for="{{a.type}}">{{a.type}}</label>
                 </div>
@@ -400,7 +400,7 @@
     </div>
   </div>
 
-  <script>
+  <script type="text/javascript">
     $(document).ready(function () {
       $('.modal').modal();
     });
