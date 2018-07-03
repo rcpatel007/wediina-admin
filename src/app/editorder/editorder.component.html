@@ -30,7 +30,7 @@
 
                 <div class="container col l6 m6 s6">
                   <form #frm="ngForm" (ngSubmit)="updateOrder()">
-                    <input type="hidden" name="id" [(ngModel)]="_id">
+                    <input type="hidden" name="id" [(ngModel)]="o_id">
                     <div class="form-group">
                       <label>
                         <Strong>Order Discount (%):</Strong>

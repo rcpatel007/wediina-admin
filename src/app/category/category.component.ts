@@ -20,7 +20,7 @@ declare var $: any;
 })
 export class CategoryComponent implements OnInit {
   socket;
-
+  term:String;
   user_id: String;
   brand: Brand[];
   category: Category[];

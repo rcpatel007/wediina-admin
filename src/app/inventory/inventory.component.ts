@@ -43,10 +43,10 @@ export class InventoryComponent implements OnInit {
   key: String;
   catValue: any;
   cityValue: any;
-  i_add: String;
-  i_view: String;
-  i_edit: String;
-  i_delete: String;
+  i_add: boolean;
+  i_view: boolean;
+  i_edit: boolean;
+  i_delete: boolean;
 
   constructor(private router: Router,
     private productservice: ProductService,

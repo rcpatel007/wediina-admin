@@ -21,7 +21,7 @@ declare var $: any;
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
+  term:String;
   user_id: String;
   newcount: any;
   pendding: any;

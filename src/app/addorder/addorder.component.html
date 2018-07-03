@@ -35,7 +35,7 @@
                               </mat-option>
                             </mat-autocomplete>
                           </mat-form-field> -->
-                          <select [(ngModel)]="user" name="user" #cnm="ngModel" (click)="getUser(user)" required ngModel class="validate">  
+                          <select [(ngModel)]="userid" name="userid" #cnm="ngModel" (click)="getUser(userid)" required ngModel class="validate">  
                             <option value="" disabled selected>Select Company Name</option>
                             <option *ngFor="let c of dealer" value="{{c._id}}">{{c.company_name}}</option>
                           </select>

@@ -28,7 +28,7 @@ declare var $: any;
 export class DealerComponent implements OnInit {
   @ViewChild('add_dealer') add_dealer: ElementRef;
   socket;
-
+  term: String;
   cont = "l";
   user_id: String;
   id: String;
@@ -209,7 +209,7 @@ export class DealerComponent implements OnInit {
 
   addDealer() {
 
-    let address_city = this.address + ":" + this.selectedValue +":"+ this.satateValue;
+    let address_city = this.address + ":" + this.selectedValue + ":" + this.satateValue;
     let add = { 'office': [address_city], 'warehouse': [], 'other': [] };
 
     let add_dealer = {

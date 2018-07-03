@@ -16,6 +16,7 @@ declare var $: any;
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
+  term:String;
   user_id: String;
   count: any;
   auth: any;

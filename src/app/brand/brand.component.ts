@@ -23,7 +23,7 @@ declare var $: any;
 })
 export class BrandComponent implements OnInit {
   socket;
-
+  term:String;
   user_id: String;
   auth: any;
   brand: Brand[];

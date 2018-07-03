@@ -18,7 +18,7 @@ declare var $: any;
   styleUrls: ['./stockmanagement.component.css']
 })
 export class StockmanagementComponent implements OnInit {
-
+  term:String;
   stock: Stock[];
   stock_model = new Array;
   productvalue: String;

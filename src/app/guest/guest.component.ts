@@ -17,6 +17,7 @@ declare var $: any;
 export class GuestComponent implements OnInit {
   auth: any;
   guest: Guest[];
+  term:String;
 
   constructor(private router: Router,
     private loginservice: LoginService,
