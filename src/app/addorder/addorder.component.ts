@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BrandService } from '../services/brand.service';
-import { Brand } from '../model/brand';
+import { Brand } from '../model/Brand';
 import { LoginService } from '../services/login.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 

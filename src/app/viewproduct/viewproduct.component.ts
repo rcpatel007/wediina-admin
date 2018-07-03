@@ -4,7 +4,7 @@ import { LoginService } from '../services/login.service';
 import { ProductService } from '../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../model/Product';
-import { Category } from '../model/category';
+import { Category } from '../model/Category';
 import { CategoryService } from '../services/category.service';
 
 declare var $:any;

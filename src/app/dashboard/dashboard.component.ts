@@ -6,7 +6,7 @@ import { Globals } from '../../globals';
 import { environment } from '../../environments/environment';
 import { Router, NavigationEnd  } from '@angular/router';
 import { CategoryService } from '../services/category.service';
-import { Category } from '../model/category';
+import { Category } from '../model/Category';
 import { Account } from '../model/Dealer';
 import { AccountService } from '../services/account.service';
 import { JwtHelper } from '../Jwthelper';

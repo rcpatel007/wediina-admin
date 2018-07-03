@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ViewChild, ElementRef } from '@angular/core';
 
 import { CityService } from '../services/city.service';
-import { City } from '../model/city';
+import { City } from '../model/City';
 import { UserService } from '../services/user.service';
 import { User } from '../model/User';
 import { RoleService } from '../services/role.service';

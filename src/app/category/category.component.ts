@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../services/category.service';
 import { environment } from '../../environments/environment';
-import { Category } from '../model/category';
+import { Category } from '../model/Category';
 import { BrandService } from '../services/brand.service';
-import { Brand } from '../model/brand';
+import { Brand } from '../model/Brand';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
