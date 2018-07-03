@@ -30,6 +30,7 @@
               "src/assets/vendors/jvectormap/jquery-jvectormap.css",
               "src/assets/vendors/flag-icon/css/flag-icon.min.css",
               "src/assets/vendors/data-tables/css/jquery.dataTables.min.css"
+              
             ],
             "scripts": [
               "src/assets/vendors/jquery-3.2.1.min.js",
@@ -40,6 +41,7 @@
               "src/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js",
               "src/assets/js/plugins.js",
               "src/assets/js/custom-script.js"
+             
             ]
           },
           "configurations": {

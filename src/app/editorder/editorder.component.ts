@@ -6,6 +6,7 @@ import { LoginService } from '../services/login.service';
 import { UserService } from '../services/user.service';
 import { StockService } from '../services/stock.service';
 import { log } from 'util';
+import { Product } from '../model/Product';
 declare var $: any;
 
 @Component({
@@ -29,6 +30,13 @@ export class EditorderComponent implements OnInit {
   statusvalue: String;
   showHide: boolean;
   stock = [];
+  d_address: String;
+  d_city: String;
+  d_state: String;
+  shipping: String;
+  other_charge: String;
+
+
 
 
   // user
@@ -94,9 +102,15 @@ export class EditorderComponent implements OnInit {
         this.d_date = data._date;
         this.d_time = data._time;
         this.product_detail = data.products;
+        this.d_address = data.address;
+        this.d_city = data.city;
+        this.d_state = data.state;
         this.o_discount = data.o_discount;
         this.statusvalue = data.status;
         this.methodvalue = data.method;
+        this.shipping = data.shipping_charges;
+        this.other_charge = data.other_charges;
+
         // console.log(this.product_detail);
         for (let index = 0; index < this.product_detail.length; index++) {
           this.pid.push(this.product_detail[index].prodcut_id);
@@ -125,6 +139,11 @@ export class EditorderComponent implements OnInit {
       order_date: this.o_date,
       _date: this.d_date,
       _time: this.d_time,
+      address: this.d_address,
+      city: this.d_city,
+      state: this.d_state,
+      shipping_charges: this.shipping,
+      other_charges: this.other_charge,
       // p_discount:this.p_discount,
       products: this.product_detail,
       user_id: this.user_id,
@@ -132,45 +151,39 @@ export class EditorderComponent implements OnInit {
       status: this.statusvalue,
       method: this.methodvalue
     }
-    let modeldata = [];
+    console.log(this.product_detail);
+    let product = [];
     for (let index = 0; index < this.product_detail.length; index++) {
-      this.stockservice.getStockById(this.product_detail[index].prodcut_id)
-        .subscribe((res) => {
-          // console.log(res);
-          for (let secondindex = 0; secondindex < res[0].models.length; secondindex++) {
-            if (this.product_detail[index].model_no == res[0].models[secondindex].model_no) {
-              // console.log(res[0].models[secondindex]);
-              res[0].models[secondindex].qty = res[0].models[secondindex].qty - this.product_detail[index].qty;
-
-              let prodcut_id = this.product_detail[index].prodcut_id;
-              //  console.log();
-              let stock = [];
-              let models = { models: res[0].models }
-              console.log(models);
-              this.stockservice.editStock(prodcut_id, models)
-                .subscribe((result) => {
-                  console.log(result);
-                });
-                
-            }
-          }
-          // console.log(res[0].models);
-        });
+     let  products = {
+        prodcut_id:this.product_detail[index].product_id,
+        particular: this.product_detail[index].particular,
+        qty: this.product_detail[index].qty
+      }
+      product.push(products);
     }
+    console.log(product);
+
+    // if (this.statusvalue == "In Process") {
+    //   this.stockservice.orderStockUpdate(stock)
+    //       .subscribe(()=>{
+
+    //       });
+    // }
 
 
-
-    // let flag: boolean;
     // console.log(updateorder);
-    let id = this.o_id;
-    // console.log(orderupdate);
-    this.orderService.updateOrder(updateorder, id)
-      .subscribe((res) => {
-        this.router.navigate(['vieworder/' + this.o_id]);
+
+    // // let flag: boolean;
+    // // console.log(updateorder);
+    // let id = this.o_id;
+    // // console.log(orderupdate);
+    // this.orderService.updateOrder(updateorder, id)
+    //   .subscribe((res) => {
+    //     this.router.navigate(['vieworder/' + this.o_id]);
 
 
-    console.log(res);
-    });
+    //     console.log(res);
+    //   });
   }
   getuser(user_id) {
     let id = localStorage.user_id;

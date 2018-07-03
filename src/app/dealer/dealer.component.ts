@@ -16,6 +16,7 @@ import { City } from '../model/City';
 import { UserService } from '../services/user.service';
 import * as io from 'socket.io-client';
 import { NotificationService } from '../services/notification.service';
+import { CartService } from '../services/cart.service';
 
 declare var $: any;
 
@@ -28,6 +29,7 @@ export class DealerComponent implements OnInit {
   @ViewChild('add_dealer') add_dealer: ElementRef;
   socket;
 
+  cont = "l";
   user_id: String;
   id: String;
   auth: any;
@@ -54,6 +56,12 @@ export class DealerComponent implements OnInit {
   editValue: any;
   address: String;
   add = [];
+  cart = new Array;
+  state = new Set;
+  e_city: String;
+  e_state: String;
+  city_value = new Set;
+  satateValue: String;
   // user
   d_add: boolean;
   d_edit: boolean;
@@ -67,6 +75,7 @@ export class DealerComponent implements OnInit {
     private cityservice: CityService,
     private userservice: UserService,
     private notificationService: NotificationService,
+    private cartservice: CartService,
     private globals: Globals) {
     this.socket = io('https://jasmatech-backend-api.herokuapp.com');
   }
@@ -78,7 +87,7 @@ export class DealerComponent implements OnInit {
       this.router.navigate(["/login"]);
     }
 
-  console.log(this.loginservice.token);
+    console.log(this.loginservice.token);
     // this.auth = { "email": this.globals.email, "token": this.loginservice.token }
     this.viewaccount();
     this.getRole();
@@ -86,14 +95,20 @@ export class DealerComponent implements OnInit {
     this.id = localStorage.user_id;
     this.getuser();
 
+
     $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
     $("script[src='assets/js/materialize.min.js']").remove();
     $("script[src='assets/js/scripts/advanced-ui-modals.js']").remove();
+    $("script[src='assets/vendors/data-tables/js/jquery.dataTables.min.js']").remove();
+    $("script[src='assets/js/scripts/data-tables.js']").remove();
+
 
     var dynamicScripts = [
       "assets/css/themes/collapsible-menu/materialize.css",
       "assets/js/materialize.min.js",
       "assets/js/scripts/advanced-ui-modals.js",
+      "assets/vendors/data-tables/js/jquery.dataTables.min.js",
+      "assets/js/scripts/data-tables.js"
     ];
 
     for (var i = 0; i < dynamicScripts.length; i++) {
@@ -132,11 +147,30 @@ export class DealerComponent implements OnInit {
       .subscribe((data) => {
         //  console.log(account);
         this.city = data;
+        for (let index = 0; index < data.length; index++) {
+          this.state.add(data[index].state);
+
+        }
         console.log(data);
 
       });
   }
 
+  onChangeState(satateValue) {
+    this.city_value.clear();
+    this.cityservice.getcity()
+      .subscribe((City) => {
+        for (let index = 0; index < City.length; index++) {
+          if (City[index].state == satateValue) {
+            this.city_value.add(City[index].city);
+          }
+        }
+
+        console.log(this.city_value);
+
+      });
+
+  }
   viewaccount() {
     this.accountservice.getAccount()
       .subscribe((account) => {
@@ -160,12 +194,23 @@ export class DealerComponent implements OnInit {
         this.editValue = data.city;
         this.e_gst = data.gst;
         this.e_discount = data.discount;
+        this.e_state = data.state;
+        this.e_city = data.city;
+
+        this.cartservice.getCartAll()
+          .subscribe((Cart) => {
+            this.cart = Cart;
+
+
+          });
 
       });
   }
 
   addDealer() {
-    let add = { 'office': [this.address], 'warehouse': [], 'other': [] };
+
+    let address_city = this.address + ":" + this.selectedValue +":"+ this.satateValue;
+    let add = { 'office': [address_city], 'warehouse': [], 'other': [] };
 
     let add_dealer = {
       name: this.name,
@@ -173,6 +218,7 @@ export class DealerComponent implements OnInit {
       email: this.email,
       mobile: this.mno,
       address: add,
+      state: this.satateValue,
       city: this.selectedValue,
       gst: this.gst,
       type: this.type,
@@ -275,10 +321,10 @@ export class DealerComponent implements OnInit {
   }
 
 
-  printContent(id){
-  
-  let  str=document.getElementById(id).innerHTML
-    let newwin=window.open('','printwin','left=10,top=10,width=1000,height=800')
+  printContent(id) {
+
+    let str = document.getElementById(id).innerHTML
+    let newwin = window.open('', 'printwin', 'left=10,top=10,width=1000,height=800')
     newwin.document.write('<HTML>\n<HEAD>\n')
     newwin.document.write('<TITLE> JasmaTech</TITLE>\n')
     newwin.document.write('<script>\n')
@@ -301,5 +347,14 @@ export class DealerComponent implements OnInit {
     newwin.document.write('</BODY> \n')
     newwin.document.write('</HTML>\n')
     newwin.document.close()
-    }
+  }
+
+  radioChange(radio, id_l) {
+    /* $("#" + radio).checked =true;
+    $("#" +'l'+id_l ).addClass("z");
+     */
+    this.e_type = radio;
+
+
+  }
 }

@@ -18,6 +18,9 @@
                   STOCK MANAGEMENT
                 </div>
               </div>
+              <div class="col s6 l6 m6 right-align">
+                <button class="hedding-btn" (click)="printContent('view_stock')">Download Data </button>
+              </div>
 
               <form #frm1="ngForm" (ngSubmit)="addStock()">
                 <div class="col s12 l12 m12 mr-t-20 mr-b-m-30">
@@ -37,7 +40,7 @@
                   </div>
                   <div class="col s4 m4 l4 ">
                     <b> Model Name:</b>
-                    <select [(ngModel)]="modelname" name="modelname" #model="ngModel" required ngModel class="validate">
+                    <select [(ngModel)]="modelname" name="modelname" #model="ngModel" (change)="modelDetail(modelname);" required ngModel class="validate">
                       <option disabled>--SelectModel Name --</option>
                       <option *ngFor="let model of final_model_data" [value]="model">{{model}}</option>
                     </select>
@@ -73,12 +76,12 @@
 
           <!--DataTables example Row grouping-->
           <div class="section">
-            <div class="row ">
+            <div class="row" id="view_stock" >
               <div class="col s12 card mr-t-50">
                 <div class="col s3 right">
                   <input type="text" placeholder="Search" id="search" [(ngModel)]="term">
                 </div>
-                <table class="display mr-t-20 striped" cellspacing="0" width="100%">
+                <table    class="display mr-t-20 striped" cellspacing="0" width="100%">
                   <thead>
                     <tr>
                       <!-- <th>No</th> -->

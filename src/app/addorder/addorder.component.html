@@ -26,7 +26,16 @@
                       <tr>
                         <th>company Name :</th>
                         <td>
-                          <select [(ngModel)]="user" name="user" #cnm="ngModel" (click)="getUser(user)" required ngModel class="validate">
+
+                          <!-- <mat-form-field >
+                            <input type="text" placeholder="search word" aria-label="Number" matInput [formControl]="" [matAutocomplete]="auto">
+                            <mat-autocomplete #auto="matAutocomplete">
+                              <mat-option *ngFor="let item of searchResult" [value]="item">
+                                {{ item }}
+                              </mat-option>
+                            </mat-autocomplete>
+                          </mat-form-field> -->
+                          <select [(ngModel)]="user" name="user" #cnm="ngModel" (click)="getUser(user)" required ngModel class="validate">  
                             <option value="" disabled selected>Select Company Name</option>
                             <option *ngFor="let c of dealer" value="{{c._id}}">{{c.company_name}}</option>
                           </select>
@@ -42,7 +51,7 @@
                         <td>{{user_name}}</td>
                       </tr>
                       <tr>
-                        <th>MObile No</th>
+                        <th>Mobile No</th>
                         <td>{{user_mobile}}</td>
                       </tr>
                       <tr>
@@ -89,7 +98,7 @@
                       <th>Model No</th>
                       <th>Price</th>
                       <th>Qty</th>
-                   
+
                     </thead>
                     <tbody>
                       <td>
@@ -128,7 +137,7 @@
                       <td>
                         <select [(ngModel)]="model_no" name="model_no" #mno="ngModel" (change)="getprice(model_no)" required ngModel class="validate">
                           <option value="" disabled selected>Select Model Name</option>
-                          <option *ngFor="let m of model" value="{{m.model_no}}">{{m.model_no}}</option>
+                          <option *ngFor="let m of model" value="{{m.model_no}}">{{m.particular}}</option>
                         </select>
                         <div *ngIf="mno?.touched">
                           <div class="red-text left" *ngIf="mno.errors?.required">
@@ -148,7 +157,7 @@
                           </div>
                         </div>
                       </td>
-                   
+
                       <td>
                         <button class="btn btn-primary" type="submit" [disabled]="frm.invalid">add</button>
                       </td>
@@ -198,11 +207,11 @@
                     </tbody>
                   </table>
                 </div>
-               
+
               </div>
               <div class="center">
-                  <button class="btn btn-primary" [disabled]="grandtotal == 0" (click)="sendOrder()"> Submit Order</button>
-                </div>
+                <button class="btn btn-primary" [disabled]="grandtotal == 0" (click)="sendOrder()"> Submit Order</button>
+              </div>
             </div>
           </div>
         </div>

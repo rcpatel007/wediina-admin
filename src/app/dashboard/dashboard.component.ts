@@ -84,6 +84,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
 
+    console.log(this.loginservice.token+"token");
     if (localStorage.user_id == null) {
       this.router.navigate(["/login"]);
     }
@@ -160,7 +161,7 @@ export class DashboardComponent implements OnInit {
             console.log(this.newcount);
             
           }
-          else if (Order[i].enquiry == true) {
+          else if (Order[i].enquiry = true) {
             this.enquiry = this.enquiry + 1;
             // console.log(this.order_count);
             this.enquriryData.push(Order[i]);

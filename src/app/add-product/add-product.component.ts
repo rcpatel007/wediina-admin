@@ -98,10 +98,14 @@ export class AddProductComponent implements OnInit {
 
   addmodel() {
     this.modeldata.push({
-      model_no: '',
+      particular: '',
       price: '',
       size: '',
       grade: '',
+      hsn_no:'',
+      sgst_no:'',
+      cgst_no:'',
+      igst_no:'',
       keyValue: []
     });
     // this.modeldata.push({ key: '', value: '' })
@@ -197,7 +201,7 @@ export class AddProductComponent implements OnInit {
           let event_id = "pa_" + res.data._id;
 
           let notification = {
-            title: "new Product  Add",
+            title: "New Product Add :" +this.name,
             user_id: environment.user_id,
             event_id: event_id,
             date_time: date_time,
@@ -209,12 +213,12 @@ export class AddProductComponent implements OnInit {
             .subscribe(() => {
             });
           // STOCK ADD  
-          let stock = {
-            product_id: res.data._id,
-            qty: this.qty
-          }
-          this.stockservice.addStock(stock)
-            .subscribe(() => { });
+          // let stock = {
+          //   product_id: res.data._id,
+          //   qty: this.qty
+          // }
+          // this.stockservice.addStock(stock)
+          //   .subscribe(() => { });
           this.router.navigate(["/inventory"]);
           console.log(res);
 

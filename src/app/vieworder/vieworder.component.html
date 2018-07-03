@@ -33,76 +33,100 @@
             <div class="row ">
               <div class="col s12 card mr-t-50">
 
-                <div class="col s6 m6 l6 ">
-                  <table class="b-r striped" algin="center" width="100%" cellspacing="0">
-                    <tbody>
+                <table class=" border-bottom striped" algin="center" width="100%" cellspacing="0">
+                  <tbody>
+                    <div class="col s6 m6 l6 ">
+
                       <tr>
                         <th>
-                          <strong> Customer Name: </strong>
+                          <b> Customer Name: </b>
                         </th>
                         <td class="cust_name">
-                          <div data-target="view_o_dealer" class="modal-trigger">{{customername}}</div>
+                          <a data-target="view_o_dealer" class="modal-trigger">{{customername}}</a>
                         </td>
                       </tr>
                       <tr>
                         <th>
-                          <strong> Order Discount: </strong>
+                          <b> Order Discount: </b>
                         </th>
                         <td>{{o_discount}} % </td>
                       </tr>
                       <tr>
                         <th>
-                          <strong> Order Date: </strong>
+                          <b> Order Date: </b>
                         </th>
                         <td>{{o_date}}</td>
                       </tr>
                       <tr>
                         <th>
-                          <strong> Delivery/ PickUP Date: </strong>
+                          <b> Delivery/ PickUP Date: </b>
                         </th>
                         <td> {{d_date}}</td>
                       </tr>
                       <tr>
                         <th>
-                          <strong> Time: </strong>
+                          <b> Time: </b>
                         </th>
                         <td>{{d_time}}</td>
                       </tr>
+                    </div>
+                    <div class="col s6 m6 l6">
                       <tr>
                         <th>
-                          <strong> Method:</strong>
+                          <b> Address: </b>
+                        </th>
+                        <td>{{d_address}}</td>
+                      </tr>
+                      <tr>
+                        <th>
+                          <b> City : </b>
+                        </th>
+                        <td>{{d_city}}</td>
+                      </tr>
+                      <tr>
+                        <th>
+                          <b> State: </b>
+                        </th>
+                        <td>{{d_state}}</td>
+                      </tr>
+                      <tr>
+                        <th>
+                          <b> Method:</b>
                         </th>
                         <td>{{method}}</td>
                       </tr>
                       <tr>
                         <th>
-                          <strong> Status:</strong>
+                          <b> Status:</b>
                         </th>
                         <td>{{status}}</td>
                       </tr>
-                    </tbody>
-                  </table>
+                    </div>
+                  </tbody>
+                </table>
 
-                </div>
 
-                <div class="col l6 m6 ">
-
-                  <table class="striped" id="dataTable" width="100%" cellspacing="0">
+                <div class="col l12 m12 s12 card ">
+                  <table class="striped  prod_table" id="dataTable" width="100%" cellspacing="0">
                     <tr class="card-header">
                       <th>Products</th>
                       <th>Model No</th>
                       <th>Qty</th>
+                      <th *ngIf="isGujarat  == false">IGST </th>
+                      <th *ngIf="isGujarat  == true">CGST </th>
+                      <th *ngIf="isGujarat  == true">SGST </th>
                       <th>Unit Price (&#x20b9;)</th>
                       <th>Amount</th>
                       <th>Discount</th>
                       <th>Total(&#x20b9;) </th>
-
-
                     </tr>
                     <tr *ngFor="let p of product_detail" class="b-b">
                       <td>{{p.prod_name}}</td>
-                      <td>{{p.model_no}}</td>
+                      <td>{{p.particular}}</td>
                       <td>{{p.qty}} </td>
+                      <td *ngIf="isGujarat  == false">{{p.igst_no}} %</td>
+                      <td *ngIf="isGujarat  == true">{{p.sgst_no}} %</td>
+                      <td *ngIf="isGujarat  == true">{{p.cgst_no}} %</td>
                       <td>{{p.price}}</td>
                       <td>{{(p.price * p.qty)}}</td>
                       <td>{{p.p_discount}} %</td>
@@ -110,25 +134,51 @@
                         <b>{{[(p.price * p.qty)] - [(p.price * p.qty) * p.p_discount] / 100 }}</b>
                       </td>
                     </tr>
-
-
                   </table>
-
-                  <table class="table table-bordered mr-t-50" id="dataTable" width="100%" cellspacing="0">
+<!-- calculation -->
+                  <table class="table  mr-t-50" id="dataTable" width="100%" cellspacing="0">
+                    <div class="col s6 m6 l6">
                     <tr>
-                      <th class="card-header">Sub Total:</th>
-                      <td> &#x20b9; {{sub_total}}</td>
+                      <th class="card-header right-align ">Sub Total:</th>
+                      <td class="center-align "> &#x20b9; {{sub_total}}</td>
                     </tr>
                     <tr>
-                      <th class="card-header">Order Discount ({{ o_discount }} %):</th>
-                      <td> &#x20b9; {{o_discount_total}}</td>
+                      <th class="card-header right-align">(-)Order Discount ({{ o_discount }} %):</th>
+                      <td class="center-align"> &#x20b9; {{o_discount_total}}</td>
+                    </tr>
+                    <tr *ngIf="isGujarat  == true">
+                      <th class="card-header right-align ">(+)CGST:</th>
+                      <td class="center-align "> &#x20b9; {{cgst_total}}</td>
+                    </tr>
+                    <tr *ngIf="isGujarat  == true">
+                      <th class="card-header right-align ">(+)SGST:</th>
+                      <td class="center-align "> &#x20b9; {{sgst_total}}</td>
+                    </tr>
+                    </div>
+                    <div class="col s6 l6 m6">
+                    <tr *ngIf="isGujarat  == false">
+                      <th class="card-header right-align ">(+)IGST:</th>
+                      <td class="center-align "> &#x20b9; {{igst_total}}</td>
                     </tr>
                     <tr>
-                      <th class="card-header">Grand Total:</th>
-                      <td class="card-header">
+                      <th class="card-header right-align">Shipping Charges:</th>
+                      <td class="card-header center-align">
+                         &#x20b9; {{shipping}} 
+                      </td>
+                    </tr> <tr>
+                      <th class="card-header right-align">Other Charges:</th>
+                      <td class="card-header center-align">
+                         &#x20b9; {{other_charges}} 
+                      </td>
+                    </tr>
+                    </div>
+                    <tr>
+                      <th class="card-header right-align">Grand Total:</th>
+                      <td class="card-header center-align">
                         <b> &#x20b9; {{grand_total}} </b>
                       </td>
                     </tr>
+                    
                   </table>
                 </div>
               </div>
@@ -180,12 +230,6 @@
                 <tr>
                   <th>Type</th>
                   <td>{{type}}</td>
-
-                </tr>
-                <tr>
-                  <th>Address</th>
-                  <td>{{address}}</td>
-
                 </tr>
               </tbody>
             </table>

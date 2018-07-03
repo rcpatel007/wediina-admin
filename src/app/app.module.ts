@@ -46,6 +46,7 @@ import { StockmanagementComponent } from './stockmanagement/stockmanagement.comp
 import { AddorderComponent } from './addorder/addorder.component';
 import { CartService } from './services/cart.service';
 
+
 const appRoutes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },

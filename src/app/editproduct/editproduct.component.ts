@@ -100,10 +100,14 @@ export class EditproductComponent implements OnInit {
 
   addmodel() {
     this.modeldata.push({
-      model_no: '',
+      particular: '',
       price: '',
       size: '',
       grade: '',
+      hsn_no: '',
+      sgst_no: '',
+      cgst_no: '',
+      igst_no: '',
       keyValue: []
     });
     // this.modeldata.push({ key: '', value: '' })
@@ -138,10 +142,14 @@ export class EditproductComponent implements OnInit {
         for (let index = 0; index < temp_modeldata.length; index++) {
           temp_modeldata[index].keyValue = [];
           Object.keys(temp_modeldata[index]).forEach(key => {
-            if (key.toString() !== 'model_no' &&
+            if (key.toString() !== 'particular' &&
               key.toString() !== 'price' &&
               key.toString() !== 'size' &&
               key.toString() !== 'grade' &&
+              key.toString() !== 'hsn_no' &&
+              key.toString() !== 'sgst_no' &&
+              key.toString() !== 'cgst_no' &&
+              key.toString() !== 'igst_no' &&
               key.toString() !== 'keyValue') {
 
               temp_modeldata[index].keyValue.push(
@@ -192,4 +200,3 @@ export class EditproductComponent implements OnInit {
       });
   }
 }
-  

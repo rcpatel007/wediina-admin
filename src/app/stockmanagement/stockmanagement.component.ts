@@ -27,6 +27,7 @@ export class StockmanagementComponent implements OnInit {
   modelname: String;
   qty: Number;
   modeldata: any;
+  modeldetail :any;
   final_model_data = new Array;
   final_modle = new Array;
   key_array = new Array;
@@ -71,7 +72,7 @@ export class StockmanagementComponent implements OnInit {
   }
 
   getStock() {
-   this.stock_model.length =0;
+    this.stock_model.length = 0;
     this.stockservice.getStock()
       .subscribe((Stock) => {
         this.stock = Stock;
@@ -159,7 +160,23 @@ export class StockmanagementComponent implements OnInit {
     this.productservice.getProductById(id)
       .subscribe((res) => {
         for (let index = 0; index < res.model_info.length; index++) {
-          this.final_model_data.push(res.model_info[index].model_no);
+          this.final_model_data.push(res.model_info[index].particular);
+        }
+      });
+  }
+
+  modelDetail() {
+    let id = this.productvalue;
+    this.productservice.getProductById(id)
+      .subscribe((res) => {
+        for (let index = 0; index < res.model_info.length; index++) {
+          if (res.model_info[index].particular == this.modelname) {
+            this.modeldetail = res.model_info[index];
+            
+          }
+          console.log(this.modeldetail);
+          
+
         }
       });
   }
@@ -168,7 +185,9 @@ export class StockmanagementComponent implements OnInit {
     let stock = {
       models: [{
         model_no: this.modelname,
-        qty: Number(this.qty)
+        qty: Number(this.qty),
+        grade: this.modeldetail[0].grade,
+        size: this.modeldetail[0].size
       }],
       product_id: this.productvalue
     }
@@ -193,37 +212,67 @@ export class StockmanagementComponent implements OnInit {
           model = res[0].models;
           if (flag === false) {
             model.push({
-              "model_no": this.modelname,
-              "qty": Number(this.qty)
+              "particular": this.modelname,
+              "qty": Number(this.qty),
+              "grade": this.modeldetail[0].grade,
+              "size": this.modeldetail[0].size
             });
             console.log(model);
           }
 
           stock.models = model;
           console.log(stock);
-          this.stockservice.editStock(product_id, stock)
-            .subscribe((result) => {
-              console.log(result);
-              this.getStock();
-    
-              console.log(stock);
+          // this.stockservice.editStock(product_id, stock)
+          //   .subscribe((result) => {
+          //     console.log(result);
+          //     this.getStock();
 
-            });
+          //     console.log(stock);
+          //   });
         }
         else {
           // tempcart.products = products
-          this.stockservice.addStock(stock)
-            .subscribe((result) => {
-              this.getStock();
-    
-              console.log(stock);
-            });
-    
-            // console.log(tempcart);
+          // this.stockservice.addStock(stock)
+          //   .subscribe((result) => {
+          //     this.getStock();
+
+          //     console.log(stock);
+          //   });
+
+          // console.log(tempcart);
         }
-        
+
       });
     console.log(stock);
-    
+
   }
+
+  printContent(id) {
+
+    let str = document.getElementById(id).innerHTML
+    let newwin = window.open('', 'printwin', 'left=10,top=10,width=1000,height=800')
+    newwin.document.write('<HTML>\n<HEAD>\n')
+    newwin.document.write('<TITLE> JasmaTech</TITLE>\n')
+    newwin.document.write('<script>\n')
+    newwin.document.write('function chkstate(){\n')
+    newwin.document.write('if(document.readyState=="complete"){\n')
+    newwin.document.write('window.close()\n')
+    newwin.document.write('}\n')
+    newwin.document.write('else{\n')
+    newwin.document.write('setTimeout("chkstate()",2000)\n')
+    newwin.document.write('}\n')
+    newwin.document.write('}\n')
+    newwin.document.write('function print_win(){\n')
+    newwin.document.write('window.print();\n')
+    newwin.document.write('chkstate();\n')
+    newwin.document.write('}\n')
+    newwin.document.write('<\/script>\n')
+    newwin.document.write('</HEAD>\n')
+    newwin.document.write('<BODY onload="print_win()"> <h4 style="text-align:center">Dealer Data </h4> \n\n')
+    newwin.document.write(str)
+    newwin.document.write('</BODY> \n')
+    newwin.document.write('</HTML>\n')
+    newwin.document.close()
+  }
+
 }

@@ -30,6 +30,7 @@ export class ControlComponent implements OnInit {
   cities: any = [];
   city: City[];
   city_name: any;
+  state:String;
   user: User[];
   dealertype: Dealertype[];
   role: Role[];
@@ -244,21 +245,11 @@ export class ControlComponent implements OnInit {
   }
   // add  city 
   addCity() {
-   
-      let city_array;
-      for (let i = 0; i < this.city_name.length; i++) {
-        city_array = this.city_name.split(",");
-        this.final_city.push({ city: city_array[i] });
-      }
-
-      for (let i = 0; i < city_array.length; i++) {
-        this.cities.push({ "city": city_array[i] });
-      }
-
-      this.city_name = "";
-   
+  
       let cityObj = {
-        "cities": this.cities
+        state:this.state,
+        city:this.city_name
+  
       }
 
       console.log(cityObj);

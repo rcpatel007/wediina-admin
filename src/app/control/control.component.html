@@ -11,13 +11,31 @@
             <div class="row">
               <form #frm="ngForm" (ngSubmit)="addCity()">
                 <div class="control-headding">CITY SERVED IN</div>
-                <div class="input-field col s12">
-                  <textarea id="city_name" type="text" class="materialize-textarea   city_class" name="city_name" [(ngModel)]="city_name" #cityname="ngModel"
-                    required ngModel></textarea>
-                  <div *ngIf="cityname?.touched">
-                    <div class="red-text left" *ngIf="cityname.errors?.required">
-                      City Input Required*
+                <div class="row">
+                  <div class="input-field col s6">
+                    <input id="stateid" type="text" name="state" [(ngModel)]="state" #st="ngModel" required ngModel pattern="[a-zA-Z][a-zA-Z ]+" class="validate city_class">
+                    <label for="stateid">State</label>
+                    <div *ngIf="st?.touched">
+                      <div class="red-text left" *ngIf="st.errors?.required">
+                       State Required*
+                      </div>
+                      <div class="red-text left" *ngIf="st.errors?.pattern">
+                        State Invalid*
+                      </div>
                     </div>
+                  </div>
+                  <div class="input-field col s6">
+                    <input id="cid" type="text" name="city_name" [(ngModel)]="city_name" #st="ngModel" required ngModel pattern="[a-zA-Z][a-zA-Z ]+" class="validate city_class">
+                    <label for="cid">City Name </label>
+                    <div *ngIf="st?.touched">
+                      <div class="red-text left" *ngIf="st.errors?.required">
+                        City name Required*
+                      </div>
+                      <div class="red-text left" *ngIf="st.errors?.pattern">
+                        City Name Invalid*
+                      </div>
+                    </div>
+
                   </div>
                 </div>
                 <div class="row">
@@ -25,7 +43,7 @@
                     <button class="hedding-btn-2"  (click)="cityShow()" > Display City </button>
                   </div> -->
                   <div class="right-align">
-                    <button class="btn btn-primary " [disabled]="frm.invalid" onclick="Materialize.toast('City ADDED', 3000)" type="submit">Update</button>
+                    <button class="btn btn-primary"[disabled]="frm.invalid" onclick="Materialize.toast('City ADDED', 3000)" type="submit">ADD</button>
                   </div>
                 </div>
               </form>
@@ -37,8 +55,13 @@
 
                   <div class="col s12 m12 l12 card city-view ">
                     <table class="display mr-t-20 striped" cellspacing="0" width="100%">
+                      <thead>
+                        <th>State Name</th>
+                        <th>City Name</th>
+                      </thead>
                       <tbody>
                         <tr *ngFor="let c of city">
+                          <td>{{c.state}}</td>
                           <td>{{c.city}}</td>
                         </tr>
                       </tbody>

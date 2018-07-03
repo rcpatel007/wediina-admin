@@ -20,10 +20,10 @@ export class CartService {
   }
 
 
-  getCartId(id) {
+  getCartAll() {
     //  headers = new Headers();    
     let headers = new Headers({ 'x-access-token': '' + this.loginService.token });
-    return this.http.get('https://jasmatech-backend-api.herokuapp.com/cart/' + id, { headers: headers })
+    return this.http.get('https://jasmatech-backend-api.herokuapp.com/cart/', { headers: headers })
       .pipe(map(res => res.json()));
 
   }

@@ -45,7 +45,13 @@ export class StockService {
     let headers = new Headers({ 'x-access-token': '' + this.loginService.token });
     return this.http.put('https://jasmatech-backend-api.herokuapp.com/stock_qty/' + product_id, stock, { headers: headers })
       .pipe(map(res => res.json()));
+  }
+  // order edit stock update
 
+  orderStockUpdate(stock) {
+    let headers = new Headers({ 'x-access-token': '' + this.loginService.token });
+    return this.http.put('https://jasmatech-backend-api.herokuapp.com/update_stock/' + stock, { headers: headers })
+      .pipe(map(res => res.json()));
   }
 
 }

@@ -10,7 +10,7 @@ import { User } from '../model/User';
 import { NotificationService } from '../services/notification.service';
 import { Notification } from 'rxjs';
 import { Notificaiton } from '../model/notification';
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-header',
@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
   i_view: boolean;
   b_view: boolean;
   c_view: boolean;
-  counter:boolean=false;
+  counter: boolean = false;
 
   constructor(private router: Router,
     private userservice: UserService,
@@ -43,7 +43,7 @@ export class HeaderComponent implements OnInit {
   ) { this.socket = io('https://jasmatech-backend-api.herokuapp.com'); }
 
   ngOnInit() {
-    
+
     if (this.loginService.token === null) {
       this.router.navigate(["/login"]);
     }
@@ -54,18 +54,25 @@ export class HeaderComponent implements OnInit {
     this.socket.on('new-message', (result) => {
       // this.display = true;
       this.msg.push(+ result.data.name);
+      this.read = this.read + 1;
     });
     this.getNotificaiton();
     this.getuser(this.user_id);
 
     $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
+    $("script[src='assets/vendors/perfect-scrollbar/perfect-scrollbar.css']").remove();
     $("script[src='assets/js/materialize.min.js']").remove();
     $("script[src='assets/js/scripts/advanced-ui-modals.js']").remove();
+    $("script[src='assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js']").remove();
+
+
 
     var dynamicScripts = [
       "assets/css/themes/collapsible-menu/materialize.css",
       "assets/js/materialize.min.js",
       "assets/js/scripts/advanced-ui-modals.js",
+      "assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js",
+      "assets/vendors/perfect-scrollbar/perfect-scrollbar.css"
     ];
 
     for (var i = 0; i < dynamicScripts.length; i++) {
@@ -85,9 +92,9 @@ export class HeaderComponent implements OnInit {
     var jwtHelper = new JwtHelper();
     var parsedToken = jwtHelper.decodeToken(this.loginService.token);
     let id = parsedToken.id;
-    localStorage.setItem('user_id',id);
+    localStorage.setItem('user_id', id);
     // console.log('login id' + localStorage.user_id);
-// console.log('id '+localStorage.user_id);
+    // console.log('id '+localStorage.user_id);
 
   }
 
@@ -116,7 +123,7 @@ export class HeaderComponent implements OnInit {
     let notification = {
       read: true
     }
-   
+
     switch (event[0]) {
       case 'br':
         this.notificaitonservice.getNotificationById(id)
@@ -208,27 +215,27 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-        this.loginService.logout()
+    this.loginService.logout()
       .subscribe(() => {
         localStorage.clear();
         // console.log(localStorage.user_id);
         if (this.loginService.token === null) {
-        
-        this.router.navigate(["/login"]);
+
+          this.router.navigate(["/login"]);
         }
       });
 
   }
 
-  view_notification(){
-if(this.counter==false){
-  document.getElementById('notifications-dropdown').style.display="block";
-  this.counter=true;
-}else{
-  document.getElementById('notifications-dropdown').style.display="none";
-  this.counter=false;
-}
-  
+  view_notification() {
+    if (this.counter == false) {
+      document.getElementById('notifications-dropdown').style.display = "block";
+      this.counter = true;
+    } else {
+      document.getElementById('notifications-dropdown').style.display = "none";
+      this.counter = false;
+    }
+
   }
 
 }

@@ -35,7 +35,7 @@
                   <input type="text" placeholder="Search" id="search" [(ngModel)]="term">
                 </div>
 
-                <table  class="display mr-t-20 striped" cellspacing="0" width="100%">
+                <table class="display mr-t-20 striped" cellspacing="0" width="100%">
                   <thead>
                     <tr>
                       <th>No</th>
@@ -43,29 +43,33 @@
                       <th>Name</th>
                       <th>Company</th>
                       <th>Mail ID</th>
+                      <th>Cart</th>
                       <th>Contact No.</th>
                       <th>Discount #</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let a of account |filter:term; let i=index">
-                      <td>{{i+1}}</td>
-                      <td>{{a.type}}</td>
-                      <td>{{a.name}}</td>
-                      <td>{{a.company_name}}</td>
-                      <td>
-                        <a href="mailto:{{a.email}}">{{a.email}}</a>
-                      </td>
-                      <td>{{a.mobile}}</td>
-                      <td>{{a.discount}}</td>
-                      <td *ngIf="d_edit == true" data-target="view_dealer" class="modal-trigger" (click)="viewDealer(a._id)">
-                        <i class="fa fa-eye blue-text"></i>
-                      </td>
-                      <td *ngIf="d_delete == true" data-target="edit_dealer" class="modal-trigger" (click)="viewDealer(a._id)">
-                        <i class="fa fa-pencil-alt orange-text"></i>
-                      </td>
-                    </tr>
+                    <ng-container>
+                      <tr *ngFor="let a of account |filter:term; let i=index">
+                        <td>{{i+1}}</td>
+                        <td>{{a.type}}</td>
+                        <td>{{a.name}}</td>
+                        <td>{{a.company_name}}</td>
+                        <td>
+                          <a href="mailto:{{a.email}}">{{a.email}}</a>
+                        </td>
+                        <!-- <td>{cart}}</td> -->
+                        <td>{{a.mobile}}</td>
+                        <td>{{a.discount}}</td>
+                        <td *ngIf="d_edit == true" data-target="view_dealer" class="modal-trigger" (click)="viewDealer(a._id)">
+                          <i class="fa fa-eye blue-text"></i>
+                        </td>
+                        <td *ngIf="d_delete == true" data-target="edit_dealer" class="modal-trigger" (click)="viewDealer(a._id)">
+                          <i class="fa fa-pencil-alt orange-text"></i>
+                        </td>
+                      </tr>
+                    </ng-container>
                   </tbody>
                 </table>
               </div>
@@ -153,16 +157,27 @@
 
             </div>
             <div class="row">
-              <div class=" col s6">CITY :
-                <select [(ngModel)]="selectedValue" name="selectedValue" #cityname="ngModel" required ngModel class="validate">
-                  <option disabled>--Select City Name --</option>
-                  <option *ngFor="let c of city" [value]="c.city">{{c.city}}</option>
+              <div class=" col s6">State :
+                <select [(ngModel)]="satateValue" name="satateValue" (change)="onChangeState(satateValue)" >
+                  <option disabled>--Select State Name --</option>
+                  <option *ngFor="let state of state" [value]="state">{{state}}</option>
                 </select>
                 <div *ngIf="cityname?.touched">
                   <div class="red-text left" *ngIf="cityname.errors?.required">
-                    City Required*
+                    State Required*
                   </div>
                 </div>
+              </div>
+              <div class=" col s6">CITY :
+                <select [(ngModel)]="selectedValue" name="selectedValue">
+                  <option disabled>--Select City Name --</option>
+                  <option *ngFor="let city of city_value" [value]="city">{{city}}</option>
+                </select>
+                <!-- <div *ngIf="cityname?.touched">
+                  <div class="red-text left" *ngIf="cityname.errors?.required">
+                    City Required*
+                  </div>
+                </div> -->
               </div>
               <div class="input-field col s6">
                 <input id="gst" type="text" name="gst" [(ngModel)]="gst" #gstid="ngModel" required ngModel class="validate">
@@ -179,7 +194,7 @@
                 <h6>TYPE:</h6>
                 <div *ngIf="rtype?.touched">
                   <div class="red-text left" *ngIf="roletype.errors?.required">
-                    Dealet Type Required*
+                    Dealer Type Required*
                   </div>
                 </div>
               </div>
@@ -315,11 +330,16 @@
                   </div>
                 </div>
                 <br />
-                <div class="col s3" *ngFor="let a of role">
-                  <input class="with-gap overlay" type="radio" id="{{a.type}}" value="{{a.type}}" name="e_type" [(ngModel)]="e_type" (change)="getRoleValue(a._id)"
+                <div class="col s3" *ngFor="let a of role;let in=index">
+                  <input class="with-gap" type="radio" id="{{a.type}}" value="{{a.type}}" name="e_type" [(ngModel)]="e_type" (change)="getRoleValue(a._id)"
+                    #rtype="ngModel" required ngModel class="validate" />
+                  <label for="{{a.type}}" id="l{{in}}" (click)="radioChange(a.type,in)">{{a.type}}</label>
+                </div>
+                <!-- <div class="col s4  " *ngFor="let a of role">
+                  <input class="with-gap overlay" type="radio" id="{{a.type}}" value="{{a.type}}" name="e_type" [(ngModel)  ]="e_type" (change)="getRoleValue(a._id)"
                     #edittype="ngModel" required ngModel class="validate" />
                   <label for="{{a.type}}">{{a.type}}</label>
-                </div>
+                </div> -->
               </div>
               <div class="input-field col col s3">
                 <b>Discout %</b>
@@ -356,7 +376,7 @@
           <h5>Details</h5>
         </div>
         <div class="col s12">
-          <table id="" class="display mr-t-20 striped" cellspacing="0" width="100%">
+          <table class="display mr-t-20 striped" cellspacing="0" width="100%">
             <tbody>
               <tr>
                 <th>Name</th>
@@ -389,8 +409,19 @@
               <tr>
                 <th>Type</th>
                 <td>{{e_type}}</td>
-
               </tr>
+              <tr>
+                <th>State</th>
+                <td>{{e_state}}</td>
+              </tr>
+              <tr>
+                <th>City</th>
+                <td>{{e_city}}</td>
+              </tr>
+
+
+
+
             </tbody>
           </table>
 
@@ -400,8 +431,46 @@
     </div>
   </div>
 
+
+
+  <div id="view_cart" class="modal">
+    <div class="modal-content">
+      <div class="col s12">
+        <h5> Product Details</h5>
+      </div>
+      <div class="col s12">
+        <table id="" class="display mr-t-90 striped" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Qty</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of product_details">
+              <td>{{p.prod_name}}</td>
+              <td>{{p.qty}}</td>
+              <td>{{p.price}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
   <script type="text/javascript">
-    $(document).ready(function () {
-      $('.modal').modal();
-    });
+    // $(document).ready(function () {
+    //   function radioChange(id){
+    //     // document.getElementById(id).checked = true;
+    //     // document.getElementById(id + "l").classList("z");
+    // alert(id);
+    //   }
+
+
+  // });
+
+
+
+
+
   </script>

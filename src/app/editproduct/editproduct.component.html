@@ -109,12 +109,53 @@
                         </a>
                       </div>
                       <div class="input-field col s12">
-                        <b>Model No</b>
-                        <input id="model_no" type="text" [(ngModel)]="modeldata[i].model_no" name="model_no{{i}}" [(ngModel)]="model_no" #mno="ngModel"
+                        <b>Particular</b>
+                        <input id="model_no" type="text" [(ngModel)]="modeldata[i].particular" name="particular{{i}}" [(ngModel)]="particular" #mno="ngModel"
                           required ngModel class="validate">
                         <div *ngIf="mno?.touched">
                           <div class="red-text left" *ngIf="mno.errors?.required">
                             Model No. Required*
+                          </div>
+                        </div>
+                      </div>
+                      <div class="input-field col s12">
+                        <b> HSN Number</b>
+                        <input id="hsn_no" type="text" [(ngModel)]="modeldata[i].hsn_no" name="hsn_no{{i}}" [(ngModel)]="hsn_no" #hsnno="ngModel" required
+                          ngModel class="validate">
+                      
+                        <div *ngIf="hsnno?.touched">
+                          <div class="red-text left" *ngIf="hsnno.errors?.required">
+                            HSN Number Required*
+                          </div>
+                        </div>
+                      </div>
+                      <div class="input-field col s12">
+                        <b> SGST %</b>
+                        <input id="sgstno" type="text" [(ngModel)]="modeldata[i].sgst_no" name="sgst_no{{i}}" [(ngModel)]="sgst_no" #sno="ngModel"
+                          required ngModel class="validate">
+                        <div *ngIf="sno?.touched">
+                          <div class="red-text left" *ngIf="sno.errors?.required">
+                            SGST Required*
+                          </div>
+                        </div>
+                      </div>
+                      <div class="input-field col s12">
+                        <b> CGST %</b>
+                        <input id="cgstno" type="text" [(ngModel)]="modeldata[i].cgst_no" name="cgst_no{{i}}" [(ngModel)]="cgst_no" #cno="ngModel"
+                          required ngModel class="validate">
+                        <div *ngIf="cno?.touched">
+                          <div class="red-text left" *ngIf="cno.errors?.required">
+                            CGST Required*
+                          </div>
+                        </div>
+                      </div>
+                      <div class="input-field col s12">
+                        <b> IGST %</b>
+                        <input id="igstno" type="text" [(ngModel)]="modeldata[i].igst_no" name="igst_no{{i}}" [(ngModel)]="igst_no" #ino="ngModel"
+                          required ngModel class="validate">
+                        <div *ngIf="ino?.touched">
+                          <div class="red-text left" *ngIf="ino.errors?.required">
+                            IGST Required*
                           </div>
                         </div>
                       </div>

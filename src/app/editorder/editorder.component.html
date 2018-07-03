@@ -18,11 +18,7 @@
                   Order Details
                 </div>
               </div>
-              <div class="col s6 l6 m6 right-align">
-
-                <button class="hedding-btn">Download Data </button>
-              </div>
-
+            
             </div>
           </div>
           <!--card stats end-->
@@ -47,6 +43,36 @@
                         </div>
                         <div class="red-text left" *ngIf="disc.errors?.pattern">
                           Discount value is Invalid*
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>
+                        <Strong>Shipping Charges (&#x20b9;):</Strong>
+                      </label>
+                      <input type="text" class="form-control"  #ship="ngModel" pattern="[0-9]+" required ngModel class="validate"
+                        placeholder="Enter Shipping charges" id="shipping" name="shipping" [(ngModel)]="shipping">
+                      <div *ngIf="ship?.touched">
+                        <div class="red-text left" *ngIf="ship.errors?.required">
+                          Shipping Charges Required*
+                        </div>
+                        <div class="red-text left" *ngIf="ship.errors?.pattern">
+                          Shipping charges value is Invalid*
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>
+                        <Strong>Other Charges (&#x20b9;):</Strong>
+                      </label>
+                      <input type="text" class="form-control" #other="ngModel" pattern="[0-9]+" required ngModel class="validate"
+                        placeholder="Enter Other Charges" id="other_charge" name="other_charge" [(ngModel)]="other_charge">
+                      <div *ngIf="other?.touched">
+                        <div class="red-text left" *ngIf="other.errors?.required">
+                          Other Charges Required*
+                        </div>
+                        <div class="red-text left" *ngIf="other.errors?.pattern">
+                          Other charges value is Invalid*
                         </div>
                       </div>
                     </div>
@@ -97,7 +123,7 @@
                       </label>
                       <select [(ngModel)]="statusvalue" name="statusvalue" #st="ngModel" required ngModel class="validate">
                         <option id="new" name="Received" class="blue-text" value="Received">Received</option>
-                        <option id="inprocess" name="in process" class="orange-text" value="In process">In Process</option>
+                        <option id="inprocess" name="in process" class="orange-text" value="In Process">In Process</option>
                         <option id="completed" class="green-text" name="completed" value="completed">Completed</option>
                         <option id="completed" class="red-text" name="Cancel" value="Cancel">Cancel</option>
                       </select>
@@ -130,7 +156,7 @@
                           required ngModel class="validate" placeholder="Enter product_id" id="product_id" name="product_id" value="{{product_id}}"> -->
                         <td hidden>{{p.product_id}}</td>
                         <td>{{p.prod_name}}</td>
-                        <td>{{p.model_no}}</td>
+                        <td>{{p.particular}}</td>
                         <td> {{p.qty}} </td>
                         <td> &#x20b9; {{p.price}}</td>
                         <td>
