@@ -47,6 +47,7 @@ export class InventoryComponent implements OnInit {
   i_view: boolean;
   i_edit: boolean;
   i_delete: boolean;
+  term:any;
 
   constructor(private router: Router,
     private productservice: ProductService,

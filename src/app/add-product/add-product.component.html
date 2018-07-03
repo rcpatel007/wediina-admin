@@ -63,7 +63,7 @@
                       <div class="input-field col s12 mr-t-20">
                         <b>Other Image:</b> &nbsp;&nbsp;
                         <input id="img" type="file" multiple="multiple" class="" (change)="otherImageUpload($event)" #oimg="ngModel" accept="png"
-                          required ngModel class="validate" [(ngModel)]="img" name="img">
+                          required ngModel class="validate" [(ngModel)]="o_img" name="o_img">
                       </div>
                       <div *ngIf="oimg?.touched">
                         <div class="red-text left" *ngIf="oimg.errors?.required">

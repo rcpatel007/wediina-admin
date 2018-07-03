@@ -158,9 +158,9 @@ export class AddorderComponent implements OnInit {
       });
   }
 
-  getmodel(mid) {
-    let id = mid;
-    this.product_id = mid;
+  getmodel(modelid) {
+    let id = modelid;
+    this.product_id = modelid;
     this.model.length = 0;
     this.productservice.getProductById(id)
       .subscribe((res) => {

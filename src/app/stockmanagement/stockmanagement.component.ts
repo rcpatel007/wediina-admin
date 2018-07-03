@@ -154,7 +154,7 @@ export class StockmanagementComponent implements OnInit {
 
     //   });
   }
-  modelNameFetch() {
+  modelNameFetch(productvalue) {
     let id = this.productvalue;
     this.final_model_data.length = 0;
     this.productservice.getProductById(id)
@@ -165,7 +165,7 @@ export class StockmanagementComponent implements OnInit {
       });
   }
 
-  modelDetail() {
+  modelDetail(modelname) {
     let id = this.productvalue;
     this.productservice.getProductById(id)
       .subscribe((res) => {

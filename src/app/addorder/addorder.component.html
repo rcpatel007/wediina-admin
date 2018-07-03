@@ -18,7 +18,7 @@
                   Add New Order
                 </div>
               </div>
-              <form class="col s12 mr-t-b-10 card" #formRef="ngForm" (ngSubmit)="addProduct()">
+              <form class="col s12 mr-t-b-10 card" #formRef="ngForm">
 
                 <div class="row">
                   <table>
@@ -124,7 +124,7 @@
                         </div>
                       </td>
                       <td>
-                        <select [(ngModel)]="mid" name="mid" #prod="ngModel" (click)="getmodel(mid)" required ngModel class="validate">
+                        <select [(ngModel)]="modelid" name="modelid" #prod="ngModel" (click)="getmodel(modelid)" required ngModel class="validate">
                           <option value="" disabled selected>Select Product Name</option>
                           <option *ngFor="let p of product" value="{{p._id}}">{{p.name}}</option>
                         </select>
