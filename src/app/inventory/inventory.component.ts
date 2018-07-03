@@ -8,7 +8,7 @@ import { Product } from '../model/Product';
 import { LoginService } from '../services/login.service';
 import { Globals } from '../../globals';
 import { CategoryService } from '../services/category.service';
-import { Category } from '../model/category';
+import { Category } from '../model/Category';
 import { CityService } from '../services/city.service';
 import { City } from '../model/City';
 import { UserService } from '../services/user.service';

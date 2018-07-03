@@ -9,7 +9,7 @@ import { CategoryService } from '../services/category.service';
 import { Category } from '../model/Category';
 import { Account } from '../model/Dealer';
 import { AccountService } from '../services/account.service';
-import { JwtHelper } from '../Jwthelper';
+import { JwtHelper } from '../JwtHelper';
 import { partition } from 'rxjs/operators';
 import { UserService } from '../services/user.service';
 

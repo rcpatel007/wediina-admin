@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
-import { JwtHelper } from '../Jwthelper';
+import { JwtHelper } from '../JwtHelper';
 import * as io from 'socket.io-client';
 import { Token } from '@angular/compiler';
 import { UserService } from '../services/user.service';
