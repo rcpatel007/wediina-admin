@@ -59,7 +59,7 @@
                         <td>
                           <a href="mailto:{{a.email}}">{{a.email}}</a>
                         </td>
-                        <!-- <td>{cart}}</td> -->
+                        <td  data-target="view_cart" class=" modal-trigger" (click)="viewCart(a.userid)"><a class="cart_tot" *ngIf="a.cart != 0">{{a.cart}}</a></td>
                         <td>{{a.mobile}}</td>
                         <td>{{a.discount}}</td>
                         <td *ngIf="d_edit == true" data-target="view_dealer" class="modal-trigger" (click)="viewDealer(a._id)">
@@ -432,33 +432,32 @@
   </div>
 
 
-<!-- 
+
   <div id="view_cart" class="modal">
     <div class="modal-content">
       <div class="col s12">
-        <h5> Product Details</h5>
+        <h5> Cart Details</h5>
       </div>
       <div class="col s12">
         <table id="" class="display mr-t-90 striped" cellspacing="0" width="100%">
           <thead>
             <tr>
               <th>Name</th>
+              <th>Moodel No</th>
               <th>Qty</th>
-              <th>Price</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let p of product_details">
-              <td>{{p.prod_name}}</td>
-              <td>{{p.qty}}</td>
-              <td>{{p.price}}</td>
+            <tr *ngFor="let c of cart_details ">
+              <td>{{c.prod_name}}</td>
+              <td>{{c.model_no}}</td>
+              <td>{{c.qty}}</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
-  </div> -->
-  <script type="text/javascript">
+  </div>  <script type="text/javascript">
     // $(document).ready(function () {
     //   function radioChange(id){
     //     // document.getElementById(id).checked = true;

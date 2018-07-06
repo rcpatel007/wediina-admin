@@ -5,6 +5,13 @@ body{
 a{
 	cursor: pointer;
 }
+.cart_tot{
+	background-color: #28669b;
+    padding: 16%;
+    border-radius: 50px;
+    color: #fff;
+    font-weight: 800;
+}
 .border-bottom {
 	border-bottom: 1px solid #4d4d4d;
 	margin-bottom: 20px;

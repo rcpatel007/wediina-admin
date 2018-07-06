@@ -33,7 +33,7 @@ export class DealerComponent implements OnInit {
   user_id: String;
   id: String;
   auth: any;
-  account: Account[];
+  account = new Array;
   role: Role[];
   city: City[];
   name: string = "";
@@ -62,6 +62,8 @@ export class DealerComponent implements OnInit {
   e_state: String;
   city_value = new Set;
   satateValue: String;
+  total_cart: number = 0;
+  cart_details = new Array;
   // user
   d_add: boolean;
   d_edit: boolean;
@@ -175,10 +177,46 @@ export class DealerComponent implements OnInit {
     this.accountservice.getAccount()
       .subscribe((account) => {
         //  console.log(account);
-        this.account = account;
+        // this.account = account;
         // console.log(account);
+        this.cartservice.getCartAll()
+          .subscribe((Cart) => {
+            for (let index = 0; index < account.length; index++) {
+              for (let secondindex = 0; secondindex < Cart.length; secondindex++) {
+                if (account[index]._id == Cart[secondindex].user_id) {
+                  for (let thirdindex = 0; thirdindex < Cart[secondindex].products.length; thirdindex++) {
+                    this.total_cart = this.total_cart + 1;
+                  }
+                }
+                this.account.push({
+                  'userid':account[index]._id,
+                  'name': account[index].name,
+                  'company_name': account[index].company_name,
+                  'email': account[index].email,
+                  'mobile': account[index].mobile,
+                  'type': account[index].type,
+                  'discount': account[index].discount,
+                  'cart': this.total_cart
+                });
+              }
+            }
+          });
 
       });
+    console.log(this.account);
+  }
+
+// cart detail  view
+  viewCart(userid){
+    console.log(userid);
+    
+this.cartservice.getCart(userid)
+  .subscribe((res)=>{
+    this.cart_details =res[0].products;
+    console.log(res);
+
+  });
+  
   }
 
   viewDealer(id) {
@@ -196,22 +234,12 @@ export class DealerComponent implements OnInit {
         this.e_discount = data.discount;
         this.e_state = data.state;
         this.e_city = data.city;
-
-        this.cartservice.getCartAll()
-          .subscribe((Cart) => {
-            this.cart = Cart;
-
-
-          });
-
       });
   }
 
   addDealer() {
-
     let address_city = this.address + ":" + this.selectedValue + ":" + this.satateValue;
     let add = { 'office': [address_city], 'warehouse': [], 'other': [] };
-
     let add_dealer = {
       name: this.name,
       company_name: this.cnm,
