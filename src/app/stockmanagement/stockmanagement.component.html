@@ -76,23 +76,25 @@
 
           <!--DataTables example Row grouping-->
           <div class="section">
-            <div class="row" id="view_stock" >
+            <div class="row" id="view_stock">
               <div class="col s12 card mr-t-50">
                 <div class="col s3 right">
                   <input type="text" placeholder="Search" id="search" [(ngModel)]="term">
                 </div>
-                <table    class="display mr-t-20 striped" cellspacing="0" width="100%">
+                <table class="display mr-t-20 striped" cellspacing="0" width="100%">
                   <thead>
                     <tr>
                       <!-- <th>No</th> -->
                       <th>No</th>
                       <th>Product Name</th>
                       <th>Model No</th>
+                      <th>Size</th>
+                      <th>Grade</th>
                       <th>QTY</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-
                     <ng-container *ngFor="let s of stock_model |filter:term ;let i =index ">
                       <ng-container *ngFor="let p of product">
                         <tr *ngIf="s.product_id == p._id">
@@ -101,8 +103,13 @@
                           <th>
                             <b>{{p.name}}</b>
                           </th>
-                          <td>{{s.model_no}}</td>
+                          <td>{{s.particular}}</td>
+                          <td>{{s.size}}</td>
+                          <td>{{s.grade}}</td>
                           <td>{{s.qty}}</td>
+                          <td data-target="edit_stock" class=" modal-trigger" (click)="getStockById(p._id, s.particular) ">
+                            <i class="fa fa-pencil-alt orange-text"></i>
+                          </td>
                         </tr>
                       </ng-container>
                     </ng-container>
@@ -116,6 +123,42 @@
       <!--end container-->
     </section>
   </div>
+</div>
+<!-- edit stock model -->
+
+<div id="edit_stock" class="modal">
+  <div class="modal-content">
+
+    <div class="col s12">
+      <h5> Stock Edit</h5>
+    </div>
+    <div class="col s12">
+      <form #frm2="ngForm" (ngSubmit)="editsotck()">
+        <table>
+          <tbody>
+            <th>Model No:</th>
+            <td> {{edit_particular}}</td>
+            <th>Qty:</th>
+            <td>
+              <input type="text" [(ngModel)]="edit_qty" name="edit_qty" #qtys="ngModel" pattern="[0-9]+" required ngModel class="validate">
+              <div *ngIf="qtys?.touched">
+                <div class="red-text left" *ngIf="qtys.errors?.required">
+                  Qty Required*
+                </div>
+                <div class="red-text left" *ngIf="qtys.errors?.pattern">
+                  Enter Valid Qty*
+                </div>
+              </div>
+            </td>
+            <td>
+              <button type="submit" class="btn btn-primary modal-close" [disabled]="frm2.invalid"> Update</button>
+            </td>
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </div>
+
 </div>
 <script>
   $(document).ready(function () {

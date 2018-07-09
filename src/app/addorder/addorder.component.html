@@ -35,7 +35,7 @@
                               </mat-option>
                             </mat-autocomplete>
                           </mat-form-field> -->
-                          <select [(ngModel)]="userid" name="userid" #cnm="ngModel" (click)="getUser(userid)" required ngModel class="validate">  
+                          <select [(ngModel)]="userid" name="userid" #cnm="ngModel" (click)="getUser(userid)" required ngModel class="validate">
                             <option value="" disabled selected>Select Company Name</option>
                             <option *ngFor="let c of dealer" value="{{c._id}}">{{c.company_name}}</option>
                           </select>
@@ -135,9 +135,9 @@
                         </div>
                       </td>
                       <td>
-                        <select [(ngModel)]="model_no" name="model_no" #mno="ngModel" (change)="getprice(model_no)" required ngModel class="validate">
+                        <select [(ngModel)]="particular" name="particular" #mno="ngModel" (change)="getprice(particular)" required ngModel class="validate">
                           <option value="" disabled selected>Select Model Name</option>
-                          <option *ngFor="let m of model" value="{{m.model_no}}">{{m.particular}}</option>
+                          <option *ngFor="let m of model" value="{{m.particular}}">{{m.particular}}</option>
                         </select>
                         <div *ngIf="mno?.touched">
                           <div class="red-text left" *ngIf="mno.errors?.required">
@@ -197,6 +197,19 @@
                       <tr>
                         <th>Dealer Discount Total :</th>
                         <td>{{discountotal}}</td>
+                      </tr>
+                      <tr *ngIf="isGujarat  == true">
+                        <th>(+)CGST:</th>
+                        <td> &#x20b9; {{cgst_total}}</td>
+                      </tr>
+                      <tr *ngIf="isGujarat  == true">
+                        <th>(+)SGST:</th>
+                        <td> &#x20b9; {{sgst_total}}</td>
+                      </tr>
+
+                      <tr *ngIf="isGujarat  == false">
+                        <th>(+)IGST:</th>
+                        <td> &#x20b9; {{igst_total}}</td>
                       </tr>
                       <tr>
                         <th>Grand Total :</th>

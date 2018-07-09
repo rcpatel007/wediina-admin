@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log(this.loginservice.token+"token");
+    // console.log(this.loginservice.token+"token");
     if (localStorage.user_id == null) {
       this.router.navigate(["/login"]);
     }
@@ -157,8 +157,8 @@ export class DashboardComponent implements OnInit {
            
             this.order.push(Order[i]);
             this.newcount = this.newcount + 1;
-            console.log(this.order);
-            console.log(this.newcount);
+            // console.log(this.order);
+            // console.log(this.newcount);
             
           }
           else if (Order[i].enquiry = true) {
@@ -166,12 +166,12 @@ export class DashboardComponent implements OnInit {
             // console.log(this.order_count);
             this.enquriryData.push(Order[i]);
           }
-         else if (Order[i].status == 'In process') {
+         else if (Order[i].status = 'In Process') {
             this.pendding = this.pendding + 1;
             this.penddingOrder.push(Order[i]);
-            // console.log(this.order_count);
+            console.log('order'+this.penddingOrder);
           }
-          else if (Order[i].status == 'completed') {
+          else if (Order[i].status = 'completed') {
             this.complate = this.complate + 1;
             // console.log(this.order_count);
           }

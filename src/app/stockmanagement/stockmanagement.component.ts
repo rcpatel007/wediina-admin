@@ -18,8 +18,9 @@ declare var $: any;
   styleUrls: ['./stockmanagement.component.css']
 })
 export class StockmanagementComponent implements OnInit {
-  term:String;
+  term: String;
   stock: Stock[];
+  stock_edit = new Array;
   stock_model = new Array;
   productvalue: String;
   product = new Array;
@@ -27,12 +28,19 @@ export class StockmanagementComponent implements OnInit {
   modelname: String;
   qty: Number;
   modeldata: any;
-  modeldetail :any;
+  modeldetail: any;
+  size: String;
+  grade: String;
   final_model_data = new Array;
   final_modle = new Array;
   key_array = new Array;
   model_value = new Array;
   finalvalue = new Array;
+  edit_particular: String;
+  edit_qty: String;
+  edit_grade: String;
+  edit_size: String;
+  prod_id: String;
   constructor(private route: ActivatedRoute,
     private router: Router,
     private loginservice: LoginService,
@@ -78,8 +86,8 @@ export class StockmanagementComponent implements OnInit {
         this.stock = Stock;
         console.log(this.stock);
         for (let index = 0; index < Stock.length; index++) {
-          for (let secondindex = 0; secondindex < Stock[index].models.length; secondindex++) {
-            this.stock_model.push({ "product_id": Stock[index].product_id, "model_no": Stock[index].models[secondindex].model_no, "qty": Stock[index].models[secondindex].qty });
+          for (let secondindex = 0; secondindex < Stock[index].particulars.length; secondindex++) {
+            this.stock_model.push({ "_id": Stock[index]._id, "product_id": Stock[index].product_id, "particular": Stock[index].particulars[secondindex].particular, "qty": Stock[index].particulars[secondindex].qty, "grade": Stock[index].particulars[secondindex].grade, "size": Stock[index].particulars[secondindex].size });
 
           }
         }
@@ -121,38 +129,33 @@ export class StockmanagementComponent implements OnInit {
     // console.log(this.product);
   }
 
+
+  getStockById(id, particular) {
+    console.log(id);
+    this.prod_id = id;
+    this.stockservice.getStockById(id)
+      .subscribe((Stock) => {
+        console.log(this.prod_id);
+        for (let secondindex = 0; secondindex < Stock[0].particulars.length; secondindex++) {
+          if (particular == Stock[0].particulars[secondindex].particular) {
+            this.edit_particular = Stock[0].particulars[secondindex].particular;
+            this.edit_qty = Stock[0].particulars[secondindex].qty;
+            this.edit_grade = Stock[0].particulars[secondindex].grade;
+            this.edit_size = Stock[0].particulars[secondindex].size;
+          }
+        }
+        console.log(this.edit_particular);
+        console.log(this.edit_qty);
+      });
+  }
+
+
   getProduct() {
 
     this.productservice.getProduct().
       subscribe((product) => {
         this.product = product;
       });
-    // this.productservice.getProduct()
-    //   .subscribe(Product => {
-    //     this.product = Product;
-    //     console.log(this.product);
-
-
-    //     for (let i = 0; i < Product.length; i++) {
-    //       this.modeldata.push(this.product[i].model_info);
-
-    //       for (let j = 0; j < this.modeldata.length; j++) {
-    //         this.finalvalue.push(this.modeldata[i])
-    //       }
-    //       this.model_value.push({ 'model_no': this.finalvalue[0].model_no, 'qty': this.finalvalue[0].qty });
-    //       this.model_info.push({
-    //         'id': this.product[i]._id,
-    //         'name': this.product[i].name,
-    //         'model_no': Product[i].model_info[0].model_no,
-    //         'qty': Product[i].model_info[0].qty,
-    //       });
-    //     }
-
-    //     console.log(this.modeldata);
-    //     console.log(this.model_value);
-
-
-    //   });
   }
   modelNameFetch(productvalue) {
     let id = this.productvalue;
@@ -172,22 +175,25 @@ export class StockmanagementComponent implements OnInit {
         for (let index = 0; index < res.model_info.length; index++) {
           if (res.model_info[index].particular == this.modelname) {
             this.modeldetail = res.model_info[index];
-            
+            this.grade = res.model_info[index].grade;
+            this.size = res.model_info[index].size;
+
           }
-          console.log(this.modeldetail);
-          
+          // console.log(this.modeldetail);
+
 
         }
       });
   }
+  // stock add
 
   addStock() {
     let stock = {
-      models: [{
-        model_no: this.modelname,
+      particulars: [{
+        particular: this.modelname,
         qty: Number(this.qty),
-        grade: this.modeldetail[0].grade,
-        size: this.modeldetail[0].size
+        grade: this.modeldetail.grade,
+        size: this.modeldetail.size
       }],
       product_id: this.productvalue
     }
@@ -201,50 +207,84 @@ export class StockmanagementComponent implements OnInit {
         let flag = false;
         // console.log(id);
         if (res.length > 0) {
-          for (let i = 0; i < res[0].models.length; i++) {
-            if (res[0].models[i].model_no == this.modelname) {
-              res[0].models[i].qty = Number(res[0].models[i].qty) + Number(this.qty);
+          for (let i = 0; i < res[0].particulars.length; i++) {
+            if (res[0].particulars[i].particular == this.modelname) {
+              res[0].particulars[i].qty = Number(res[0].particulars[i].qty) + Number(this.qty);
               flag = true;
               break;
             }
             // console.log(res[0]);
           }
-          model = res[0].models;
+          model = res[0].particulars;
           if (flag === false) {
             model.push({
               "particular": this.modelname,
               "qty": Number(this.qty),
-              "grade": this.modeldetail[0].grade,
-              "size": this.modeldetail[0].size
+              "grade": this.modeldetail.grade,
+              "size": this.modeldetail.size
             });
-            console.log(model);
+            // console.log(model);
           }
 
-          stock.models = model;
+          stock.particulars = model;
           console.log(stock);
-          // this.stockservice.editStock(product_id, stock)
-          //   .subscribe((result) => {
-          //     console.log(result);
-          //     this.getStock();
-
-          //     console.log(stock);
-          //   });
+          this.stockservice.editStock(product_id, stock)
+            .subscribe((result) => {
+              console.log(result);
+              this.getStock();
+              console.log(stock);
+            });
         }
         else {
           // tempcart.products = products
-          // this.stockservice.addStock(stock)
-          //   .subscribe((result) => {
-          //     this.getStock();
-
-          //     console.log(stock);
-          //   });
-
+          this.stockservice.addStock(stock)
+            .subscribe((result) => {
+              this.getStock();
+              console.log(stock);
+            });
           // console.log(tempcart);
         }
-
       });
     console.log(stock);
 
+  }
+
+  // edit stock
+  editsotck() {
+
+    let edit_stock = {
+      particulars: [{
+        particular: this.edit_particular,
+        qty: Number(this.edit_qty),
+        grade: this.edit_grade,
+        size: this.edit_size
+      }],
+      product_id: this.prod_id
+    }
+    let edit_model = [];
+    let id = this.prod_id;
+    this.stockservice.getStockById(id)
+      .subscribe((res) => {
+        console.log(id);
+        for (let i = 0; i < res[0].particulars.length; i++) {
+          if (res[0].particulars[i].particular == this.edit_particular) {
+            res[0].particulars[i].qty = Number(this.edit_qty);
+            break;
+          }
+          // console.log(res[0]);
+        }
+        edit_model = res[0].particulars;
+
+        // console.log(model);
+        edit_stock.particulars = edit_model;
+        console.log(edit_stock);
+        this.stockservice.editStock(this.prod_id, edit_stock)
+          .subscribe((result) => {
+            console.log(result);
+            this.getStock();
+            console.log(edit_stock);
+          });
+      });
   }
 
   printContent(id) {

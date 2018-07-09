@@ -44,10 +44,11 @@ export class AddorderComponent implements OnInit {
   user_type: String;
   user_discount: number;
   user_address = new Array;
+  user_state: String;
   pid: String;
   name: String;
   desc: String;
-  model_no: String;
+  particular: String;
   qty: number;
   price: number;
   p_img: String;
@@ -59,7 +60,15 @@ export class AddorderComponent implements OnInit {
   grandtotal: number = 0;
   discountotal: number = 0;
   product_id: String;
-  product_name:string;
+  product_name: string;
+  sgst: number = 0;
+  cgst: number = 0;
+  igst: number = 0;
+  sgst_total: number = 0;
+  cgst_total: number = 0;
+  igst_total: number = 0;
+
+  isGujarat: boolean;
 
   constructor(private loginservice: LoginService,
     private brandservice: BrandService,
@@ -104,6 +113,7 @@ export class AddorderComponent implements OnInit {
         this.user_gst = res.gst;
         this.user_city = res.city;
         this.user_email = res.email;
+        this.user_state = res.state;
         this.user_mobile = res.mobile;
         this.user_type = res.type;
         this.user_discount = res.discount;
@@ -175,14 +185,14 @@ export class AddorderComponent implements OnInit {
       });
   }
 
-  getprice(model_no) {
+  getprice(particular) {
     let id = this.product_id;
     this.model.length = 0;
     this.productservice.getProductById(id)
       .subscribe((res) => {
 
         for (let index = 0; index < res.model_info.length; index++) {
-          if (model_no == res.model_info[index].model_no) {
+          if (particular == res.model_info[index].particular) {
             this.price = res.model_info[index].price;
 
           }
@@ -197,7 +207,7 @@ export class AddorderComponent implements OnInit {
       products: [{
         "product_id": this.pid,
         "prod_name": this.name,
-        "model_no": this.model_no,
+        "model_no": this.particular,
         "qty": Number(this.qty),
         "desc": this.desc,
         "price": this.price,
@@ -216,7 +226,7 @@ export class AddorderComponent implements OnInit {
         // console.log(id);
         if (res.length > 0) {
           for (let i = 0; i < res[0].products.length; i++) {
-            if (this.model_no == res[0].products[i].model_no) {
+            if (this.particular == res[0].products[i].particular) {
               res[0].products[i].qty = Number(res[0].products[i].qty) + Number(this.qty);
               flag = true;
               // console.log(tempcart.products[i].qty);
@@ -230,7 +240,7 @@ export class AddorderComponent implements OnInit {
             products.push({
               "product_id": this.pid,
               "prod_name": this.name,
-              "model_no": this.model_no,
+              "model_no": this.particular,
               "qty": Number(this.qty),
               "desc": this.desc,
               "price": this.price,
@@ -282,7 +292,37 @@ export class AddorderComponent implements OnInit {
             }
           }
         }
-        this.grandtotal = this.subtotal - this.discountotal;
+
+        if (this.user_state == 'gujarat') {
+          this.isGujarat = true;
+          for (let index = 0; index < Cart.products.length; index++) {
+
+            let prod_tot = ((Cart.products[index].price * Cart.products[index].qty)) - ((Cart.products[index].price * Cart.products[index].qty) * Cart.products[index].p_discount) / 100;
+            let cgst = Math.round(prod_tot * Number(Cart.products[index].cgst_no)
+              / 100);
+            this.cgst_total = this.cgst_total + cgst;
+            let sgst = Math.round(prod_tot * Number(Cart.products[index].sgst_no) / 100);
+            this.sgst_total = this.sgst_total + sgst;
+            this.grandtotal = (this.subtotal - this.discountotal)+ this.cgst_total +this.cgst_total;
+
+          }
+
+        }
+        else {
+          this.isGujarat = false;
+
+          for (let index = 0; index < Cart.products.length; index++) {
+            let prod_tot = ((Cart.products[index].price * Cart.products[index].qty)) - ((Cart.products[index].price * Cart.products[index].qty) * Cart.products[index].p_discount) / 100;
+            let igst = Math.round(prod_tot * Number(Cart.products[index].igst_no) / 100);
+            this.igst_total = this.igst_total + igst;
+
+            console.log(this.igst_total);
+            this.grandtotal = (this.subtotal - this.discountotal)+ this.igst_total;
+
+          }
+
+        }
+
         console.log(this.user_discount);
         console.log(this.cart);
 
@@ -303,14 +343,14 @@ export class AddorderComponent implements OnInit {
         for (let index = 0; index < tempproduct.length; index++) {
           this.product_id = tempproduct[index].product_id;
           this.product_name = tempproduct[index].prod_name;
-          this.model_no = tempproduct[index].model_no;
+          this.particular = tempproduct[index].particular;
           this.qty = tempproduct[index].qty;
           this.price = tempproduct[index].price;
 
           product_array.push({
             "prodcut_id": this.product_id,
             "prod_name": this.product_name,
-            "model_no": this.model_no,
+            "particular": this.particular,
             "qty": this.qty,
             "price": this.price,
             "p_discount": "0"
@@ -324,7 +364,7 @@ export class AddorderComponent implements OnInit {
           dealer_email: this.user_email,
           dealer_name: this.user_name,
           company_name: this.user_company_name,
-          dealer_discount:this.user_discount,
+          dealer_discount: this.user_discount,
           mobile: this.user_mobile,
           method: "",
           address: "Office",
@@ -332,10 +372,10 @@ export class AddorderComponent implements OnInit {
           _date: "",
           _time: "",
           status: "Received",
-          enquiry:false,
+          enquiry: false,
         }
         console.log(order);
-        
+
         this.cartservice.addOrder(order)
           .subscribe((result) => {
             // this.cartservice.deletecart(this.user_id)
@@ -344,7 +384,7 @@ export class AddorderComponent implements OnInit {
             //     console.log(result);
             //   }); 
             console.log(result);
-            
+
             this.router.navigate(['vieworder/' + result.data._id]);
 
           });
