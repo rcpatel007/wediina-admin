@@ -35,7 +35,7 @@
                               </mat-option>
                             </mat-autocomplete>
                           </mat-form-field> -->
-                          <select [(ngModel)]="user" name="user" #cnm="ngModel" (click)="getUser(user)" required ngModel class="validate">
+                          <select [(ngModel)]="user" name="user" #cnm="ngModel" (change)="getUser(user)" required ngModel class="validate">
                             <option value="" disabled selected>Select Company Name</option>
                             <option *ngFor="let c of dealer" value="{{c._id}}">{{c.company_name}}</option>
                           </select>
@@ -102,7 +102,7 @@
                     </thead>
                     <tbody>
                       <td>
-                        <select [(ngModel)]="bid" name="bid" #bnm="ngModel" (click)="getCategory(bid)" required ngModel class="validate">
+                        <select [(ngModel)]="bid" name="bid" #bnm="ngModel" (change)="getCategory(bid)" required ngModel class="validate">
                           <option value="" disabled selected>Select Brand Name</option>
                           <option *ngFor="let b of brand" value="{{b._id}}">{{b.name}}</option>
                         </select>
@@ -113,7 +113,7 @@
                         </div>
                       </td>
                       <td>
-                        <select [(ngModel)]="pid" name="pid" #catnm="ngModel" (click)="getprod(pid)" required ngModel class="validate">
+                        <select [(ngModel)]="pid" name="pid" #catnm="ngModel" (change)="getprod(pid)" required ngModel class="validate">
                           <option value="" disabled selected>Select Category Name</option>
                           <option *ngFor="let c of category" value="{{c._id}}">{{c.name}}</option>
                         </select>
@@ -124,7 +124,7 @@
                         </div>
                       </td>
                       <td>
-                        <select [(ngModel)]="mid" name="mid" #prod="ngModel" (click)="getmodel(mid)" required ngModel class="validate">
+                        <select [(ngModel)]="mid" name="mid" #prod="ngModel" (change)="getmodel(mid)" required ngModel class="validate">
                           <option value="" disabled selected>Select Product Name</option>
                           <option *ngFor="let p of product" value="{{p._id}}">{{p.name}}</option>
                         </select>

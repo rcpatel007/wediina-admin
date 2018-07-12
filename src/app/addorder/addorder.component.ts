@@ -378,6 +378,9 @@ export class AddorderComponent implements OnInit {
             "prodcut_id": this.product_id,
             "prod_name": this.product_name,
             "particular": this.particular,
+            "cgst_no":this.cgst,
+            "sgst_no":this.sgst,
+            "igst_no":this.igst,
             "qty": this.qty,
             "price": this.price,
             "p_discount": "0"
@@ -393,6 +396,7 @@ export class AddorderComponent implements OnInit {
           address: this.user_address[0].add[0],
           city:this.user_address[0].add[1],
           state:this.user_address[0].add[2],
+
           shipping_charges:0,
           other_charges:0,
           company_name: this.user_company_name,
