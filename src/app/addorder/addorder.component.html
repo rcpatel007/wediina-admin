@@ -37,7 +37,7 @@
                           </mat-form-field> -->
                           <select [(ngModel)]="user" name="user" #cnm="ngModel" (change)="getUser(user)" required ngModel class="validate">
                             <option value="" disabled selected>Select Company Name</option>
-                            <option *ngFor="let c of dealer" [value]="{{c._id}}">{{c.company_name}}</option>
+                            <option *ngFor="let c of dealer" [value]="c._id">{{c.company_name}}</option>
                           </select>
                           <div *ngIf="cnm?.touched">
                             <div class="red-text left" *ngIf="cnm.errors?.required">
@@ -104,7 +104,7 @@
                       <td>
                         <select [(ngModel)]="bid" name="bid" #bnm="ngModel" (change)="getCategory(bid)" required ngModel class="validate">
                           <option value="" disabled selected>Select Brand Name</option>
-                          <option *ngFor="let b of brand" [value]="{{b._id}}">{{b.name}}</option>
+                          <option *ngFor="let b of brand" [value]="b._id">{{b.name}}</option>
                         </select>
                         <div *ngIf="bnm?.touched">
                           <div class="red-text left" *ngIf="bnm.errors?.required">
@@ -115,7 +115,7 @@
                       <td>
                         <select [(ngModel)]="pid" name="pid" #catnm="ngModel" (change)="getprod(pid)" required ngModel class="validate">
                           <option value="" disabled selected>Select Category Name</option>
-                          <option *ngFor="let c of category" [value]="{{c._id}}">{{c.name}}</option>
+                          <option *ngFor="let c of category" [value]="c._id">{{c.name}}</option>
                         </select>
                         <div *ngIf="catnm?.touched">
                           <div class="red-text left" *ngIf="catnm.errors?.required">
@@ -126,7 +126,7 @@
                       <td>
                         <select [(ngModel)]="mid" name="mid" #prod="ngModel" (change)="getmodel(mid)" required ngModel class="validate">
                           <option value="" disabled selected>Select Product Name</option>
-                          <option *ngFor="let p of product" [value]="{{p._id}}">{{p.name}}</option>
+                          <option *ngFor="let p of product" [value]="p._id">{{p.name}}</option>
                         </select>
                         <div *ngIf="prod?.touched">
                           <div class="red-text left" *ngIf="prod.errors?.required">
@@ -137,7 +137,7 @@
                       <td>
                         <select [(ngModel)]="particular" name="particular" #mno="ngModel" (change)="getprice(particular)" required ngModel class="validate">
                           <option value="" disabled selected>Select Model Name</option>
-                          <option *ngFor="let m of model" [value]="{{m.particular}}">{{m.particular}}</option>
+                          <option *ngFor="let m of model" [value]="m.particular">{{m.particular}}</option>
                         </select>
                         <div *ngIf="mno?.touched">
                           <div class="red-text left" *ngIf="mno.errors?.required">
