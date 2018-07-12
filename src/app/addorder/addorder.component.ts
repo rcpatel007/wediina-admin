@@ -70,7 +70,10 @@ export class AddorderComponent implements OnInit {
   sgst_total: number = 0;
   cgst_total: number = 0;
   igst_total: number = 0;
-
+  user:String;
+  bid:String;
+  mid:String;
+  
   isGujarat: boolean;
 
   constructor(private loginservice: LoginService,
