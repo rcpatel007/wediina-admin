@@ -198,17 +198,18 @@
             <div class=" row">
               <div class="">
                 <h6>TYPE:</h6>
-                <div *ngIf="ratype?.touched">
-                  <div class="red-text left" *ngIf="roletype.errors?.required">
-                    Dealer Type Required*
-                  </div>
-                </div>
+              
               </div>
               <br />
               <div class="col s3" *ngFor="let a of role">
                 <input class="with-gap" type="radio" id="{{a.type}}" value="{{a.type}}" name="type" [(ngModel)]="type" (change)="getRoleValue(a._id)"
                   #ratype="ngModel" required ngModel class="validate" />
                 <label for="{{a.type}}">{{a.type}}</label>
+                <div *ngIf="ratype?.touched">
+                  <div class="red-text left" *ngIf="roletype.errors?.required">
+                    Dealer Type Required*
+                  </div>
+                </div>
               </div>
             </div>
             <div class="row">
@@ -333,17 +334,18 @@
               <div class=" col s12">
                 <div class="">
                   <h6>TYPE:</h6>
-                  <div *ngIf="edittype?.touched">
-                    <div class="red-text left" *ngIf="edittype.errors?.required">
-                      Dealer Type Required*
-                    </div>
-                  </div>
+                 
                 </div>
                 <br />
                 <div class="col s3" *ngFor="let a of role;let in=index">
                   <input class="with-gap" type="radio" id="{{a.type}}" value="{{a.type}}" name="e_type" [(ngModel)]="e_type" (change)="getRoleValue(a._id)"
                     #edittype="ngModel" required ngModel class="validate" />
                   <label for="{{a.type}}" id="l{{in}}" (click)="radioChange(a.type,in)">{{a.type}}</label>
+                  <div *ngIf="edittype?.touched">
+                    <div class="red-text left" *ngIf="edittype.errors?.required">
+                      Dealer Type Required*
+                    </div>
+                  </div>
                 </div>
                 <!-- <div class="col s4  " *ngFor="let a of role">
                   <input class="with-gap overlay" type="radio" id="{{a.type}}" value="{{a.type}}" name="e_type" [(ngModel)  ]="e_type" (change)="getRoleValue(a._id)"

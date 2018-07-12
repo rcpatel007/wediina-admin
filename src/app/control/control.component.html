@@ -13,11 +13,12 @@
                 <div class="control-headding">CITY SERVED IN</div>
                 <div class="row">
                   <div class="input-field col s6">
-                    <input id="stateid" type="text" name="state" [(ngModel)]="state" #st="ngModel" required ngModel pattern="[a-zA-Z][a-zA-Z ]+" class="validate city_class">
+                    <input id="stateid" type="text" name="state" [(ngModel)]="state" #st="ngModel" required ngModel pattern="[a-zA-Z][a-zA-Z ]+"
+                      class="validate city_class">
                     <label for="stateid">State</label>
                     <div *ngIf="st?.touched">
                       <div class="red-text left" *ngIf="st.errors?.required">
-                       State Required*
+                        State Required*
                       </div>
                       <div class="red-text left" *ngIf="st.errors?.pattern">
                         State Invalid*
@@ -25,7 +26,8 @@
                     </div>
                   </div>
                   <div class="input-field col s6">
-                    <input id="cid" type="text" name="city_name" [(ngModel)]="city_name" #st="ngModel" required ngModel pattern="[a-zA-Z][a-zA-Z ]+" class="validate city_class">
+                    <input id="cid" type="text" name="city_name" [(ngModel)]="city_name" #st="ngModel" required ngModel pattern="[a-zA-Z][a-zA-Z ]+"
+                      class="validate city_class">
                     <label for="cid">City Name </label>
                     <div *ngIf="st?.touched">
                       <div class="red-text left" *ngIf="st.errors?.required">
@@ -43,7 +45,7 @@
                     <button class="hedding-btn-2"  (click)="cityShow()" > Display City </button>
                   </div> -->
                   <div class="right-align">
-                    <button class="btn btn-primary"[disabled]="frm.invalid" onclick="Materialize.toast('City ADDED', 3000)" type="submit">ADD</button>
+                    <button class="btn btn-primary" [disabled]="frm.invalid" onclick="Materialize.toast('City ADDED', 3000)" type="submit">ADD</button>
                   </div>
                 </div>
               </form>
@@ -424,17 +426,18 @@
           <div class=" col s12">
             <div class="">
               <h6>TYPE:</h6>
-              <div *ngIf="etype?.touched">
-                <div class="red-text left" *ngIf="etype.errors?.required">
-                  Role Type Required*
-                </div>
-              </div>
+
             </div>
             <br />
             <div class="col s3" *ngFor="let a of role">
               <input class="with-gap" name="roletype" type="radio" id="{{a.role}}" #etype="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" required
                 ngModel class="validate" [value]="a.role" [(ngModel)]="roletype" (change)="getRoleValue(a._id)" />
               <label for="{{a.role}}">{{a.role}}</label>
+              <div *ngIf="etype?.touched">
+                <div class="red-text left" *ngIf="etype.errors?.required">
+                  Role Type Required*
+                </div>
+              </div>
             </div>
           </div>
         </div>
