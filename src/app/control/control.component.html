@@ -202,19 +202,15 @@
             <div class=" col s12">
               <div class="">
                 <h6>TYPE:</h6>
-                <div *ngIf="radiotype?.touched">
-                  <div class="red-text left" *ngIf="radiotype.errors?.required">
-                    Role Type Required*
-                  </div>
-                </div>
+               
               </div>
               <br />
               <div class="col s3" *ngFor="let a of role">
                 <input class="with-gap" name="addroletype" type="radio" id="{{a.role}}" [value]="a.role" [(ngModel)]="addroletype" (change)="getRoleValue(a._id)"
                   #radiotype="ngModel" required ngModel class="validate" />
                 <label for="{{a.role}}">{{a.role}}</label>
-                <div *ngIf="rtype?.touched">
-                  <div class="red-text left" *ngIf="rtype.errors?.required">
+                <div *ngIf="radiotype?.touched">
+                  <div class="red-text left" *ngIf="radiotype.errors?.required">
                     Role Type Required*
                   </div>
                 </div>
