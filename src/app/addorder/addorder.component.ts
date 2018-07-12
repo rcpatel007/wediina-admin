@@ -50,6 +50,9 @@ export class AddorderComponent implements OnInit {
   desc: String;
   particular: String;
   qty: number;
+  address:String;
+  state:String;
+  city:String;
   price: number;
   p_img: String;
   discount: number;
@@ -104,7 +107,7 @@ export class AddorderComponent implements OnInit {
 
   getUser(userid) {
     let id = userid;
-
+    let address =[];
     this.accountservice.getAccountById(id)
       .subscribe((res) => {
         this.user_id = res._id;
@@ -117,12 +120,19 @@ export class AddorderComponent implements OnInit {
         this.user_mobile = res.mobile;
         this.user_type = res.type;
         this.user_discount = res.discount;
-        let address = res.address;
+        // address = res.address;
 
-        // for (let index = 0; index < res.address.length; index++) {
-        //   this.user_address.push(res.address[index]);
-        // }
-        // console.log(this.user_address);
+        for (let index = 0; index < res.address.office.length; index++) {
+          // this.officeAddress.push(res.address.office[index]);
+          var arr=res.address.office[index].split(':');
+           this.user_address.push(
+             {
+               type:"office",
+               add:arr
+             }
+           )
+          }
+        console.log(this.user_address);
         console.log(res);
         this.ShowCart();
       });
@@ -176,7 +186,7 @@ export class AddorderComponent implements OnInit {
       .subscribe((res) => {
         this.pid = res._id;
         this.name = res.name;
-        this.p_img = res.product_img
+        this.p_img = res.product_img;
 
         this.desc = res.desc;
         for (let index = 0; index < res.model_info.length; index++) {
@@ -194,10 +204,14 @@ export class AddorderComponent implements OnInit {
         for (let index = 0; index < res.model_info.length; index++) {
           if (particular == res.model_info[index].particular) {
             this.price = res.model_info[index].price;
-
+            this.cgst = res.model_info[index].cgst_no;
+            this.sgst = res.model_info[index].sgst_no;
+            this.igst = res.model_info[index].igst_no;
           }
         }
       });
+    console.log(this.discount);
+
   }
 
 
@@ -211,11 +225,15 @@ export class AddorderComponent implements OnInit {
         "qty": Number(this.qty),
         "desc": this.desc,
         "price": this.price,
-        "p_discount": this.discount,
+        "cgst_no": this.cgst,
+        "sgst_no": this.sgst,
+        "igst_no": this.igst,
         "product_img": this.p_img
       }],
       user_id: this.user_id
     }
+    console.log(tempcart);
+
     let products = [];
     // console.log(product);
     let id = this.user_id;
@@ -226,11 +244,10 @@ export class AddorderComponent implements OnInit {
         // console.log(id);
         if (res.length > 0) {
           for (let i = 0; i < res[0].products.length; i++) {
-            if (this.particular == res[0].products[i].particular) {
+            if (this.particular == res[0].products[i].model_no) {
               res[0].products[i].qty = Number(res[0].products[i].qty) + Number(this.qty);
               flag = true;
               // console.log(tempcart.products[i].qty);
-
               break;
             }
             // console.log(res[0]);
@@ -242,9 +259,11 @@ export class AddorderComponent implements OnInit {
               "prod_name": this.name,
               "model_no": this.particular,
               "qty": Number(this.qty),
+              "cgst_no": this.cgst,
+              "sgst_no": this.sgst,
+              "igst_no": this.igst,
               "desc": this.desc,
               "price": this.price,
-              "p_discount": this.discount,
               "product_img": this.p_img
             });
             console.log(products);
@@ -281,6 +300,7 @@ export class AddorderComponent implements OnInit {
     let user_id = this.user_id;
     this.cartservice.getCart(user_id)
       .subscribe((Cart) => {
+        console.log(Cart);
 
         for (let i = 0; i < Cart.length; i++) {
           if (Cart[i].user_id == this.user_id) {
@@ -295,15 +315,16 @@ export class AddorderComponent implements OnInit {
 
         if (this.user_state == 'gujarat') {
           this.isGujarat = true;
-          for (let index = 0; index < Cart.products.length; index++) {
 
-            let prod_tot = ((Cart.products[index].price * Cart.products[index].qty)) - ((Cart.products[index].price * Cart.products[index].qty) * Cart.products[index].p_discount) / 100;
-            let cgst = Math.round(prod_tot * Number(Cart.products[index].cgst_no)
+          for (let index = 0; index < this.cart.length; index++) {
+
+            let prod_tot = ((this.cart[index].price * this.cart[index].qty));
+            let cgst = Math.round(prod_tot * Number(this.cart[index].cgst_no)
               / 100);
             this.cgst_total = this.cgst_total + cgst;
-            let sgst = Math.round(prod_tot * Number(Cart.products[index].sgst_no) / 100);
+            let sgst = Math.round(prod_tot * Number(this.cart[index].sgst_no) / 100);
             this.sgst_total = this.sgst_total + sgst;
-            this.grandtotal = (this.subtotal - this.discountotal)+ this.cgst_total +this.cgst_total;
+            this.grandtotal = (this.subtotal - this.discountotal) + this.cgst_total + this.sgst_total;
 
           }
 
@@ -311,13 +332,13 @@ export class AddorderComponent implements OnInit {
         else {
           this.isGujarat = false;
 
-          for (let index = 0; index < Cart.products.length; index++) {
-            let prod_tot = ((Cart.products[index].price * Cart.products[index].qty)) - ((Cart.products[index].price * Cart.products[index].qty) * Cart.products[index].p_discount) / 100;
-            let igst = Math.round(prod_tot * Number(Cart.products[index].igst_no) / 100);
+          for (let index = 0; index < this.cart.length; index++) {
+            let prod_tot = ((Number(this.cart[index].price) * this.cart[index].qty));
+            let igst = Math.round(prod_tot * Number(this.cart[index].igst_no) / 100);
             this.igst_total = this.igst_total + igst;
 
             console.log(this.igst_total);
-            this.grandtotal = (this.subtotal - this.discountotal)+ this.igst_total;
+            this.grandtotal = (this.subtotal - this.discountotal) + this.igst_total;
 
           }
 
@@ -343,8 +364,14 @@ export class AddorderComponent implements OnInit {
         for (let index = 0; index < tempproduct.length; index++) {
           this.product_id = tempproduct[index].product_id;
           this.product_name = tempproduct[index].prod_name;
-          this.particular = tempproduct[index].particular;
+          this.particular = tempproduct[index].model_no;
           this.qty = tempproduct[index].qty;
+          this.address =this.user_address[0].add[0];
+          this.city =this.user_address[0].add[1];
+          this.state =this.user_address[0].add[2];
+          this.cgst = tempproduct[index].cgst_no;
+          this.sgst = tempproduct[index].sgst_no;
+          this.igst = tempproduct[index].igst_no;
           this.price = tempproduct[index].price;
 
           product_array.push({
@@ -363,11 +390,15 @@ export class AddorderComponent implements OnInit {
           o_discount: this.user_discount,
           dealer_email: this.user_email,
           dealer_name: this.user_name,
+          address: this.user_address[0].add[0],
+          city:this.user_address[0].add[1],
+          state:this.user_address[0].add[2],
+          shipping_charges:0,
+          other_charges:0,
           company_name: this.user_company_name,
           dealer_discount: this.user_discount,
           mobile: this.user_mobile,
           method: "",
-          address: "Office",
           order_date: "",
           _date: "",
           _time: "",
@@ -378,11 +409,11 @@ export class AddorderComponent implements OnInit {
 
         this.cartservice.addOrder(order)
           .subscribe((result) => {
-            // this.cartservice.deletecart(this.user_id)
-            //   .subscribe((result) => {
-            //     // this.Cart();
-            //     console.log(result);
-            //   }); 
+            this.cartservice.deletecart(this.user_id)
+              .subscribe((result) => {
+                // this.Cart();
+                console.log(result);
+              }); 
             console.log(result);
 
             this.router.navigate(['vieworder/' + result.data._id]);

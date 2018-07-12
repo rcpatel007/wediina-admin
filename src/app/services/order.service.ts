@@ -19,7 +19,7 @@ export class OrderService {
         headers = new Headers({'x-access-token':'' +this.loginService.token});
       let options = new RequestOptions({ headers: headers });
  
-      return this.http.get('https://jasmatech-backend-api.herokuapp.com/order', options)
+      return this.http.get(environment.api_url + '/order', options)
       .pipe(map(res => res.json()));
       
   }
@@ -29,7 +29,7 @@ export class OrderService {
   viewOrder(id) {
     //  headers = new Headers();    
      let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-      return this.http.get('https://jasmatech-backend-api.herokuapp.com/order/'+id,{headers: headers})
+      return this.http.get(environment.api_url + '/order/'+id,{headers: headers})
       .pipe(map( res => res.json()));
   
   }
@@ -39,7 +39,7 @@ export class OrderService {
   updateOrder(updateOrder, id) {
     //  headers = new Headers();    
      let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-      return this.http.put('https://jasmatech-backend-api.herokuapp.com/order/'+id ,updateOrder,{headers: headers})
+      return this.http.put(environment.api_url + '/order/'+id ,updateOrder,{headers: headers})
       .pipe(map( res => res.json()));
   
   }
@@ -50,7 +50,7 @@ export class OrderService {
   getAccountById(id) {
     //  headers = new Headers();    
      let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-      return this.http.get('https://jasmatech-backend-api.herokuapp.com/account/' +id,{headers: headers})
+      return this.http.get(environment.api_url + '/account/' +id,{headers: headers})
       .pipe(map( res => res.json()));
   
   }
@@ -60,7 +60,7 @@ export class OrderService {
   deleteOrder(id) {
     let headers = new Headers({'x-access-token': ''+ this.loginService.token});
   
-    return this.http.delete('https://jasmatech-backend-api.herokuapp.com/order/'+id, {headers: headers})
+    return this.http.delete(environment.api_url + '/order/'+id, {headers: headers})
     .pipe(map( res => res.json()));
   
   }

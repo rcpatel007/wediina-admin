@@ -16,7 +16,7 @@ export class GuestService {
   getGuest() {
    //  headers = new Headers();    
     let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-     return this.http.get('https://jasmatech-backend-api.herokuapp.com/guest',{headers: headers})
+     return this.http.get(environment.api_url + '/guest',{headers: headers})
      .pipe(map( res => res.json()));
  
  }

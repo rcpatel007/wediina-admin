@@ -16,7 +16,7 @@ export class AccountService {
   getAccount() {
     //  headers = new Headers();    
     let headers = new Headers({ 'x-access-token': '' + this.loginservice.token });
-    return this.http.get('https://jasmatech-backend-api.herokuapp.com/account', { headers: headers })
+    return this.http.get(environment.api_url + '/account', { headers: headers })
       .pipe(map(res => res.json()));
 
   }
@@ -25,7 +25,7 @@ export class AccountService {
   getAccountById(id) {
     //  headers = new Headers();    
     let headers = new Headers({ 'x-access-token': '' + this.loginservice.token });
-    return this.http.get('https://jasmatech-backend-api.herokuapp.com/account/' + id, { headers: headers })
+    return this.http.get(environment.api_url + '/account/' + id, { headers: headers })
       .pipe(map(res => res.json()));
 
   }
@@ -34,7 +34,7 @@ export class AccountService {
 
   addAccount(account) {
     let headers = new Headers({ 'x-access-token': '' + this.loginservice.token });
-    return this.http.post('https://jasmatech-backend-api.herokuapp.com/account/', account, { headers: headers })
+    return this.http.post(environment.api_url + '/account/', account, { headers: headers })
       .pipe(map(res => res.json()));
 
   }
@@ -42,7 +42,7 @@ export class AccountService {
 
   editAccount(id, account) {
     let headers = new Headers({ 'x-access-token': '' + this.loginservice.token });
-    return this.http.put('https://jasmatech-backend-api.herokuapp.com/update_account/' + id, account, { headers: headers })
+    return this.http.put(environment.api_url + '/update_account/' + id, account, { headers: headers })
       .pipe(map(res => res.json()));
 
   }
@@ -51,7 +51,7 @@ export class AccountService {
 
   editRole(id, updateaccount) {
     let headers = new Headers({ 'x-access-token': '' + this.loginservice.token });
-    return this.http.put('https://jasmatech-backend-api.herokuapp.com/account/' + id, updateaccount, { headers: headers })
+    return this.http.put(environment.api_url + '/account/' + id, updateaccount, { headers: headers })
       .pipe(map(res => res.json()));
 
   }
@@ -61,10 +61,8 @@ export class AccountService {
   deleteAccount(id) {
     let headers = new Headers({ 'x-access-token': '' + this.loginservice.token });
 
-    return this.http.put('https://jasmatech-backend-api.herokuapp.com/account/', +id, { headers: headers })
+    return this.http.put(environment.api_url + '/account/', +id, { headers: headers })
       .pipe(map(res => res.json()));
 
   }
-
-
 }

@@ -152,38 +152,34 @@ export class EditorderComponent implements OnInit {
       method: this.methodvalue
     }
     console.log(this.product_detail);
-    let product = [];
+    let product: any;
+
+    if (this.statusvalue == "In Process") {
     for (let index = 0; index < this.product_detail.length; index++) {
-     let  products = {
-        prodcut_id:this.product_detail[index].product_id,
-        particular: this.product_detail[index].particular,
-        qty: this.product_detail[index].qty
+      let prod = {
+        "products": [{
+          product_id: this.product_detail[index].product_id,
+          particular: this.product_detail[index].particular,
+          qty: this.product_detail[index].qty
+        }]
       }
-      product.push(products);
+      product = prod;
     }
     console.log(product);
-
-    // if (this.statusvalue == "In Process") {
-    //   this.stockservice.orderStockUpdate(stock)
-    //       .subscribe(()=>{
-
-    //       });
-    // }
-
-
+    this.stockservice.orderStockUpdate(product)
+      .subscribe(() => {
+      });
+    }
     // console.log(updateorder);
-
-    // // let flag: boolean;
-    // // console.log(updateorder);
-    // let id = this.o_id;
-    // // console.log(orderupdate);
-    // this.orderService.updateOrder(updateorder, id)
-    //   .subscribe((res) => {
-    //     this.router.navigate(['vieworder/' + this.o_id]);
-
-
-    //     console.log(res);
-    //   });
+    // let flag: boolean;
+    // console.log(updateorder);
+    let id = this.o_id;
+    // console.log(orderupdate);
+    this.orderService.updateOrder(updateorder, id)
+      .subscribe((res) => {
+        this.router.navigate(['vieworder/' + this.o_id]);
+        console.log(res);
+      });
   }
   getuser(user_id) {
     let id = localStorage.user_id;
@@ -194,8 +190,6 @@ export class EditorderComponent implements OnInit {
         this.d_edit = data.dealer.edit;
         this.d_view = data.dealer.view;
         this.d_delete = data.dealer.delete;
-
-
         //  console.log(account);
         // console.log(data);
 

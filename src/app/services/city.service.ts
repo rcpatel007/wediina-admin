@@ -19,7 +19,7 @@ export class CityService {
   getcity() {
     //  headers = new Headers();    
      let headers = new Headers({'x-access-token': ''+this.loginService.token});
-      return this.http.get('https://jasmatech-backend-api.herokuapp.com/city',{headers: headers})
+      return this.http.get(environment.api_url + '/city',{headers: headers})
       .pipe(map( res => res.json()));
   
   }
@@ -28,7 +28,7 @@ export class CityService {
 
   addcity(cities) {    
     let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-     return this.http.put('https://jasmatech-backend-api.herokuapp.com/city/',cities, {headers: headers})
+     return this.http.put(environment.api_url + '/city/',cities, {headers: headers})
       .pipe(map( res => res.json()));
   
   }
@@ -38,7 +38,7 @@ export class CityService {
  
   deleteCity(id) {
   let headers = new Headers({'x-access-token':''+ this.loginService.token});
-  return this.http.delete('https://jasmatech-backend-api.herokuapp.com/city/'+id, {headers: headers})
+  return this.http.delete(environment.api_url + '/city/'+id, {headers: headers})
   .pipe(map( res => res.json()));
 
 }

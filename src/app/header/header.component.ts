@@ -25,8 +25,14 @@ export class HeaderComponent implements OnInit {
   name: String;
   user_id: String;
   email: String;
+  mobile: String;
   read: any;
   n_id: String;
+  cpwd: String;
+  npwd: String;
+  confirmpwd: String;
+  pwderror: String;
+  pwdsucess: String;
   // user
   role: String;
   o_view: boolean;
@@ -95,6 +101,7 @@ export class HeaderComponent implements OnInit {
     localStorage.setItem('user_id', id);
     // console.log('login id' + localStorage.user_id);
     // console.log('id '+localStorage.user_id);
+    this.id = localStorage.user_id;
 
   }
 
@@ -200,10 +207,10 @@ export class HeaderComponent implements OnInit {
     let id = localStorage.user_id;
     this.userservice.getUserById(id)
       .subscribe((data) => {
-        // console.log(data);
+        console.log(data);
         this.name = data.name;
         this.email = data.email;
-
+        this.mobile = data.mobile;
         this.o_view = data.order.view;
         this.i_view = data.product.view;
         this.d_view = data.dealer.view;
@@ -211,6 +218,20 @@ export class HeaderComponent implements OnInit {
         this.c_view = data.category.view;
         this.role = data.role;
         // console.log(this.role);
+      });
+  }
+  // update user
+  editProfile(id) {
+    let update = {
+      name: this.name,
+      email: this.email,
+      mobile: this.mobile
+    }
+    console.log(update);
+
+    this.userservice.updateProfile(id, update)
+      .subscribe((res) => {
+
       });
   }
 
@@ -238,4 +259,48 @@ export class HeaderComponent implements OnInit {
 
   }
 
+  // profile password change
+
+changePassword() {
+    let id = localStorage.user_id;
+    let validate_pwd = {
+      id: localStorage.user_id,
+      password: this.cpwd
+    }
+    console.log(validate_pwd);
+
+    this.loginService.validatepwd(validate_pwd)
+      .subscribe((res) => {
+        console.log(res);
+
+        if (res.auth == true) {
+          // console.log(this.npwd);
+          // console.log(this.confirmpwd);
+          if (this.npwd == this.confirmpwd) {
+            let pwd = {
+              password: this.npwd
+            }
+            this.userservice.changePassword(id, pwd)
+              .subscribe(() => {
+                this.pwderror = null;
+                this.pwdsucess = "password Update Sucessfully"
+                // console.log(this.pwdsucess);
+
+              });
+          }
+          else {
+            this.pwdsucess = null;
+            this.pwderror = "New Password & Confirm password not match";
+            // console.log(this.pwderror);
+          }
+        }
+      },
+        (error) => {
+
+          this.pwdsucess = null;
+          this.pwderror = "Current Password is Wrong";
+          // console.log(error._body);
+        }
+      );
+  }
 }

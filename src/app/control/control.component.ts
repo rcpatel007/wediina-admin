@@ -30,7 +30,7 @@ export class ControlComponent implements OnInit {
   cities: any = [];
   city: City[];
   city_name: any;
-  state:String;
+  state: String;
   user: User[];
   dealertype: Dealertype[];
   role: Role[];
@@ -45,18 +45,18 @@ export class ControlComponent implements OnInit {
   product: JSON;
   d_type: string;
   roletype: String;
-  addroletype:String;
+  addroletype: String;
   getrole: String;
-  role_disc: String;  
+  role_disc: String;
   disc: String;
   discount: String;
   t_id: String;
   r_id: String;
   type: String;
-  accounttype:String;
+  accounttype: String;
   rolevalue: Boolean = false;
   userrolevalue: Boolean = false;
-  
+
   // user
 
   a_o_add: boolean = false;
@@ -245,20 +245,18 @@ export class ControlComponent implements OnInit {
   }
   // add  city 
   addCity() {
-  
-      let cityObj = {
-        state:this.state,
-        city:this.city_name
-  
-      }
 
-      console.log(cityObj);
-      this.cityservice.addcity(cityObj)
-        .subscribe((res) => {
-          this.getcity();
+    let cityObj = {
+      state: this.state,
+      city: this.city_name
 
-        });
-    
+    }
+
+    console.log(cityObj);
+    this.cityservice.addcity(cityObj)
+      .subscribe((res) => {
+        this.getcity();
+      });
   }
   viewUser() {
     this.userservice.getUser()
@@ -273,56 +271,57 @@ export class ControlComponent implements OnInit {
   }
   addUser() {
 
-      let add_user = {
-        name: this.u_name,
-        email: this.u_email,
-        mobile: this.u_mobile,
-        role: this.addroletype,
-        order: {
-          view: this.a_o_view,
-          edit: this.a_o_edit,
-          add: this.a_o_add,
-          delete: this.a_o_delete
-        },
-        dealer: {
-          view: this.a_d_view,
-          edit: this.a_d_edit,
-          add: this.a_d_add,
-          delete: this.a_d_delete
-        },
+    let add_user = {
+      name: this.u_name,
+      email: this.u_email,
+      mobile: this.u_mobile,
+      role: this.addroletype,
+      order: {
+        view: this.a_o_view,
+        edit: this.a_o_edit,
+        add: this.a_o_add,
+        delete: this.a_o_delete
+      },
+      dealer: {
+        view: this.a_d_view,
+        edit: this.a_d_edit,
+        add: this.a_d_add,
+        delete: this.a_d_delete
+      },
 
-        brand: {
-          view: this.a_b_view,
-          edit: this.a_b_edit,
-          add: this.a_b_add,
-          delete: this.a_b_delete
-        },
-        product: {
-          view: this.a_i_view,
-          edit: this.a_i_edit,
-          add: this.a_i_add,
-          delete: this.a_i_delete
-        },
-        category: {
-          view: this.a_c_view,
-          edit: this.a_c_edit,
-          add: this.a_c_add,
-          delete: this.a_c_delete
-        }
+      brand: {
+        view: this.a_b_view,
+        edit: this.a_b_edit,
+        add: this.a_b_add,
+        delete: this.a_b_delete
+      },
+      product: {
+        view: this.a_i_view,
+        edit: this.a_i_edit,
+        add: this.a_i_add,
+        delete: this.a_i_delete
+      },
+      category: {
+        view: this.a_c_view,
+        edit: this.a_c_edit,
+        add: this.a_c_add,
+        delete: this.a_c_delete
       }
-      console.log(add_user);
-      this.userservice.addUser(add_user)
-        .subscribe((res) => {
-          console.log(res);
-          // console.log(this.viewUser);
-          this.viewUser();
+    }
+    console.log(add_user);
+    this.userservice.addUser(add_user)
+      .subscribe((res) => {
+        console.log(res);
+        // console.log(this.viewUser);
 
-          this.name = "";
-          this.email = "";
-          this.mobile = "";
-          this.role = null;
-        });
-    
+        this.name = "";
+        this.email = "";
+        this.mobile = "";
+        this.role = null;
+        this.viewUser();
+
+      });
+
   }
   /*get user by id */
   getuserById(id) {
@@ -396,64 +395,64 @@ export class ControlComponent implements OnInit {
 
   editUser() {
     let id = this.id;
-   
-      let updateuser = {
-        _id: this.id,
-        name: this.name,
-        email: this.email,
-        mobile: this.mobile,
-        role: this.roletype,
-        order: {
-          view: this.o_view,
-          edit: this.o_edit,
-          add: this.o_add,
-          delete: this.o_delete
-        },
-        dealer: {
-          view: this.d_view,
-          edit: this.d_edit,
-          add: this.d_add,
-          delete: this.d_delete
-        },
 
-        brand: {
-          view: this.b_view,
-          edit: this.b_edit,
-          add: this.b_add,
-          delete: this.b_delete
-        },
+    let updateuser = {
+      _id: this.id,
+      name: this.name,
+      email: this.email,
+      mobile: this.mobile,
+      role: this.roletype,
+      order: {
+        view: this.o_view,
+        edit: this.o_edit,
+        add: this.o_add,
+        delete: this.o_delete
+      },
+      dealer: {
+        view: this.d_view,
+        edit: this.d_edit,
+        add: this.d_add,
+        delete: this.d_delete
+      },
 
-        product: {
-          view: this.i_view,
-          edit: this.i_edit,
-          add: this.i_add,
-          delete: this.i_delete
-        },
+      brand: {
+        view: this.b_view,
+        edit: this.b_edit,
+        add: this.b_add,
+        delete: this.b_delete
+      },
 
-        category: {
-          view: this.c_view,
-          edit: this.c_edit,
-          add: this.c_add,
-          delete: this.c_delete
-        },
+      product: {
+        view: this.i_view,
+        edit: this.i_edit,
+        add: this.i_add,
+        delete: this.i_delete
+      },
 
-
-      }
-      console.log(updateuser);
+      category: {
+        view: this.c_view,
+        edit: this.c_edit,
+        add: this.c_add,
+        delete: this.c_delete
+      },
 
 
-      this.userservice.updateUser(id, updateuser)
-        .subscribe(() => {
-          // console.log(add_dealer);
-          this.viewUser();
-          // console.log(this.viewUser);
+    }
+    console.log(updateuser);
 
-          this.name = "";
-          this.email = "";
-          this.mobile = "";
-        });
 
-   
+    this.userservice.updateUser(id, updateuser)
+      .subscribe(() => {
+        // console.log(add_dealer);
+        this.viewUser();
+        // console.log(this.viewUser);
+
+        this.name = "";
+        this.email = "";
+        this.mobile = "";
+      });
+
+
   }
   // role
   getRole() {
@@ -467,47 +466,47 @@ export class ControlComponent implements OnInit {
   }
 
   addRole() {
-    
-      let role = {
-        role: this.accounttype,
-        order: {
-          view: this.r_o_view,
-          edit: this.r_o_edit,
-          add: this.r_o_add,
-          delete: this.r_o_delete
-        },
-        dealer: {
-          view: this.r_o_view,
-          edit: this.r_o_edit,
-          add: this.r_o_add,
-          delete: this.r_o_delete
-        },
 
-        brand: {
-          view: this.r_o_view,
-          edit: this.r_o_edit,
-          add: this.r_o_add,
-          delete: this.r_o_delete
-        },
-        product: {
-          view: this.r_i_view,
-          edit: this.r_i_edit,
-          add: this.r_i_add,
-          delete: this.r_i_delete
-        },
-        category: {
-          view: this.r_c_view,
-          edit: this.r_c_edit,
-          add: this.r_c_add,
-          delete: this.r_c_delete
-        },
-      }
-      console.log(role);
-      this.roleservice.addRole(role)
-        .subscribe(() => {
-          this.getRole();
-               });
-    
+    let role = {
+      role: this.accounttype,
+      order: {
+        view: this.r_o_view,
+        edit: this.r_o_edit,
+        add: this.r_o_add,
+        delete: this.r_o_delete
+      },
+      dealer: {
+        view: this.r_o_view,
+        edit: this.r_o_edit,
+        add: this.r_o_add,
+        delete: this.r_o_delete
+      },
+
+      brand: {
+        view: this.r_o_view,
+        edit: this.r_o_edit,
+        add: this.r_o_add,
+        delete: this.r_o_delete
+      },
+      product: {
+        view: this.r_i_view,
+        edit: this.r_i_edit,
+        add: this.r_i_add,
+        delete: this.r_i_delete
+      },
+      category: {
+        view: this.r_c_view,
+        edit: this.r_c_edit,
+        add: this.r_c_add,
+        delete: this.r_c_delete
+      },
+    }
+    console.log(role);
+    this.roleservice.addRole(role)
+      .subscribe(() => {
+        this.getRole();
+      });
+
   }
   getRoleById(id) {
     this.roleservice.getRoleById(id)
@@ -547,49 +546,49 @@ export class ControlComponent implements OnInit {
   }
   // edit role
   editRole() {
-      let id = this.r_id;
-      let role = {
-        _id: this.r_id,
-        role: this.roletype,
-        order: {
-          view: this.e_o_view,
-          edit: this.e_o_edit,
-          add: this.e_o_add,
-          delete: this.e_o_delete
-        },
-        dealer: {
-          view: this.e_d_view,
-          edit: this.e_d_edit,
-          add: this.e_d_add,
-          delete: this.e_d_delete
-        },
+    let id = this.r_id;
+    let role = {
+      _id: this.r_id,
+      role: this.roletype,
+      order: {
+        view: this.e_o_view,
+        edit: this.e_o_edit,
+        add: this.e_o_add,
+        delete: this.e_o_delete
+      },
+      dealer: {
+        view: this.e_d_view,
+        edit: this.e_d_edit,
+        add: this.e_d_add,
+        delete: this.e_d_delete
+      },
 
-        brand: {
-          view: this.e_b_view,
-          edit: this.e_b_edit,
-          add: this.e_b_add,
-          delete: this.e_b_delete
-        },
-        product: {
-          view: this.e_i_view,
-          edit: this.e_i_edit,
-          add: this.e_i_add,
-          delete: this.e_i_delete
-        },
-        category: {
-          view: this.e_c_view,
-          edit: this.e_c_edit,
-          add: this.e_c_add,
-          delete: this.e_c_delete
-        },
-      }
-      console.log(role);
-      this.roleservice.editRole(id, role)
-        .subscribe(() => {
-          this.getRole();
-          // console.log(this.viewUser);
+      brand: {
+        view: this.e_b_view,
+        edit: this.e_b_edit,
+        add: this.e_b_add,
+        delete: this.e_b_delete
+      },
+      product: {
+        view: this.e_i_view,
+        edit: this.e_i_edit,
+        add: this.e_i_add,
+        delete: this.e_i_delete
+      },
+      category: {
+        view: this.e_c_view,
+        edit: this.e_c_edit,
+        add: this.e_c_add,
+        delete: this.e_c_delete
+      },
+    }
+    console.log(role);
+    this.roleservice.editRole(id, role)
+      .subscribe(() => {
+        this.getRole();
+        // console.log(this.viewUser);
 
-        });
+      });
   }
   // type
   getType() {
@@ -603,21 +602,21 @@ export class ControlComponent implements OnInit {
   }
 
   addType() {
-   
-      let add_type = {
-        type: this.d_type,
-        discount: this.discount,
-      }
-      console.log(add_type);
-      this.dealertypeservice.addType(add_type)
-        .subscribe(() => {
-          this.d_type = null;
-          this.discount = null;
-          this.getType();
-          // console.log(this.viewUser);
-       
-        });
-    
+
+    let add_type = {
+      type: this.d_type,
+      discount: this.discount,
+    }
+    console.log(add_type);
+    this.dealertypeservice.addType(add_type)
+      .subscribe(() => {
+        this.d_type = null;
+        this.discount = null;
+        this.getType();
+        // console.log(this.viewUser);
+
+      });
+
   }
   // edit type
   getTypeById(id) {
@@ -631,19 +630,19 @@ export class ControlComponent implements OnInit {
   }
   // edit type
   editType() {
-   
-      let id = this.t_id;
-      let updatedealer = {
-        id: this.t_id,
-        type: this.type,
-        discount: this.disc,
-      }
-      this.dealertypeservice.editType(id, updatedealer)
-        .subscribe(() => {
-          this.getType();
-        
-        });
-    
+
+    let id = this.t_id;
+    let updatedealer = {
+      id: this.t_id,
+      type: this.type,
+      discount: this.disc,
+    }
+    this.dealertypeservice.editType(id, updatedealer)
+      .subscribe(() => {
+        this.getType();
+
+      });
+
   }
   getRoleValue(id) {
     this.rolevalue = true;

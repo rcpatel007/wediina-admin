@@ -53,13 +53,21 @@
     </h1>
   </div>
   <ul id="slide-out" class="side-nav fixed leftside-navigation">
-    <div class="row user-detail-logo">
+    <div class="row user-detail-logo ">
       <div class="col s4 l4 m4 center-align">
         <i class="fa fa-3x fa-user"></i>
       </div>
       <div class="col s8 l8 m8 nav-text">
         <div> {{name}}</div>
         <div class="f-s-10">{{email}}</div>
+      </div>
+      <div class="update_profile">
+        <button data-target="singleimg" class="modal-trigger b-radius-40" data-target="get_profile" (click)="getprofile(id)">
+          <i class="fa fa-pencil-alt orange-text" title="Profile"></i>
+        </button> &nbsp;&nbsp;&nbsp;
+        <button data-target="otherimg" class="modal-trigger b-radius-40" data-target="get_pwd">
+          <i class="fa fa-external-link-alt orange-text" title="Password"></i>
+        </button> &nbsp;&nbsp;&nbsp;
       </div>
     </div>
     <!-- <div class="divider"></div> -->
@@ -84,9 +92,11 @@
             <li class="bold">
               <div class="collapsible-header  waves-effect" data-collapsible="accordion">
                 <i class="fa fa-boxes"></i>
-                <span class="nav-text">Inventory <i class="fa fa-angle-down" style="font-size: 16px;
+                <span class="nav-text">Inventory
+                  <i class="fa fa-angle-down" style="font-size: 16px;
                   text-align: right;
-                  margin-left: 40px;"></i></span>
+                  margin-left: 40px;"></i>
+                </span>
               </div>
               <div class="collapsible-body">
                 <ul class="collapsible" data-collapsible="accordion">
@@ -133,7 +143,7 @@
             <span class="nav-text">Guests</span>
           </div>
         </li>
-        <li class="bold" [routerLink]="['/control']">
+        <li *ngIf="role == 'admin'" class="bold" [routerLink]="['/control']">
           <div class="collapsible-header  waves-effect">
             <i class="fa fa-cog"></i>
             <span class="nav-text">Control Panel</span>
@@ -152,6 +162,121 @@
 </aside>
 <!-- END LEFT SIDEBAR NAV-->
 
+
+<div id="get_profile" class="modal">
+  <div class="modal-content">
+    <div class="col s12">
+      <h5> Profile Details</h5>
+    </div>
+    <div class="col s12">
+      <form #frm2="ngForm" (ngSubmit)="editProfile(id)">
+        <div class="col s12 l12 m12  mr-t-20 mr-b-m-30">
+          <div class="input-field col s12">
+            <b>Name:</b>
+            <input #editname="ngModel" id="Name" name="Name" type="text" [(ngModel)]="name" pattern="[a-zA-Z][a-zA-Z ]+" required ngModel
+              class="validate">
+          </div>
+          <div *ngIf="editName?.touched">
+            <div class="red-text left" *ngIf="editName.errors?.required">
+              Name Required*
+            </div>
+            <div class="red-text left" *ngIf="editName.errors?.pattern">
+              Name is Invalid*
+            </div>
+          </div>
+          <div class="input-field col s12">
+            <b>Email:</b>
+            <input #editemail="ngModel" id="email" name="email" type="text" [(ngModel)]="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+              required ngModel class="validate">
+          </div>
+          <div *ngIf="editemail?.touched">
+            <div class="red-text left" *ngIf="editemail.errors?.required">
+              Email Required*
+            </div>
+            <div class="red-text left" *ngIf="editemail.errors?.pattern">
+              Email is Invalid*
+            </div>
+          </div>
+          <div class="input-field col s12">
+            <b>Mobile No.:</b>
+            <input #editmno="ngModel" id="mno" name="mobile" type="text" [(ngModel)]="mobile" minlength="10" maxlength="10" pattern="[0-9]+"
+              required ngModel class="validate">
+          </div>
+          <div *ngIf="editmno?.touched">
+            <div class="red-text left" *ngIf="editmno.errors?.required">
+              Mobile Required*
+            </div>
+            <div [hidden]="!editmno?.hasError('minlength')" class="red-text">
+              Please enter valid Contact No
+            </div>
+          </div>
+          <div class="right-align">
+            <button class="btn btn-primary modal-close" [disabled]="frm2.invalid" onclick="Materialize.toast('Profile Updated', 3000)"
+              type="submit">Update </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<!-- password modal -->
+
+<div id="get_pwd" class="modal">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s6 l6 m6">
+        <h5> Change Password</h5>
+        <div class="green-text right" *ngIf="pwdsucess != null">
+          {{pwdsucess}}
+        </div>
+      </div>
+      <div class="col s6 l6 m6">
+        <div class="red-text right" *ngIf="pwderror != null">
+          {{pwderror}}
+        </div>
+      </div>
+    </div>
+    <div class="col s12">
+      <form #frm3="ngForm" (ngSubmit)="changePassword()">
+        <div class="col s12 l12 m12  mr-t-20 mr-b-m-30">
+          <div class="input-field col s12">
+            <b>Current password:</b>
+            <input #curpwd="ngModel" id="cpwd" name="cpwd" type="text" [(ngModel)]="cpwd" required ngModel class="validate">
+          </div>
+          <div *ngIf="curpwd?.touched">
+            <div class="red-text left" *ngIf="curpwd.errors?.required">
+              Current Password Required*
+            </div>
+          </div>
+          <div class="input-field col s12">
+            <b>New password:</b>
+            <input #newpwd="ngModel" id="npwd" name="npwd" type="text" [(ngModel)]="npwd" required ngModel class="validate">
+          </div>
+          <div *ngIf="newpwd?.touched">
+            <div class="red-text left" *ngIf="newpwd.errors?.required">
+              New Password Required*
+            </div>
+          </div>
+          <div class="input-field col s12">
+            <b>Confirm Password :</b>
+            <input #copwd="ngModel" id="confirmpwd" name="confirmpwd" type="text" [(ngModel)]="confirmpwd" required ngModel class="validate">
+          </div>
+          <div *ngIf="copwd?.touched">
+            <div class="red-text left" *ngIf="copwd.errors?.required">
+              Confirm Required*
+            </div>
+          </div>
+          <div class="right-align">
+            <button class="btn btn-primary modal-close">close </button>
+            <button class="btn btn-primary" [disabled]="frm3.invalid" onclick="Materialize.toast('Password Updated', 3000)" type="submit">Update </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {

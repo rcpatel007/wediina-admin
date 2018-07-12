@@ -16,7 +16,7 @@ export class CategoryService {
    getCategory() {
     //  headers = new Headers();    
      let headers = new Headers({'x-access-token':''+ this.loginService.token});
-      return this.http.get('https://jasmatech-backend-api.herokuapp.com/cat',{headers: headers})
+      return this.http.get(environment.api_url + '/cat',{headers: headers})
       .pipe(map( res => res.json()));
   
   }
@@ -26,7 +26,7 @@ export class CategoryService {
   getCategoryById(id) {
     //  headers = new Headers();    
      let headers = new Headers({'x-access-token':''+ this.loginService.token});
-      return this.http.get('https://jasmatech-backend-api.herokuapp.com/cat/' +id,{headers: headers})
+      return this.http.get(environment.api_url + '/cat/' +id,{headers: headers})
       .pipe(map( res => res.json()));
   
   }
@@ -35,7 +35,7 @@ export class CategoryService {
 
   addCategory(Category) {    
     let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-     return this.http.post('https://jasmatech-backend-api.herokuapp.com/cat',Category, {headers: headers})
+     return this.http.post(environment.api_url + '/cat',Category, {headers: headers})
       .pipe(map( res => res.json()));
   
   }
@@ -44,7 +44,7 @@ export class CategoryService {
 
   editCategory(cat) {
   let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-  return this.http.put('https://jasmatech-backend-api.herokuapp.com/cat/'+cat._id, cat,{headers: headers})
+  return this.http.put(environment.api_url + '/cat/'+cat._id, cat,{headers: headers})
   .pipe(map( res => res.json()));
 
 }
@@ -54,7 +54,7 @@ export class CategoryService {
   deleteCategory(id) {
   let headers = new Headers({'x-access-token': ''+ this.loginService.token});
 
-  return this.http.delete('https://jasmatech-backend-api.herokuapp.com/cat/'+id, {headers: headers})
+  return this.http.delete(environment.api_url + '/cat/'+id, {headers: headers})
   .pipe(map( res => res.json()));
 
 }

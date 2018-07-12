@@ -170,6 +170,9 @@
                     <th>No</th>
                     <th>Product</th>
                     <th>Model No</th>
+                    <th *ngIf="isGujarat == true">CGST</th>
+                    <th *ngIf="isGujarat == true">SGST</th>
+                    <th *ngIf="isGujarat == false">IGST</th>
                     <th>Qty</th>
                     <th>Price</th>
                     <th>total</th>
@@ -179,6 +182,9 @@
                       <td>{{i+1}}</td>
                       <td>{{c.prod_name}}</td>
                       <td>{{c.model_no}}</td>
+                      <td *ngIf="isGujarat == true">{{c.cgst_no}} %</td>
+                      <td *ngIf="isGujarat == true">{{c.sgst_no}} %</td>
+                      <td *ngIf="isGujarat == false">{{c.igst_no}} %</td>
                       <td>{{c.qty}}</td>
                       <td>{{c.price}}</td>
                       <td>{{c.qty * c.price}}</td>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../services/login.service';
 import { UserService } from '../services/user.service';
+import { Router, ActivatedRoute } from '@angular/router';
 declare var $: any;
 
 
@@ -12,8 +13,12 @@ declare var $: any;
 export class ForgetpasswordComponent implements OnInit {
 
   email: String;
-
-  constructor(private userservice: UserService, private loginservice: LoginService) { }
+  id: String;
+  mail: String;
+  msg: String;
+  constructor(private userservice: UserService, private loginservice: LoginService, private route: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit() {
 
@@ -38,39 +43,37 @@ export class ForgetpasswordComponent implements OnInit {
     }
 
 
+
   }
 
 
   sendMail() {
     let mail = this.email;
-
-    this.userservice.getUser()
-      .subscribe((User) => {
-        for (let index = 0; index < User.length; index++) {
-          if (this.email === User[index].email) {
-            let mail = this.email;
+    this.loginservice.checkMail()
+      .subscribe((usermail) => {
+        console.log(usermail);
+        for (let index = 0; index < usermail.length; index++) {
+          if (this.email === usermail[index].email) {
+            this.mail = usermail[index].email;
+            this.id = usermail[index]._id;
+            // this.id = User[index]._id;
             break;
           }
-
-
         }
-
-        if (mail !== null) {
-          this.loginservice.sendMail(mail)
-            .subscribe((res) => {
-                console.log(res);
-                
-            },
-              (error) => {
-
-                let msg = error._body;
-              });
-
+        let send_email = {
+          email: this.email
         }
+        this.loginservice.sendMail(this.id, send_email)
+          .subscribe((res) => {
+            console.log(res);
+            this.router.navigate(['login']);
 
+          },
+            (error) => {
+              this.msg = "We couldn't find any account associated with this Email ";
+              console.log(this.msg);
 
+            });
       });
-
   }
-
 }

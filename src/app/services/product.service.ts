@@ -16,7 +16,7 @@ export class ProductService {
   getProduct() {
     //  headers = new Headers();    
      let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-      return this.http.get('https://jasmatech-backend-api.herokuapp.com/prod',{headers: headers})
+      return this.http.get(environment.api_url + '/prod',{headers: headers})
       .pipe(map( res => res.json()));
   
   }
@@ -26,7 +26,7 @@ export class ProductService {
   getProductById(id) {
     //  headers = new Headers();    
      let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-      return this.http.get('https://jasmatech-backend-api.herokuapp.com/prod/' +id,{headers: headers})
+      return this.http.get(environment.api_url + '/prod/' +id,{headers: headers})
       .pipe(map( res => res.json()));
   
   }
@@ -35,7 +35,7 @@ export class ProductService {
 
   addProdcut(product) {    
     let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-     return this.http.post('https://jasmatech-backend-api.herokuapp.com/prod/',product, {headers: headers})
+     return this.http.post(environment.api_url + '/prod/',product, {headers: headers})
       .pipe(map( res => res.json()));
   
   }
@@ -44,7 +44,7 @@ export class ProductService {
 
   editProduct(id, updateproduct) {
   let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-  return this.http.put('https://jasmatech-backend-api.herokuapp.com/prod/'+id, updateproduct,{headers : headers})
+  return this.http.put(environment.api_url + '/prod/'+id, updateproduct,{headers : headers})
   .pipe(map( res => res.json()));
 
 }
@@ -54,7 +54,7 @@ export class ProductService {
   deleteProduct(id) {
   let headers = new Headers({'x-access-token': ''+ this.loginService.token});
 
-  return this.http.delete('https://jasmatech-backend-api.herokuapp.com/prod/'+id, {headers: headers})
+  return this.http.delete(environment.api_url + '/prod/'+id, {headers: headers})
   .pipe(map( res => res.json()));
 
  }
@@ -81,7 +81,7 @@ imgurotherImage(otherbase64){
  /* get img by id */
  editimg(updateimg) {
   let headers = new Headers({'x-access-token': ''+ this.loginService.token});   
-  return this.http.put('https://jasmatech-backend-api.herokuapp.com/prod_update_image/'+updateimg._id, updateimg, {headers: headers})
+  return this.http.put(environment.api_url + '/prod_update_image/'+updateimg._id, updateimg, {headers: headers})
   .pipe(map( res => res.json()));
 
 
@@ -89,7 +89,7 @@ imgurotherImage(otherbase64){
  /* get other img by id */
  othereditimg(otherupdateimg) {
   let headers = new Headers({'x-access-token': ''+ this.loginService.token});   
-  return this.http.put('https://jasmatech-backend-api.herokuapp.com/prod_update_other_images/'+otherupdateimg._id, otherupdateimg, {headers: headers})
+  return this.http.put(environment.api_url + '/prod_update_other_images/'+otherupdateimg._id, otherupdateimg, {headers: headers})
   .pipe(map( res => res.json()));
 
 

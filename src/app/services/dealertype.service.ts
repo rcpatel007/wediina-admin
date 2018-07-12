@@ -17,14 +17,14 @@ export class DealertypeService {
   getType() {
     //  headers = new Headers();    
      let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-      return this.http.get('https://jasmatech-backend-api.herokuapp.com/dealer_type',{headers: headers})
+      return this.http.get(environment.api_url + '/dealer_type',{headers: headers})
       .pipe(map( res => res.json()));
   
   }
  
   getTypeById(id)  {
     let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-    return this.http.get('https://jasmatech-backend-api.herokuapp.com/dealer_type/'+id, {headers : headers})
+    return this.http.get(environment.api_url + '/dealer_type/'+id, {headers : headers})
     .pipe(map( res => res.json()));
    
    }
@@ -34,7 +34,7 @@ export class DealertypeService {
  
   addType(role) {    
     let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-     return this.http.post('https://jasmatech-backend-api.herokuapp.com/dealer_type',role, {headers: headers})
+     return this.http.post(environment.api_url + '/dealer_type',role, {headers: headers})
       .pipe(map( res => res.json()));
   
   }
@@ -43,7 +43,7 @@ export class DealertypeService {
  
   editType(id, updatetype) {
   let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-  return this.http.put('https://jasmatech-backend-api.herokuapp.com/dealer_type/'+id, updatetype, {headers : headers})
+  return this.http.put(environment.api_url + '/dealer_type/'+id, updatetype, {headers : headers})
   .pipe(map( res => res.json()));
  
  }
@@ -53,7 +53,7 @@ export class DealertypeService {
   deleteType(id) {
   let headers = new Headers({'x-access-token': ''+ this.loginService.token});
  
-  return this.http.put('https://jasmatech-backend-api.herokuapp.com/dealer_type/'+id, {headers: headers})
+  return this.http.put(environment.api_url + '/dealer_type/'+id, {headers: headers})
   .pipe(map( res => res.json()));
  
  }

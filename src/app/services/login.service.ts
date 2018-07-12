@@ -20,7 +20,7 @@ export class LoginService {
 
   userLogin(user) {
     let headers = new Headers();
-    return this.http.post('https://jasmatech-backend-api.herokuapp.com/validate_user_login', user, { headers: headers })
+    return this.http.post(environment.api_url + '/validate_user_login', user, { headers: headers })
       .pipe(map((response: Response) => {
         // login successful if there's a jwt token in the response
         let token = response.json() && response.json().token;
@@ -40,25 +40,34 @@ export class LoginService {
   }
 
 
-  // logout
-
-  sendMail(mail) {
-    //  headers = new Headers();    
+  // forgot password
+  validatepwd(validate_pwd) {
+    //  headers = new Headers();  
     let headers = new Headers({ 'x-access-token': '' + localStorage.token });
-    return this.http.post('https://jasmatech-backend-api.herokuapp.com/logout', { headers: headers })
-      .pipe(map((response: Response) => {
-        this.token == null;
-        
-        // store username and jwt token in local storage to keep user logged in between page refreshes
-      }));
+    return this.http.put(environment.api_url + '/validate_current_password',validate_pwd, { headers: headers })
+      .pipe(map(res => res.json()));
   }
+
+  checkMail() {
+    //  headers = new Headers();    
+    return this.http.get(environment.api_url + '/user_emails')
+      .pipe(map(res => res.json()));
+  }
+
+  sendMail(id,send_email) {
+    //  headers = new Headers();    
+    return this.http.put(environment.api_url + '/forgot_user_password/'+ id ,send_email)
+      .pipe(map((response: Response) => { }));
+  }
+
+  // logout
   logout() {
     //  headers = new Headers();    
     let headers = new Headers({ 'x-access-token': '' + localStorage.token });
-    return this.http.get('https://jasmatech-backend-api.herokuapp.com/logout', { headers: headers })
+    return this.http.get(environment.api_url + '/logout', { headers: headers })
       .pipe(map((response: Response) => {
         this.token = null;
-        
+
         // store username and jwt token in local storage to keep user logged in between page refreshes
       }));
   }

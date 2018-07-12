@@ -16,7 +16,7 @@ export class StockService {
   getStock() {
     //  headers = new Headers();    
     let headers = new Headers({ 'x-access-token': '' + this.loginService.token });
-    return this.http.get('https://jasmatech-backend-api.herokuapp.com/stock', { headers: headers })
+    return this.http.get(environment.api_url + '/stock', { headers: headers })
       .pipe(map(res => res.json()));
 
   }
@@ -27,7 +27,7 @@ export class StockService {
   getStockById(product_id) {
     //  headers = new Headers();    
     let headers = new Headers({ 'x-access-token': '' + this.loginService.token });
-    return this.http.get('https://jasmatech-backend-api.herokuapp.com/stock/' + product_id, { headers: headers })
+    return this.http.get(environment.api_url + '/stock/' + product_id, { headers: headers })
       .pipe(map(res => res.json()));
 
   }
@@ -36,21 +36,21 @@ export class StockService {
   // add stock
   addStock(stock) {
     let headers = new Headers({ 'x-access-token': '' + this.loginService.token });
-    return this.http.post('https://jasmatech-backend-api.herokuapp.com/stock/', stock, { headers: headers })
+    return this.http.post(environment.api_url + '/stock/', stock, { headers: headers })
       .pipe(map(res => res.json()));
 
   }
   // edit stock
   editStock(product_id, stock) {
     let headers = new Headers({ 'x-access-token': '' + this.loginService.token });
-    return this.http.put('https://jasmatech-backend-api.herokuapp.com/stock_qty/' + product_id, stock, { headers: headers })
+    return this.http.put(environment.api_url + '/stock_qty/' + product_id, stock, { headers: headers })
       .pipe(map(res => res.json()));
   }
   // order edit stock update
 
-  orderStockUpdate(stock) {
+  orderStockUpdate(product) {
     let headers = new Headers({ 'x-access-token': '' + this.loginService.token });
-    return this.http.put('https://jasmatech-backend-api.herokuapp.com/update_stock/' + stock, { headers: headers })
+    return this.http.put(environment.api_url + '/update_stock', product, { headers: headers })
       .pipe(map(res => res.json()));
   }
 

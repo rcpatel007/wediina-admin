@@ -21,7 +21,7 @@ export class DealerService {
         headers = new Headers({'x-access-token':''+ this.loginService.token});
       let options = new RequestOptions({ headers: headers });
  
-        return this.http.get('https://jasmatech-backend-api.herokuapp.com/dealer_type',options)
+        return this.http.get(environment.api_url + '/dealer_type',options)
       .pipe(map( (response: Response) => response.json()));
         
   
@@ -32,7 +32,7 @@ export class DealerService {
   getDealerTypeById(id) {
     //  headers = new Headers();    
      let headers = new Headers({'x-access-token':''+ this.loginService.token});
-      return this.http.get('https://jasmatech-backend-api.herokuapp.com/dealer_type' +id,{headers: headers})
+      return this.http.get(environment.api_url + '/dealer_type' +id,{headers: headers})
       .pipe(map( res => res.json()));
   
   }
@@ -41,7 +41,7 @@ export class DealerService {
 
   addDealerType(dealer) {    
     let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-     return this.http.post('https://jasmatech-backend-api.herokuapp.com/dealer_type',dealer, {headers: headers})
+     return this.http.post(environment.api_url + '/dealer_type',dealer, {headers: headers})
       .pipe(map( res => res.json()));
   
   }
@@ -50,7 +50,7 @@ export class DealerService {
 
   editDealerType(id, updatedealer) {
   let headers = new Headers({'x-access-token':+ this.loginService.token });
-  return this.http.put('https://jasmatech-backend-api.herokuapp.com/dealer_type',+id, updatedealer)
+  return this.http.put(environment.api_url + '/dealer_type',+id, updatedealer)
   .pipe(map( res => res.json()));
 
 }
@@ -60,7 +60,7 @@ export class DealerService {
   deleteDealerType(id) {
   let headers = new Headers({'x-access-token': ''+ this.loginService.token});
 
-  return this.http.put('https://jasmatech-backend-api.herokuapp.com/dealer_type',+id, {headers: headers})
+  return this.http.put(environment.api_url + '/dealer_type',+id, {headers: headers})
   .pipe(map( res => res.json()));
 
 }

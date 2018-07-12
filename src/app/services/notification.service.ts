@@ -17,7 +17,7 @@ export class NotificationService {
   getNotification() {
     //  headers = new Headers();    
     let headers = new Headers({ 'x-access-token': '' + this.loginService.token });
-    return this.http.get('https://jasmatech-backend-api.herokuapp.com/notification', { headers: headers })
+    return this.http.get(environment.api_url + '/notification', { headers: headers })
       .pipe(map(res => res.json()));
   }
 
@@ -26,7 +26,7 @@ export class NotificationService {
   getNotificationById(id) {
     //  headers = new Headers();    
     let headers = new Headers({ 'x-access-token': '' + this.loginService.token });
-    return this.http.get('https://jasmatech-backend-api.herokuapp.com/notification/' + id, { headers: headers })
+    return this.http.get(environment.api_url + '/notification/' + id, { headers: headers })
       .pipe(map(res => res.json()));
   }
 
@@ -35,7 +35,7 @@ export class NotificationService {
   addNotification(notification) {
     //  headers = new Headers();    
     let headers = new Headers({ 'x-access-token': '' + this.loginService.token });
-    return this.http.post('https://jasmatech-backend-api.herokuapp.com/notification/', notification, { headers: headers })
+    return this.http.post(environment.api_url + '/notification/', notification, { headers: headers })
       .pipe(map(res => res.json()));
   }
 
@@ -44,7 +44,7 @@ export class NotificationService {
   editNotification(id, notification) {
     //  headers = new Headers();    
     let headers = new Headers({ 'x-access-token': '' + this.loginService.token });
-    return this.http.put('https://jasmatech-backend-api.herokuapp.com/read_notification/' +id, notification, { headers: headers })
+    return this.http.put(environment.api_url + '/read_notification/' +id, notification, { headers: headers })
       .pipe(map(res => res.json()));
   }
 }

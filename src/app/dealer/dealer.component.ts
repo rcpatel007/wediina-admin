@@ -182,23 +182,25 @@ export class DealerComponent implements OnInit {
         this.cartservice.getCartAll()
           .subscribe((Cart) => {
             for (let index = 0; index < account.length; index++) {
+              this.total_cart = 0;
               for (let secondindex = 0; secondindex < Cart.length; secondindex++) {
                 if (account[index]._id == Cart[secondindex].user_id) {
                   for (let thirdindex = 0; thirdindex < Cart[secondindex].products.length; thirdindex++) {
                     this.total_cart = this.total_cart + 1;
                   }
                 }
-                this.account.push({
-                  'userid':account[index]._id,
-                  'name': account[index].name,
-                  'company_name': account[index].company_name,
-                  'email': account[index].email,
-                  'mobile': account[index].mobile,
-                  'type': account[index].type,
-                  'discount': account[index].discount,
-                  'cart': this.total_cart
-                });
               }
+
+              this.account.push({
+                'userid': account[index]._id,
+                'name': account[index].name,
+                'company_name': account[index].company_name,
+                'email': account[index].email,
+                'mobile': account[index].mobile,
+                'type': account[index].type,
+                'discount': account[index].discount,
+                'cart': this.total_cart
+              });
             }
           });
 
@@ -206,17 +208,17 @@ export class DealerComponent implements OnInit {
     console.log(this.account);
   }
 
-// cart detail  view
-  viewCart(userid){
+  // cart detail  view
+  viewCart(userid) {
     console.log(userid);
-    
-this.cartservice.getCart(userid)
-  .subscribe((res)=>{
-    this.cart_details =res[0].products;
-    console.log(res);
 
-  });
-  
+    this.cartservice.getCart(userid)
+      .subscribe((res) => {
+        this.cart_details = res[0].products;
+        console.log(res);
+
+      });
+
   }
 
   viewDealer(id) {

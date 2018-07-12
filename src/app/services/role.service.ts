@@ -16,7 +16,7 @@ export class RoleService {
   getRole() {
    //  headers = new Headers();    
     let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-     return this.http.get('https://jasmatech-backend-api.herokuapp.com/role',{headers: headers})
+     return this.http.get(environment.api_url + '/role',{headers: headers})
      .pipe(map( res => res.json()));
  
  }
@@ -26,7 +26,7 @@ export class RoleService {
  getRoleById(id) {
    //  headers = new Headers();    
     let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-     return this.http.get('https://jasmatech-backend-api.herokuapp.com/role/' +id,{headers: headers})
+     return this.http.get(environment.api_url + '/role/' +id,{headers: headers})
      .pipe(map( res => res.json()));
  
  }
@@ -35,7 +35,7 @@ export class RoleService {
 
  addRole(role) {    
    let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-    return this.http.post('https://jasmatech-backend-api.herokuapp.com/role/',role, {headers: headers})
+    return this.http.post(environment.api_url + '/role/',role, {headers: headers})
      .pipe(map( res => res.json()));
  
  }
@@ -44,7 +44,7 @@ export class RoleService {
 
  editRole(id, updaterole) {
  let headers = new Headers({'x-access-token': ''+ this.loginService.token});
- return this.http.put('https://jasmatech-backend-api.herokuapp.com/role/'+id, updaterole, {headers : headers})
+ return this.http.put(environment.api_url + '/role/'+id, updaterole, {headers : headers})
  .pipe(map( res => res.json()));
 
 }
@@ -54,7 +54,7 @@ export class RoleService {
  deleteRole(id) {
  let headers = new Headers({'x-access-token': ''+ this.loginService.token});
 
- return this.http.put('https://jasmatech-backend-api.herokuapp.com/role/'+id, {headers: headers})
+ return this.http.put(environment.api_url + '/role/'+id, {headers: headers})
  .pipe(map( res => res.json()));
 
 }
