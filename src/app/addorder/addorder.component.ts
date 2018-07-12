@@ -105,8 +105,8 @@ export class AddorderComponent implements OnInit {
 
   // get dealer by id
 
-  getUser(userid) {
-    let id = userid;
+  getUser(user) {
+    let id = user;
     let address =[];
     this.accountservice.getAccountById(id)
       .subscribe((res) => {
@@ -148,8 +148,8 @@ export class AddorderComponent implements OnInit {
 
       })
   }
-  getCategory(brandid) {
-    let id = brandid;
+  getCategory(bid) {
+    let id = bid;
     this.category.length = 0;
     this.categoryservice.getCategory()
       .subscribe((Category) => {
@@ -178,9 +178,9 @@ export class AddorderComponent implements OnInit {
       });
   }
 
-  getmodel(modelid) {
-    let id = modelid;
-    this.product_id = modelid;
+  getmodel(mid) {
+    let id = mid;
+    this.product_id = mid;
     this.model.length = 0;
     this.productservice.getProductById(id)
       .subscribe((res) => {

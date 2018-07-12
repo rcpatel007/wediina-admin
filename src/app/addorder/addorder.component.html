@@ -35,7 +35,7 @@
                               </mat-option>
                             </mat-autocomplete>
                           </mat-form-field> -->
-                          <select [(ngModel)]="userid" name="userid" #cnm="ngModel" (click)="getUser(userid)" required ngModel class="validate">
+                          <select [(ngModel)]="user" name="user" #cnm="ngModel" (click)="getUser(user)" required ngModel class="validate">
                             <option value="" disabled selected>Select Company Name</option>
                             <option *ngFor="let c of dealer" value="{{c._id}}">{{c.company_name}}</option>
                           </select>
@@ -102,7 +102,7 @@
                     </thead>
                     <tbody>
                       <td>
-                        <select [(ngModel)]="brandid" name="brandid" #bnm="ngModel" (click)="getCategory(brandid)" required ngModel class="validate">
+                        <select [(ngModel)]="bid" name="bid" #bnm="ngModel" (click)="getCategory(bid)" required ngModel class="validate">
                           <option value="" disabled selected>Select Brand Name</option>
                           <option *ngFor="let b of brand" value="{{b._id}}">{{b.name}}</option>
                         </select>
@@ -124,7 +124,7 @@
                         </div>
                       </td>
                       <td>
-                        <select [(ngModel)]="modelid" name="modelid" #prod="ngModel" (click)="getmodel(modelid)" required ngModel class="validate">
+                        <select [(ngModel)]="mid" name="mid" #prod="ngModel" (click)="getmodel(mid)" required ngModel class="validate">
                           <option value="" disabled selected>Select Product Name</option>
                           <option *ngFor="let p of product" value="{{p._id}}">{{p.name}}</option>
                         </select>

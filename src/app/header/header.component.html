@@ -62,7 +62,7 @@
         <div class="f-s-10">{{email}}</div>
       </div>
       <div class="update_profile">
-        <button data-target="singleimg" class="modal-trigger b-radius-40" data-target="get_profile" (click)="getprofile(id)">
+        <button data-target="singleimg" class="modal-trigger b-radius-40" data-target="get_profile">
           <i class="fa fa-pencil-alt orange-text" title="Profile"></i>
         </button> &nbsp;&nbsp;&nbsp;
         <button data-target="otherimg" class="modal-trigger b-radius-40" data-target="get_pwd">
@@ -176,11 +176,11 @@
             <input #editname="ngModel" id="Name" name="Name" type="text" [(ngModel)]="name" pattern="[a-zA-Z][a-zA-Z ]+" required ngModel
               class="validate">
           </div>
-          <div *ngIf="editName?.touched">
-            <div class="red-text left" *ngIf="editName.errors?.required">
+          <div *ngIf="editname?.touched">
+            <div class="red-text left" *ngIf="editname.errors?.required">
               Name Required*
             </div>
-            <div class="red-text left" *ngIf="editName.errors?.pattern">
+            <div class="red-text left" *ngIf="editname.errors?.pattern">
               Name is Invalid*
             </div>
           </div>
