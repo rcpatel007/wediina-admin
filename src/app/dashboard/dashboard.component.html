@@ -11,74 +11,74 @@
           <div id="card-stats">
             <div class="row">
               <a>
-              <div class="col s12 m6 l3" (click)="goTo('neworder')">
-                <div class="card">
-                  <div class="padding-4">
-                    <div class="col s4 m4">
-                      <div class="card-icon orange-back">
-                        <i class="fa fa-shopping-cart"></i>
+                <div class="col s12 m6 l3" (click)="goTo('neworder')">
+                  <div class="card">
+                    <div class="padding-4">
+                      <div class="col s4 m4">
+                        <div class="card-icon orange-back">
+                          <i class="fa fa-shopping-cart"></i>
+                        </div>
                       </div>
-                    </div>
-                    <div  class="col s8 m8 right-align card-text-contain">
-                      <p class="no-margin card-text">New Order</p>
-                      <h5 class="mb-0 card-text-total">{{newcount}}</h5>
+                      <div class="col s8 m8 right-align card-text-contain">
+                        <p class="no-margin card-text">New Order</p>
+                        <h5 class="mb-0 card-text-total">{{newcount}}</h5>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </a>
+              </a>
               <a>
-              <div class="col s12 m6 l3" (click)="goTo('enquiry')">
-                <div class="card">
-                  <div class="padding-4">
-                    <div class="col s4 m4">
-                      <div class="card-icon green-back">
-                        <i class="fa fa-user-cog"></i>
+                <div class="col s12 m6 l3" (click)="goTo('enquiry')">
+                  <div class="card">
+                    <div class="padding-4">
+                      <div class="col s4 m4">
+                        <div class="card-icon green-back">
+                          <i class="fa fa-user-cog"></i>
+                        </div>
                       </div>
-                    </div>
                       <div class="col s8 m8 right-align card-text-contain">
                         <p class="no-margin card-text">New Enquiries</p>
                         <h5 class="mb-0 card-text-total">{{enquiry}}</h5>
                       </div>
+                    </div>
                   </div>
                 </div>
-              </div>
               </a>
               <a>
-              <div class="col s12 m6 l3" (click)="goTo('penddingorder')">
-                <div class="card">
-                  <div class="padding-4">
-                    <div class="col s4 m4">
-                      <div class="card-icon red-back">
-                        <i class="fa fa-shopping-cart"></i>
+                <div class="col s12 m6 l3" (click)="goTo('penddingorder')">
+                  <div class="card">
+                    <div class="padding-4">
+                      <div class="col s4 m4">
+                        <div class="card-icon red-back">
+                          <i class="fa fa-shopping-cart"></i>
+                        </div>
                       </div>
-                    </div>
-                    <div class="col s8 m8 right-align card-text-contain">
-                      <p class="no-margin card-text">Pending Orders</p>
-                      <h5 class="mb-0 card-text-total">{{pendding}}</h5>
+                      <div class="col s8 m8 right-align card-text-contain">
+                        <p class="no-margin card-text">Pending Orders</p>
+                        <h5 class="mb-0 card-text-total">{{pendding}}</h5>
 
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
               </a>
               <a>
-              <div class="col s12 m6 l3">
-                <div class="card">
-                  <div class="padding-4">
-                    <div class="col s4 m4">
-                      <div class="card-icon blue-back">
-                        <i class="fa fa-shopping-cart"></i>
+                <div class="col s12 m6 l3" (click)="goTo('compalategorder')">
+                  <div class="card">
+                    <div class="padding-4">
+                      <div class="col s4 m4">
+                        <div class="card-icon blue-back">
+                          <i class="fa fa-shopping-cart"></i>
+                        </div>
                       </div>
-                    </div>
-                    <div class="col s8 m8 right-align card-text-contain">
-                      <p class="no-margin card-text">Completed Order </p>
-                      <h5 class="mb-0 card-text-total">{{complate}}</h5>
+                      <div class="col s8 m8 right-align card-text-contain">
+                        <p class="no-margin card-text">Completed Order </p>
+                        <h5 class="mb-0 card-text-total">{{complate}}</h5>
 
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
               </a>
 
             </div>
@@ -213,6 +213,51 @@
                 </table>
               </div>
               <!-- pendding order -->
+              <!-- compalte order -->
+              <div *ngIf="o_view == true" id="compalategorder" class="col s12 card mr-t-50  scrollspy">
+                <div class="col s3 m3">
+                  <div class="col s3 m3 section-icon blue-back">
+                    <i class="fa fa-shopping-cart"></i>
+                  </div>
+                  <div class="col s9 m9 section-text">
+                    Complate Order
+                  </div>
+                </div>
+                <div class="col s3 right">
+                  <input type="text" placeholder="Search By Name or Company Name" id="search" [(ngModel)]="term2">
+                </div>
+
+                <table id="" class="display mr-t-90 striped" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>NO</th>
+                      <th>Name</th>
+                      <th>Company</th>
+                      <th>Order Date</th>
+                      <th colspan="2">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container *ngFor="let c of compalet_order ; let i=index ">
+                      <ng-container *ngFor="let a of account |filter:term2">
+                        <tr *ngIf="c.user_id == a._id">
+
+                          <td [routerLink]="['/vieworder', c._id]">{{i+1}}</td>
+                          <td [routerLink]="['/vieworder', c._id]">{{a.name}}</td>
+                          <td [routerLink]="['/vieworder', c._id]">{{a.company_name}}</td>
+                          <td [routerLink]="['/vieworder', c._id]">{{c.order_date}}</td>
+
+                          <td *ngIf="o_view == true" (click)="viewOrder(c._id) " data-target="view_order" class=" modal-trigger">
+                            <i class="fa fa-eye blue-text"></i>
+                          </td>
+                        </tr>
+                      </ng-container>
+                    </ng-container>
+                  </tbody>
+                </table>
+              </div>
+              <!-- compalte order -->
+
             </div>
           </div>
         </div>
@@ -233,6 +278,7 @@
         <thead>
           <tr>
             <th>Name</th>
+            <th>Particular</th>
             <th>Qty</th>
             <th>Price</th>
           </tr>
@@ -240,6 +286,7 @@
         <tbody>
           <tr *ngFor="let p of product_details">
             <td>{{p.prod_name}}</td>
+            <td>{{p.particular}}</td>
             <td>{{p.qty}}</td>
             <td>{{p.price}}</td>
           </tr>

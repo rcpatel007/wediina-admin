@@ -4,7 +4,7 @@ import { LoginService } from '../services/login.service';
 import { Order } from '../model/Order';
 import { Globals } from '../../globals';
 import { environment } from '../../environments/environment';
-import { Router, NavigationEnd  } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { CategoryService } from '../services/category.service';
 import { Category } from '../model/Category';
 import { Account } from '../model/Dealer';
@@ -21,7 +21,7 @@ declare var $: any;
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  term:String;
+  term: String;
   user_id: String;
   newcount: any;
   pendding: any;
@@ -29,12 +29,12 @@ export class DashboardComponent implements OnInit {
   complate: any;
   order_count: any;
   order = new Array;
-  penddingOrder =new Array;
+  penddingOrder = new Array;
   account: Account[];
   product_details = new Array();
   auth: any;
   enquriryData = new Array;
- 
+  compalet_order = new Array();
   // user
 
   o_add: boolean;
@@ -68,17 +68,17 @@ export class DashboardComponent implements OnInit {
     private userservice: UserService,
     private accountservice: AccountService,
     private globals: Globals) {
-      // router.events.subscribe(s => {
-      //   if (s instanceof NavigationEnd) {
-      //     const tree = router.parseUrl(router.url);
-      //     if (tree.fragment) {
-      //       const element = document.querySelector("#" + tree.fragment);
-      //       if (element) { element.scrollIntoView(true); }
-      //     }
-        
-      // });
-  
-    
+    // router.events.subscribe(s => {
+    //   if (s instanceof NavigationEnd) {
+    //     const tree = router.parseUrl(router.url);
+    //     if (tree.fragment) {
+    //       const element = document.querySelector("#" + tree.fragment);
+    //       if (element) { element.scrollIntoView(true); }
+    //     }
+
+    // });
+
+
 
   }
 
@@ -118,7 +118,7 @@ export class DashboardComponent implements OnInit {
 
   goTo(location: string): void {
     window.location.hash = location;
-}
+  }
   getuser(user_id) {
     let id = localStorage.user_id;
     // let id = localStorage.user_id;
@@ -153,29 +153,28 @@ export class DashboardComponent implements OnInit {
         // console.log(Order);
 
         for (let i = 0; i < Order.length; i++) {
-          if (Order[i].status == 'Received') {
-           
+          if (Order[i].status === "Received") {
+
             this.order.push(Order[i]);
             this.newcount = this.newcount + 1;
             // console.log(this.order);
             // console.log(this.newcount);
-            
           }
-          else if (Order[i].enquiry = true) {
+          else if (Order[i].status == "In Process") {
+            this.pendding = this.pendding + 1;
+            this.penddingOrder.push(Order[i]);
+            console.log('order' + this.penddingOrder);
+          }
+          else if (Order[i].status == "completed") {
+            this.complate = this.complate + 1;
+            this.compalet_order.push(Order[i]);
+            console.log(this.compalet_order);
+          }
+          else {
             this.enquiry = this.enquiry + 1;
             // console.log(this.order_count);
             this.enquriryData.push(Order[i]);
           }
-         else if (Order[i].status = 'In Process') {
-            this.pendding = this.pendding + 1;
-            this.penddingOrder.push(Order[i]);
-            console.log('order'+this.penddingOrder);
-          }
-          else if (Order[i].status = 'completed') {
-            this.complate = this.complate + 1;
-            // console.log(this.order_count);
-          }
-
         }
         // console.log(this.order);
         // console.log(this.enquriry_data);

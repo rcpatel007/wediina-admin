@@ -202,7 +202,7 @@
             <div class=" col s12">
               <div class="">
                 <h6>TYPE:</h6>
-               
+
               </div>
               <br />
               <div class="col s3" *ngFor="let a of role">
@@ -227,7 +227,6 @@
                     <input id="credit-demo" type="text" class="">
                     <label for="credit_demo">edit.</label>
                  -->
-
             <table>
               <thead>
                 <th></th>
@@ -352,10 +351,7 @@
               </tbody>
             </table>
           </div>
-
-
         </div>
-
         <div class="modal-footer ">
           <a class="modal-action modal-close ">CANCEL</a>
           <button class="modal-action modal-close btn btn-primary" [disabled]="frm1.invalid" onclick="Materialize.toast('New Account ADD', 4000)"
@@ -411,14 +407,9 @@
               </div>
             </div>
           </div>
-          <div class="input-field col s6">
-            <b>Type :</b>
-            {{getrole}}
-          </div>
         </div>
 
         <div class="row">
-
           <div class=" col s12">
             <div class="">
               <h6>TYPE:</h6>
@@ -426,8 +417,8 @@
             </div>
             <br />
             <div class="col s3" *ngFor="let a of role">
-              <input class="with-gap" name="roletype" type="radio" id="{{a.role}}" #etype="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" required
-                ngModel class="validate" [value]="a.role" [(ngModel)]="roletype" (change)="getRoleValue(a._id)" />
+              <input class="with-gap" name="editrole" type="radio" id="{{a.role}}" #etype="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" required
+                ngModel class="validate" [value]="a.role" [(ngModel)]="editrole" (change)="getRoleValue(a._id)" />
               <label for="{{a.role}}">{{a.role}}</label>
               <div *ngIf="etype?.touched">
                 <div class="red-text left" *ngIf="etype.errors?.required">

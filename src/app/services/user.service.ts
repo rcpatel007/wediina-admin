@@ -70,7 +70,6 @@ changePassword(id,pwd) {
  
   deleteUser(id) {
   let headers = new Headers({'x-access-token': ''+ this.loginService.token});
-
   return this.http.put(environment.api_url + '/user/'+id, {headers: headers})
   .pipe(map( res => res.json()));
 

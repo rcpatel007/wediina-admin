@@ -45,6 +45,7 @@ export class ControlComponent implements OnInit {
   product: JSON;
   d_type: string;
   roletype: String;
+  editrole: String;
   addroletype: String;
   getrole: String;
   role_disc: String;
@@ -359,8 +360,8 @@ export class ControlComponent implements OnInit {
         this.name = data.name;
         this.email = data.email;
         this.mobile = data.mobile;
-        this.getrole = data.role;
-        console.log(data);
+        this.editrole = data.role;
+        console.log(this.editrole);
 
         this.o_add = data.order.add;
         this.o_edit = data.order.edit;
@@ -602,7 +603,6 @@ export class ControlComponent implements OnInit {
   }
 
   addType() {
-
     let add_type = {
       type: this.d_type,
       discount: this.discount,
@@ -614,9 +614,7 @@ export class ControlComponent implements OnInit {
         this.discount = null;
         this.getType();
         // console.log(this.viewUser);
-
       });
-
   }
   // edit type
   getTypeById(id) {
@@ -640,9 +638,7 @@ export class ControlComponent implements OnInit {
     this.dealertypeservice.editType(id, updatedealer)
       .subscribe(() => {
         this.getType();
-
       });
-
   }
   getRoleValue(id) {
     this.rolevalue = true;
@@ -677,10 +673,17 @@ export class ControlComponent implements OnInit {
         this.a_c_delete = data.category.delete;
 
         console.log(this.a_d_add);
-
-
       });
+  }
 
+  deleteUser(){
+    console.log(this.loginservice.token);
+    let id = this.id;
+    this.userservice.deleteUser(id)
+    .subscribe((res)=>{
+
+      this.viewUser();
+    });
   }
 }
 
