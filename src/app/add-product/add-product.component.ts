@@ -53,7 +53,7 @@ export class AddProductComponent implements OnInit {
   igst: number;
   cgst: number;
   sgst: number;
-
+  brandValue:String;
   catValue: any;
   cityValue: any;
   model_info_array = [];
