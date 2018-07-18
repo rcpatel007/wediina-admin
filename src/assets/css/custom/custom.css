@@ -186,7 +186,10 @@ padding-top: 15px !important;
 
 
 }
-
+.logo-width img{
+width: 180px;
+padding: 5px;
+}
 /* border */
 
 .b-r{

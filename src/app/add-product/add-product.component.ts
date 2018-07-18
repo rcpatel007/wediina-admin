@@ -17,6 +17,8 @@ import { UserService } from '../services/user.service';
 import * as io from 'socket.io-client';
 import { NotificationService } from '../services/notification.service';
 import { StockService } from '../services/stock.service';
+import { BrandService } from '../services/brand.service';
+import { Brand } from '../model/Brand';
 declare var $: any;
 
 @Component({
@@ -29,7 +31,8 @@ export class AddProductComponent implements OnInit {
 
   product: Product[];
   city: City[];
-  category: Category[];
+  category = new Array;
+  brand: Brand[];
   name: String;
   categoryid: String;
   temp: String;
@@ -47,19 +50,24 @@ export class AddProductComponent implements OnInit {
   o_img = new Array();
   value: String;
   key: String;
+  igst: number;
+  cgst: number;
+  sgst: number;
+
   catValue: any;
   cityValue: any;
   model_info_array = [];
   keyValue = [];
   modeldata = [];
   finalArray = [];
-  
+
 
 
   constructor(private router: Router,
     private productservice: ProductService,
     private loginservice: LoginService,
     private cityservice: CityService,
+    private brandservice: BrandService,
     private categoryservice: CategoryService,
     private notificationService: NotificationService,
     private stockservice: StockService
@@ -71,7 +79,7 @@ export class AddProductComponent implements OnInit {
     if (this.loginservice.token === null) {
       this.router.navigate(["/login"]);
     }
-    this.getCategory();
+    this.getBrand();
 
 
     $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
@@ -93,7 +101,6 @@ export class AddProductComponent implements OnInit {
       document.getElementsByTagName('head')[0].appendChild(node);
     }
 
-
   }
 
   addmodel() {
@@ -102,10 +109,12 @@ export class AddProductComponent implements OnInit {
       price: '',
       size: '',
       grade: '',
-      hsn_no:'',
-      sgst_no:'',
-      cgst_no:'',
-      igst_no:'',
+      pressure:'',
+      temprature:'',
+      hsn_code: '',
+      igst: '',
+      sgst: '',
+      cgst: '',
       keyValue: []
     });
     // this.modeldata.push({ key: '', value: '' })
@@ -115,13 +124,32 @@ export class AddProductComponent implements OnInit {
     this.modeldata[index].keyValue.push({ key: '', value: '' })
     console.log(this.modeldata);
   }
-  getCategory() {
-    this.categoryservice.getCategory()
-      .subscribe(Category => {
-        this.category = Category;
-        console.log(this.category);
+
+  // Brand get
+
+  getBrand() {
+    this.brandservice.getBrand()
+      .subscribe((res) => {
+        this.brand = res;
       });
   }
+  // category get
+
+  categoryDetail(brandValue) {
+    this.categoryservice.getCategory()
+      .subscribe(Category => {
+        for (let index = 0; index < Category.length; index++) {
+          if (brandValue == Category[index].brand_id) {
+            this.category.push(Category[index]);
+            console.log(this.category);
+          }
+
+        }
+
+      });
+
+  }
+
   /* Image convert base64 */
   imageUpload(evt) {
     var files = evt.target.files;
@@ -180,56 +208,55 @@ export class AddProductComponent implements OnInit {
       }
       delete this.finalArray[i].keyValue;
     }
-    
-      console.log(this.finalArray);
-      let product = {
-        name: this.name,
-        category_id: this.catValue,
-        pressure: this.pressure,
-        temprature: this.temp,
-        model_info: this.finalArray,
-        desc: this.desc,
-        product_image: this.p_img,
-        other_images: this.o_img
-      }
-      console.log(product);
-      // PRODCUT ADD
-      this.productservice.addProdcut(product)
-        .subscribe((res) => {
-          // NOTIFIACITON ADD
-          let date_time = Date.now();
-          let event_id = "pa_" + res.data._id;
-
-          let notification = {
-            title: "New Product Add :" +this.name,
-            user_id: environment.user_id,
-            event_id: event_id,
-            date_time: date_time,
-            read: false
-          }
-          // console.log(notification);
-          this.socket.emit('new-event', { data: product });
-          this.notificationService.addNotification(notification)
-            .subscribe(() => {
-            });
-          // STOCK ADD  
-          // let stock = {
-          //   product_id: res.data._id,
-          //   qty: this.qty
-          // }
-          // this.stockservice.addStock(stock)
-          //   .subscribe(() => { });
-          this.router.navigate(["/inventory"]);
-          console.log(res);
-
-          this.name = null;
-          this.catValue = null;
-          this.pressure = null;
-          this.temp = null;
-          this.finalArray = null;
-          this.desc = null;
-          this.p_img = null;
-          this.o_img = null;
-                });
+    console.log(this.finalArray);
+    let product = {
+      name: this.name,
+      category_id: this.catValue,
+      pressure: this.pressure,
+      temprature: this.temp,
+      model_info: this.finalArray,
+      desc: this.desc,
+      product_image: this.p_img,
+      other_images: this.o_img
     }
+    console.log(product);
+    // PRODCUT ADD
+    this.productservice.addProdcut(product)
+      .subscribe((res) => {
+        // NOTIFIACITON ADD
+        let date_time = Date.now();
+        let event_id = "pa_" + res.data._id;
+
+        let notification = {
+          title: "New Product Add :" + this.name,
+          user_id: environment.user_id,
+          event_id: event_id,
+          date_time: date_time,
+          read: false
+        }
+        // console.log(notification);
+        this.socket.emit('new-event', { data: product });
+        this.notificationService.addNotification(notification)
+          .subscribe(() => {
+          });
+        // STOCK ADD  
+        // let stock = {
+        //   product_id: res.data._id,
+        //   qty: this.qty
+        // }
+        // this.stockservice.addStock(stock)
+        //   .subscribe(() => { });
+        this.router.navigate(["/inventory"]);
+        console.log(res);
+
+        this.name = null;
+        this.catValue = null;
+        this.pressure = null;
+        this.temp = null;
+        this.finalArray = null;
+        this.desc = null;
+        this.p_img = null;
+        this.o_img = null;
+      });
   }
+}

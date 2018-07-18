@@ -64,10 +64,10 @@
                         </td>
                         <td>{{a.mobile}}</td>
                         <td>{{a.discount}}</td>
-                        <td *ngIf="d_edit == true" data-target="view_dealer" class="modal-trigger" (click)="viewDealer(a._id)">
+                        <td *ngIf="d_edit == true" data-target="view_dealer" class="modal-trigger" (click)="viewDealer(a.userid)">
                           <i class="fa fa-eye blue-text"></i>
                         </td>
-                        <td *ngIf="d_delete == true" data-target="edit_dealer" class="modal-trigger" (click)="viewDealer(a._id)">
+                        <td *ngIf="d_view == true" data-target="edit_dealer" class="modal-trigger" (click)="viewDealer(a.userid)">
                           <i class="fa fa-pencil-alt orange-text"></i>
                         </td>
                       </tr>

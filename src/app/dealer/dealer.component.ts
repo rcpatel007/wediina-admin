@@ -222,6 +222,8 @@ export class DealerComponent implements OnInit {
   }
 
   viewDealer(id) {
+    console.log(id);
+    
     this.accountservice.getAccountById(id)
       .subscribe((data) => {
         console.log(data);

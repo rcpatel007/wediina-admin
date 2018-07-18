@@ -7,6 +7,8 @@ import { UserService } from '../services/user.service';
 import { StockService } from '../services/stock.service';
 import { log } from 'util';
 import { Product } from '../model/Product';
+import { DealerService } from '../services/dealer.service';
+import { AccountService } from '../services/account.service';
 declare var $: any;
 
 @Component({
@@ -35,6 +37,7 @@ export class EditorderComponent implements OnInit {
   d_state: String;
   shipping: String;
   other_charge: String;
+  dealer_email: String;
 
 
 
@@ -51,6 +54,7 @@ export class EditorderComponent implements OnInit {
   constructor(private orderService: OrderService,
     private route: ActivatedRoute,
     private router: Router,
+    private accountservice: AccountService,
     private userservice: UserService,
     private stockservice: StockService,
     private loginservice: LoginService
@@ -61,7 +65,7 @@ export class EditorderComponent implements OnInit {
       this.router.navigate(["/login"]);
     }
 
-    this.getuser(this.user_id);
+    this.getuser();
     this.route.params.subscribe(params => {
       this.o_id = params['id'];
     });
@@ -110,6 +114,7 @@ export class EditorderComponent implements OnInit {
         this.methodvalue = data.method;
         this.shipping = data.shipping_charges;
         this.other_charge = data.other_charges;
+        console.log();
 
         // console.log(this.product_detail);
         for (let index = 0; index < this.product_detail.length; index++) {
@@ -118,9 +123,19 @@ export class EditorderComponent implements OnInit {
         }
         console.log(this.pid);
         // }
+        this.accountservice.getAccountById(this.user_id)
+          .subscribe((user) => {
+            this.dealer_email = user.email;
+            // console.log(this.dealer_email);
+
+          });
+
       });
 
   }
+
+
+
   // viewProduct(id){
   //  this.orderService.viewOrder(id)
   //                  .subscribe((data) => {
@@ -139,6 +154,7 @@ export class EditorderComponent implements OnInit {
       order_date: this.o_date,
       _date: this.d_date,
       _time: this.d_time,
+      dealer_email: this.dealer_email,
       address: this.d_address,
       city: this.d_city,
       state: this.d_state,
@@ -152,24 +168,27 @@ export class EditorderComponent implements OnInit {
       method: this.methodvalue
     }
     console.log(this.product_detail);
-    let product: any;
+    let product = [];
+    let products = [];
 
     if (this.statusvalue == "In Process") {
-    for (let index = 0; index < this.product_detail.length; index++) {
-      let prod = {
-        "products": [{
-          product_id: this.product_detail[index].product_id,
+      for (let index = 0; index < this.product_detail.length; index++) {
+        let prod = {
+          product_id: this.product_detail[index].prodcut_id,
           particular: this.product_detail[index].particular,
           qty: this.product_detail[index].qty
-        }]
+        }
+        product.push({"products":[prod]});
+
       }
-      product = prod;
+
+      console.log(product);
+      this.stockservice.orderStockUpdate(product)
+        .subscribe(() => {
+        });
     }
-    console.log(product);
-    this.stockservice.orderStockUpdate(product)
-      .subscribe(() => {
-      });
-    }
+
+
     // console.log(updateorder);
     // let flag: boolean;
     // console.log(updateorder);
@@ -181,7 +200,7 @@ export class EditorderComponent implements OnInit {
         console.log(res);
       });
   }
-  getuser(user_id) {
+  getuser() {
     let id = localStorage.user_id;
     // console.log('log' + localStorage.user_id);
     this.userservice.getUserById(id)
