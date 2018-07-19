@@ -47,6 +47,7 @@ export class AddProductComponent implements OnInit {
   base64: any;
   otherbase64: any;
   p_img: String;
+  o_img: String;
   oimg = new Array();
   value: String;
   key: String;
