@@ -110,11 +110,13 @@ export class HeaderComponent implements OnInit {
     this.notificaitonservice.getNotification()
       .subscribe((result) => {
         for (let i = 0; i < result.length; i++) {
-
-          if (result[i].read == false) {
-            this.notification = result;
-            this.read = this.read + 1;
-          }
+          
+            if (result[i].read == false) {
+              this.notification = result;
+              this.read = this.read + 1;
+            }
+            if(this.read == 5)
+              break;
         }
         // console.log(result);
       });
@@ -261,7 +263,7 @@ export class HeaderComponent implements OnInit {
 
   // profile password change
 
-changePassword() {
+  changePassword() {
     let id = localStorage.user_id;
     let validate_pwd = {
       id: localStorage.user_id,

@@ -41,7 +41,10 @@ export class VieworderComponent implements OnInit {
   sgst: number;
   igst: number;
   shipping: number = 0;
-  other_charges: number = 0;
+  charges: number = 0;
+  other_charges: String;
+  payment_status:String;
+  payment_method:String;
   state = String;
   isGujarat: boolean;
   sgst_total: number = 0;
@@ -107,6 +110,9 @@ export class VieworderComponent implements OnInit {
         this.d_state = data.state;
         this.shipping = data.shipping_charges;
         this.other_charges = data.other_charges;
+        this.charges = data.charges;
+        this.payment_method = data.payment_method;
+        this.payment_status = data.payment_status;
         this.product_detail = data.products;
         this.state = data.state;
         this.o_discount = data.o_discount;
@@ -149,7 +155,7 @@ export class VieworderComponent implements OnInit {
 
         }
         this.o_discount_total = Math.round(this.sub_total * data.o_discount / 100);
-        this.grand_total = Math.round((this.sub_total - this.o_discount_total) + this.igst_total + this.cgst_total + this.sgst_total + this.shipping + this.other_charges);
+        this.grand_total = Math.round((this.sub_total - this.o_discount_total) + this.igst_total + this.cgst_total + this.sgst_total + this.shipping + this.charges);
 
 
         //  console.log(this.o_discount_total);

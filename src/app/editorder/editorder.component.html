@@ -18,7 +18,7 @@
                   Order Details
                 </div>
               </div>
-            
+
             </div>
           </div>
           <!--card stats end-->
@@ -35,7 +35,7 @@
                       <label>
                         <Strong>Order Discount (%):</Strong>
                       </label>
-                      <input type="number" class="form-control" minlength="0"  min="0" #disc="ngModel" pattern="[0-9]+" required ngModel class="validate"
+                      <input type="number" class="form-control" minlength="0" min="0" #disc="ngModel" pattern="[0-9]+" required ngModel class="validate"
                         placeholder="Enter Order Wise Discount" id="o_discount" name="o_discount" [(ngModel)]="o_discount">
                       <div *ngIf="disc?.touched">
                         <div class="red-text left" *ngIf="disc.errors?.required">
@@ -50,8 +50,8 @@
                       <label>
                         <Strong>Shipping Charges (&#x20b9;):</Strong>
                       </label>
-                      <input type="text" class="form-control"  #ship="ngModel" pattern="[0-9]+" required ngModel class="validate"
-                        placeholder="Enter Shipping charges" id="shipping" name="shipping" [(ngModel)]="shipping">
+                      <input type="text" class="form-control" #ship="ngModel" pattern="[0-9]+" required ngModel class="validate" placeholder="Enter Shipping charges"
+                        id="shipping" name="shipping" [(ngModel)]="shipping">
                       <div *ngIf="ship?.touched">
                         <div class="red-text left" *ngIf="ship.errors?.required">
                           Shipping Charges Required*
@@ -61,18 +61,33 @@
                         </div>
                       </div>
                     </div>
-                    <div class="form-group">
-                      <label>
-                        <Strong>Other Charges (&#x20b9;):</Strong>
-                      </label>
-                      <input type="text" class="form-control" #other="ngModel" pattern="[0-9]+" required ngModel class="validate"
-                        placeholder="Enter Other Charges" id="other_charge" name="other_charge" [(ngModel)]="other_charge">
-                      <div *ngIf="other?.touched">
-                        <div class="red-text left" *ngIf="other.errors?.required">
-                          Other Charges Required*
+                    <div class="row">
+                      <div class="form-group col s6 m6 l6">
+                        <label>
+                          <Strong>Other Charges Detail:</Strong>
+                        </label>
+                        <input type="text" class="form-control" #charg="ngModel" required ngModel class="validate" id="charge" name="charge"
+                          [(ngModel)]="charge">
+                        <div *ngIf="charg?.touched">
+                          <div class="red-text left" *ngIf="charg.errors?.required">
+                            Charges Detail Required*
+                          </div>
+
                         </div>
-                        <div class="red-text left" *ngIf="other.errors?.pattern">
-                          Other charges value is Invalid*
+                      </div>
+                      <div class="form-group col s6 m6 l6">
+                        <label>
+                          <Strong>Other Charges (&#x20b9;):</Strong>
+                        </label>
+                        <input type="text" class="form-control" #other="ngModel" pattern="[0-9]+" required ngModel class="validate" placeholder="Enter Other Charges"
+                          id="other_charge" name="other_charge" [(ngModel)]="other_charge">
+                        <div *ngIf="other?.touched">
+                          <div class="red-text left" *ngIf="other.errors?.required">
+                            Other Charges Required*
+                          </div>
+                          <div class="red-text left" *ngIf="other.errors?.pattern">
+                            Other charges value is Invalid*
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -86,7 +101,6 @@
                         <div class="red-text left" *ngIf="dt.errors?.required">
                           Delivery Date Required*
                         </div>
-
                       </div>
                     </div>
                     <div class="form-group">
@@ -98,6 +112,21 @@
                       <div *ngIf="dtime?.touched">
                         <div class="red-text left" *ngIf="dtime.errors?.required">
                           Delivery Time Required*
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>
+                        <Strong>Payment Status:</Strong>
+                      </label>
+                      <select [(ngModel)]="paymentValue" name="paymentValue" #status="ngModel" required ngModel class="validate">
+                        <option id="Pending" name="Pending" value="Pending">Pending</option>
+                        <option id="Received" name="Received" value="Received">Received</option>
+                      </select>
+                      <div *ngIf="status?.touched">
+                        <div class="red-text left" *ngIf="status.errors?.required">
+                          Please Select Payment Status*
                         </div>
 
                       </div>
@@ -160,8 +189,9 @@
                         <td> {{p.qty}} </td>
                         <td> &#x20b9; {{p.price}}</td>
                         <td>
-                          <input type="number" class="form-control col-lg-4" minlength="0" #pdisc="ngModel" min="0" pattern="[0-9]+" required
-                            ngModel class="validate" placeholder="Enter Discount" id="p_discount" name="p_discount" value="{{p_discount}}" [(ngModel)]="p.p_discount">
+                          <input type="number" class="form-control col-lg-4" minlength="0" #pdisc="ngModel" min="0" pattern="[0-9]+" required ngModel
+                            class="validate" placeholder="Enter Discount" id="p_discount" name="p_discount" value="{{p_discount}}"
+                            [(ngModel)]="p.p_discount">
                           <div *ngIf="pdisc?.touched">
                             <div class="red-text left" *ngIf="pdisc.errors?.required">
                               Enter Discount Value*

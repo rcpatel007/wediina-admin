@@ -7,7 +7,7 @@ import { Product } from '../model/Product';
 import { Category } from '../model/Category';
 import { CategoryService } from '../services/category.service';
 
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'app-viewproduct',
@@ -38,7 +38,6 @@ export class ViewproductComponent implements OnInit {
   modeldata = [];
   modelvalue = [];
   key_array = new Array();
-
   finalvalue = [];
 
 
@@ -52,7 +51,7 @@ export class ViewproductComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
+
     $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
     $("script[src='assets/js/materialize.min.js']").remove();
     $("script[src='assets/js/scripts/advanced-ui-modals.js']").remove();
@@ -72,7 +71,6 @@ export class ViewproductComponent implements OnInit {
       document.getElementsByTagName('head')[0].appendChild(node);
     }
 
-
     if (this.loginservice.token === null) {
       this.router.navigate(["/login"]);
     }
@@ -80,7 +78,7 @@ export class ViewproductComponent implements OnInit {
       this.id = params['id'];
     });
     this.getProductById(this.id);
-   
+
   }
 
 
@@ -93,42 +91,32 @@ export class ViewproductComponent implements OnInit {
         this.id = data._id;
         this.name = data.name;
         this.cat_id = data.category_id;
-        this.pressure = data.pressure;
         this.modeldata = data.model_info;
-        this.temp = data.temprature;
         this.p_img = data.product_image;
         this.o_img = data.other_images;
         this.desc = data.desc;
-
         this.Productservice.getProductById(id)
-        .subscribe(data => {
-          // console.log(data);
-  
-          for (let i = 0; i < data.length; i++) {
-            this.modeldata.push(Object.keys(data[0].model_info));
-          }
-  
-  
-          for (let j = 0; j < this.modeldata.length; j++) {
-            this.key_array = (Object.keys(this.modeldata[0]));
-            this.finalvalue.push(Object.values(this.modeldata[j]));
-          }
-          console.log(this.finalvalue);
-        });
+          .subscribe(data => {
+            // console.log(data);
+            for (let i = 0; i < data.length; i++) {
+              this.modeldata.push(Object.keys(data[0].model_info));
+            }
+
+            for (let j = 0; j < this.modeldata.length; j++) {
+              this.key_array = (Object.keys(this.modeldata[0]));
+              this.finalvalue.push(Object.values(this.modeldata[j]));
+            }
+            console.log(this.finalvalue);
+          });
 
         this.categoryservice.getCategoryById(this.cat_id)
           .subscribe(Category => {
             this.cat_name = Category.name;
 
           });
-
         console.log();
-
         // }
       });
   }
-
   // get model data
-
- 
 }

@@ -50,9 +50,9 @@ export class AddorderComponent implements OnInit {
   desc: String;
   particular: String;
   qty: number;
-  address:String;
-  state:String;
-  city:String;
+  address: String;
+  state: String;
+  city: String;
   price: number;
   p_img: String;
   discount: number;
@@ -70,10 +70,14 @@ export class AddorderComponent implements OnInit {
   sgst_total: number = 0;
   cgst_total: number = 0;
   igst_total: number = 0;
-  user:String;
-  bid:String;
-  mid:String;
-  
+  user: String;
+  bid: String;
+  mid: String;
+  charges: String;
+  payment_status: String;
+  payment_method: String;
+
+
   isGujarat: boolean;
 
   constructor(private loginservice: LoginService,
@@ -110,7 +114,7 @@ export class AddorderComponent implements OnInit {
 
   getUser(user) {
     let id = user;
-    let address =[];
+    let address = [];
     this.accountservice.getAccountById(id)
       .subscribe((res) => {
         this.user_id = res._id;
@@ -127,14 +131,14 @@ export class AddorderComponent implements OnInit {
 
         for (let index = 0; index < res.address.office.length; index++) {
           // this.officeAddress.push(res.address.office[index]);
-          var arr=res.address.office[index].split(':');
-           this.user_address.push(
-             {
-               type:"office",
-               add:arr
-             }
-           )
-          }
+          var arr = res.address.office[index].split(':');
+          this.user_address.push(
+            {
+              type: "office",
+              add: arr
+            }
+          )
+        }
         console.log(this.user_address);
         console.log(res);
         this.ShowCart();
@@ -369,9 +373,9 @@ export class AddorderComponent implements OnInit {
           this.product_name = tempproduct[index].prod_name;
           this.particular = tempproduct[index].model_no;
           this.qty = tempproduct[index].qty;
-          this.address =this.user_address[0].add[0];
-          this.city =this.user_address[0].add[1];
-          this.state =this.user_address[0].add[2];
+          this.address = this.user_address[0].add[0];
+          this.city = this.user_address[0].add[1];
+          this.state = this.user_address[0].add[2];
           this.cgst = tempproduct[index].cgst_no;
           this.sgst = tempproduct[index].sgst_no;
           this.igst = tempproduct[index].igst_no;
@@ -381,9 +385,9 @@ export class AddorderComponent implements OnInit {
             "prodcut_id": this.product_id,
             "prod_name": this.product_name,
             "particular": this.particular,
-            "cgst_no":this.cgst,
-            "sgst_no":this.sgst,
-            "igst_no":this.igst,
+            "cgst_no": this.cgst,
+            "sgst_no": this.sgst,
+            "igst_no": this.igst,
             "qty": this.qty,
             "price": this.price,
             "p_discount": "0"
@@ -397,11 +401,10 @@ export class AddorderComponent implements OnInit {
           dealer_email: this.user_email,
           dealer_name: this.user_name,
           address: this.user_address[0].add[0],
-          city:this.user_address[0].add[1],
-          state:this.user_address[0].add[2],
-
-          shipping_charges:0,
-          other_charges:0,
+          city: this.user_address[0].add[1],
+          state: this.user_address[0].add[2],
+          shipping_charges: 0,
+          other_charges: 0,
           company_name: this.user_company_name,
           dealer_discount: this.user_discount,
           mobile: this.user_mobile,
@@ -410,6 +413,10 @@ export class AddorderComponent implements OnInit {
           _date: "",
           _time: "",
           status: "Received",
+          charges:"",
+          payment_status:"",
+          payment_method: "",
+
           enquiry: false,
         }
         console.log(order);
@@ -420,7 +427,7 @@ export class AddorderComponent implements OnInit {
               .subscribe((result) => {
                 // this.Cart();
                 console.log(result);
-              }); 
+              });
             console.log(result);
 
             this.router.navigate(['vieworder/' + result.data._id]);

@@ -47,13 +47,13 @@ export class AddProductComponent implements OnInit {
   base64: any;
   otherbase64: any;
   p_img: String;
-  o_img = new Array();
+  oimg = new Array();
   value: String;
   key: String;
   igst: number;
   cgst: number;
   sgst: number;
-  brandValue:String;
+  brandValue: String;
   catValue: any;
   cityValue: any;
   model_info_array = [];
@@ -102,6 +102,13 @@ export class AddProductComponent implements OnInit {
     }
 
   }
+  gstCalculation(igst, idx) {
+    console.log(igst);
+
+    this.modeldata[idx].cgst = igst / 2;
+    this.modeldata[idx].sgst = igst / 2;
+
+  }
 
   addmodel() {
     this.modeldata.push({
@@ -109,8 +116,8 @@ export class AddProductComponent implements OnInit {
       price: '',
       size: '',
       grade: '',
-      pressure:'',
-      temprature:'',
+      pressure: '',
+      temprature: '',
       hsn_code: '',
       igst: '',
       sgst: '',
@@ -194,9 +201,11 @@ export class AddProductComponent implements OnInit {
     this.productservice.imgurotherImage(this.otherbase64)
       .subscribe((result) => {
         console.log(result);
-        this.o_img.push(result.data.link)
+        this.oimg.push(result.data.link);
+        console.log(this.oimg);
+
       });
-    // console.log(this.o_img);
+    // console.log(this.oimg);
   }
 
   addProduct() {
@@ -217,7 +226,7 @@ export class AddProductComponent implements OnInit {
       model_info: this.finalArray,
       desc: this.desc,
       product_image: this.p_img,
-      other_images: this.o_img
+      other_images: this.oimg
     }
     console.log(product);
     // PRODCUT ADD
@@ -256,7 +265,7 @@ export class AddProductComponent implements OnInit {
         this.finalArray = null;
         this.desc = null;
         this.p_img = null;
-        this.o_img = null;
+        this.oimg = null;
       });
   }
 }

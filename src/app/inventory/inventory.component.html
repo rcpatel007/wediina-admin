@@ -41,8 +41,6 @@
                       <th>Image</th>
                       <th>Name</th>
                       <th>Category</th>
-                      <th>Pressure(PSI)</th>
-                      <th>Temprature</th>
                       <th colspan="2">Action</th>
                     </tr>
                   </thead>
@@ -65,8 +63,6 @@
                           </td>
                           <td>{{i.name}} </td>
                           <td>{{c.name}}</td>
-                          <td>{{i.pressure}}</td>
-                          <td>{{i.temprature}}</td>
                           <td *ngIf="i_view == true" [routerLink]="['/viewproduct', i._id]">
                             <i class="fa fa-eye blue-text"></i>
                           </td>

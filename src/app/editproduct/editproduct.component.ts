@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../model/Product';
 import { Category } from '../model/Category';
 import { CategoryService } from '../services/category.service';
+import { BrandService } from '../services/brand.service';
 declare var $: any;
 
 @Component({
@@ -18,10 +19,13 @@ export class EditproductComponent implements OnInit {
   product: Product[];
   category: Category[];
   name: String;
+  brand = new Array;
+  brandValue: String;
   categoryid: String;
   temp: String;
   pressure: String;
   desc: String;
+  brandid: String;
   model_detail = new Array;
   model_info = new Array;
   model_no: String;
@@ -41,6 +45,7 @@ export class EditproductComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router,
     private loginservice: LoginService,
+    private brandservice: BrandService,
     private Productservice: ProductService,
     private categoryservice: CategoryService
   ) { }
@@ -56,6 +61,7 @@ export class EditproductComponent implements OnInit {
 
     this.getProductById(this.id);
     this.getCategory();
+    this.getBrand();
 
 
     $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
@@ -95,7 +101,26 @@ export class EditproductComponent implements OnInit {
       .subscribe(Category => {
         this.category = Category;
         // console.log(this.category);
+        for (let index = 0; index < Category.length; index++) {
+          if (Category[index]._id == this.catValue) {
+            this.brandid = Category[index].brand_id;
+          }
+        }
+        this.brandservice.getBrandById(this.brandid)
+          .subscribe((res) => {
+            this.brandValue = res._id;
+            console.log(this.brandValue);
+
+          });
       });
+  }
+  getBrand() {
+    this.brandservice.getBrand()
+      .subscribe((res) => {
+        this.brand = res;
+      });
+
+
   }
 
   addmodel() {
@@ -104,10 +129,12 @@ export class EditproductComponent implements OnInit {
       price: '',
       size: '',
       grade: '',
-      hsn_no: '',
-      sgst_no: '',
-      cgst_no: '',
-      igst_no: '',
+      hsn_code: '',
+      sgst: '',
+      cgst: '',
+      igst: '',
+      temprature: '',
+      pressure: '',
       keyValue: []
     });
     // this.modeldata.push({ key: '', value: '' })
@@ -132,9 +159,7 @@ export class EditproductComponent implements OnInit {
         this.id = data._id;
         this.name = data.name;
         this.catValue = data.category_id;
-        this.pressure = data.pressure;
         let temp_modeldata = data.model_info;
-        this.temp = data.temprature;
         this.p_img = data.product_image;
         this.o_img = data.other_images;
         this.desc = data.desc;
@@ -146,10 +171,12 @@ export class EditproductComponent implements OnInit {
               key.toString() !== 'price' &&
               key.toString() !== 'size' &&
               key.toString() !== 'grade' &&
-              key.toString() !== 'hsn_no' &&
-              key.toString() !== 'sgst_no' &&
-              key.toString() !== 'cgst_no' &&
-              key.toString() !== 'igst_no' &&
+              key.toString() !== 'hsn_code' &&
+              key.toString() !== 'sgst' &&
+              key.toString() !== 'cgst' &&
+              key.toString() !== 'igst' &&
+              key.toString() !== 'temprature' &&
+              key.toString() !== 'pressure' &&
               key.toString() !== 'keyValue') {
 
               temp_modeldata[index].keyValue.push(

@@ -46,6 +46,18 @@
                     </div>
                     <div class="row">
                       <div class="col s12 mr-t-20">
+                        <b>Brand:</b>
+                        <select [(ngModel)]="brandValue" name="brandValue" #br1="ngModel" required ngModel class="validate">
+                          <option value="" disabled selected>Select Brand</option>
+                          <option *ngFor="let b of brand" value="{{b._id}}">{{b.name}}</option>
+                        </select>
+                        <div *ngIf="br1?.touched">
+                          <div class="red-text left" *ngIf="br1.errors?.required">
+                            Select Brand Required*
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col s12 mr-t-20">
                         <b>Category:</b>
                         <select [(ngModel)]="catValue" name="catValue" #cat="ngModel" required ngModel class="validate">
                           <option value="" disabled selected>Select Category</option>
@@ -57,41 +69,10 @@
                           </div>
                         </div>
                       </div>
-                      <div class="input-field col s12">
-                        <b>Tempreture</b>
-                        <input id="temp" type="text" class="" [(ngModel)]="temp" name="temp" #temperature="ngModel" pattern="[0-9]+" required ngModel
-                          class="validate">
-                        <div *ngIf="temperature?.touched">
-                          <div class="red-text left" *ngIf="temperature.errors?.required">
-                            Temperature Required*
-                          </div>
-                          <div class="red-text left" *ngIf="temperature.errors?.pattern">
-                            Temperature Input is Invalid*
-                          </div>
-                        </div>
-                      </div>
-                      <div class="input-field col s12">
-                        <b>Pressure</b>
-                        <input id="pressure" type="text" class="" [(ngModel)]="pressure" name="pressure" #pre="ngModel" pattern="[0-9]+" required
-                          ngModel class="validate">
-                        <div *ngIf="pre?.touched">
-                          <div class="red-text left" *ngIf="pre.errors?.required">
-                            Pressure Required*
-                          </div>
-                          <div class="red-text left" *ngIf="pre.errors?.pattern">
-                            pressure Input is Invalid*
-                          </div>
-                        </div>
-                      </div>
+
                       <div class="input-field col s12">
                         <b>Description</b>
-                        <textarea id="desc" type="text" class="materialize-textarea" [(ngModel)]="desc" name="desc" #desp="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
-                          required ngModel>{{desc}}</textarea>
-                        <div *ngIf="desp?.touched">
-                          <div class="red-text left" *ngIf="desp.errors?.required">
-                            Description Required*
-                          </div>
-                        </div>
+                        <textarea id="desc" type="text" class="materialize-textarea" [(ngModel)]="desc" name="desc" ngModel>{{desc}}</textarea>
                       </div>
                     </div>
                     <br />
@@ -119,20 +100,20 @@
                         </div>
                       </div>
                       <div class="input-field col s12">
-                        <b> HSN Number</b>
-                        <input id="hsn_no" type="text" [(ngModel)]="modeldata[i].hsn_no" name="hsn_no{{i}}" [(ngModel)]="hsn_no" #hsnno="ngModel" required
-                          ngModel class="validate">
-                      
+                        <b> HSN Code</b>
+                        <input id="hsn_code" type="text" [(ngModel)]="modeldata[i].hsn_code" name="hsn_code{{i}}" [(ngModel)]="hsn_no" #hsnno="ngModel"
+                          required ngModel class="validate">
+
                         <div *ngIf="hsnno?.touched">
                           <div class="red-text left" *ngIf="hsnno.errors?.required">
-                            HSN Number Required*
+                            HSN Code Required*
                           </div>
                         </div>
                       </div>
                       <div class="input-field col s12">
                         <b> SGST %</b>
-                        <input id="sgstno" type="text" [(ngModel)]="modeldata[i].sgst_no" name="sgst_no{{i}}" [(ngModel)]="sgst_no" #sno="ngModel"
-                          required ngModel class="validate">
+                        <input id="sgstno" type="text" [(ngModel)]="modeldata[i].sgst" name="sgst{{i}}" [(ngModel)]="sgst" #sno="ngModel" required
+                          ngModel class="validate">
                         <div *ngIf="sno?.touched">
                           <div class="red-text left" *ngIf="sno.errors?.required">
                             SGST Required*
@@ -141,8 +122,8 @@
                       </div>
                       <div class="input-field col s12">
                         <b> CGST %</b>
-                        <input id="cgstno" type="text" [(ngModel)]="modeldata[i].cgst_no" name="cgst_no{{i}}" [(ngModel)]="cgst_no" #cno="ngModel"
-                          required ngModel class="validate">
+                        <input id="cgstno" type="text" [(ngModel)]="modeldata[i].cgst" name="cgst{{i}}" [(ngModel)]="cgst" #cno="ngModel" required
+                          ngModel class="validate">
                         <div *ngIf="cno?.touched">
                           <div class="red-text left" *ngIf="cno.errors?.required">
                             CGST Required*
@@ -151,14 +132,36 @@
                       </div>
                       <div class="input-field col s12">
                         <b> IGST %</b>
-                        <input id="igstno" type="text" [(ngModel)]="modeldata[i].igst_no" name="igst_no{{i}}" [(ngModel)]="igst_no" #ino="ngModel"
-                          required ngModel class="validate">
+                        <input id="igstno" type="text" [(ngModel)]="modeldata[i].igst" name="igst{{i}}" [(ngModel)]="igst" #ino="ngModel" required
+                          ngModel class="validate">
                         <div *ngIf="ino?.touched">
                           <div class="red-text left" *ngIf="ino.errors?.required">
                             IGST Required*
                           </div>
                         </div>
                       </div>
+                      <div class="input-field col s12">
+                          <b> Temperature</b>
+                        <input id="temp" type="text" class="" [(ngModel)]="modeldata[i].temprature" #temperature="ngModel" required ngModel class="validate"
+                          name="temprature{{i}}">
+                        <div *ngIf="temperature?.touched">
+                          <div class="red-text left" *ngIf="temperature.errors?.required">
+                            Temperature Required*
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="input-field col s12">
+                        <b>Pressure</b>
+                        <input id="pressure" type="text" class="" [(ngModel)]="modeldata[i].pressure" name="pressure{{i}}" #pre="ngModel" required
+                          ngModel class="validate">
+                        <div *ngIf="pre?.touched">
+                          <div class="red-text left" *ngIf="pre.errors?.required">
+                            Pressure Required*
+                          </div>
+                        </div>
+                      </div>
+
                       <div class="input-field col s12">
                         <b>Price</b>
                         <input id="price" type="text" [(ngModel)]="modeldata[i].price" name="price{{i}}" [(ngModel)]="price" #rs="ngModel" pattern="[0-9]+"
@@ -184,7 +187,7 @@
                       </div>
                       <div class="input-field col s12">
                         <b>Size</b>
-                        <input id="size" type="text" [(ngModel)]="modeldata[i].size" name="size{{i}}" [(ngModel)]="size" #sizevalid="ngModel" pattern="[0-9][0-9 ]+"
+                        <input id="size" type="text" [(ngModel)]="modeldata[i].size" name="size{{i}}" [(ngModel)]="size" #sizevalid="ngModel" 
                           required ngModel class="validate">
                         <div *ngIf="sizevalid?.touched">
                           <div class="red-text left" *ngIf="sizevalid.errors?.required">
@@ -199,7 +202,7 @@
                         <div>
                           <div class="col s6 l6 m6 m-t-20">
                             <input type="text" [(ngModel)]="modeldata[i].keyValue[in].key" name="modeldata{{i}}.keyValue{{in}}.key{{in}}" #key="ngModel"
-                            #dynamickey="ngModel" required ngModel class="validate" />
+                              #dynamickey="ngModel" required ngModel class="validate" />
                             <div *ngIf="dynamickey?.touched">
                               <div class="red-text left" *ngIf="dynamickey.errors?.required">
                                 Model Key Required*
@@ -208,7 +211,7 @@
                           </div>
                           <div class="col s 6 m6 l6">
                             <input type="text" [(ngModel)]="modeldata[i].keyValue[in].value" name="modeldata{{i}}.keyValue{{in}}.value{{in}}" #value="ngModel"
-                            #dynamicvalue="ngModel" required ngModel class="validate" />
+                              #dynamicvalue="ngModel" required ngModel class="validate" />
                             <div *ngIf="dynamicvalue?.touched">
                               <div class="red-text left" *ngIf="dynamicvalue.errors?.required">
                                 Model Value Required*

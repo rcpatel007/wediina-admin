@@ -38,7 +38,9 @@ export class EditorderComponent implements OnInit {
   shipping: String;
   other_charge: String;
   dealer_email: String;
-
+  charge: String;
+  payment_status: String;
+  payment_method: String;
 
 
 
@@ -114,7 +116,10 @@ export class EditorderComponent implements OnInit {
         this.methodvalue = data.method;
         this.shipping = data.shipping_charges;
         this.other_charge = data.other_charges;
-        console.log();
+        this.charge = data.charges;
+        this.payment_method = data.payment_method,
+        this.payment_status = data.payment_status,
+          console.log();
 
         // console.log(this.product_detail);
         for (let index = 0; index < this.product_detail.length; index++) {
@@ -159,7 +164,10 @@ export class EditorderComponent implements OnInit {
       city: this.d_city,
       state: this.d_state,
       shipping_charges: this.shipping,
+      charges: this.charge,
       other_charges: this.other_charge,
+      payment_method: this.payment_method,
+      payment_status: this.payment_status,
       // p_discount:this.p_discount,
       products: this.product_detail,
       user_id: this.user_id,
@@ -167,7 +175,7 @@ export class EditorderComponent implements OnInit {
       status: this.statusvalue,
       method: this.methodvalue
     }
-    console.log(this.product_detail);
+    console.log(updateorder);
     let product = [];
     let products = [];
 
@@ -178,7 +186,7 @@ export class EditorderComponent implements OnInit {
           particular: this.product_detail[index].particular,
           qty: this.product_detail[index].qty
         }
-        product.push({"products":[prod]});
+        product.push({ "products": [prod] });
 
       }
 
