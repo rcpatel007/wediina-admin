@@ -61,7 +61,7 @@ export class VendorCategoryComponent implements OnInit {
         id:this.id,
         vendor_cat_name: this.catname
       }
-      this.vendorservice.editVendorCategory(updatecategory)
+      this.vendorservice.editVendorCategory(this.id,updatecategory)
       .subscribe((res)=>{
         console.log(res);
         this.getCategory();
