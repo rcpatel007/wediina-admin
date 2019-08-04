@@ -161,11 +161,7 @@
                         <option value="" disabled selected>Select Category</option>
                         <option *ngFor="let c of vendor_category" value="{{c._id}}">{{c.vendor_cat_name}}</option>
                       </select>
-                      <div *ngIf="cat?.touched">
-                        <div class="red-text left" *ngIf="cat.errors?.required">
-                          Select Category Required*
-                        </div>
-                      </div>
+                    
                     </div>
                   
                     
