@@ -13,38 +13,28 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './header/header.component';
-import { OrderComponent } from './order/order.component';
-import { InventoryComponent } from './inventory/inventory.component';
-import { DealerComponent } from './dealer/dealer.component';
-import { GuestComponent } from './guest/guest.component';
-import { ControlComponent } from './control/control.component';
 import { LoginComponent } from './login/login.component';
-import { CategoryComponent } from './category/category.component';
-import { BrandComponent } from './brand/brand.component';
 
 import { LoginService } from './services/login.service';
-import { BrandService } from './services/brand.service';
-import { AccountService } from './services/account.service';
-import { CategoryService } from './services/category.service';
-import { DealerService } from './services/dealer.service';
-import { GuestService } from './services/guest.service';
-import { OrderService } from './services/order.service';
-import { ProductService } from './services/product.service';
-import { RoleService } from './services/role.service';
-import { UserService } from './services/user.service';
-import { CityService } from './services/city.service';
-import { NotificationService } from './services/notification.service';
+import { VenueService } from './services/venue.service';
+import { VendorService } from './services/vendor.service';
+import { CustomerService } from './services/customer.service';
+import { ControlService } from './services/control.service';
+
 import { Globals } from '../globals';
-import { VieworderComponent } from './vieworder/vieworder.component';
-import { EditorderComponent } from './editorder/editorder.component';
-import { AddProductComponent } from './add-product/add-product.component';
-import { EditproductComponent } from './editproduct/editproduct.component';
-import { ViewproductComponent } from './viewproduct/viewproduct.component';
 import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
-import { NotificationComponent } from './notification/notification.component';
-import { StockmanagementComponent } from './stockmanagement/stockmanagement.component';
-import { AddorderComponent } from './addorder/addorder.component';
-import { CartService } from './services/cart.service';
+import { VenueComponent } from './venue/venue.component';
+import { VenueCategoryComponent } from './venue-category/venue-category.component';
+import { VendorCategoryComponent } from './vendor-category/vendor-category.component';
+import { VenueInquiryComponent } from './venue-inquiry/venue-inquiry.component';
+import { VendorInquiryComponent } from './vendor-inquiry/vendor-inquiry.component';
+import { AddVenueComponent } from './add-venue/add-venue.component';
+import { AddVendorComponent } from './add-vendor/add-vendor.component';
+import { CustomerComponent } from './customer/customer.component';
+import { VendorsComponent } from './vendors/vendors.component';
+import { ControlComponent } from './control/control.component';
+import { EditVenuesComponent } from './edit-venues/edit-venues.component';
+import { EditVendorComponent } from './edit-vendor/edit-vendor.component';
 
 
 const appRoutes = [
@@ -53,21 +43,17 @@ const appRoutes = [
   { path: 'forgerPassword', component: ForgetpasswordComponent },
   { path: 'header', component: HeaderComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'order', component: OrderComponent },
-  { path: 'addorder', component: AddorderComponent },
-  { path: 'addproduct', component: AddProductComponent },
-  { path: 'editproduct/:id', component: EditproductComponent },
-  { path: 'viewproduct/:id', component: ViewproductComponent },
-  { path: 'inventory', component: InventoryComponent },
-  { path: 'stock', component: StockmanagementComponent },
-  { path: 'dealer', component: DealerComponent },
-  { path: 'guest', component: GuestComponent },
-  { path: 'brand', component: BrandComponent },
-  { path: 'category', component: CategoryComponent },
-  { path: 'control', component: ControlComponent },
-  { path: 'notificaiton', component: NotificationComponent },
-  { path: 'vieworder/:id', component: VieworderComponent },
-  { path: 'editorder/:id', component: EditorderComponent },
+  { path: 'VenueCategory', component: VenueCategoryComponent },
+  { path: 'VendorCategory', component: VendorCategoryComponent },
+  { path: 'venues', component: VenueComponent },
+  { path: 'Vendors', component: VendorsComponent },
+  { path: 'AddVenue', component: AddVenueComponent },
+  { path: 'Addvendor', component: AddVendorComponent },
+  { path: 'Customer', component: CustomerComponent },
+  { path: 'venuedetail', component: CustomerComponent },
+  { path: 'venuesEdit/:id', component: EditVenuesComponent },
+  { path: 'vendorsEdit/:id', component: EditVendorComponent },
+  { path: 'Control', component: ControlComponent },
 
 
 ];
@@ -77,23 +63,20 @@ const appRoutes = [
     AppComponent,
     DashboardComponent,
     HeaderComponent,
-    OrderComponent,
-    InventoryComponent,
-    DealerComponent,
-    GuestComponent,
-    ControlComponent,
     LoginComponent,
-    CategoryComponent,
-    BrandComponent,
-    VieworderComponent,
-    EditorderComponent,
-    AddProductComponent,
-    EditproductComponent,
-    ViewproductComponent,
     ForgetpasswordComponent,
-    NotificationComponent,
-    StockmanagementComponent,
-    AddorderComponent,
+    VenueComponent,
+    VenueCategoryComponent,
+    VendorCategoryComponent,
+    VenueInquiryComponent,
+    VendorInquiryComponent,
+    AddVenueComponent,
+    AddVendorComponent,
+    CustomerComponent,
+    VendorsComponent,
+    ControlComponent,
+    EditVenuesComponent,
+    EditVendorComponent,
     // Ng2SimpleAutocomplete,
   ],
   imports: [
@@ -108,18 +91,10 @@ const appRoutes = [
   ],
   providers: [CookieService,
     LoginService,
-    OrderService,
-    AccountService,
-    CategoryService,
-    BrandService,
-    DealerService,
-    ProductService,
-    GuestService,
-    RoleService,
-    UserService,
-    CityService,
-    CartService,
-    NotificationService,
+    VenueService,
+    VendorService,
+    CustomerService,
+    ControlService,
     Globals
   ],
   bootstrap: [AppComponent]

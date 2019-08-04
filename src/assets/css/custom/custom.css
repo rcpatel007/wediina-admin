@@ -2,8 +2,19 @@ body{
 	font-family: 'Montserrat', sans-serif;
 	background-color: #f0f0f0;
 }
+
+.mr-t-2{
+	margin-top: 2%;
+}
 a{
 	cursor: pointer;
+}
+.nav-expanded .brand-sidebar{
+	background-color: #fff !important;
+
+}
+.logo-wrapper{
+	padding: 0 !important;
 }
 .cart_tot{
 	background-color: #28669b;

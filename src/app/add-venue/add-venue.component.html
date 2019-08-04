@@ -1,0 +1,391 @@
+<div id="main">
+  <!-- START WRAPPER -->
+  <div class="wrapper">
+    <app-header></app-header>
+
+    <section id="content" class="mr-t-20">
+      <!--start container-->
+      <div class="container">
+        <div class="section">
+          <!--card stats start-->
+          <div id="card-stats">
+            <div class="row">
+              <div class="col s6 l6 m6">
+                <div class="col s2 l2 m2 headding-icon dark-blue-back">
+                  <i class="fa fa-boxes"></i>
+                </div>
+                <div class="hedding-text p-l-80">
+                  Venue Add
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--card stats end-->
+
+          <!--DataTables example Row grouping-->
+          <div class="section">
+            <div class="row ">
+              <div class="col s12 card mr-t-50">
+                <form class="col s12 mr-t-b-10" #formRef="ngForm" (ngSubmit)="addVenue()">
+                  <div class="col s6 m6 l6">
+                      <div class="row">
+                          <div class="col s12 mr-t-20">
+                            Set Package Time Period (Month)
+                            <select [(ngModel)]="package" name="package" #cat="ngModel" required ngModel class="validate">
+                              <option value="" disabled selected>Select Month</option>
+                              <option  value="1">1</option>
+                              <option  value="2">2</option>
+                              <option  value="3">3</option>
+                              <option  value="4">4</option>
+                              <option  value="5">5</option>
+                              <option  value="6">6</option>
+                              <option  value="7">7</option>
+                              <option  value="8">8</option>
+                              <option  value="9">9</option>
+                              <option  value="10">10</option>
+                              <option  value="11">11</option>
+                              <option  value="12">12</option>
+                              <option  value="13">13</option>
+                              <option  value="14">14</option>
+                              <option  value="15">15</option>
+                              <option  value="16">16</option>
+                              <option  value="17">17</option>
+                              <option  value="18">18</option>
+                              <option  value="19">19</option>
+                              <option  value="20">20</option>
+                              <option  value="21">21</option>
+                              <option  value="22">22</option>
+                              <option  value="23">23</option>
+                              <option  value="24">24</option>
+                            </select>
+                          </div> 
+                        </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="fname" type="text"  name="fname" [(ngModel)]="fname"
+                          #fName="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" required ngModel class="validate">
+                        <label for="fname">First Name</label>
+                        <div *ngIf="fName?.touched">
+                          <div class="red-text left" *ngIf="fName.errors?.required">
+                            First Name Required*
+                          </div>
+                          <div class="red-text left" *ngIf="fName.errors?.pattern">
+                            First Name is Invalid*
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="lname" type="text"  name="lname" [(ngModel)]="lname"
+                          #lName="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" required ngModel class="validate">
+                        <label for="lname">Last Name</label>
+                        <div *ngIf="lName?.touched">
+                          <div class="red-text left" *ngIf="lName.errors?.required">
+                            last Name Required*
+                          </div>
+                          <div class="red-text left" *ngIf="lname.errors?.pattern">
+                            last Name is Invalid*
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="cname" type="text"  name="cname" [(ngModel)]="cname"
+                          #cName="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" required ngModel class="validate">
+                        <label for="cname">Company Name</label>
+                        <div *ngIf="cName?.touched">
+                          <div class="red-text left" *ngIf="cName.errors?.required">
+                            Company Name Required*
+                          </div>
+                          <div class="red-text left" *ngIf="cName.errors?.pattern">
+                            Company Name is Invalid*
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="cno" type="text"  name="cno" [(ngModel)]="cno"
+                          #cNumer="ngModel" pattern="[0-9]+" minlength="10" maxlength="10" required ngModel class="validate">
+                        <label for="cno">Contact No</label>
+                        <div *ngIf="cNumer?.touched">
+                          <div class="red-text left" *ngIf="cNumer.errors?.required">
+                            Contact No Required*
+                          </div>
+                          <div class="red-text left" *ngIf="cNumer.errors?.pattern">
+                            Contact No is Invalid*
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="email" type="email"  name="email" [(ngModel)]="email"
+                          #mail="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" required ngModel class="validate">
+                        <label for="email">Email</label>
+                        <div *ngIf="mail?.touched">
+                          <div class="red-text left" *ngIf="mail.errors?.required">
+                            Email is Required*
+                          </div>
+                          <div class="red-text left" *ngIf="mail.errors?.pattern">
+                            Email is Invalid*
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="pwd" type="text"  name="pwd" [(ngModel)]="pwd"
+                          #vpwd="ngModel" required ngModel class="validate">
+                        <label for="pwd">Password</label>
+                        <div *ngIf="vpwd?.touched">
+                          <div class="red-text left" *ngIf="vpwd.errors?.required">
+                            Password Required*
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col s12 mr-t-20">
+                      Category:
+                      <select [(ngModel)]="catValue" name="catValue" #cat="ngModel" required ngModel class="validate">
+                        <option value="" disabled selected>Select Category</option>
+                        <option *ngFor="let c of venue_category" value="{{c._id}}">{{c.venue_cat_name}}</option>
+                      </select>
+                      <div *ngIf="cat?.touched">
+                        <div class="red-text left" *ngIf="cat.errors?.required">
+                          Select Category Required*
+                        </div>
+                      </div>
+                    </div>
+                  
+                    
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="gstno" type="text"  name="gstno" [(ngModel)]="gstno"
+                          required ngModel class="validate">
+                        <label for="gstno">GST No</label>
+
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="area" type="text"  name="area" [(ngModel)]="area"
+                          #varea="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" required ngModel class="validate">
+                        <label for="area">Area</label>
+                        <div *ngIf="varea?.touched">
+                          <div class="red-text left" *ngIf="varea.errors?.required">
+                            Area Required*
+                          </div>
+                          <div class="red-text left" *ngIf="varea.errors?.pattern">
+                            Area is Invalid*
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="city" type="text"  name="city" [(ngModel)]="city"
+                          #vcity="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" required ngModel class="validate">
+                        <label for="city">City</label>
+                        <div *ngIf="vcity?.touched">
+                          <div class="red-text left" *ngIf="vcity.errors?.required">
+                            City Required*
+                          </div>
+                          <div class="red-text left" *ngIf="vcity.errors?.pattern">
+                            City is Invalid*
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="state" type="text"  name="state" [(ngModel)]="state"
+                          #vstate="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" required ngModel class="validate">
+                        <label for="state">State Name</label>
+                        <div *ngIf="vstate?.touched">
+                          <div class="red-text left" *ngIf="vstate.errors?.required">
+                            State Required*
+                          </div>
+                          <div class="red-text left" *ngIf="vstate.errors?.pattern">
+                            State is Invalid*
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <textarea id="address" type="text" class="materialize-textarea" [(ngModel)]="address" name="address"
+                          ngModel></textarea>
+                        <label for="address">Address</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col s6 m6 l6">
+                    <div class="row">
+                     <h4 class="right">Venue Detail</h4>
+                    </div>
+                   
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="parking" type="text"  name="parking" [(ngModel)]="parking"
+                          #pspace="ngModel"  required ngModel class="validate">
+                        <label for="cname">parking Space</label>
+                        <div *ngIf="pspace?.touched">
+                          <div class="red-text left" *ngIf="pspace.errors?.required">
+                            Parking Required*
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col s12 mr-t-20">
+                      Catring:
+                      <select [(ngModel)]="catringValue" name="catringValue" #cat="ngModel" required ngModel class="validate">
+                        <option value="" disabled selected>Select Catring permission</option>
+                        <option  value="Allowed">Allowed</option>
+                        <option  value="Not Allowed">Not Allowed</option>
+                      </select>
+                      <div *ngIf="cat?.touched">
+                        <div class="red-text left" *ngIf="cat.errors?.required">
+                          Select Category Required*
+                        </div>
+                      </div>
+                    </div> 
+                      <div class="col s12 mr-t-20">
+                      other Theme Decorator :
+                      <select [(ngModel)]="themepermission" name="themepermission" #cat="ngModel" required ngModel class="validate">
+                        <option value="" disabled selected>Select  permission</option>
+                        <option  value="Allowed">Allowed</option>
+                        <option  value="Not Allowed">Not Allowed</option>
+                      </select>
+                      <div *ngIf="theme?.touched">
+                        <div class="red-text left" *ngIf="theme.errors?.required">
+                          Select Category Required*
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12 mr-t-20">
+                        <b> Image:</b> &nbsp;&nbsp;
+                        <input id="p_img" type="file" (change)="imageUpload($event)" [(ngModel)]="p_img" name="p_img"
+                          #pimg="ngModel"  required ngModel class="validate">
+                      </div>
+
+                      <div *ngIf="pimg?.touched">
+                        <div class="red-text left" *ngIf="pimg.errors?.required">
+                           Image Required*
+                        </div>
+                        
+                      </div>
+                    </div>
+                    
+                    <div class="row">
+                      <div class="input-field col s12 mr-t-20">
+                        <b>Other Image:</b> &nbsp;&nbsp;
+                        <input id="img" type="file" multiple="multiple" class="" (change)="otherImageUpload($event)"
+                          #oimg="ngModel" accept="png" required ngModel class="validate" [(ngModel)]="o_img"
+                          name="o_img">
+                      </div>
+                      <div *ngIf="oimg?.touched">
+                        <div class="red-text left" *ngIf="oimg.errors?.required">
+                          Product Image Required*
+                        </div>
+                        <div class="red-text left" *ngIf="oimg.errors?.accept">
+                          Please Select PNG file Only.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="timeper" type="text"  name="timeper" [(ngModel)]="timeper"
+                          #timep="ngModel"  required ngModel class="validate">
+                        <label for="area">Time Permission</label>
+                        <div *ngIf="timep?.touched">
+                          <div class="red-text left" *ngIf="timep.errors?.required">
+                            Time Permission Required*
+                          </div>
+                         
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="areavenue" type="text"  name="areavenue" [(ngModel)]="areavenue"
+                          #areaofvenue="ngModel" required ngModel class="validate">
+                        <label for="areavenue">Area Of Venue</label>
+                        <div *ngIf="areaofvenue?.touched">
+                          <div class="red-text left" *ngIf="areaofvenue.errors?.required">
+                            Venue Area Required*
+                          </div>
+                         
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="cop" type="text"  name="cop" [(ngModel)]="cop"
+                          #vcop="ngModel" required ngModel class="validate">
+                        <label for="cop">capasity of Person</label>
+                        <div *ngIf="vcop?.touched">
+                          <div class="red-text left" *ngIf="vcop.errors?.required">
+                            capasity Required*
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="location" type="text"  name="location" [(ngModel)]="location"
+                          #vlocation="ngModel"  required ngModel class="validate">
+                        <label for="location">Location</label>
+                        <div *ngIf="vlocation?.touched">
+                          <div class="red-text left" *ngIf="vlocation.errors?.required">
+                            Location Required*
+                          </div>
+                         
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                          <input id="videolink" type="text"  name="videolink" [(ngModel)]="videolink"
+                            #vlocation="ngModel"   ngModel class="validate">
+                          <label for="videolink">Video Links (example www.youtube.com , www.youtube.com ) </label>
+                          
+                           
+                          </div>
+                        </div>
+                      
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <textarea id="desp" type="text" class="materialize-textarea" [(ngModel)]="desp" name="desp"
+                          ngModel></textarea>
+                        <label for="desp">Description</label>
+                      </div>
+                    </div>
+                  </div>
+                  <br />
+                  <button class="modal-action btn btn-primary" [disabled]="formRef.invalid"
+                    onclick="Materialize.toast('Product Added', 4000)" type="submit">ADD Venue</button>
+
+
+
+                </form>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!--end container-->
+    </section>

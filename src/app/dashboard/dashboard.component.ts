@@ -1,17 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderService } from '../services/order.service';
 import { LoginService } from '../services/login.service';
-import { Order } from '../model/Order';
 import { Globals } from '../../globals';
 import { environment } from '../../environments/environment';
 import { Router, NavigationEnd } from '@angular/router';
-import { CategoryService } from '../services/category.service';
-import { Category } from '../model/Category';
-import { Account } from '../model/Dealer';
-import { AccountService } from '../services/account.service';
+
+
 import { JwtHelper } from '../JwtHelper';
 import { partition } from 'rxjs/operators';
-import { UserService } from '../services/user.service';
 
 declare var window: any;
 declare var $: any;
@@ -64,9 +59,6 @@ export class DashboardComponent implements OnInit {
 
   constructor(private router: Router,
     private loginservice: LoginService,
-    private orderService: OrderService,
-    private userservice: UserService,
-    private accountservice: AccountService,
     private globals: Globals) {
     // router.events.subscribe(s => {
     //   if (s instanceof NavigationEnd) {
@@ -85,13 +77,10 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
 
     // console.log(this.loginservice.token+"token");
-    if (localStorage.user_id == null) {
-      this.router.navigate(["/login"]);
-    }
     // this.auth = {"email": this.loginservice.token,"token": this.loginservice.token}  
-    this.getOrder();
-    this.getAccount();
-    this.getuser(this.user_id);
+    // this.getOrder();
+    // this.getAccount();
+    // this.getuser(this.user_id);
 
 
     $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
@@ -119,88 +108,88 @@ export class DashboardComponent implements OnInit {
   goTo(location: string): void {
     window.location.hash = location;
   }
-  getuser(user_id) {
-    let id = localStorage.user_id;
-    // let id = localStorage.user_id;
-    this.userservice.getUserById(id)
-      .subscribe((data) => {
-        //  console.log(account);
-        this.o_add = data.order.add;
-        this.o_edit = data.order.edit;
-        this.o_view = data.order.view;
-        this.o_delete = data.order.delete;
-        // console.log(data);
-      });
-  }
+  // getuser(user_id) {
+  //   let id = localStorage.user_id;
+  //   // let id = localStorage.user_id;
+  //   this.userservice.getUserById(id)
+  //     .subscribe((data) => {
+  //       //  console.log(account);
+  //       this.o_add = data.order.add;
+  //       this.o_edit = data.order.edit;
+  //       this.o_view = data.order.view;
+  //       this.o_delete = data.order.delete;
+  //       // console.log(data);
+  //     });
+  // }
 
-  getAccount() {
-    this.accountservice.getAccount()
-      .subscribe((data) => {
-        //  console.log(account);
-        this.account = data;
-        // console.log(this.account);
-      });
-  }
+  // getAccount() {
+  //   this.accountservice.getAccount()
+  //     .subscribe((data) => {
+  //       //  console.log(account);
+  //       this.account = data;
+  //       // console.log(this.account);
+  //     });
+  // }
 
-  getOrder() {
-    this.newcount = 0;
-    this.pendding = 0;
-    this.enquiry = 0;
-    this.complate = 0;
-    // console.log(auth);
-    this.orderService.getOrder()
-      .subscribe((Order) => {
-        // console.log(Order);
+  // getOrder() {
+  //   this.newcount = 0;
+  //   this.pendding = 0;
+  //   this.enquiry = 0;
+  //   this.complate = 0;
+  //   // console.log(auth);
+  //   this.orderService.getOrder()
+  //     .subscribe((Order) => {
+  //       // console.log(Order);
 
-        for (let i = 0; i < Order.length; i++) {
-          if (Order[i].status === "Received") {
+  //       for (let i = 0; i < Order.length; i++) {
+  //         if (Order[i].status === "Received") {
 
-            this.order.push(Order[i]);
-            this.newcount = this.newcount + 1;
-            // console.log(this.order);
-            // console.log(this.newcount);
-          }
-          else if (Order[i].status == "In Process") {
-            this.pendding = this.pendding + 1;
-            this.penddingOrder.push(Order[i]);
-            console.log('order' + this.penddingOrder);
-          }
-          else if (Order[i].status == "completed") {
-            this.complate = this.complate + 1;
-            this.compalet_order.push(Order[i]);
-            console.log(this.compalet_order);
-          }
-          else {
-            this.enquiry = this.enquiry + 1;
-            // console.log(this.order_count);
-            this.enquriryData.push(Order[i]);
-          }
-        }
-        // console.log(this.order);
-        // console.log(this.enquriry_data);
-      });
-  }
-  viewOrder(id) {
-    this.orderService.viewOrder(id)
-      .subscribe((data) => {
-        this.product_details = data.products;
-        // console.log(this.product_details);
-        // }
-      });
-  }
-  /*delete order */
-  ConfirmDelete(id) {
-    var x = confirm("Are you sure you want to delete?");
-    if (x)
-      return this.deleteOrder(id);
-    else
-      return false;
-  }
-  deleteOrder(id) {
-    this.orderService.deleteOrder(id)
-      .subscribe(result => {
-        // console.log(result);
-        this.getOrder();
-      });
-  }
+  //           this.order.push(Order[i]);
+  //           this.newcount = this.newcount + 1;
+  //           // console.log(this.order);
+  //           // console.log(this.newcount);
+  //         }
+  //         else if (Order[i].status == "In Process") {
+  //           this.pendding = this.pendding + 1;
+  //           this.penddingOrder.push(Order[i]);
+  //           console.log('order' + this.penddingOrder);
+  //         }
+  //         else if (Order[i].status == "completed") {
+  //           this.complate = this.complate + 1;
+  //           this.compalet_order.push(Order[i]);
+  //           console.log(this.compalet_order);
+  //         }
+  //         else {
+  //           this.enquiry = this.enquiry + 1;
+  //           // console.log(this.order_count);
+  //           this.enquriryData.push(Order[i]);
+  //         }
+  //       }
+  //       // console.log(this.order);
+  //       // console.log(this.enquriry_data);
+  //     });
+  // }
+  // viewOrder(id) {
+  //   this.orderService.viewOrder(id)
+  //     .subscribe((data) => {
+  //       this.product_details = data.products;
+  //       // console.log(this.product_details);
+  //       // }
+  //     });
+  // }
+  // /*delete order */
+  // ConfirmDelete(id) {
+  //   var x = confirm("Are you sure you want to delete?");
+  //   if (x)
+  //     return this.deleteOrder(id);
+  //   else
+  //     return false;
+  // }
+  // deleteOrder(id) {
+  //   this.orderService.deleteOrder(id)
+  //     .subscribe(result => {
+  //       // console.log(result);
+  //       this.getOrder();
+  //     });
+  // }
 }

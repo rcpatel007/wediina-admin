@@ -1,974 +1,316 @@
 <div id="main">
-  <!-- START WRAPPER -->
-  <div class="wrapper">
-    <app-header></app-header>
-
-    <section id="content" class="mr-t-20">
-      <!--start container-->
-      <div class="container">
-        <div class="section">
-          <div id="card-stats">
-            <div class="row">
-              <form #frm="ngForm" (ngSubmit)="addCity()">
-                <div class="control-headding">CITY SERVED IN</div>
-                <div class="row">
-                  <div class="input-field col s6">
-                    <input id="stateid" type="text" name="state" [(ngModel)]="state" #st="ngModel" required ngModel pattern="[a-zA-Z][a-zA-Z ]+"
-                      class="validate city_class">
-                    <label for="stateid">State</label>
-                    <div *ngIf="st?.touched">
-                      <div class="red-text left" *ngIf="st.errors?.required">
-                        State Required*
-                      </div>
-                      <div class="red-text left" *ngIf="st.errors?.pattern">
-                        State Invalid*
-                      </div>
-                    </div>
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+      <app-header></app-header>
+      <section id="content" class="mr-t-20">
+        <!--start container-->
+        <div class="container">
+          <div class="section">
+            <!--card stats start-->
+            <div id="card-stats">
+              <div class="row">
+                <div class="col s6 l6 m6">
+                  <div class="col s2 l2 m2 headding-icon dark-blue-back">
+                    <i class="fa fa-bell"></i>
                   </div>
-                  <div class="input-field col s6">
-                    <input id="cid" type="text" name="city_name" [(ngModel)]="city_name" #st="ngModel" required ngModel pattern="[a-zA-Z][a-zA-Z ]+"
-                      class="validate city_class">
-                    <label for="cid">City Name </label>
-                    <div *ngIf="st?.touched">
-                      <div class="red-text left" *ngIf="st.errors?.required">
-                        City name Required*
-                      </div>
-                      <div class="red-text left" *ngIf="st.errors?.pattern">
-                        City Name Invalid*
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-                <div class="row">
-                  <!-- <div class=" col s6 l6 m6 left-align">
-                    <button class="hedding-btn-2"  (click)="cityShow()" > Display City </button>
-                  </div> -->
-                  <div class="right-align">
-                    <button class="btn btn-primary" [disabled]="frm.invalid" onclick="Materialize.toast('City ADDED', 3000)" type="submit">ADD</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="container">
-              <div class="section">
-                <div class="row ">
-                  <h5>City List</h5>
-
-                  <div class="col s12 m12 l12 card city-view ">
-                    <table class="display mr-t-20 striped" cellspacing="0" width="100%">
-                      <thead>
-                        <th>State Name</th>
-                        <th>City Name</th>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let c of city">
-                          <td>{{c.state}}</td>
-                          <td>{{c.city}}</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                  <div class="hedding-text p-l-80">
+                    Home Slider
                   </div>
                 </div>
               </div>
             </div>
-            <br />
-            <br />
-            <div class="divider"></div>
-            <br />
-            <br />
-            <div class="row">
-              <div class="control-headding col s6">ACCOUNT SETTINGS</div>
-              <div class="col s6">
-                <div class="right-align">
-                  <button data-target="add_user" (click)="roleOff();" class="hedding-btn-2 modal-trigger">Add User</button>
+            <!--card stats end-->
+  
+            <!--DataTables example Row grouping-->
+            <div class="section">
+              <div class="row ">
+  
+                <div class="col s12 card mr-t-50">
+                  <div class="right mr-t-2">  
+                  <button  data-target="addslider" class="modal-trigger b-radius-40 hedding-btn-2" data-target="addslider" >Add Home ads </button>
                 </div>
-              </div>
-              <div class="col s12 mr-t-20 center-align">
-                <a data-target="edit_user" *ngFor="let u of user" class="modal-trigger" (click)="getuserById(u._id)">
-                  <div class="col s3 ac_card">
-                    <div class="col s2">
-                      <i class="fa fa-2x fa-user"></i>
-                    </div>
-                    <div class="col s10 center-align p-t-5">{{u.name}}</div>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <br />
-            <br />
-            <div class="divider"></div>
-            <br />
-            <br />
-
-            <div class="row">
-              <div class="control-headding col s6">ACCOUNT TYPE</div>
-              <div class="col s6">
-                <div class="right-align">
-                  <button data-target="add_type" class="hedding-btn-2 modal-trigger">Add Type</button>
+                  <table class="display mr-t-20 striped" cellspacing="0" width="100%">
+                    <thead>
+                      <tr>
+                        <th>No</th>
+                        <th>image</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container>
+                        <ng-container>
+  
+                          <tr *ngFor="let c of homeslider;let i=index">
+                            <td>{{i+1}}</td>
+                             <td class="prod_img">
+                              <img src="{{c.image}}" class="img-thumbnail border-none  img-fluid" width="80" height="80" />
+                              <!-- <div class="edit">
+                                <button data-target="singleimg" class="modal-trigger b-radius-40" (click)="getproductById(i._id)">
+                                  <i class="fa fa-pencil-alt orange-text" title="single images"></i>
+                                </button> &nbsp;&nbsp;&nbsp;
+                                <button data-target="otherimg" class="modal-trigger b-radius-40" (click)="getproductById(i._id)">
+                                  <i class="fa fa-external-link-alt orange-text" title="other images"></i>
+                                </button> &nbsp;&nbsp;&nbsp;
+                              </div> -->
+                            </td>
+                            <td  (click)="Confirmhomeslider(c._id)">
+                              <i class="fa fa-trash red-text "></i>
+                            </td>
+                          </tr>
+  
+                        </ng-container>
+  
+                      </ng-container>
+                    </tbody>
+                  </table>
                 </div>
-              </div>
-              <div class="col s12 mr-t-20 center-align">
-                <a href="" data-target="edit_type" *ngFor="let r of role" class="modal-trigger" (click)="getRoleById(r._id)">
-                  <div class="col s3 ac_card">
-                    <div class="col s2">
-                      <i class="fa fa-2x fa-user"></i>
-                    </div>
-                    <div class="col s10 center-align p-t-5">{{r.role}}</div>
-                  </div>
-                </a>
-
-              </div>
-            </div>
-            <br />
-            <br />
-            <div class="divider"></div>
-            <br />
-            <br />
-
-            <div class="row">
-              <div class="control-headding col s6">DEALER TYPES</div>
-              <div class="col s6">
-                <div class="right-align">
-                  <button data-target="add_dealer_type" class="hedding-btn-2 modal-trigger">Add Type</button>
-                </div>
-              </div>
-              <div class="col s12 mr-t-20 center-align">
-                <a href="" data-target="edit_dealer_type" *ngFor="let t of dealertype" class="modal-trigger" (click)="getTypeById(t._id)">
-                  <div class="col s3 ac_card">
-                    <div class="col s2">
-                      <i class="fa fa-2x fa-user"></i>
-                    </div>
-                    <div class="col s10 center-align p-t-5">{{t.type}}</div>
-                  </div>
-                </a>
-
               </div>
             </div>
           </div>
+        </div>
+        <!--end container-->
+      </section>
+
+      <section id="content" class="mr-t-20">
+        <!--start container-->
+        <div class="container">
+          <div class="section">
+            <!--card stats start-->
+            <div id="card-stats">
+              <div class="row">
+                <div class="col s6 l6 m6">
+                  <div class="col s2 l2 m2 headding-icon dark-blue-back">
+                    <i class="fa fa-bell"></i>
+                  </div>
+                  <div class="hedding-text p-l-80">
+                    Home Ads
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--card stats end-->
+  
+            <!--DataTables example Row grouping-->
+            <div class="section">
+              <div class="row ">
+  
+                <div class="col s12 card mr-t-50">
+                  <div class="right mr-t-2">  
+                  <button  data-target="addads" class="modal-trigger b-radius-40 hedding-btn-2" data-target="addadds" >Add Home ads </button>
+                </div>
+                  <table class="display mr-t-20 striped" cellspacing="0" width="100%">
+                    <thead>
+                      <tr>
+                        <th>No</th>
+                        <th>image</th>
+                        <th>Name</th>
+                        <th>city</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container>
+                        <ng-container>
+  
+                          <tr *ngFor="let c of homeads;let i=index">
+                            <td>{{i+1}}</td>
+                             <td class="prod_img">
+                              <img src="{{c.image}}" class="img-thumbnail border-none  img-fluid" width="80" height="80" />
+                              <!-- <div class="edit">
+                                <button data-target="singleimg" class="modal-trigger b-radius-40" (click)="getproductById(i._id)">
+                                  <i class="fa fa-pencil-alt orange-text" title="single images"></i>
+                                </button> &nbsp;&nbsp;&nbsp;
+                                <button data-target="otherimg" class="modal-trigger b-radius-40" (click)="getproductById(i._id)">
+                                  <i class="fa fa-external-link-alt orange-text" title="other images"></i>
+                                </button> &nbsp;&nbsp;&nbsp;
+                              </div> -->
+                            </td>
+                              <td>{{c.name}}</td>
+                            <td>{{c.city}}</td>
+                            <td data-target="otherimg" class="modal-trigger b-radius-40" (click)="gethomeadsById(c._id)" data-target="editadds" >
+                              <i class="fa fa-pencil-alt orange-text"></i>
+                            </td>
+                            <td  (click)="Confirmhomeads(c._id)">
+                              <i class="fa fa-trash red-text "></i>
+                            </td>
+                          </tr>
+  
+                        </ng-container>
+  
+                      </ng-container>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--end container-->
+      </section>
+    </div>
+
+    <!-- add home Slider -->
+<div id="addslider" class="modal">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s6 l6 m6">
+        <h5> Home Slider</h5>
+        <div class="green-text right" *ngIf="pwdsucess != null">
+          {{pwdsucess}}
         </div>
       </div>
-      <!--end container-->
-    </section>
-
-    <!-- add user -->
-    <div id="add_user" class="modal modal-fixed-footer">
-      <form class="col s12" #frm1="ngForm" (ngSubmit)="addUser()">
-        <div class="modal-content">
-          <div class="row">
-            <div class="input-field col s6">
-              <input id="Name" type="text" class="" [(ngModel)]="u_name" name="u_name" #username="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
-                required ngModel class="validate">
-              <label for="Name">Name</label>
-              <div *ngIf="username?.touched">
-                <div class="red-text left" *ngIf="username.errors?.required">
-                  User Name Required*
-                </div>
-                <div class="red-text left" *ngIf="username.errors?.pattern">
-                  User Name is Invalid*
-                </div>
-              </div>
-            </div>
-            <div class="input-field col s6">
-              <input id="email" type="text" class="" [(ngModel)]="u_email" name="u_email" #usermail="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
-                required ngModel class="validate">
-              <label for="email">Email</label>
-              <div *ngIf="usermail?.touched">
-                <div class="red-text left" *ngIf="usermail.errors?.required">
-                  Email Required*
-                </div>
-                <div class="red-text left" *ngIf="usermail.errors?.pattern">
-                  Please Enter valid Email*
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s6">
-              <input id="credit-demo" type="text" class="" [(ngModel)]="u_mobile" name="u_mobile" minlength="10" maxlength="10" #mno="ngModel"
-                pattern="[0-9]+" required ngModel class="validate">
-              <label for="credit_demo">Mobile No.</label>
-              <div *ngIf="mno?.touched">
-                <div class="red-text left" *ngIf="mno.errors?.required">
-                  Contact No. Required*
-                </div>
-                <div [hidden]="!mno?.hasError('minlength')" class="red-text">
-                  Please enter valid Contact No
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class=" col s12">
-              <div class="">
-                <h6>TYPE:</h6>
-
-              </div>
-              <br />
-              <div class="col s3" *ngFor="let a of role">
-                <input class="with-gap" name="addroletype" type="radio" id="{{a.role}}" [value]="a.role" [(ngModel)]="addroletype" (change)="getRoleValue(a._id)"
-                  #radiotype="ngModel" required ngModel class="validate" />
-                <label for="{{a.role}}">{{a.role}}</label>
-                <div *ngIf="radiotype?.touched">
-                  <div class="red-text left" *ngIf="radiotype.errors?.required">
-                    Role Type Required*
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- checkbox -->
-          <div class="row" *ngIf="rolevalue == true">
-            <!-- <div class="input-field col s6">
-                    <input id="email" type="text" class="">
-                    <label for="email">view</label>
-                  </div>
-                  <div class="input-field col s6">
-                    <input id="credit-demo" type="text" class="">
-                    <label for="credit_demo">edit.</label>
-                 -->
-            <table>
-              <thead>
-                <th></th>
-                <th>add</th>
-                <th>view</th>
-                <th>edit</th>
-                <th>delete</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Order</td>
-                  <td>
-                    <input type="checkbox" class="filled-in" id="a_o_add" [(ngModel)]="a_o_add" [value]="a_o_add" name="a_o_add" />
-                    <label for="a_o_add"></label>
-
-                  </td>
-                  <td>
-                    <input type="checkbox" class="filled-in" id="a_o_view" [(ngModel)]="a_o_view" [value]="a_o_view" name="a_o_view" />
-                    <label for="a_o_view"></label>
-
-                  </td>
-                  <td>
-                    <input type="checkbox" class="filled-in" id="a_o_edit" [(ngModel)]="a_o_edit" [value]="a_o_edit" name="a_o_edit" />
-                    <label for="a_o_edit"></label>
-                  </td>
-                  <td>
-                    <input type="checkbox" class="filled-in" id="a_o_delete" [(ngModel)]="a_o_delete" [value]="a_o_delete" name="a_o_delete"
-                    />
-                    <label for="a_o_delete"></label>
-                  </td>
-
-                </tr>
-                <tr>
-                  <td>Inventory</td>
-                  <td>
-                    <input type="checkbox" class="filled-in" id="a_i_add" [(ngModel)]="a_i_add" [value]="a_i_add" name="a_i_add" />
-                    <label for="a_i_add"></label>
-
-                  </td>
-                  <td>
-                    <input type="checkbox" class="filled-in" id="a_i_view" [(ngModel)]="a_i_view" [value]="a_i_view" name="a_i_view" />
-                    <label for="a_i_view"></label>
-
-                  </td>
-                  <td>
-                    <input type="checkbox" class="filled-in" id="a_i_edit" [(ngModel)]="a_i_edit" [value]="a_i_edit" name="a_i_edit" />
-                    <label for="a_i_edit"></label>
-                  </td>
-                  <td>
-                    <input type="checkbox" class="filled-in" id="a_i_delete" [(ngModel)]="a_i_delete" [value]="a_i_delete" name="a_i_delete"
-                    />
-                    <label for="a_i_delete"></label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Dealer</td>
-                  <td>
-                    <input type="checkbox" class="filled-in" id="a_d_add" [(ngModel)]="a_d_add" name="a_d_add" [value]="a_d_add" />
-                    <label for="a_d_add"></label>
-
-                  </td>
-                  <td>
-                    <input type="checkbox" class="filled-in" id="a_d_view" [(ngModel)]="a_d_view" name="a_d_view" [value]="a_d_view" />
-                    <label for="a_d_view"></label>
-
-                  </td>
-                  <td>
-                    <input type="checkbox" class="filled-in" id="a_d_edit" [(ngModel)]="a_d_edit" name="a_d_edit" [value]="a_d_edit" />
-                    <label for="a_d_edit"></label>
-                  </td>
-                  <td>
-                    <input type="checkbox" class="filled-in" id="a_d_delete" [(ngModel)]="a_d_delete" name="a_d_delete" [value]="a_d_delete"
-                    />
-                    <label for="a_d_delete"></label>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>Brand</td>
-                  <td>
-                    <input type="checkbox" class="filled-in" id="a_b_add" [(ngModel)]="a_b_add" name="a_b_add" [value]="a_b_add" />
-                    <label for="a_b_add"></label>
-
-                  </td>
-                  <td>
-                    <input type="checkbox" class="filled-in" id="a_b_view" [(ngModel)]="a_b_view" name="a_b_view" [value]="a_b_view" />
-                    <label for="a_b_view"></label>
-
-                  </td>
-                  <td>
-                    <input type="checkbox" class="filled-in" id="a_b_edit" [(ngModel)]="a_b_edit" name="a_b_edit" [value]="a_b_edit" />
-                    <label for="a_b_edit"></label>
-                  </td>
-                  <td>
-                    <input type="checkbox" class="filled-in" id="a_b_delete" [(ngModel)]="a_b_delete" name="a_b_delete" [value]="a_b_delete"
-                    />
-                    <label for="a_b_delete"></label>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Category</td>
-                  <td>
-                    <input type="checkbox" class="filled-in" id="a_c_add" [(ngModel)]="a_c_add" name="a_c_add" [value]="a_c_add" />
-                    <label for="a_c_add"></label>
-
-                  </td>
-                  <td>
-                    <input type="checkbox" class="filled-in" id="a_c_view" [(ngModel)]="a_c_view" name="a_c_view" [value]="a_c_view" />
-                    <label for="a_c_view"></label>
-
-                  </td>
-                  <td>
-                    <input type="checkbox" class="filled-in" id="a_c_edit" [(ngModel)]="a_c_edit" name="a_c_edit" [value]="a_c_edit" />
-                    <label for="a_c_edit"></label>
-                  </td>
-                  <td>
-                    <input type="checkbox" class="filled-in" id="a_c_delete" [(ngModel)]="a_c_delete" name="a_c_delete" [value]="a_c_delete"
-                    />
-                    <label for="a_c_delete"></label>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+      <div class="col s6 l6 m6">
+        <div class="red-text right" *ngIf="pwderror != null">
+          {{pwderror}}
         </div>
-        <div class="modal-footer ">
-          <a class="modal-action modal-close ">CANCEL</a>
-          <button class="modal-action modal-close btn btn-primary" [disabled]="frm1.invalid" onclick="Materialize.toast('New Account ADD', 4000)"
-            type="submit">ADD</button>
+      </div>
+    </div>
+    <div class="col s12">
+      <form #frm10="ngForm" (ngSubmit)="addhomeSlider()">
+        <div class="col s12 l12 m12  mr-t-20 mr-b-m-30">
+         
+          <div class="input-field col s12">
+            <b>Image :</b>
+            <input id="s_img" type="file" (change)="Sliderupload($event)" [(ngModel)]="s_img" name="s_img"
+            #pimg="ngModel"  required ngModel class="validate">
+            </div>
+         
+          <div class="right-align">
+            <button class="btn btn-primary modal-close">close </button>
+            <button class="btn btn-primary modal-close" [disabled]="frm10.invalid" onclick="Materialize.toast('Password Updated', 3000)" type="submit">ADD </button>
+          </div>
         </div>
       </form>
     </div>
   </div>
+</div>
+<!-- add home ads -->
+<div id="addadds" class="modal">
+    <div class="modal-content">
+      <div class="row">
+        <div class="col s6 l6 m6">
+          <h5> Home Ads Update</h5>
+          <div class="green-text right" *ngIf="pwdsucess != null">
+            {{pwdsucess}}
+          </div>
+        </div>
+        <div class="col s6 l6 m6">
+          <div class="red-text right" *ngIf="pwderror != null">
+            {{pwderror}}
+          </div>
+        </div>
+      </div>
+      <div class="col s12">
+        <form #frm1="ngForm" (ngSubmit)="addhomeads()">
+          <div class="col s12 l12 m12  mr-t-20 mr-b-m-30">
+            <div class="input-field col s12">
+              <b>Name:</b>
+              <input #curpwd="ngModel" id="cpwd" name="name"type="text" [(ngModel)]="name"required ngModel class="validate">
+            </div>
+            <div *ngIf="curpwd?.touched">
+              <div class="red-text left" *ngIf="curpwd.errors?.required">
+                Name Required*
+              </div>
+            </div>
+            <div class="input-field col s12">
+                <b>Venue ID:</b>
+                <input  id="venueid" name="venueid" type="text" [(ngModel)]="venueid" ngModel class="validate">
+              </div>
+              <div class="input-field col s12">
+                  <b>Vendor ID:</b>
+                  <input  id="vendorid" name="vendorid" type="text" [(ngModel)]="vendorid" ngModel class="validate">
+                </div>
+              
+            <div class="input-field col s12">
+              <b>City</b>
+              <input #newpwd="ngModel" id="city" name="city" type="text" [(ngModel)]="city" required ngModel class="validate">
+            </div>
+            <div *ngIf="newpwd?.touched">
+              <div class="red-text left" *ngIf="newpwd.errors?.required">
+                City Required*
+              </div>
+            </div>
+            <div class="input-field col s12">
+              <b>Image :</b>
+              <input id="p_img" type="file" (change)="imageUpload($event)" [(ngModel)]="p_img" name="p_img"
+              #pimg="ngModel"  required ngModel class="validate">
+              </div>
+           
+            <div class="right-align">
+              <button class="btn btn-primary modal-close">close </button>
+              <button class="btn btn-primary modal-close" [disabled]="frm1.invalid" onclick="Materialize.toast('Password Updated', 3000)" type="submit">ADD </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- edit home ads -->
 
-  <!-- edit user -->
-
-  <div id="edit_user" class="modal modal-fixed-footer">
-    <form class="col s12" #frm2="ngForm" (ngSubmit)="editUser()">
+</div>
+  <div id="editadds" class="modal">
       <div class="modal-content">
         <div class="row">
-          <div class="input-field col s6">
-            <input type="hidden" name="id" [(ngModel)]="id"> Name:
-            <input id="Name" type="text" class="" placeholder="Name" [(ngModel)]="name" name="name" #ename="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
-              required ngModel class="validate">
-            <div *ngIf="ename?.touched">
-              <div class="red-text left" *ngIf="ename.errors?.required">
-                User Name Required*
-              </div>
-              <div class="red-text left" *ngIf="ename.errors?.pattern">
-                User Name is Invalid*
-              </div>
+          <div class="col s6 l6 m6">
+            <h5> Home Ads Update</h5>
+            <div class="green-text right" *ngIf="pwdsucess != null">
+              {{pwdsucess}}
             </div>
           </div>
-          <div class="input-field col s6">Email:
-            <input id="email" type="text" class="" [(ngModel)]="email" placeholder="Email ID" name="email" #eemail="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
-              required ngModel class="validate">
-            <div *ngIf="eemail?.touched">
-              <div class="red-text left" *ngIf="eemail.errors?.required">
-                Email Required*
-              </div>
-              <div class="red-text left" *ngIf="eemail.errors?.pattern">
-                Please Enter valid Email*
-              </div>
-
+          <div class="col s6 l6 m6">
+            <div class="red-text right" *ngIf="pwderror != null">
+              {{pwderror}}
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="input-field col s6">MObile No.:
-            <input id="credit-demo" type="text" class="" [(ngModel)]="mobile" placeholder="Mobile No" name="mobile" #emno="ngModel" minlength="10"
-              maxlength="10" pattern="[0-9]+" required ngModel class="validate">
-            <div *ngIf="emno?.touched">
-              <div class="red-text left" *ngIf="emno.errors?.required">
-                Contact No. Required*
+        <div class="col s12">
+          <form #frm3="ngForm" (ngSubmit)="editHomeads()">
+            <div class="col s12 l12 m12  mr-t-20 mr-b-m-30">
+              <div class="input-field col s12">
+                <b>Name:</b>
+                <input #curpwd="ngModel" id="cpwd" name="uname"type="text" [(ngModel)]="uname"required ngModel class="validate">
               </div>
-              <div [hidden]="!emno?.hasError('minlength')" class="red-text">
-                Please enter valid Contact No
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class=" col s12">
-            <div class="">
-              <h6>TYPE:</h6>
-
-            </div>
-            <br />
-            <div class="col s3" *ngFor="let a of role">
-              <input class="with-gap" name="editrole" type="radio" id="{{a.role}}" #etype="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" required
-                ngModel class="validate" [value]="a.role" [(ngModel)]="editrole" (change)="getRoleValue(a._id)" />
-              <label for="{{a.role}}">{{a.role}}</label>
-              <div *ngIf="etype?.touched">
-                <div class="red-text left" *ngIf="etype.errors?.required">
-                  Role Type Required*
+              <div *ngIf="curpwd?.touched">
+                <div class="red-text left" *ngIf="curpwd.errors?.required">
+                  Name Required*
                 </div>
               </div>
+              <div class="input-field col s12">
+                <b>Venue ID:</b>
+                <input  id="venueid" name="UvenueId" type="text" [(ngModel)]="UvenueId" ngModel class="validate">
+              </div>
+              <div class="input-field col s12">
+                  <b>Vendor ID:</b>
+                  <input  id="vendorid" name="UvendorId" type="text" [(ngModel)]="UvendorId" ngModel class="validate">
+                </div>
+              <div class="input-field col s12">
+                <b>City</b>
+                <input #newpwd="ngModel" id="npwd" name="ucity" type="text" [(ngModel)]="ucity" required ngModel class="validate">
+              </div>
+              <div *ngIf="newpwd?.touched">
+                <div class="red-text left" *ngIf="newpwd.errors?.required">
+                  City Required*
+                </div>
+              </div>
+              <div class="input-field col s12">
+                <b>Image :</b>
+                <input id="p_img" type="file" (change)="imageUpload($event)" [(ngModel)]="p_img" name="p_img"
+                #pimg="ngModel"  required ngModel class="validate">
+                </div>
+              <div class="right-align">
+                <button class="btn btn-primary modal-close">close </button>
+                <button class="btn btn-primary modal-close" [disabled]="frm3.invalid" onclick="Materialize.toast('Password Updated', 3000)" type="submit">Update </button>
+              </div>
             </div>
-          </div>
-        </div>
-        <!-- checkbox -->
-        <div class="row">
-          <table>
-            <thead>
-              <th></th>
-              <th>add</th>
-              <th>view</th>
-              <th>edit</th>
-              <th>delete</th>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Order</td>
-                <td>
-                  <input type="checkbox" class="filled-in" id="o_add" [(ngModel)]="o_add" [value]="o_add" name="o_add" />
-                  <label for="o_add"></label>
-
-                </td>
-                <td>
-                  <input type="checkbox" class="filled-in" id="o_view" [(ngModel)]="o_view" [value]="o_view" name="o_view" />
-                  <label for="o_view"></label>
-
-                </td>
-                <td>
-                  <input type="checkbox" class="filled-in" id="o_edit" [(ngModel)]="o_edit" [value]="o_edit" name="o_edit" />
-                  <label for="o_edit"></label>
-                </td>
-                <td>
-                  <input type="checkbox" class="filled-in" id="o_delete" [(ngModel)]="o_delete" [value]="o_delete" name="o_delete" />
-                  <label for="o_delete"></label>
-                </td>
-
-              </tr>
-              <tr>
-                <td>Inventory</td>
-                <td>
-                  <input type="checkbox" class="filled-in" id="i_add" [(ngModel)]="i_add" [value]="i_add" name="i_add" />
-                  <label for="i_add"></label>
-
-                </td>
-                <td>
-                  <input type="checkbox" class="filled-in" id="i_view" [(ngModel)]="i_view" [value]="i_view" name="i_view" />
-                  <label for="i_view"></label>
-
-                </td>
-                <td>
-                  <input type="checkbox" class="filled-in" id="i_edit" [(ngModel)]="i_edit" [value]="i_edit" name="i_edit" />
-                  <label for="i_edit"></label>
-                </td>
-                <td>
-                  <input type="checkbox" class="filled-in" id="i_delete" [(ngModel)]="i_delete" [value]="i_delete" name="i_delete" />
-                  <label for="i_delete"></label>
-                </td>
-              </tr>
-              <tr>
-                <td>Dealer</td>
-                <td>
-                  <input type="checkbox" class="filled-in" id="g_add" [(ngModel)]="d_add" name="g_add" [value]="g_add" />
-                  <label for="g_add"></label>
-
-                </td>
-                <td>
-                  <input type="checkbox" class="filled-in" id="g_view" [(ngModel)]="d_view" name="g_view" [value]="g_view" />
-                  <label for="g_view"></label>
-
-                </td>
-                <td>
-                  <input type="checkbox" class="filled-in" id="g_edit" [(ngModel)]="d_edit" name="g_edit" [value]="g_edit" />
-                  <label for="g_edit"></label>
-                </td>
-                <td>
-                  <input type="checkbox" class="filled-in" id="g_delete" [(ngModel)]="d_delete" name="g_delete" [value]="g_delete" />
-                  <label for="g_delete"></label>
-                </td>
-              </tr>
-
-              <tr>
-                <td>Brand</td>
-                <td>
-                  <input type="checkbox" class="filled-in" id="b_add" [(ngModel)]="b_add" name="b_add" [value]="b_add" />
-                  <label for="b_add"></label>
-
-                </td>
-                <td>
-                  <input type="checkbox" class="filled-in" id="b_view" [(ngModel)]="b_view" name="b_view" [value]="b_view" />
-                  <label for="b_view"></label>
-
-                </td>
-                <td>
-                  <input type="checkbox" class="filled-in" id="b_edit" [(ngModel)]="b_edit" name="b_edit" [value]="b_edit" />
-                  <label for="b_edit"></label>
-                </td>
-                <td>
-                  <input type="checkbox" class="filled-in" id="b_delete" [(ngModel)]="b_delete" name="b_delete" [value]="b_delete" />
-                  <label for="b_delete"></label>
-                </td>
-              </tr>
-              <tr>
-                <td>Category</td>
-                <td>
-                  <input type="checkbox" class="filled-in" id="c_add" [(ngModel)]="c_add" name="c_add" [value]="c_add" />
-                  <label for="c_add"></label>
-
-                </td>
-                <td>
-                  <input type="checkbox" class="filled-in" id="c_view" [(ngModel)]="c_view" name="c_view" [value]="c_view" />
-                  <label for="c_view"></label>
-
-                </td>
-                <td>
-                  <input type="checkbox" class="filled-in" id="c_edit" [(ngModel)]="c_edit" name="c_edit" [value]="c_edit" />
-                  <label for="c_edit"></label>
-                </td>
-                <td>
-                  <input type="checkbox" class="filled-in" id="c_delete" [(ngModel)]="c_delete" name="c_delete" [value]="c_delete" />
-                  <label for="c_delete"></label>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="modal-footer ">
-        <a class="modal-action  btn btn-denger left modal-close ">Delete</a>
-        <a class="modal-action modal-close ">CANCEL</a>
-        <button class="modal-action modal-close btn btn-primary" [disabled]="frm2.invalid" onclick="Materialize.toast(' Account Updated', 4000)"
-          type="submit">Update</button>
-      </div>
-    </form>
-  </div>
-</div>
-<!-- edit end user -->
-
-<!-- add account type -->
-<div id="add_type" class="modal modal-fixed-footer">
-  <form class="col s12" #frm3="ngForm" (ngSubmit)="addRole()">
-    <div class="modal-content">
-      <div class="row">
-        <div class="input-field col s12 m12 l12">
-          <input id="accounttype" type="text" class="" [(ngModel)]="accounttype" name="accounttype" #rolename="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
-            required ngModel class="validate">
-          <label for="accounttype">Role Type</label>
-          <div *ngIf="rolename?.touched">
-            <div class="red-text left" *ngIf="rolename.errors?.required">
-              Role Value Required*
-            </div>
-            <div class="red-text left" *ngIf="rolename.errors?.pattern">
-              Role Value is Invalid*
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <table>
-          <thead>
-            <th></th>
-            <th>add</th>
-            <th>view</th>
-            <th>edit</th>
-            <th>delete</th>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Order</td>
-              <td>
-                <input type="checkbox" class="filled-in" id="r_o_add" [(ngModel)]="r_o_add" name="r_o_add" />
-                <label for="r_o_add"></label>
-
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="r_o_view" [(ngModel)]="r_o_view" name="r_o_view" />
-                <label for="r_o_view"></label>
-
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="r_o_edit" [(ngModel)]="r_o_edit" name="r_o_edit" />
-                <label for="r_o_edit"></label>
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="r_o_delete" [(ngModel)]="r_o_delete" name="r_o_delete" />
-                <label for="r_o_delete"></label>
-              </td>
-
-            </tr>
-            <tr>
-              <td>Inventory</td>
-              <td>
-                <input type="checkbox" class="filled-in" id="r_i_add" [(ngModel)]="r_i_add" name="r_i_add" />
-                <label for="r_i_add"></label>
-
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="r_i_view" [(ngModel)]="r_i_view" name="r_i_view" />
-                <label for="r_i_view"></label>
-
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="r_i_edit" [(ngModel)]="r_i_edit" name="r_i_edit" />
-                <label for="r_i_edit"></label>
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="r_i_delete" [(ngModel)]="r_i_delete" name="r_i_delete" />
-                <label for="r_i_delete"></label>
-              </td>
-            </tr>
-            <tr>
-              <td>Dealer</td>
-              <td>
-                <input type="checkbox" class="filled-in" id="r_d_add" [(ngModel)]="r_d_add" name="r_d_add" />
-                <label for="r_d_add"></label>
-
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="r_d_view" [(ngModel)]="r_d_view" name="r_d_view" />
-                <label for="r_d_view"></label>
-
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="r_d_edit" [(ngModel)]="r_d_edit" name="r_d_edit" />
-                <label for="r_d_edit"></label>
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="r_d_delete" [(ngModel)]="r_d_delete" name="r_d_delete" />
-                <label for="r_d_delete"></label>
-              </td>
-            </tr>
-
-            <tr>
-              <td>Brand</td>
-              <td>
-                <input type="checkbox" class="filled-in" id="r_b_add" [(ngModel)]="r_b_add" name="r_b_add" />
-                <label for="r_b_add"></label>
-
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="r_b_view" [(ngModel)]="r_b_view" name="r_b_view" />
-                <label for="r_b_view"></label>
-
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="r_b_edit" [(ngModel)]="r_b_edit" name="r_b_edit" />
-                <label for="r_b_edit"></label>
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="r_b_delete" [(ngModel)]="r_b_delete" name="r_b_delete" />
-                <label for="r_b_delete"></label>
-              </td>
-            </tr>
-            <tr>
-              <td>Category</td>
-              <td>
-                <input type="checkbox" class="filled-in" id="r_c_add" [(ngModel)]="r_c_add" name="r_c_add" />
-                <label for="r_c_add"></label>
-
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="r_c_view" [(ngModel)]="r_c_view" name="r_c_view" />
-                <label for="r_c_view"></label>
-
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="r_c_edit" [(ngModel)]="r_c_edit" name="r_c_edit" />
-                <label for="r_c_edit"></label>
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="r_c_delete" [(ngModel)]="r_c_delete" name="r_c_delete" />
-                <label for="r_c_delete"></label>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-
-    </div>
-    <div class="modal-footer  ">
-      <a class="modal-action modal-close ">CANCEL</a>
-      <button class="modal-action modal-close btn btn-primary" [disabled]="frm3.invalid" onclick="Materialize.toast(' Account Type Added', 4000)"
-        type="submit">ADD</button>
-    </div>
-  </form>
-</div>
-<!-- end account type -->
-
-<!--  edit account type -->
-<div id="edit_type" class="modal modal-fixed-footer">
-  <form class="col s12" #frm4="ngForm" (ngSubmit)="editRole()">
-    <div class="modal-content">
-      <div class="row">
-        <input type="hidden" name="r_id" [(ngModel)]="r_id">
-
-        <div class="input-field col s12 m12 l12"> Role Type :
-          <input id="roletype" type="text" class="" [(ngModel)]="roletype" name="roletype" #erolename="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
-            required ngModel class="validate">
-          <div *ngIf="erolename?.touched">
-            <div class="red-text left" *ngIf="erolename.errors?.required">
-              Role Value Required*
-            </div>
-            <div class="red-text left" *ngIf="erolename.errors?.pattern">
-              Role Value is Invalid*
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <table>
-          <thead>
-            <th></th>
-            <th>add</th>
-            <th>view</th>
-            <th>edit</th>
-            <th>delete</th>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Order</td>
-              <td>
-                <input type="checkbox" class="filled-in" id="e_o_add" [(ngModel)]="e_o_add" name="e_o_add" value="e_o_add" />
-                <label for="e_o_add"></label>
-
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="e_o_view" [(ngModel)]="e_o_view" name="e_o_view" value="e_view" />
-                <label for="e_o_view"></label>
-
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="e_o_edit" [(ngModel)]="e_o_edit" name="e_o_edit" value="e_o_edit" />
-                <label for="e_o_edit"></label>
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="e_o_delete" [(ngModel)]="e_o_delete" name="e_o_delete" value="e_o_delete" />
-                <label for="e_o_delete"></label>
-              </td>
-
-            </tr>
-            <tr>
-              <td>Inventory</td>
-              <td>
-                <input type="checkbox" class="filled-in" id="e_i_add" [(ngModel)]="e_i_add" name="e_i_add" value="e_i_add" />
-                <label for="e_i_add"></label>
-
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="e_i_view" [(ngModel)]="e_i_view" name="e_i_view" value="e_i_view" />
-                <label for="e_i_view"></label>
-
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="e_i_edit" [(ngModel)]="e_i_edit" name="e_i_edit" value="e_i_edit" />
-                <label for="e_i_edit"></label>
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="e_i_delete" [(ngModel)]="e_i_delete" name="e_i_delete" value="e_i_delete" />
-                <label for="e_i_delete"></label>
-              </td>
-            </tr>
-            <tr>
-              <td>Dealer</td>
-              <td>
-                <input type="checkbox" class="filled-in" id="e_d_add" [(ngModel)]="e_d_add" name="e_d_add" value="e_d_add" />
-                <label for="e_d_add"></label>
-
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="e_d_view" [(ngModel)]="e_d_view" name="e_d_view" value="e_d_view" />
-                <label for="e_d_view"></label>
-
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="e_d_edit" [(ngModel)]="e_d_edit" name="e_d_edit" value="e_d_edit" />
-                <label for="e_d_edit"></label>
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="e_d_delete" [(ngModel)]="e_d_delete" name="e_d_delete" value="e_d_delete" />
-                <label for="e_d_delete"></label>
-              </td>
-            </tr>
-
-            <tr>
-              <td>Brand</td>
-              <td>
-                <input type="checkbox" class="filled-in" id="e_b_add" [(ngModel)]="e_b_add" name="e_b_add" value="e_b_add" />
-                <label for="e_b_add"></label>
-
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="e_b_view" [(ngModel)]="e_b_view" name="e_b_view" value="e_b_view" />
-                <label for="e_b_view"></label>
-
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="e_b_edit" [(ngModel)]="e_b_edit" name="e_b_edit" value="e_b_edit" />
-                <label for="e_b_edit"></label>
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="e_b_delete" [(ngModel)]="e_b_delete" name="e_b_delete" value="e_b_delete" />
-                <label for="e_b_delete"></label>
-              </td>
-            </tr>
-            <tr>
-              <td>Category</td>
-              <td>
-                <input type="checkbox" class="filled-in" id="e_c_add" [(ngModel)]="e_c_add" name="e_c_add" value="e_c_add" />
-                <label for="e_c_add"></label>
-
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="e_c_view" [(ngModel)]="e_c_view" name="e_c_view" value="e_c_view" />
-                <label for="e_c_view"></label>
-
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="e_c_edit" [(ngModel)]="e_c_edit" name="e_c_edit" value="e_c_edit" />
-                <label for="e_c_edit"></label>
-              </td>
-              <td>
-                <input type="checkbox" class="filled-in" id="e_c_delete" [(ngModel)]="e_c_delete" name="e_c_delete" value="e_c_delete" />
-                <label for="e_c_delete"></label>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <a class="modal-action modal-close ">CANCEL</a>
-      <button class="modal-action modal-close btn btn-primary" [disabled]="frm4.invalid" onclick="Materialize.toast(' Account Type Updated', 4000)"
-        type="submit">Update</button>
-    </div>
-  </form>
-</div>
-<!-- end edit account type -->
-
-<!-- add dealer type -->
-<div id="add_dealer_type" class="modal modal-fixed-footer">
-  <form class="col s12" #frm5="ngForm" (ngSubmit)="addType()">
-    <div class="modal-content">
-      <div class="row">
-        <div class="input-field col s12 m12 l12">
-          <input id="d_type" type="text" class="" [(ngModel)]="d_type" name="d_type" #adealertype="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
-            required ngModel class="validate">
-          <label for="d_type">Type</label>
-          <div *ngIf="adealertype?.touched">
-            <div class="red-text left" *ngIf="adealertype.errors?.required">
-              Dealer Type Required*
-            </div>
-            <div class="red-text left" *ngIf="adealertype.errors?.pattern">
-              Dealer Type is Invalid*
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s3 m3 l3">
-          <input id="discount" type="text" class="" [(ngModel)]="discount" name="discount" #edisc="ngModel" pattern="[0-9]+" required
-            ngModel class="validate">
-          <label for="discount">Discount</label>
-          <div *ngIf="edisc?.touched">
-            <div class="red-text left" *ngIf="edisc.errors?.required">
-              Discount Required*
-            </div>
-            <div class="red-text left" *ngIf="edisc.errors?.pattern">
-              Discount is Invalid*
-            </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
-    <div class="modal-footer">
-      <a class="modal-action modal-close ">CANCEL</a>
-      <button class="modal-action modal-close btn btn-primary" [disabled]="frm5.invalid" onclick="Materialize.toast(' Dealer Type Added', 4000)"
-        type="submit">ADD</button>
-    </div>
-  </form>
-</div>
-<!-- end dealer type -->
-<!-- edit dealer type -->
-<div id="edit_dealer_type" class="modal modal-fixed-footer">
-  <input type="hidden" name="t_id" [(ngModel)]="t_id">
-
-  <form class="col s12" #frm6="ngForm" (ngSubmit)="editType()">
-    <div class="modal-content">
-      <div class="row">
-        <div class="input-field col s12 m12 l12">
-          <b> Type:</b>
-          <input id="type" type="text" class="" [(ngModel)]="type" name="type" #edealertype="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
-            required ngModel class="validate">
-          <div *ngIf="edealertype?.touched">
-            <div class="red-text left" *ngIf="edealertype.errors?.required">
-              Dealer Type Required*
-            </div>
-            <div class="red-text left" *ngIf="edealertype.errors?.pattern">
-              Dealer Type is Invalid*
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s3 m3 l3">
-          <b>Discount :</b>
-          <input id="disc" type="text" class="" [(ngModel)]="disc" name="disc" #editdisc="ngModel" pattern="[0-9]+" required ngModel
-            class="validate">
-          <div *ngIf="editdisc?.touched">
-            <div class="red-text left" *ngIf="editdisc.errors?.required">
-              Discount Required*
-            </div>
-            <div class="red-text left" *ngIf="editdisc.errors?.pattern">
-              Discount is Invalid*
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <a class="modal-action modal-close ">CANCEL</a>
-      <button class="modal-action modal-close btn btn-primary" [disabled]="frm6.invalid" onclick="Materialize.toast(' Dealer Type Updated', 4000)"
-        type="submit">ADD</button>
-    </div>
-  </form>
-</div>
-<!-- end dealer type -->
-
-
-
-<script>
-  // $(document).ready(function () {
-  //   // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
-  //   $('.modal').modal();
-  // });
-  // $('#add_user').modal('open');
-  // $('#add_user').modal('close');
-
-
-
-  function myFunction() {
-    var x = document.getElementById("citysection");
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
-    }
-  }
-</script>
+  <script>
+    $(document).ready(function () {
+      // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+      $('.modal').modal();
+    });
+  
+  </script>

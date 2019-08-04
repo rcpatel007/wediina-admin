@@ -2380,7 +2380,7 @@ small {
   .brand-sidebar .logo-wrapper {
     text-align: center;
     background: transparent;
-    padding: 17px 18px !important;
+    /* padding: 17px 18px !important; */
   }
 }
 
@@ -6249,6 +6249,7 @@ li.home:before {
 ------------------------------------------*/
 h1.logo-wrapper {
   margin: 0;
+  padding: 0;
 }
 
 h1 span.logo-text {

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../services/login.service';
-import { UserService } from '../services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 declare var $: any;
 
@@ -16,14 +15,14 @@ export class ForgetpasswordComponent implements OnInit {
   id: String;
   mail: String;
   msg: String;
-  constructor(private userservice: UserService, private loginservice: LoginService, private route: ActivatedRoute,
+  constructor( private loginservice: LoginService, private route: ActivatedRoute,
     private router: Router
   ) { }
 
   ngOnInit() {
 
 
-    $("script[src='ass++++++++++++++++++++++ets/css/themes/collapsible-menu/materialize.css']").remove();
+    $("script[src='assets/css/themes/collapsible-menu/materialize.css']").remove();
     $("script[src='assets/js/materialize.min.js']").remove();
     $("script[src='assets/js/scripts/advanced-ui-modals.js']").remove();
 

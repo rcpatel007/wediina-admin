@@ -1,0 +1,69 @@
+<div id="main">
+  <!-- START WRAPPER -->
+  <div class="wrapper">
+    <app-header></app-header>
+
+    <section id="content" class="mr-t-20">
+      <!--start container-->
+      <div class="container">
+        <div class="section">
+          <!--card stats start-->
+          <div id="card-stats">
+            <div class="row">
+              <div class="col s6 l6 m6">
+                <div class="col s2 l2 m2 headding-icon dark-blue-back">
+                  <i class="fa fa-bell"></i>
+                </div>
+                <div class="hedding-text p-l-80">
+                  Customer Detail
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--card stats end-->
+
+          <!--DataTables example Row grouping-->
+          <div class="section">
+            <div class="row ">
+              <div class="col s12 card mr-t-50">
+                <table class="display mr-t-20 striped" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>contact No.</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container>
+                      <ng-container>
+
+                        <tr *ngFor="let c of customer;let i=index">
+                          <td>{{i+1}}</td>
+                          <td>{{c.name}}</td>
+                          <td>{{c.email}}</td>
+                          <td>{{c.contact_no}}</td>
+                        </tr>
+
+                      </ng-container>
+
+                    </ng-container>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--end container-->
+    </section>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+    $('.modal').modal();
+  });
+
+</script>

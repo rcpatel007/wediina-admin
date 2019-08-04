@@ -5,14 +5,14 @@
     <nav class="navbar-color">
       <div class="nav-wrapper">
         <div class="center-align">
-          <a (click)="view_notification();" class=" right-align notification-button">
+          <!-- <a (click)="view_notification();" class=" right-align notification-button">
             <i class="fa fa-bell ">
               <small class="notification-badge">{{read}}</small>
             </i>
-          </a>
+          </a> -->
         </div>
         <!-- notifications-dropdown -->
-        <ul id="notifications-dropdown" class="dropdown-content">
+        <!-- <ul id="notifications-dropdown" class="dropdown-content">
           <li>
             <h6>NOTIFICATIONS
             </h6>
@@ -31,7 +31,7 @@
             <h6>view All
             </h6>
           </li>
-        </ul>
+        </ul> -->
       </div>
     </nav>
   </div>
@@ -41,10 +41,10 @@
 <!-- START MAIN -->
 <!-- START LEFT SIDEBAR NAV-->
 <aside id="left-sidebar-nav" class="nav-expanded nav-lock nav-collapsible">
-  <div class="brand-sidebar dark-grey-back">
+  <div class="brand-sidebar back_white">
     <h1 class="logo-wrapper">
       <a href="index.html" class="logo-width darken-1">
-        <img src="../../assets/images/JasmaTech_Logo.png" alt="materialize logo">
+        <img src="../../assets/images/wediina-logo.png" alt="materialize logo">
         <!-- <span class="logo-text hide-on-med-and-down">JasmaTech</span> -->
       </a>
       <a href="javascript:void(0);" class="navbar-toggler">
@@ -80,19 +80,52 @@
             <span class="nav-text">Dashboard</span>
           </div>
         </li>
-        <li *ngIf="o_view == true" class="bold" [routerLink]="['/order']">
+        <li  class="bold" [routerLink]="['/VenueCategory']">
           <div class="collapsible-header  waves-effect">
-            <i class="fa fa-shopping-cart"></i>
-            <span class="nav-text">Orders</span>
+            <i class="fa fa-sitemap"></i>
+            <span class="nav-text">Venues Category</span>
+          </div>
+        </li>
+        <li  class="bold" [routerLink]="['/VendorCategory']">
+          <div class="collapsible-header  waves-effect">
+            <i class="fa fa-sitemap"></i>
+            <span class="nav-text">Vendor Cateory</span>
           </div>
         </li>
 
-        <li class="no-padding">
+        <li  class="bold" [routerLink]="['/venues']">
+          <div class="collapsible-header  waves-effect">
+            <i class="fa fa-users"></i>
+            <span class="nav-text">Venues</span>
+          </div>
+        </li>
+        <li  class="bold" [routerLink]="['/Vendors']">
+          <div class="collapsible-header  waves-effect">
+            <i class="fa fa-users"></i>
+            <span class="nav-text">Vendors</span>
+          </div>
+        </li>
+        
+        <li  class="bold" [routerLink]="['/Customer']">
+          <div class="collapsible-header  waves-effect">
+            <i class="fa fa-users"></i>
+            <span class="nav-text">Customer Detail</span>
+          </div>
+        </li>
+        <li  class="bold" [routerLink]="['/Control']">
+          <div class="collapsible-header  waves-effect">
+            <i class="fa fa-cog"></i>
+            <span class="nav-text">Control</span>
+          </div>
+        </li>
+        
+
+        <!-- <li class="no-padding">
           <ul class="collapsible">
             <li class="bold">
               <div class="collapsible-header  waves-effect" data-collapsible="accordion">
                 <i class="fa fa-boxes"></i>
-                <span class="nav-text">Inventory
+                <span class="nav-text">
                   <i class="fa fa-angle-down" style="font-size: 16px;
                   text-align: right;
                   margin-left: 40px;"></i>
@@ -100,19 +133,19 @@
               </div>
               <div class="collapsible-body">
                 <ul class="collapsible" data-collapsible="accordion">
-                  <li *ngIf="i_view == true" class="bold" [routerLink]="['/inventory']">
+                  <li  class="bold" [routerLink]="['/inventory']">
                     <div class="collapsible-header  p-l-15 waves-effect">
                       <i class="fa fa-boxes"></i>
                       <span class="nav-text">Product</span>
                     </div>
                   </li>
-                  <li *ngIf="b_view == true" class="bold" [routerLink]="['/brand']">
+                  <li  class="bold" [routerLink]="['/brand']">
                     <div class="collapsible-header p-l-15  waves-effect">
                       <i class="fa fa-boxes"></i>
                       <span class="nav-text">Brand</span>
                     </div>
                   </li>
-                  <li *ngIf="c_view == true" class="bold" [routerLink]="['/category']">
+                  <li  class="bold" [routerLink]="['/category']">
                     <div class="collapsible-header p-l-15 waves-effect">
                       <i class="fa fa-boxes"></i>
                       <span class="nav-text">Category</span>
@@ -122,33 +155,8 @@
               </div>
             </li>
           </ul>
-        </li>
-
-
-        <li *ngIf="d_view == true" class="bold" [routerLink]="['/stock']">
-          <div class="collapsible-header  waves-effect">
-            <i class="fa fa-user"></i>
-            <span class="nav-text">Stock Management</span>
-          </div>
-        </li>
-        <li *ngIf="d_view == true" class="bold" [routerLink]="['/dealer']">
-          <div class="collapsible-header  waves-effect">
-            <i class="fa fa-user"></i>
-            <span class="nav-text">Dealers</span>
-          </div>
-        </li>
-        <li class="bold" [routerLink]="['/guest']">
-          <div class="collapsible-header  waves-effect">
-            <i class="fa fa-user-cog"></i>
-            <span class="nav-text">Guests</span>
-          </div>
-        </li>
-        <li *ngIf="role == 'admin'" class="bold" [routerLink]="['/control']">
-          <div class="collapsible-header  waves-effect">
-            <i class="fa fa-cog"></i>
-            <span class="nav-text">Control Panel</span>
-          </div>
-        </li>
+        </li> -->
+        
       </ul>
     </li>
     <div class="center-align">

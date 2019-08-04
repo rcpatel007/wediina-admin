@@ -1,0 +1,279 @@
+<div id="main">
+  <!-- START WRAPPER -->
+  <div class="wrapper">
+    <app-header></app-header>
+
+    <section id="content" class="mr-t-20">
+      <!--start container-->
+      <div class="container">
+        <div class="section">
+          <!--card stats start-->
+          <div id="card-stats">
+            <div class="row">
+              <div class="col s6 l6 m6">
+                <div class="col s2 l2 m2 headding-icon dark-blue-back">
+                  <i class="fa fa-boxes"></i>
+                </div>
+                <div class="hedding-text p-l-80">
+                  Vendor Add
+                </div>
+              </div>
+            </div>    
+          </div>
+          <!--card stats end-->
+
+          <!--DataTables example Row grouping-->
+          <div class="section">
+            <div class="row ">
+              <div class="col s12 card mr-t-50">
+                <form class="col s12 mr-t-b-10" #formRef="ngForm" (ngSubmit)="editVendor()">
+                  <div class="col s6 m6 l6">
+                      <div class="row">
+                          <div class="col s12 mr-t-20">
+                            <b>Set Package Time Period (Month)</b>
+                            <select [(ngModel)]="package" name="package" #cat="ngModel" required ngModel class="validate">
+                              <option value="" disabled selected>Select Month</option>
+                              <option  value="1">1</option>
+                              <option  value="2">2</option>
+                              <option  value="3">3</option>
+                              <option  value="4">4</option>
+                              <option  value="5">5</option>
+                              <option  value="6">6</option>
+                              <option  value="7">7</option>
+                              <option  value="8">8</option>
+                              <option  value="9">9</option>
+                              <option  value="10">10</option>
+                              <option  value="11">11</option>
+                              <option  value="12">12</option>
+                              <option  value="13">13</option>
+                              <option  value="14">14</option>
+                              <option  value="15">15</option>
+                              <option  value="16">16</option>
+                              <option  value="17">17</option>
+                              <option  value="18">18</option>
+                              <option  value="19">19</option>
+                              <option  value="20">20</option>
+                              <option  value="21">21</option>
+                              <option  value="22">22</option>
+                              <option  value="23">23</option>
+                              <option  value="24">24</option>
+                            </select>
+                          </div> 
+                        </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <b>First Name</b>
+                        <input id="fname" type="text"  name="fname" [(ngModel)]="fname"
+                          #fName="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" required ngModel class="validate">
+                        <label for="fname"></label>
+                        <div *ngIf="fName?.touched">
+                          <div class="red-text left" *ngIf="fName.errors?.required">
+                            First Name Required*
+                          </div>
+                          <div class="red-text left" *ngIf="fName.errors?.pattern">
+                            First Name is Invalid*
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <b>Last Name</b>
+                        <input id="lname" type="text"  name="lname" [(ngModel)]="lname"
+                          #lName="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" required ngModel class="validate">
+                        <label for="lname"></label>
+                        <div *ngIf="lName?.touched">
+                          <div class="red-text left" *ngIf="lName.errors?.required">
+                            last Name Required*
+                          </div>
+                          <div class="red-text left" *ngIf="lname.errors?.pattern">
+                            last Name is Invalid*
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <b>Company Name</b>
+                        <input id="cname" type="text"  name="cname" [(ngModel)]="cname"
+                          #cName="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" required ngModel class="validate">
+                        <label for="cname"></label>
+                        <div *ngIf="cName?.touched">
+                          <div class="red-text left" *ngIf="cName.errors?.required">
+                            Company Name Required*
+                          </div>
+                          <div class="red-text left" *ngIf="cName.errors?.pattern">
+                            Company Name is Invalid*
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <b>Contact No</b>
+                        <input id="cno" type="text"  name="cno" [(ngModel)]="cno"
+                          #cNumer="ngModel" pattern="[0-9]+" minlength="10" maxlength="10" required ngModel class="validate">
+                        <label for="cno"></label>
+                        <div *ngIf="cNumer?.touched">
+                          <div class="red-text left" *ngIf="cNumer.errors?.required">
+                            Contact No Required*
+                          </div>
+                          <div class="red-text left" *ngIf="cNumer.errors?.pattern">
+                            Contact No is Invalid*
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <b>Email</b>
+                        <input id="email" type="email"  name="email" [(ngModel)]="email"
+                          #mail="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" required ngModel class="validate">
+                        <label for="email"></label>
+                        <div *ngIf="mail?.touched">
+                          <div class="red-text left" *ngIf="mail.errors?.required">
+                            Email is Required*
+                          </div>
+                          <div class="red-text left" *ngIf="mail.errors?.pattern">
+                            Email is Invalid*
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <b>Password</b>
+                        <input id="pwd" type="text"  name="pwd" [(ngModel)]="pwd"
+                          #vpwd="ngModel"  required ngModel class="validate">
+                        <label for="pwd"></label>
+                        <div *ngIf="vpwd?.touched">
+                          <div class="red-text left" *ngIf="vpwd.errors?.required">
+                            Password Required*
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col s12 mr-t-20">
+                      <b>Category:</b>
+                      <select [(ngModel)]="catValue" name="catValue" #cat="ngModel" required ngModel class="validate">
+                        <option value="" disabled selected>Select Category</option>
+                        <option *ngFor="let c of vendor_category" value="{{c._id}}">{{c.vendor_cat_name}}</option>
+                      </select>
+                      <div *ngIf="cat?.touched">
+                        <div class="red-text left" *ngIf="cat.errors?.required">
+                          Select Category Required*
+                        </div>
+                      </div>
+                    </div>
+                  
+                    
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <b>GST No</b>
+                        <input id="gstno" type="text"  name="gstno" [(ngModel)]="gstno"
+                          required ngModel class="validate">
+                        <label for="gstno"></label>
+
+                      </div>
+                    </div>
+                   
+                    <div class="row">
+                      <div class="input-field col s12">
+                          <b>Address</b>
+                        <textarea id="address" type="text" class="materialize-textarea" [(ngModel)]="address" name="address"
+                          ngModel></textarea>
+                        <label for="address"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col s6 m6 l6">
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <b>Area</b>
+                        <input id="area" type="text"  name="area" [(ngModel)]="area"
+                          #varea="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" required ngModel class="validate">
+                        <label for="area"></label>
+                        <div *ngIf="varea?.touched">
+                          <div class="red-text left" *ngIf="varea.errors?.required">
+                            Area Required*
+                          </div>
+                          <div class="red-text left" *ngIf="varea.errors?.pattern">
+                            Area is Invalid*
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <b>City</b>
+                        <input id="city" type="text"  name="city" [(ngModel)]="city"
+                          #vcity="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" required ngModel class="validate">
+                        <label for="city"></label>
+                        <div *ngIf="vcity?.touched">
+                          <div class="red-text left" *ngIf="vcity.errors?.required">
+                            City Required*
+                          </div>
+                          <div class="red-text left" *ngIf="vcity.errors?.pattern">
+                            City is Invalid*
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <b>State Name</b>
+                        <input id="state" type="text"  name="state" [(ngModel)]="state"
+                          #vstate="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" required ngModel class="validate">
+                        <label for="state"></label>
+                        <div *ngIf="vstate?.touched">
+                          <div class="red-text left" *ngIf="vstate.errors?.required">
+                            State Required*
+                          </div>
+                          <div class="red-text left" *ngIf="vstate.errors?.pattern">
+                            State is Invalid*
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <b>Video Links (example www.youtube.com , www.youtube.com )</b>
+                        <input id="videolink" type="text"  name="videolink" [(ngModel)]="videolink"
+                          #vlocation="ngModel"   ngModel class="validate">
+                        <label for="videolink"> </label>
+                        
+                         
+                        </div>
+                      </div>
+                   
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <b>Description</b>
+                        <textarea id="desp" type="text" class="materialize-textarea" [(ngModel)]="desp" name="desp"
+                          ngModel></textarea>
+                        <label for="desp"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <br />
+                  <button class="modal-action btn btn-primary" [disabled]="formRef.invalid"
+                    onclick="Materialize.toast('Vendor Edit', 4000)" type="submit">Edit Vendor</button>
+
+
+
+                </form>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!--end container-->
+    </section>
