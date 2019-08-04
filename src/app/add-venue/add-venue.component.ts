@@ -31,6 +31,7 @@ export class AddVenueComponent implements OnInit {
   themepermission:String;
   p_img:String;
   oimg= new Array;
+  o_img:any;
   timeper:String;
   areavenue:String;
   cop:String;

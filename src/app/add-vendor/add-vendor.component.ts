@@ -29,6 +29,7 @@ export class AddVendorComponent implements OnInit {
   address:String;
   p_img:String;
   oimg= new Array;
+  o_img:any;
   location:String;
   desp:String;
   videolink:any;

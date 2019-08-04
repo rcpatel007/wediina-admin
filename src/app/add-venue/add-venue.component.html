@@ -262,8 +262,8 @@
                         <option  value="Allowed">Allowed</option>
                         <option  value="Not Allowed">Not Allowed</option>
                       </select>
-                      <div *ngIf="theme?.touched">
-                        <div class="red-text left" *ngIf="theme.errors?.required">
+                      <div *ngIf="themepermission?.touched">
+                        <div class="red-text left" *ngIf="themepermission.errors?.required">
                           Select Category Required*
                         </div>
                       </div>
@@ -287,7 +287,7 @@
                       <div class="input-field col s12 mr-t-20">
                         <b>Other Image:</b> &nbsp;&nbsp;
                         <input id="img" type="file" multiple="multiple" class="" (change)="otherImageUpload($event)"
-                          #oimg="ngModel" accept="png" required ngModel class="validate" [(ngModel)]="o_img"
+                          #oimg="ngModel" required ngModel class="validate" [(ngModel)]="o_img"
                           name="o_img">
                       </div>
                       <div *ngIf="oimg?.touched">
