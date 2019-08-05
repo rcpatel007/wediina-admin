@@ -258,11 +258,7 @@
                         <option  value="Allowed">Allowed</option>
                         <option  value="Not Allowed">Not Allowed</option>
                       </select>
-                      <div *ngIf="themepermission?.touched">
-                        <div class="red-text left" *ngIf="themepermission.errors?.required">
-                          Select Category Required*
-                        </div>
-                      </div>
+                     
                     </div>
                     <div class="row">
                       <div class="input-field col s12 mr-t-20">
@@ -271,12 +267,7 @@
                           #pimg="ngModel"  required ngModel class="validate">
                       </div>
 
-                      <div *ngIf="pimg?.touched">
-                        <div class="red-text left" *ngIf="pimg.errors?.required">
-                           Image Required*
-                        </div>
-                        
-                      </div>
+                     
                     </div>
                     
                     <div class="row">
