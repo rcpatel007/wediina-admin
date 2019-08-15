@@ -15,33 +15,22 @@
                   <i class="fa fa-boxes"></i>
                 </div>
                 <div class="hedding-text p-l-80">
-                 Vendor Category MANAGEMENT
+                 City Section MANAGEMENT
                 </div>
               </div>
-              <form #frm1="ngForm" (ngSubmit)="addCategory()">
+              <form #frm1="ngForm" (ngSubmit)="addcity()">
                 <div class="col s12 l12 m12 mr-t-20 mr-b-m-30">
+                
                   <div class="input-field ">
-                    <b>Add Image</b>
-                   
-                    <input id="Image" type="file" class="" (change)="imageUpload($event)" [(ngModel)]="p_img" name="p_img" #img="ngModel"
-                       required ngModel class="validate">
-                    <div *ngIf="img?.touched">
-                      <div class="red-text left" *ngIf="img.errors?.required">
-                        Image  Required*
-                      </div>
-                      
-                    </div>
-                  </div>
-                  <div class="input-field ">
-                    <input id="category" type="text" class="" [(ngModel)]="ename" name="ename" #category="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
+                    <input id="category" type="text" class="" [(ngModel)]="cityName" name="cityName" #category="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
                       required ngModel class="validate">
-                    <label for="category">Add Category</label>
+                    <label for="category">Add city</label>
                     <div *ngIf="category?.touched">
                       <div class="red-text left" *ngIf="category.errors?.required">
-                        Category Name Required*
+                        City Name Required*
                       </div>
                       <div class="red-text left" *ngIf="category.errors?.pattern">
-                        Category Name is Invalid*
+                        city Name is Invalid*
                       </div>
                     </div>
                   </div>
@@ -67,8 +56,7 @@
                   <thead>
                     <tr>
                       <th>No</th>
-                      <th>image</th>
-                      <th>Category Name</th>
+                      <th>City Name</th>
                       <th colspan="3">Action</th>
                     </tr>
                   </thead>
@@ -76,24 +64,13 @@
                     <ng-container >
                       <ng-container>
 
-                        <tr *ngFor="let c of vendor_category; let i = index" >
+                        <tr *ngFor="let c of city; let i = index" >
                           <td>{{i+1}}</td>
-                          <td class="prod_img">
-                            <img src="{{c.image}}" class="img-thumbnail border-none  img-fluid" width="80" height="80" />
-                            <!-- <div class="edit">
-                              <button data-target="singleimg" class="modal-trigger b-radius-40" (click)="getproductById(i._id)">
-                                <i class="fa fa-pencil-alt orange-text" title="single images"></i>
-                              </button> &nbsp;&nbsp;&nbsp;
-                              <button data-target="otherimg" class="modal-trigger b-radius-40" (click)="getproductById(i._id)">
-                                <i class="fa fa-external-link-alt orange-text" title="other images"></i>
-                              </button> &nbsp;&nbsp;&nbsp;
-                            </div> -->
-                          </td>
-                          <td>{{c.vendor_cat_name}}</td>
-                          <td data-target="edit_cat" class=" modal-trigger" (click)="getCategoryById(c._id)">
+                          <td>{{c.city}}</td>
+                          <td data-target="edit_cat" class=" modal-trigger" (click)="getcityById(c._id)">
                             <i class="fa fa-pencil-alt orange-text"></i>
                           </td>
-                          <td  (click)="ConfirmCategory(c._id)">
+                          <td  (click)="ConfirmCity(c._id)">
                             <i class="fa fa-trash red-text"></i>
                           </td>
                         </tr>
@@ -117,35 +94,23 @@
   <div class="modal-content">
 
     <div class="col s12">
-      <h5> Category details</h5>
+      <h5> City details</h5>
     </div>
     <div class="col s12">
 
-      <form #frm2="ngForm" (ngSubmit)="editCategory()">
+      <form #frm2="ngForm" (ngSubmit)="updateCityById()">
         <div class="col s12 l12 m12  mr-t-20 mr-b-m-30">
-            <div class="input-field ">
-                <b>Add Image</b>
-               
-                <input id="Image" type="file" class="" (change)="imageUpload($event)" [(ngModel)]="p_img" name="p_img" #img="ngModel"
-                   required ngModel class="validate">
-                <div *ngIf="img?.touched">
-                  <div class="red-text left" *ngIf="img.errors?.required">
-                    Image  Required*
-                  </div>
-                  
-                </div>
-              </div>
           <div class="input-field col s6 m6 l6">
-            <b>Category</b>
-            <input id="category" type="text" class="" [(ngModel)]="catname" name="catname" #categoryedit="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
+            <b>city Name</b>
+            <input id="category" type="text" class="" [(ngModel)]="updateCity" name="updateCity" #categoryedit="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
             required ngModel class="validate">
           </div>
           <div *ngIf="categoryedit?.touched">
             <div class="red-text left" *ngIf="categoryedit.errors?.required">
-              Category Name Required*
+              city Name Required*
             </div>
             <div class="red-text left" *ngIf="categoryedit.errors?.pattern">
-              Category Name is Invalid*
+              city Name is Invalid*
             </div>
           </div>
           <button class="btn btn-primary right modal-close" [disabled]="frm2.invalid" onclick="Materialize.toast('Category Updated', 3000)" type="submit">Update </button>

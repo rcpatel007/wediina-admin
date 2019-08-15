@@ -16,6 +16,8 @@ export class VenueCategoryComponent implements OnInit {
   venue_category = new Array;
   ename:String;
   catname:String;
+  p_img:String;
+  base64:String;
 
 
   constructor(  private router: Router,
@@ -25,11 +27,47 @@ export class VenueCategoryComponent implements OnInit {
     this.getCategory()
   }
 
+  
+  /* Image convert base64 */
+  imageUpload(evt) {
+    var files = evt.target.files;
+    var file = files[0];
+    if (files && file) {
+      
+      var reader = new FileReader();
+
+      reader.onload = this.imagetoBase64.bind(this);
+      reader.readAsBinaryString(file);
+      
+    }
+  }
+
+  imagetoBase64(readerEvt) {
+    var binaryString = readerEvt.target.result;
+    this.base64 = btoa(binaryString);
+      // console.log(this.base64);
+      
+    // console.log(btoa(binaryString));
+    this.venueService.imgurImage(this.base64)
+      .subscribe((result) => {
+        console.log(result);
+        this.p_img = result.data.link;
+
+      });
+
+  }
+
+
   addCategory(){
 
     let category= {
+      cat_img:this.p_img,
       venue_cat_name: this.ename
     }
+
+    console.log(category
+      );
+    
     this.venueService.addVenueCategory(category)
     .subscribe((res)=>{
       console.log(res);
@@ -53,6 +91,7 @@ export class VenueCategoryComponent implements OnInit {
       this.venueService.getVenueCategoryById(id)
       .subscribe(res=>{
         this.catname= res.venue_cat_name;
+        this.p_img=  res.image,
         this.id= res._id;
           console.log(res);
           
@@ -62,7 +101,7 @@ export class VenueCategoryComponent implements OnInit {
   editCategory(){
 
     let updatecategory= {
-     
+      cat_img:this.p_img,
       venue_cat_name: this.catname
     }
     this.venueService.editvenueCategory(this.id,updatecategory)

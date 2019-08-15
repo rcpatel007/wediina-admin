@@ -17,15 +17,51 @@ export class VendorCategoryComponent implements OnInit {
   ename:String;
   catname:String;
 
+  p_img:String;
+  base64:String;
   constructor( private router: Router,
     private vendorservice: VendorService) { }
     ngOnInit() {
       this.getCategory()
     }
+
+
+
+    
+  /* Image convert base64 */
+  imageUpload(evt) {
+    var files = evt.target.files;
+    var file = files[0];
+    if (files && file) {
+      
+      var reader = new FileReader();
+
+      reader.onload = this.imagetoBase64.bind(this);
+      reader.readAsBinaryString(file);
+      
+    }
+  }
+
+  imagetoBase64(readerEvt) {
+    var binaryString = readerEvt.target.result;
+    this.base64 = btoa(binaryString);
+      // console.log(this.base64);
+      
+    // console.log(btoa(binaryString));
+    this.vendorservice.imgurImage(this.base64)
+      .subscribe((result) => {
+        console.log(result);
+        this.p_img = result.data.link;
+
+      });
+
+  }
+
   
     addCategory(){
   
       let category= {
+        cat_img:this.p_img,
         vendor_cat_name: this.ename
       }
       this.vendorservice.addVendorCategory(category)
@@ -39,6 +75,7 @@ export class VendorCategoryComponent implements OnInit {
     getCategory(){
         this.vendorservice.getVendorCategory()
           .subscribe(res => {
+
            this.vendor_category =res;
             console.log(this.vendor_category);
           });
@@ -48,6 +85,7 @@ export class VendorCategoryComponent implements OnInit {
   
         this.vendorservice.getVendorCategoryById(id)
         .subscribe(res=>{
+          this.p_img=res.image;
           this.catname= res.vendor_cat_name;
           this.id= res._id;
             console.log(res);
@@ -59,6 +97,7 @@ export class VendorCategoryComponent implements OnInit {
   
       let updatecategory= {
         id:this.id,
+        cat_img:this.p_img,
         vendor_cat_name: this.catname
       }
       this.vendorservice.editVendorCategory(this.id,updatecategory)

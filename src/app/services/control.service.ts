@@ -28,12 +28,55 @@ getHomeAdsById(id) {
     .pipe(map( res => res.json()));
 
 }
+/****************************************************************************** */
+// add city
 
-// add product
+addcity(city) {    
+   return this.http.post(environment.api_url + '/city/',city)
+    .pipe(map( res => res.json()));
+
+
+}
+
+
+getcity() {
+  //  headers = new Headers();    
+    return this.http.get(environment.api_url + '/city')
+    .pipe(map( res => res.json()));
+
+}
+
+
+getcitybyId(id) {
+  //  headers = new Headers();    
+    return this.http.get(environment.api_url + '/city/'+id)
+    .pipe(map( res => res.json()));
+
+}
+
+// edit product
+
+editcity(id,updatecity) {
+return this.http.put(environment.api_url + '/city/'+id, updatecity)
+.pipe(map( res => res.json()));
+
+}
+
+// delete prodcut
+
+deletecity(id) {
+
+return this.http.delete(environment.api_url + '/city/'+id)
+.pipe(map( res => res.json()));
+
+}
+
+/********************************************************************************** */
+// add home slider
 
 addHomeAds(homeads) {    
-   return this.http.post(environment.api_url + '/home_ads/',homeads)
-    .pipe(map( res => res.json()));
+  return this.http.post(environment.api_url + '/home_ads/',homeads)
+   .pipe(map( res => res.json()));
 
 }
 

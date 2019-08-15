@@ -35,6 +35,7 @@ import { VendorsComponent } from './vendors/vendors.component';
 import { ControlComponent } from './control/control.component';
 import { EditVenuesComponent } from './edit-venues/edit-venues.component';
 import { EditVendorComponent } from './edit-vendor/edit-vendor.component';
+import { CityComponent } from './city/city.component';
 
 
 const appRoutes = [
@@ -54,6 +55,7 @@ const appRoutes = [
   { path: 'venuesEdit/:id', component: EditVenuesComponent },
   { path: 'vendorsEdit/:id', component: EditVendorComponent },
   { path: 'Control', component: ControlComponent },
+  { path: 'cityControl', component: CityComponent },
 
 
 ];
@@ -77,6 +79,7 @@ const appRoutes = [
     ControlComponent,
     EditVenuesComponent,
     EditVendorComponent,
+    CityComponent,
     // Ng2SimpleAutocomplete,
   ],
   imports: [

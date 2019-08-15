@@ -59,8 +59,5 @@ export class VenueComponent implements OnInit {
 
         // console.log(this.msg);
       });
-
-
-
   }
 }

@@ -242,7 +242,7 @@
                       Catring:
                       <select [(ngModel)]="catringValue" name="catringValue" #cat="ngModel" required ngModel class="validate">
                         <option value="" disabled selected>Select Catring permission</option>
-                        <option  value="Allowed">Allowed</option>
+                        <option  value.="Allowed">Allowed</option>
                         <option  value="Not Allowed">Not Allowed</option>
                       </select>
                       <div *ngIf="cat?.touched">
