@@ -112,12 +112,44 @@
             <span class="nav-text">Customer Detail</span>
           </div>
         </li>
-        <li  class="bold" [routerLink]="['/Control']">
+        <!-- <li  class="bold" >
           <div class="collapsible-header  waves-effect">
             <i class="fa fa-cog"></i>
             <span class="nav-text">Control</span>
           </div>
+        </li> -->
+        <li class="no-padding">
+          <ul class="collapsible">
+            <li class="bold">
+              <div class="collapsible-header  waves-effect" data-collapsible="accordion">
+                <i class="fa fa-boxes"></i>
+                <span class="nav-text">Controler
+                  <i class="fa fa-angle-down" style="font-size: 16px;
+                  text-align: right;
+                  margin-left: 40px;"></i>
+                </span>
+              </div>
+              <div class="collapsible-body">
+                <ul class="collapsible" data-collapsible="accordion">
+                  <li  class="bold"  [routerLink]="['/Control']">
+                    <div class="collapsible-header  p-l-15 waves-effect">
+                      <i class="fa fa-boxes"></i>
+                      <span class="nav-text">Slider Managment</span>
+                    </div>
+                  </li>
+                  <li class="bold" [routerLink]="['/cityControl']">
+                    <div class="collapsible-header p-l-15  waves-effect">
+                      <i class="fa fa-boxes"></i>
+                      <span class="nav-text">City Managment</span>
+                    </div>
+                  </li>
+                  
+                </ul>
+              </div>
+            </li>
+          </ul>
         </li>
+
         
 
         <!-- <li class="no-padding">
