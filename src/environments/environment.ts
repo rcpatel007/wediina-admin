@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   user_id: '',
-  api_url: 'https://localhost:3000'
+  api_url: 'http://localhost:3000'
 
 };
 
